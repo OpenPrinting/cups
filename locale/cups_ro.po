@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-04-18 18:22+0000\n"
+"PO-Revision-Date: 2026-06-26 20:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
 "Language: ro\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(toate)"
@@ -3366,7 +3366,7 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"attributes-natural-language\" value '%s'."
-msgstr ""
+msgstr "Valoare incorectă pentru „attributes-natural-language”: „%s”."
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3384,7 +3384,7 @@ msgid "Bad CloseUI/JCLCloseUI"
 msgstr "CloseUI/JCLCloseUI incorect"
 
 msgid "Bad JOB_PRINTER_URI variable."
-msgstr ""
+msgstr "Variabila JOB_PRINTER_URI este incorectă."
 
 msgid "Bad NULL dests pointer"
 msgstr "Indicator de destinație NULL incorect"
@@ -3491,7 +3491,7 @@ msgstr "notify-recipient-uri incorectă „%s”."
 
 #, c-format
 msgid "Bad notify-recipient-uri URI \"%s\"."
-msgstr ""
+msgstr "Adresă URI incorectă pentru „notify-recipient-uri”: „%s”."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
@@ -3587,6 +3587,8 @@ msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
 "request."
 msgstr ""
+"Nu se pot specifica simultan „notify-pull-method” și „notify-recipient-uri” "
+"în aceeași solicitare."
 
 msgid "Cassette"
 msgstr "Casetă"
@@ -4067,7 +4069,7 @@ msgstr "Director de fișiere"
 
 #, c-format
 msgid "File device URI \"%s\" is not allowed."
-msgstr ""
+msgstr "Adresa URI a dispozitivului de fișiere „%s” nu este permisă."
 
 #, c-format
 msgid ""
@@ -4499,7 +4501,7 @@ msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Lipsește CloseUI/JCLCloseUI"
 
 msgid "Missing DEVICE_URI variable."
-msgstr ""
+msgstr "Lipsește variabila DEVICE_URI."
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Lipsește antetul PPD-Adobe-4.x"
@@ -5715,7 +5717,7 @@ msgstr "Valoare necunoscută pentru opțiunea versiune: „%s”."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
-msgstr ""
+msgstr "Valoare „attributes-charset” neacceptată „%s”."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
@@ -8774,6 +8776,9 @@ msgid ""
 "version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: Controlorii de imprimantă sunt depreciați și nu vor mai funcționa "
+"într-o versiune viitoare a CUPS. Utilizați în schimb controlorii IPP "
+"Everywhere („-m everywhere”) sau aplicațiile de imprimare."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Numele imprimantei poate conține numai caractere imprimabile."
@@ -8783,6 +8788,9 @@ msgid ""
 "of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: Cozile brute sunt depreciate și nu vor mai funcționa într-o "
+"versiune viitoare a CUPS. Utilizați în schimb controlorii IPP Everywhere („-"
+"m everywhere”) sau aplicațiile de imprimare."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Cozile brute nu mai sunt acceptate pe macOS."
