@@ -4152,10 +4152,19 @@ get_options(cupsd_job_t *job,		/* I - Job */
 
 	        if (isspace(*valptr & 255))
 	        {
+	         /*
+	          * Escape whitespace...
+	          */
+
+	          *optptr++ = '\\';
 	          *optptr++ = ' ';
 	        }
 	        else if ((*valptr & 255) >= ' ' && *valptr != 0x7f)
 	        {
+	         /*
+	          * Escape other special characters as needed...
+	          */
+
 	          if (strchr("\\\'\"", *valptr))
 		    *optptr++ = '\\';
 		  *optptr++ = *valptr;
