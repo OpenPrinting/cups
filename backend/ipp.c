@@ -3233,6 +3233,10 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
         cupsCopyString(value, ippGetString(pmja, i, NULL), sizeof(value));
     }
 
+    for (valptr = value; *valptr; valptr ++)
+      if ((*valptr & 255) < ' ' || *valptr == 0x7f)
+        *valptr = ' ';
+
     if (strcmp(value, mandatory_attrs))
     {
       cupsCopyString(mandatory_attrs, value, sizeof(mandatory_attrs));
@@ -3578,7 +3582,8 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
 
   if (attr)
   {
-    int	i;				/* Looping var */
+    int		i;			/* Looping var */
+    const char	*rp;			/* Pointer into reason keyword */
 
     new_reasons = cupsArrayNew((cups_array_func_t)_cupsArrayStrcmp, NULL);
     op          = '\0';
@@ -3586,6 +3591,12 @@ update_reasons(ipp_attribute_t *attr,	/* I - printer-state-reasons or NULL */
     for (i = 0; i < attr->num_values; i ++)
     {
       reason = attr->values[i].string.text;
+
+      for (rp = reason; *rp; rp ++)
+        if ((*rp & 255) < ' ' || *rp == 0x7f)
+          break;
+      if (*rp)
+        continue;			/* Skip keyword with control chars */
 
       if (strcmp(reason, "none") &&
 	  strcmp(reason, "none-report") &&
