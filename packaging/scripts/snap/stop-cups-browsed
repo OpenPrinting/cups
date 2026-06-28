@@ -1,0 +1,42 @@
+#! /bin/sh
+#
+# This script is responsible for safely shutting down the cups-browsed service.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
+set -e -x
+
+# Exit if we are already shutting down cups-browsed
+if [ -f "${SNAP_DATA}/var/run/stop-cups-browsed.lock" ]; then
+    echo "==> We are already shutting down cups-browsed"
+    exit 0
+fi
+touch "${SNAP_DATA}/var/run/stop-cups-browsed.lock"
+
+# Shut down cups-browsed
+echo "==> Shutting down cups-browsed"
+PID=$(cat "${SNAP_DATA}/var/run/cups-browsed.pid" || true)
+if [ -n "${PID}" ] && kill -0 "${PID}" 2>/dev/null; then
+    kill -TERM "${PID}"
+
+    DEAD=0
+    for i in $(seq 300); do
+        if ! kill -0 "${PID}" 2>/dev/null; then
+            DEAD=1
+            break
+        fi
+        sleep 1
+    done
+
+    if [ "${DEAD}" = "0" ]; then
+        echo "==> Forcefully killing cups-browsed after 5 minutes wait"
+        kill -9 "${PID}"
+    fi
+fi
+
+# Removing PID file
+rm -f "${SNAP_DATA}/var/run/cups-browsed.pid"
+rm -f "${SNAP_DATA}/var/run/stop-cups-browsed.lock"
