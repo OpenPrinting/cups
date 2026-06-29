@@ -3220,7 +3220,7 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
                               IPP_TAG_TEXT)) != NULL)
     report_attr(pam);
 
-  if ((pmja = ippFindAttribute(ipp, "printer-mandatory-job-attributes", IPP_TAG_KEYWORD)) != NULL)
+  if ((pmja = ippFindAttribute(ipp, "printer-mandatory-job-attributes", IPP_TAG_KEYWORD)) != NULL && ippValidateAttribute(pmja))
   {
     int	i,				/* Looping var */
 	count = ippGetCount(pmja);	/* Number of values */
@@ -3240,8 +3240,7 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
     }
   }
 
-  if ((psm = ippFindAttribute(ipp, "printer-state-message",
-                              IPP_TAG_TEXT)) != NULL)
+  if ((psm = ippFindAttribute(ipp, "printer-state-message", IPP_TAG_TEXT)) != NULL && ippValidateAttribute(psm))
   {
     char	*ptr;			/* Pointer into message */
 
@@ -3275,11 +3274,8 @@ report_printer_state(ipp_t *ipp)	/* I - IPP response */
   * want to set...
   */
 
-  if ((reasons = ippFindAttribute(ipp, "printer-state-reasons",
-                                  IPP_TAG_KEYWORD)) == NULL)
-    return;
-
-  update_reasons(reasons, NULL);
+  if ((reasons = ippFindAttribute(ipp, "printer-state-reasons", IPP_TAG_KEYWORD)) != NULL && ippValidateAttribute(reasons))
+    update_reasons(reasons, NULL);
 
  /*
   * Relay the current marker-* attribute values...
