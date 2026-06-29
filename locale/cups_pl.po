@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-03-23 21:52+0000\n"
+"PO-Revision-Date: 2026-06-26 20:01+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/cups/cups/pl/>\n"
 "Language: pl\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(wszystkie)"
@@ -3325,7 +3325,7 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"attributes-natural-language\" value '%s'."
-msgstr ""
+msgstr "Nieprawidłowa wartość \"attributes-natural-language\" '%s'."
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3343,7 +3343,7 @@ msgid "Bad CloseUI/JCLCloseUI"
 msgstr "Nieprawidłowa wartość CloseUI/JCLCloseUI"
 
 msgid "Bad JOB_PRINTER_URI variable."
-msgstr ""
+msgstr "Nieprawidłowa zmienna JOB_PRINTER_URI."
 
 msgid "Bad NULL dests pointer"
 msgstr "Nieprawidłowy wskaźnik docelowy NULL"
@@ -3450,7 +3450,7 @@ msgstr "Nieprawidłowa wartość notify-recipient-uri \"%s\"."
 
 #, c-format
 msgid "Bad notify-recipient-uri URI \"%s\"."
-msgstr ""
+msgstr "Nieprawidłowy wartość notify-recipient-uri URI \"%s\"."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
@@ -3542,6 +3542,8 @@ msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
 "request."
 msgstr ""
+"Nie można określić zarówno metody notification-pull-method, jak i adresu "
+"notification-recipient-uri w tym samym żądaniu."
 
 msgid "Cassette"
 msgstr "Kaseta"
@@ -4021,7 +4023,7 @@ msgstr "Folder plików"
 
 #, c-format
 msgid "File device URI \"%s\" is not allowed."
-msgstr ""
+msgstr "Urządzenie plikowe URI \"%s\" jest niedozwolone."
 
 #, c-format
 msgid ""
@@ -4453,7 +4455,7 @@ msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Brak CloseUI/JCLCloseUI"
 
 msgid "Missing DEVICE_URI variable."
-msgstr ""
+msgstr "Brak zmiennej DEVICE_URI."
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Brak nagłówka PPD-Adobe-4.x"
@@ -5661,7 +5663,7 @@ msgstr "Nieznana wartość opcji wersji: \"%s\"."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
-msgstr ""
+msgstr "Nieobsługiwana wartość \"attributes-charset\" '%s'."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
@@ -8710,6 +8712,9 @@ msgid ""
 "version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: Sterowniki drukarek są przestarzałe i przestaną działać w przyszłej "
+"wersji CUPS. Zamiast nich należy używać sterowników IPP Everywhere (\"-m "
+"everywhere\") lub aplikacji drukarek."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Nazwa drukarki musi zawierać tylko drukowalne znaki."
@@ -8719,6 +8724,9 @@ msgid ""
 "of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: Kolejki surowe są przestarzałe i przestaną działać w przyszłej "
+"wersji CUPS. Zamiast nich należy używać sterowników IPP Everywhere (\"-m "
+"everywhere\") lub aplikacji drukarek."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Kolejki surowe nie są już obsługiwane w systemie macOS."
