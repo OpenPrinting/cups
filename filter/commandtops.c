@@ -318,7 +318,7 @@ auto_configure(ppd_file_t *ppd,		/* I - PPD file */
 	else
 	  break;
 
-      for (bufptr = buffer; isspace(*bufptr & 255) || iscntrl(*bufptr & 255);
+      for (bufptr = buffer; *bufptr && (isspace(*bufptr & 255) || iscntrl(*bufptr & 255));
 	   bufptr ++);
 
       if (bufptr > buffer)
