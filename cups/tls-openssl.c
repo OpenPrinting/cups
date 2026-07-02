@@ -1240,7 +1240,7 @@ cupsSignCredentialsRequest(
 
           for (purpose = 0, j = 4; j < datalen; j += data[j + 1] + 2)
           {
-            if (data[j] != 0x06 || data[j + 1] != 8 || memcmp(data + j + 2, "+\006\001\005\005\007\003", 7))
+            if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen || data[j] != 0x06 || data[j + 1] != 8 || memcmp(data + j + 2, "+\006\001\005\005\007\003", 7))
             {
 	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad keyUsage extension in X.509 certificate request."), 1);
 	      goto done;
@@ -1331,8 +1331,12 @@ cupsSignCredentialsRequest(
           }
 
           // Parse the SAN values (there should be an easier/standard OpenSSL API to do this!)
-          for (j = 4, datalen -= 2; j < datalen; j += data[j + 1] + 2)
+          for (j = 4; j < datalen; j += data[j + 1] + 2)
           {
+            // Stop if the element header or value runs past the extension data...
+            if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
+              break;
+
             if (data[j] == 0x82 && data[j + 1])
             {
               // GENERAL_STRING for DNS
