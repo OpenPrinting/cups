@@ -887,10 +887,9 @@ help_load_file(
         * Strip comment stuff from end of line...
 	*/
 
-        for (*ptr-- = '\0'; ptr > line && isspace(*ptr & 255); *ptr-- = '\0');
-
-	if (isspace(*ptr & 255))
-	  *ptr = '\0';
+        *ptr = '\0';
+        while (ptr > section && isspace(ptr[-1] & 255))
+          *--ptr = '\0';
       }
       continue;
     }
