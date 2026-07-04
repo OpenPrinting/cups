@@ -1,7 +1,7 @@
 /*
  * Online help index routines for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -884,10 +884,19 @@ help_load_file(
         * Strip comment stuff from end of line...
 	*/
 
-        for (*ptr-- = '\0'; ptr > line && isspace(*ptr & 255); *ptr-- = '\0');
+        while (ptr > section)
+        {
+         /*
+          * Strip trailing whitespace before "-->"...
+          */
 
-	if (isspace(*ptr & 255))
-	  *ptr = '\0';
+          if (isspace(ptr[-1] & 255)
+            ptr --;
+          else
+            break;
+        }
+
+        *ptr = '\0';
       }
       continue;
     }
