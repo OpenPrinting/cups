@@ -890,7 +890,7 @@ help_load_file(
           * Strip trailing whitespace before "-->"...
           */
 
-          if (isspace(ptr[-1] & 255)
+          if (isspace(ptr[-1] & 255))
             ptr --;
           else
             break;
