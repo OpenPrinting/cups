@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-07 21:48+0000\n"
+"PO-Revision-Date: 2026-07-08 23:01+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -2367,7 +2367,9 @@ msgstr ""
 
 #, fuzzy
 msgid "-o media=size           Specify the media size to use"
-msgstr "-o media=tamanho        Especifica o tamanho do papel a ser utilizado"
+msgstr ""
+"-o media=tamanho        Especifica o tamanho do papel a ser utilizado   "
+"verificar se média é mesmo papel..."
 
 msgid "-o name-default=value   Specify the default value for the named option"
 msgstr ""
@@ -3510,9 +3512,8 @@ msgstr "Sequência de valor errada"
 msgid "Bad/empty URI"
 msgstr "URI errado/vazio"
 
-#, fuzzy
 msgid "Banners"
-msgstr "Faixas"
+msgstr "Insígnias"
 
 msgid "Bond Paper"
 msgstr "Papel Bond (de alta qualidade)"
@@ -3766,9 +3767,8 @@ msgid "Encryption is not supported."
 msgstr "Encriptação não é suportada."
 
 #. TRANSLATORS: Banner/cover sheet after the print job.
-#, fuzzy
 msgid "Ending Banner"
-msgstr "Faixa no fim da folha da impressão -- isto tá errado !!!"
+msgstr "Folha de insígnia/capa após o trabalho de impressão."
 
 msgid "English"
 msgstr "Inglês"
@@ -5052,13 +5052,8 @@ msgid "Standard"
 msgstr "Normalização"
 
 #. TRANSLATORS: Banner/cover sheet before the print job.
-#, fuzzy
 msgid "Starting Banner"
-msgstr ""
-"Faixa no início da folha da impressão \n"
-"\n"
-"\n"
-"preciso de boa tradução para banner, e aqui o contexto tá errado"
+msgstr "Folha de insígnia/capa antes do trabalho de impressão."
 
 #, c-format
 msgid "Starting page %d."
@@ -5240,24 +5235,24 @@ msgid "The which-jobs value \"%s\" is not supported."
 msgstr "O valor de which-jobs \"%s\" não é suportado."
 
 msgid "There are too many subscriptions."
-msgstr "Existe uma quantidade muito grande de assinaturas."
+msgstr "Existem demasiadas subscrições."
 
 msgid "There was an unrecoverable USB error."
-msgstr "Ocorreu um erro no USB que não pode ser restaurado."
+msgstr "Ocorreu um erro de USB irrecuperável."
 
 msgid "Thermal Transfer Media"
-msgstr "Média de transferência térmica"
+msgstr "Média de Transferência Térmica"
 
 msgid "Too many active jobs."
-msgstr "Existem muitos trabalhos ativos."
+msgstr "Demasiados trabalhos ativos."
 
 #, c-format
 msgid "Too many job-sheets values (%d > 2)."
-msgstr "Existem muitos valores no job-sheets (%d > 2)."
+msgstr "Demasiados valores no job-sheets (%d > 2)."
 
 #, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
-msgstr "Existem muitos valores no printer-state-reasons (%d > %d)."
+msgstr "Demasiados valores no printer-state-reasons (%d > %d)."
 
 msgid "Transparency"
 msgstr "Transparência"
@@ -5281,7 +5276,7 @@ msgid "Trust on first use is disabled."
 msgstr "A confiança na primeira utilização está desativada."
 
 msgid "URI Too Long"
-msgstr "O URI é muito longo"
+msgstr "O URI Demasiado Longo"
 
 msgid "URI too large"
 msgstr "O URI é muito grande"
@@ -5293,10 +5288,10 @@ msgid "US Ledger"
 msgstr "Ledger dos EUA"
 
 msgid "US Legal"
-msgstr "Ofício dos EUA"
+msgstr "Legal dos EUA"
 
 msgid "US Legal Oversize"
-msgstr "Ofício Grande dos EUA"
+msgstr "Legal Grande dos EUA"
 
 msgid "US Letter"
 msgstr "Carta dos EUA"
@@ -5311,13 +5306,13 @@ msgid "US Letter Oversize Long Edge"
 msgstr "Carta Grande com a Borda Maior dos EUA"
 
 msgid "US Letter Small"
-msgstr "Carta pequena dos EUA"
+msgstr "Carta Pequena dos EUA"
 
 msgid "Unable to access cupsd.conf file"
-msgstr "Incapaz de aceder o ficheiro cupsd.conf"
+msgstr "Incapaz de aceder ao ficheiro cupsd.conf"
 
 msgid "Unable to access help file."
-msgstr "Incapaz de aceder o ficheiro da ajuda."
+msgstr "Incapaz de aceder ao ficheiro da ajuda."
 
 msgid "Unable to add class"
 msgstr "Incapaz de adicionar a classe"
@@ -5330,7 +5325,7 @@ msgstr "Incapaz de adicionar a extensão ao certificado X.509."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
-msgstr "Incapaz de adicionar o trabalho para destino \"%s\"."
+msgstr "Incapaz de adicionar o trabalho ao destino \"%s\"."
 
 msgid "Unable to add printer"
 msgstr "Incapaz de adicionar a impressora"
@@ -5346,7 +5341,7 @@ msgstr "Incapaz de alocar memória para a matriz das páginas"
 
 #, c-format
 msgid "Unable to allocate memory for printer: %s"
-msgstr "Incapaz de alocar memória para a impressora %s"
+msgstr "Incapaz de alocar memória para a impressora: %s"
 
 msgid "Unable to authorize access"
 msgstr "Incapaz de autorizar acesso"
@@ -5362,15 +5357,15 @@ msgstr "Incapaz de alterar as configurações do servidor"
 
 #, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr "Incapaz de confirmar o ficheiro %s no formato PPD"
+msgstr "Incapaz de submeter o ficheiro PPD: %s"
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
-msgstr "Incapaz de compilar a expressão regular %s do mimeMediaTy."
+msgstr "Incapaz de compilar a expressão regular mimeMediaType: %s."
 
 #, c-format
 msgid "Unable to compile naturalLanguage regular expression: %s."
-msgstr "Incapaz de compilar a expressão regular %s do naturalLanguage."
+msgstr "Incapaz de compilar a expressão regular naturalLanguage: %s."
 
 msgid "Unable to configure printer options."
 msgstr "Incapaz de configurar as opções da impressora."
@@ -5380,36 +5375,36 @@ msgstr "Incapaz de configurar o contexto da chave privada."
 
 #, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr "Incapaz de conectar à %s:%d: %s"
+msgstr "Incapaz de ligar a %s:%d: %s"
 
 msgid "Unable to connect to host."
-msgstr "Incapaz de conectar à máquina."
+msgstr "Incapaz de ligar à máquina."
 
 msgid "Unable to contact printer, queuing on next printer in class."
 msgstr ""
-"Incapaz de contactar a impressora. O documento será enfileirado para a "
-"próxima impressora da classe."
+"Incapaz de contactar a impressora, fila de espera na próxima impressora na "
+"classe."
 
 #, c-format
 msgid "Unable to copy PPD file - %s"
-msgstr "Incapaz de copiar ficheiro PPD %s"
+msgstr "Incapaz de copiar ficheiro PPD - %s"
 
 #, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr "Incapaz de criar o PPD para a impressora %s"
+msgstr "Incapaz de criar o PPD para a impressora: %s"
 
 #, c-format
 msgid "Unable to create PPD: %s"
-msgstr "Incapaz de criar o PPD %s"
+msgstr "Incapaz de criar o PPD: %s"
 
 msgid "Unable to create X.509 certificate signing request."
-msgstr "Incapaz de criar uma requisição da assinatura do certificado X.509."
+msgstr "Incapaz de criar pedido de assinatura do certificado X.509."
 
 msgid "Unable to create X.509 certificate."
 msgstr "Incapaz de criar o certificado X.509."
 
 msgid "Unable to create printer-uri"
-msgstr "Incapaz de criar o printer-uri"
+msgstr "Incapaz de criar o uri da impressora"
 
 msgid "Unable to create printer."
 msgstr "Incapaz de criar a impressora."
@@ -5421,11 +5416,11 @@ msgid "Unable to create private key."
 msgstr "Incapaz de criar a chave privada."
 
 msgid "Unable to create server credentials."
-msgstr "Incapaz de criar as credenciais no servidor."
+msgstr "Incapaz de criar as credenciais do servidor."
 
 #, c-format
 msgid "Unable to create spool directory \"%s\": %s"
-msgstr "Incapaz de criar o diretório \"%s\" do spool %s"
+msgstr "Incapaz de criar o diretório de spool \"%s\": %s"
 
 msgid "Unable to create temporary file"
 msgstr "Incapaz de criar o ficheiro temporário"
@@ -5437,22 +5432,20 @@ msgid "Unable to delete printer"
 msgstr "Incapaz de apagar a impressora"
 
 msgid "Unable to do maintenance command"
-msgstr "Incapaz de executar comando para realizar a manutenção"
+msgstr "Incapaz de executar comando de manutenção"
 
 msgid "Unable to edit cupsd.conf files larger than 1MB"
-msgstr ""
-"Incapaz de editar o ficheiro de configurações cupsd.conf porque é maior do "
-"que 1MB"
+msgstr "Incapaz de editar os ficheiros cupsd.conf maiores que 1MB"
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
-msgstr "Incapaz de executar o comando \"%s\" de %s"
+msgstr "Incapaz de executar o comando \"%s\": %s"
 
 msgid "Unable to find destination for job"
-msgstr "Incapaz de encontrar o destino do trabalho"
+msgstr "Incapaz de encontrar destino para trabalho"
 
 msgid "Unable to finish request."
-msgstr "Incapaz de finalizar a requisição."
+msgstr "Incapaz de finalizar o pedido."
 
 msgid "Unable to get authorization URL"
 msgstr "Incapaz de obter URL de autorização"
@@ -5461,7 +5454,7 @@ msgid "Unable to get authorization server information"
 msgstr "Incapaz de obter informação do servidor de autorização"
 
 msgid "Unable to get backend exit status."
-msgstr "Incapaz de obter o estado de saída."
+msgstr "Incapaz de obter o estado de saída do backend."
 
 msgid "Unable to get class list"
 msgstr "Incapaz de obter a lista das classes"
@@ -5522,7 +5515,7 @@ msgid "Unable to open PPD file"
 msgstr "Incapaz de abrir o ficheiro PPD"
 
 msgid "Unable to open cupsd.conf file:"
-msgstr "Incapaz de abrir o ficheiro de configurações cupsd.conf:"
+msgstr "Incapaz de abrir o ficheiro cupsd.conf:"
 
 msgid "Unable to open device file"
 msgstr "Incapaz de abrir o ficheiro do dispositivo"
@@ -5538,7 +5531,7 @@ msgid "Unable to open print file"
 msgstr "Incapaz de abrir o ficheiro de impressão"
 
 msgid "Unable to open raster file"
-msgstr "Incapaz de abrir o ficheiro de rasterização"
+msgstr "Incapaz de abrir o ficheiro de rastreio"
 
 msgid "Unable to print test page"
 msgstr "Incapaz de imprimir a página de teste"
@@ -5548,7 +5541,7 @@ msgstr "Incapaz de ler nome de atributo IPP."
 
 #, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr "Incapaz de ler %s no formato PPD que foi gerado"
+msgstr "Incapaz de ler o PPD gerado: %s"
 
 msgid "Unable to read print data."
 msgstr "Incapaz de ler os dados da impressão."
@@ -5560,22 +5553,22 @@ msgid "Unable to rename job document file."
 msgstr "Incapaz de renomear o ficheiro do documento do trabalho."
 
 msgid "Unable to resolve printer-uri."
-msgstr "Incapaz de resolver o printer-ui."
+msgstr "Incapaz de resolver o uri da impressora."
 
 #, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr "Incapaz de executar o %s do cups-driverd"
+msgstr "Incapaz de executar o cups-driverd: %s"
 
 #, c-format
 msgid "Unable to save PPD file: %s"
-msgstr "Incapaz de gravar o ficheiro %s no formato PPD"
+msgstr "Incapaz de gravar o ficheiro PPD: %s"
 
 #, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
 msgstr "Incapaz de gravar o valor para \"%s\" com uma impressora temporária."
 
 msgid "Unable to see in file"
-msgstr "Incapaz de ler o ficheiro"
+msgstr "Incapaz de ver o ficheiro"
 
 msgid "Unable to send command to printer driver"
 msgstr "Incapaz de enviar o comando para o controlador da impressora"
@@ -5587,16 +5580,16 @@ msgid "Unable to set options"
 msgstr "Incapaz de definir as opções"
 
 msgid "Unable to set server default"
-msgstr "Incapaz de definir servidor padrão"
+msgstr "Incapaz de definir predefinição do servidor"
 
 msgid "Unable to start backend process."
-msgstr "Incapaz de iniciar o processo da interface de texto."
+msgstr "Incapaz de iniciar o processo backend."
 
 msgid "Unable to upload cupsd.conf file"
-msgstr "Incapaz de atualizar o ficheiro de configurações cupsd.conf"
+msgstr "Incapaz de enviar o ficheiro cupsd.conf"
 
 msgid "Unable to use legacy USB class driver."
-msgstr "Incapaz de utilizar o controlador da classe do USB legado (antigo)."
+msgstr "Incapaz de utilizar o controlador da classe de USB legado (antigo)."
 
 msgid "Unable to verify X.509 certificate request."
 msgstr "Incapaz de verificar a requisição do certificado X.509."
@@ -5605,20 +5598,20 @@ msgid "Unable to write X.509 certificate signing request."
 msgstr "Incapaz de gravar a requisição da assinatura do certificado X.509."
 
 msgid "Unable to write X.509 certificate."
-msgstr "Incapaz de escrever no certificado X.509."
+msgstr "Incapaz de escrever o certificado X.509."
 
 msgid "Unable to write print data"
 msgstr "Incapaz de escrever os dados da impressão"
 
 msgid "Unable to write private key."
-msgstr "Incapaz de escrever na chave privada."
+msgstr "Incapaz de escrever a chave privada."
 
 msgid "Unable to write public key."
-msgstr "Incapaz de escrever na chave pública."
+msgstr "Incapaz de escrever a chave pública."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
-msgstr "Incapaz de escrever os dados descompactados da impressão %s"
+msgstr "Incapaz de escrever dados de impressão descomprimidos: %s"
 
 msgid "Unauthorized"
 msgstr "Não autorizado"
@@ -5631,29 +5624,29 @@ msgstr "Desconhecido"
 
 #, c-format
 msgid "Unknown choice \"%s\" for option \"%s\"."
-msgstr "A escolha \"%s\" não é conhecida para a opção \"%s\"."
+msgstr "Escolha \"%s\" desconhecida para a opção \"%s\"."
 
 #, c-format
 msgid "Unknown encryption option value: \"%s\"."
-msgstr "O valor da opção \"%s\" da criptografia não é conhecido."
+msgstr "O valor da opção de encriptação é desconhecido: \"%s\"."
 
 #, c-format
 msgid "Unknown file order: \"%s\"."
-msgstr "A ordem do ficheiro \"%s\" não é conhecida."
+msgstr "Ordem de ficheiro desconhecida: \"%s\"."
 
 #, c-format
 msgid "Unknown format character: \"%c\"."
-msgstr "O caractere \"%c\" tem um formato que não é conhecido."
+msgstr "Caractere de formato desconhecido: \"%c\"."
 
 msgid "Unknown hash algorithm."
-msgstr "O algoritmo do hash não é conhecido."
+msgstr "Algoritmo de hash desconhecido."
 
 msgid "Unknown media size name."
-msgstr "O tamanho do nome da média não é conhecido."
+msgstr "Nome de tamanho de média desconhecido."
 
 #, c-format
 msgid "Unknown option \"%s\" with value \"%s\"."
-msgstr "A opção \"%s\" com o valor \"%s\" não é conhecida."
+msgstr "Opção desconhecida \"%s\" com o valor \"%s\"."
 
 #, c-format
 msgid "Unknown option \"%s\"."
@@ -5661,7 +5654,7 @@ msgstr "A opção \"%s\" não é conhecida."
 
 #, c-format
 msgid "Unknown print mode: \"%s\"."
-msgstr "O modo de impressão \"%s\" não é conhecido."
+msgstr "Modo de impressão desconhecido: \"%s\"."
 
 #, c-format
 msgid "Unknown printer-error-policy \"%s\"."
@@ -5678,14 +5671,14 @@ msgid "Unknown request version."
 msgstr "A versão da requisição não é conhecida."
 
 msgid "Unknown scheme in URI"
-msgstr "O esquema do URI não é conhecido"
+msgstr "Esquema no URI desconhecido"
 
 msgid "Unknown service name."
 msgstr "O nome do serviço não é conhecido."
 
 #, c-format
 msgid "Unknown version option value: \"%s\"."
-msgstr "O valor da opção \"%s\" da versão não é conhecido."
+msgstr "Valor da opção de versão desconhecido: \"%s\"."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
@@ -5693,29 +5686,29 @@ msgstr "Valor de \"attributes-charset\" não suportado '%s'."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
-msgstr "O valor \"%s\" do 'compression' não é compatível."
+msgstr "O valor \"%s\" de 'compression' não é suportado."
 
 #, c-format
 msgid "Unsupported 'document-format' value \"%s\"."
-msgstr "O valor \"%s\" do 'document-format' não é compatível."
+msgstr "O valor \"%s\" de 'document-format' não é suportado."
 
 msgid "Unsupported 'job-hold-until' value."
-msgstr "O valor do 'job-hold-until' não é compatível."
+msgstr "O valor de 'job-hold-until' não é suportado."
 
 msgid "Unsupported 'job-name' value."
-msgstr "O valor do 'job-name' não é compatível."
+msgstr "O valor de 'job-name' não é suportado."
 
 #, c-format
 msgid "Unsupported compression \"%s\"."
-msgstr "A compactação \"%s\" não é compatível."
+msgstr "A compressão \"%s\" não é suportada."
 
 #, c-format
 msgid "Unsupported document-format \"%s\"."
-msgstr "O \"%s\" do document-format não é compatível."
+msgstr "Formato de documento \"%s\" não suportado."
 
 #, c-format
 msgid "Unsupported document-format \"%s/%s\"."
-msgstr "O \"%s/%s\" do document-format não é compatível."
+msgstr "Formato de documento \"%s/%s\" não suportado."
 
 #, c-format
 msgid "Unsupported format \"%s\"."
@@ -5729,28 +5722,25 @@ msgstr "O valor da média não é suportado."
 
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr "O valor %d do number-up não é suportado. Será utilizado o number-up=1."
+msgstr "O valor %d de number-up não é suportado, a usar number-up=1."
 
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
 msgstr ""
-"O valor %s do number-up-layout não é suportado. Será utilizado o number-up-"
-"layout=lrtb."
+"O valor %s de number-up-layout não é suportado, a usar number-up-layout=lrtb."
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr ""
-"O valor %s da borda de página não é suportado. Será utilizado o page-"
-"border=none."
+msgstr "O valor %s de borda de página não é suportado, a usar page-border=none."
 
 msgid "Unsupported raster data."
-msgstr "Os dados de rasterização não são suportados."
+msgstr "Os dados de rastreio não são suportados."
 
 msgid "Unsupported value type"
 msgstr "O tipo do valor não é suportado"
 
 msgid "Upgrade Required"
-msgstr "A atualização é necessária"
+msgstr "Atualização Obrigatória"
 
 #, c-format
 msgid "Usage: %s [options] destination(s)"
@@ -5782,13 +5772,13 @@ msgid "Usage: cupsd [options]"
 msgstr "Utilização: cupsd [opções]"
 
 msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
-msgstr "Utilização: cupsfilter [ OPÇÕES ] [ -- ] NOME-DO-ARQUIVO"
+msgstr "Utilização: cupsfilter [ OPÇÕES ] [ -- ] NOME-FICHEIRO"
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Utilização: cupstestppd [opções] nome-do-ficheiro1.ppd[.gz] [... nome-do-"
+"Utilização: cupstestppd [opções] nome-ficheiro1.ppd[.gz] [... nome-"
 "ficheiroN.ppd[.gz]]\n"
 "     program | cupstestppd [opções] -"
 
@@ -5808,8 +5798,7 @@ msgstr ""
 "     ippfind --version"
 
 msgid "Usage: ipptool [options] URI filename [ ... filenameN ]"
-msgstr ""
-"Utilização: ipptool [opções] URI nome-do-ficheiro [ ... nome-do-ficheiroN ]"
+msgstr "Utilização: ipptool [opções] URI nome-ficheiro [ ... nome-ficheiroN ]"
 
 msgid ""
 "Usage: lp [options] [--] [file(s)]\n"
@@ -5843,7 +5832,7 @@ msgid ""
 "       lpmove [options] source-destination destination"
 msgstr ""
 "Utilização: lpmove [opções] trabalho destino\n"
-"     lpmove [opções] destino-dafonte destino"
+"     lpmove [opções] destino-da-fonte destino"
 
 msgid ""
 "Usage: lpoptions [options] -d destination\n"
@@ -5896,7 +5885,7 @@ msgstr ""
 "nome-do-ficheiroN.drv ]"
 
 msgid "Usage: snmp [host-or-ip-address]"
-msgstr "Utilização: snmp [máquina-ou-endereço-do-ip]"
+msgstr "Utilização: snmp [máquina-ou-endereço-ip]"
 
 #, c-format
 msgid "User Code: %s"
@@ -5904,7 +5893,7 @@ msgstr "Código de Utilizador: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
-msgstr "A utilizar o diretório \"%s\" do spool."
+msgstr "A utilizar o diretório \"%s\" de spool."
 
 msgid "Validation of subjectAltName in X.509 certificate request failed."
 msgstr ""
@@ -5912,13 +5901,13 @@ msgstr ""
 "certificado X.509."
 
 msgid "Value uses indefinite length"
-msgstr "O valor do comprimento utilizado não é definido"
+msgstr "Valor usa comprimento indefinido"
 
 msgid "VarBind uses indefinite length"
-msgstr "O comprimento utilizado no VarBind não é definido"
+msgstr "VarBind usa comprimento indefinido"
 
 msgid "Version uses indefinite length"
-msgstr "O comprimento da versão utilizada não é definido"
+msgstr "Versão usa comprimento indefinido"
 
 msgid "Waiting for job to complete."
 msgstr "A aguardar a conclusão do trabalho."
@@ -5933,7 +5922,7 @@ msgid "Warning: This program will be removed in a future version of CUPS."
 msgstr "Aviso: Este programa será removido numa versão futura do CUPS."
 
 msgid "Web Interface is Disabled"
-msgstr "A interface da internet está desativada"
+msgstr "A Interface Web está Desativada"
 
 #, c-format
 msgid "Web Page: %s"
@@ -5943,12 +5932,11 @@ msgid "Yes"
 msgstr "Sim"
 
 msgid "You cannot access this page."
-msgstr "Não pode aceder esta página."
+msgstr "Não pode aceder a esta página."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr ""
-"Tem que aceder esta página utilizando o endereço do URL https://%s:%d%s."
+msgstr "Tem que aceder a esta página utilizando o endereço URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
 msgstr "A sua conta não possui os privilégios necessários."
@@ -5964,7 +5952,7 @@ msgstr "abortado"
 
 #. TRANSLATORS: Accuracy Units
 msgid "accuracy-units"
-msgstr "Unidade de Precisão"
+msgstr "Unidades de Precisão"
 
 #. TRANSLATORS: Millimeters
 msgid "accuracy-units.mm"
@@ -5972,24 +5960,24 @@ msgstr "Milímetros"
 
 #. TRANSLATORS: Nanometers
 msgid "accuracy-units.nm"
-msgstr "Nanômetros"
+msgstr "Nanómetros"
 
 #. TRANSLATORS: Micrometers
 msgid "accuracy-units.um"
-msgstr "Micrômetros"
+msgstr "Micrómetros"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
 msgstr ""
-"authorize [RECURSO]           Autorizar o acesso a um recurso ou "
+"authorize [RECURSO]           Autoriza o acesso a um recurso ou "
 "funcionalidade"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
-msgstr "Saída dos Fardos"
+msgstr "Saída de Fardos"
 
 #. TRANSLATORS: Bale Using
 msgid "baling-type"
-msgstr "Utilização dos Fardos"
+msgstr "Utilizar Fardos"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
@@ -5997,15 +5985,15 @@ msgstr "Banda"
 
 #. TRANSLATORS: Shrink Wrap
 msgid "baling-type.shrink-wrap"
-msgstr "Envoltório Retrátil"
+msgstr "Invólucro Retrátil"
 
 #. TRANSLATORS: Wrap
 msgid "baling-type.wrap"
-msgstr "Envoltório"
+msgstr "Invólucro"
 
 #. TRANSLATORS: Bale After
 msgid "baling-when"
-msgstr "Depois do Fardo"
+msgstr "Enfardar Depois"
 
 #. TRANSLATORS: Job
 msgid "baling-when.after-job"
@@ -6017,15 +6005,15 @@ msgstr "Definições"
 
 #. TRANSLATORS: Bind Output
 msgid "binding"
-msgstr "Saída da Ligação"
+msgstr "Saída de Vínculo"
 
 #. TRANSLATORS: Bind Edge
 msgid "binding-reference-edge"
-msgstr "Borda de Ligação"
+msgstr "Vínculo de Borda"
 
 #. TRANSLATORS: Bottom
 msgid "binding-reference-edge.bottom"
-msgstr "Botão"
+msgstr "Fundo"
 
 #. TRANSLATORS: Left
 msgid "binding-reference-edge.left"
@@ -6037,11 +6025,11 @@ msgstr "Direita"
 
 #. TRANSLATORS: Top
 msgid "binding-reference-edge.top"
-msgstr "Superior"
+msgstr "Topo"
 
 #. TRANSLATORS: Binder Type
 msgid "binding-type"
-msgstr "Tipo da Ligação"
+msgstr "Tipo de Vínculo"
 
 #. TRANSLATORS: Adhesive
 msgid "binding-type.adhesive"
@@ -6049,7 +6037,7 @@ msgstr "Adesivo"
 
 #. TRANSLATORS: Comb
 msgid "binding-type.comb"
-msgstr "Penteadeira"
+msgstr "Pente"
 
 #. TRANSLATORS: Flat
 msgid "binding-type.flat"
@@ -6057,7 +6045,7 @@ msgstr "Plano"
 
 #. TRANSLATORS: Padding
 msgid "binding-type.padding"
-msgstr "Preenchimento"
+msgstr "Acolchoamento"
 
 #. TRANSLATORS: Perfect
 msgid "binding-type.perfect"
@@ -6073,24 +6061,19 @@ msgstr "Fita"
 
 #. TRANSLATORS: Velo
 msgid "binding-type.velo"
-msgstr "Velocímetro"
+msgstr "Veludo"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
-msgstr ""
-"ca COMMON-NAME             Permite assinar um CSR (Certificate Signing "
-"Request ou Requisição de Assinatura do Certificado) para produzir um "
-"certificado."
+msgstr "ca NOME-COMUM             Assina um CSR para produzir um certificado."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr ""
-"cacert COMMON-NAME         Permite criar um certificado CA (Certification "
-"Authority ou Autoridade Certificadora)."
+msgstr "cacert NOME-COMUM         Cria um certificado CA"
 
 msgid "canceled"
 msgstr "cancelado"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr "cert COMMON-NAME           Permite criar um certificado."
+msgstr "cert NOME-COMUM           Cria um certificado."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -6105,11 +6088,10 @@ msgid "charge-info-message"
 msgstr "Custo do Trabalho de Impressão"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
-msgstr ""
-"clear [RESOURCE]               Permite limpar a autorização de um recurso"
+msgstr "clear [RECURSO]               Limpa a autorização para um recurso"
 
 msgid "client URI                 Connect to URI."
-msgstr "client URI                 Permite conecte-se ao URI."
+msgstr "client URI                 Liga a URI."
 
 #. TRANSLATORS: Coat Sheets
 msgid "coating"
@@ -6149,7 +6131,7 @@ msgstr "Arquivo Fosco"
 
 #. TRANSLATORS: Archival Semi Gloss
 msgid "coating-type.archival-semi-gloss"
-msgstr "Arquivo Semibrilhante"
+msgstr "Arquivo Semi-Brilhante"
 
 #. TRANSLATORS: Glossy
 msgid "coating-type.glossy"
@@ -6165,7 +6147,7 @@ msgstr "Fosco"
 
 #. TRANSLATORS: Semi-gloss
 msgid "coating-type.semi-gloss"
-msgstr "Semibrilhante"
+msgstr "Semi-Brilhante"
 
 #. TRANSLATORS: Silicone
 msgid "coating-type.silicone"
@@ -6176,7 +6158,7 @@ msgid "coating-type.translucent"
 msgstr "Translúcido"
 
 msgid "completed"
-msgstr "completou"
+msgstr "completo"
 
 #. TRANSLATORS: Print Confirmation Sheet
 msgid "confirmation-sheet-print"
@@ -6188,7 +6170,7 @@ msgstr "Cópias"
 
 #. TRANSLATORS: Back Cover
 msgid "cover-back"
-msgstr "capa-traseira"
+msgstr "Capa Traseira"
 
 #. TRANSLATORS: Front Cover
 msgid "cover-front"
@@ -6196,19 +6178,19 @@ msgstr "Capa Frontal"
 
 #. TRANSLATORS: Cover Sheet Info
 msgid "cover-sheet-info"
-msgstr "Informações da Folha de Rosto"
+msgstr "Informação da Folha de Capa"
 
 #. TRANSLATORS: Date Time
 msgid "cover-sheet-info-supported.date-time"
-msgstr "Data e hora"
+msgstr "Data e Hora"
 
 #. TRANSLATORS: From Name
 msgid "cover-sheet-info-supported.from-name"
-msgstr "Nome Para"
+msgstr "De Nome"
 
 #. TRANSLATORS: Logo
 msgid "cover-sheet-info-supported.logo"
-msgstr "Logotipo"
+msgstr "Logótipo"
 
 #. TRANSLATORS: Message
 msgid "cover-sheet-info-supported.message"
@@ -6224,7 +6206,7 @@ msgstr "Assunto"
 
 #. TRANSLATORS: To Name
 msgid "cover-sheet-info-supported.to-name"
-msgstr "Para Nomear"
+msgstr "Para Nome"
 
 #. TRANSLATORS: Printed Cover
 msgid "cover-type"
@@ -6236,7 +6218,7 @@ msgstr "Sem a Capa"
 
 #. TRANSLATORS: Back Only
 msgid "cover-type.print-back"
-msgstr "Somente o Verso"
+msgstr "Apenas o Verso"
 
 #. TRANSLATORS: Front and Back
 msgid "cover-type.print-both"
@@ -6244,7 +6226,7 @@ msgstr "Frente e Verso"
 
 #. TRANSLATORS: Front Only
 msgid "cover-type.print-front"
-msgstr "Somente a Frente"
+msgstr "Apenas a Frente"
 
 #. TRANSLATORS: None
 msgid "cover-type.print-none"
@@ -6271,39 +6253,35 @@ msgid "covering-name.pre-printed"
 msgstr "Pré-impresso"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
-"csr COMMON-NAME            Permite criar uma requisição de assinatura do "
-"certificado."
+msgstr "csr NOME-COMUM            Cria um pedido de assinatura de certificado."
 
 msgid "cups-deviced failed to execute."
-msgstr "Ocorreu uma falha na execução do cups-deviced."
+msgstr "Falhou ao executar o cups-deviced."
 
 msgid "cups-driverd failed to execute."
-msgstr "Ocorreu uma falha na execução do cups-driverd."
+msgstr "Falhou ao executar o cups-driverd."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
 msgstr ""
-"Ocorreu uma falha no cups-driverd ao obter o ficheiro PPD. Por favor, "
-"obtenhas mais informações com o error_log."
+"cups-driverd falhou ao obter o ficheiro PPD - veja o error_log para detalhes."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
-"O URI do servidor de autorização falta após a opção '-a' do cups-oauth."
+msgstr "cups-oauth: URI do Servidor de Autorização em Falta após '-a'."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr "Ocorreu uma falha no client_id e/ou no client_secret do cups-oauth."
+msgstr "cups-oauth: client_id e/ou client_secret em falta."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr "O recurso do URI e/ou a chave do portador falta para o cups-oauth."
+msgstr "cups-oauth: URI de recurso e/ou testemunho de acesso em falta."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
 msgstr "cups-oauth: URI de recurso e/ou testemunho de dispositivo em falta."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr "Falta a opção '-s' para o cups-oauth."
+msgstr "cups-oauth: Escopo(s) após '-s' em falta."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr "Nenhum servidor de autorização especificado para o cups-oauth."
+msgstr "cups-oauth: Nenhum servidor de autorização especificado."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
@@ -6311,7 +6289,7 @@ msgstr "cups-oauth: Incapaz de obter testemunho de acesso a partir de '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr "Incapaz de obter a autorização '%s' de %s do cups-oauth"
+msgstr "cups-oauth: Incapaz de obter a autorização a partir de '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
@@ -6325,81 +6303,77 @@ msgstr ""
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr "Incapaz de obter os metadados '%s' de %s para o cups-oauth"
+msgstr "cups-oauth: Incapaz de obter os metadados para '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
-"Incapaz de obter o ID (identificador) do utilizador '%s' de %s para o cups-"
-"oauth"
+msgstr "cups-oauth: Incapaz de obter o ID de utilizador para '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr "O comando '%s' não é conhecido cups-oauth."
+msgstr "cups-oauth: Comando desconhecido '%s'."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
-"O valor do DAYS (dias) '%s' não é válido após a opção '-d' para o cups-x509."
+msgstr "cups-x509: O valor de DAYS errado '%s' após '-d'."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr "A versão do HTTP não é válida para o cups-x509."
+msgstr "cups-x509: Versão de HTTP errada."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr "O tipo do certificado '%s' não é válido para o cups-x509."
+msgstr "cups-x509: Tipo do certificado errado '%s'."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr "Ocorreu um uso não correto da tecla '%s' para o cups-x509."
+msgstr "cups-x509: Utilização de chave errada '%s'."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr "Ocorreu um propósito não correto da tecla '%s' para o cups-x509."
+msgstr "cups-x509: Objetivo errado '%s'."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr "A linha %s da requisição para o cups-x509 não válida."
+msgstr "cups-x509: Linha de pedido errada (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr "A operação não é correta ou não é conhecida para o cups-x509."
+msgstr "cups-x509: Operação errada/desconhecida."
 
 msgid "cups-x509: Client closed connection."
-msgstr "O cliente fechou a conexão com o cups-x509."
+msgstr "cups-x509: O cliente fechou a ligação."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr "O nome do ficheiro CSR falta após a opção '-R' para o cups-x509."
+msgstr "cups-x509: Nome de ficheiro CSR em falta após '-R'."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr "Falta o tipo do certificado após a opção '-t' para o cups-x509."
+msgstr "cups-x509: Tipo de certificado em falta após '-t'."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr "Falta o nome do país após a opção '-C' do cups-x509."
+msgstr "cups-x509: Nome do país em falta após '-C'."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr "Falta a quantidade de dias após a opção '-d' para o cups-x509."
+msgstr "cups-x509: Dias de validade em falta após '-d'."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr "Falta a utilização da tecla após a opção '-u' para o cups-x509."
+msgstr "cups-x509: Utilização de chave em falta após '-u'."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr "Falta a localidade/cidade/bairro após a opção '-L' para o cups-x509."
+msgstr "cups-x509: Localidade/cidade/vila em falta após '-L'."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr "Falta a organização após a opção '-O' para o cups-x509."
+msgstr "cups-x509: Falta a organização após '-O'."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr "Falta a unidade organizacional após a opção '-U' para o cups-x509."
+msgstr "cups-x509: Falta a unidade organizacional após '-U'."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr "Falta o propósito após a opção '-p' para o cups-x509."
+msgstr "cups-x509: Falta o objetivo após '-p'."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
-"Falta o nome do root (administrador) após a opção '-r' para o cups-x509."
+msgstr "cups-x509: Falta o nome do root após '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr "Falta o nome do estado/cidade após a opção '-S' para o cups-x509."
+msgstr "cups-x509: Falta o nome do estado/província após '-S'."
 
 msgid "cups-x509: Missing sub-command argument."
 msgstr "cups-x509: Argumento de sub-comando em falta."
