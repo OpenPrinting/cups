@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-10 00:01+0000\n"
+"PO-Revision-Date: 2026-07-11 04:01+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -7800,9 +7800,7 @@ msgstr ""
 "autorização"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
-msgstr ""
-"get-user-id [RECURSO] [NOME]  Permite obter o ID (identificador) do "
-"utilizador que foi autorizado"
+msgstr "get-user-id [RECURSO] [NOME]  Obtém o ID de utilizador autorizado"
 
 msgid "held"
 msgstr "retido"
@@ -7811,7 +7809,7 @@ msgid "help\t\tGet help on commands."
 msgstr "help\t\tObter ajuda nos comandos."
 
 msgid "idle"
-msgstr "inativo"
+msgstr "pronta em repouso"
 
 #. TRANSLATORS: Imposition Template
 msgid "imposition-template"
@@ -7864,86 +7862,84 @@ msgstr "ippfind: Esperado nome de chave após %s."
 
 #, c-format
 msgid "ippfind: Expected port range after %s."
-msgstr "Era esperado o intervalo das portas após o %s para o ippfind."
+msgstr "ippfind: Esperado gama de portos após %s."
 
 #, c-format
 msgid "ippfind: Expected program after %s."
-msgstr "Era esperado o programa após o %s para o ippfind."
+msgstr "ippfind: Esperado programa após %s."
 
 #, c-format
 msgid "ippfind: Expected semi-colon after %s."
-msgstr "Era esperado um ponto e vírgula após o %s para o ippfind."
+msgstr "ippfind: Esperado um ponto e vírgula após %s."
 
 msgid "ippfind: Missing close brace in substitution."
-msgstr "Falta a chave de fechamento na substituição para o ippfind."
+msgstr "ippfind: Falta a chaveta a fechar na substituição."
 
 msgid "ippfind: Missing close parenthesis."
-msgstr "Falta o parêntese de fechamento para o ippfind."
+msgstr "ippfind: Falta o parênteses a fechar."
 
 msgid "ippfind: Missing expression before \"--and\"."
-msgstr "Falta uma expressão antes do \"--and\" para o ippfind."
+msgstr "ippfind: Falta uma expressão antes de \"--and\"."
 
 msgid "ippfind: Missing expression before \"--or\"."
-msgstr "Falta uma expressão antes do \"--or\" para o ippfind."
+msgstr "ippfind: Falta uma expressão antes de \"--or\"."
 
 #, c-format
 msgid "ippfind: Missing key name after %s."
-msgstr "Falta o nome da tecla após o %s para o ippfind."
+msgstr "ippfind: Falta o nome de chave após o %s."
 
 #, c-format
 msgid "ippfind: Missing name after %s."
-msgstr "Falta um nome após o %s para o ippfind."
+msgstr "ippfind: Falta um nome após %s."
 
 msgid "ippfind: Missing open parenthesis."
-msgstr "Falta o parêntese de abertura para o ippfind."
+msgstr "ippfind: Falta o parênteses a abrir."
 
 #, c-format
 msgid "ippfind: Missing program after %s."
-msgstr "Falta o nome do programa após o %s para o ippfind."
+msgstr "ippfind: Falta o programa após %s."
 
 #, c-format
 msgid "ippfind: Missing regular expression after %s."
-msgstr "Falta uma expressão regular após o %s para o ippfind."
+msgstr "ippfind: Falta uma expressão regular após %s."
 
 #, c-format
 msgid "ippfind: Missing semi-colon after %s."
-msgstr "Falta o ponto e vírgula após o %s para o ippfind."
+msgstr "ippfind: Falta o ponto e vírgula após %s."
 
 msgid "ippfind: Out of memory."
-msgstr "A quantidade de memória não é suficiente para o ippfind."
+msgstr "ippfind: Memória esgotada."
 
 msgid "ippfind: Too many parenthesis."
-msgstr "Existe uma quantidade excessiva de parênteses para o ippfind."
+msgstr "ippfind: Demasiados parênteses."
 
 #, c-format
 msgid "ippfind: Unable to execute \"%s\": %s"
-msgstr "Incapaz de executar \"%s\" de %s para o ippfind"
+msgstr "ippfind: Incapaz de executar \"%s\": %s"
 
 #, c-format
 msgid "ippfind: Unknown variable \"{%s}\"."
-msgstr "O argumento \"{%s}\" não é conhecido para o ippfind."
+msgstr "ippfind: Variável desconhecida \"{%s}\"."
 
 msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
-"Os parâmetros \"-i\" e \"-n\" não são compatíveis com \"--ippserver\", \"-P"
-"\" e \"-X\" para o ipptool."
+"ipptool: \"-i\" e \"-n\" são incompatíveis com \"--ippserver\", \"-P\" e \"-"
+"X\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
-msgstr ""
-"Os parâmetros \"-i\" e \"-n\" não são compatíveis com o \"-P\" e \"-X\" para "
-"o ipptool."
+msgstr "ipptool: \"-i\" e \"-n\" são incompatíveis com \"-P\" e \"-X\"."
 
 #, c-format
 msgid "ipptool: Bad URI \"%s\"."
-msgstr "O URI \"%s\" não é válido para o ipptool."
+msgstr "ipptool: URI errado \"%s\"."
 
 msgid "ipptool: Invalid seconds for \"-i\"."
-msgstr "Os segundos do \"-i\" do ipptool não é válido para o ipptool."
+msgstr "ipptool: Os segundos são inválidos para \"-i\"."
 
 msgid "ipptool: May only specify a single URI."
-msgstr "Pode especificar somente um URI para o ipptool."
+msgstr "ipptool: Apenas pode especificar um único URI."
 
 msgid "ipptool: Missing count for \"-n\"."
 msgstr "ipptool: Contagem em falta para \"-n\"."
@@ -7953,16 +7949,16 @@ msgid "ipptool: Missing filename for \"%s\"."
 msgstr "ipptool: Nome de ficheiro em falta para \"%s\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
-msgstr "Falta o nome do ficheiro do \"-f\" para o ipptool."
+msgstr "ipptool: Falta o nome do ficheiro para \"-f\"."
 
 msgid "ipptool: Missing name=value for \"-d\"."
-msgstr "Falta o nome=valor do \"-d\" para o ipptool."
+msgstr "ipptool: Falta o nome=valor para \"-d\"."
 
 msgid "ipptool: Missing seconds for \"-i\"."
-msgstr "Faltam os segundos do \"-i\" para o ipptool."
+msgstr "ipptool: Faltam os segundos para \"-i\"."
 
 msgid "ipptool: URI required before test file."
-msgstr "É necessário o URI antes do ficheiro de teste para o ipptool."
+msgstr "ipptool: É necessário o URI antes do ficheiro de teste."
 
 #, c-format
 msgid "ipptool: Unable to allocate memory: %s"
@@ -7970,7 +7966,7 @@ msgstr "ipptool: Incapaz de alocar memória: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
-msgstr "ID (identificador) da Conta de Trabalho"
+msgstr "ID da Conta de Trabalho"
 
 #. TRANSLATORS: Job Account Type
 msgid "job-account-type"
@@ -7994,11 +7990,11 @@ msgstr "Compartimento de Saída da Contabilidade do Trabalho"
 
 #. TRANSLATORS: Job Accounting Sheets
 msgid "job-accounting-sheets"
-msgstr "Planilhas da Contabilidade dos Trabalhos"
+msgstr "Folhas da Contabilidade dos Trabalhos"
 
 #. TRANSLATORS: Type of Job Accounting Sheets
 msgid "job-accounting-sheets-type"
-msgstr "Tipo das Planilhas de Contabilidade do Trabalho"
+msgstr "Tipo de Folhas de Contabilidade do Trabalho"
 
 #. TRANSLATORS: None
 msgid "job-accounting-sheets-type.none"
@@ -8006,11 +8002,11 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-accounting-sheets-type.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #. TRANSLATORS: Job Accounting User ID
 msgid "job-accounting-user-id"
-msgstr "ID (identificador) do Utilizador da Contabilidade dos Trabalhos"
+msgstr "ID de Utilizador da Contabilidade dos Trabalhos"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
@@ -8030,15 +8026,15 @@ msgstr "Capa Frontal"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until"
-msgstr "Adiar a saída até"
+msgstr "Adiar Saída Até"
 
 #. TRANSLATORS: Delay Output Until
 msgid "job-delay-output-until-time"
-msgstr "Adiar a saída até"
+msgstr "Adiar Saída Até"
 
 #. TRANSLATORS: Daytime
 msgid "job-delay-output-until.day-time"
-msgstr "Período do dia"
+msgstr "Período de Dia"
 
 #. TRANSLATORS: Evening
 msgid "job-delay-output-until.evening"
@@ -8046,7 +8042,7 @@ msgstr "Período do Fim da Tarde"
 
 #. TRANSLATORS: Released
 msgid "job-delay-output-until.indefinite"
-msgstr "Liberado"
+msgstr "Lançado"
 
 #. TRANSLATORS: Night
 msgid "job-delay-output-until.night"
@@ -8058,7 +8054,7 @@ msgstr "Não Adiar"
 
 #. TRANSLATORS: Second Shift
 msgid "job-delay-output-until.second-shift"
-msgstr "Segundo turno"
+msgstr "Segundo Turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-delay-output-until.third-shift"
@@ -8094,7 +8090,7 @@ msgstr "Imprimir a Folha de Erros"
 
 #. TRANSLATORS: Type of Error Sheet
 msgid "job-error-sheet-type"
-msgstr "Tipo da Folha de Erros"
+msgstr "Tipo de Folha de Erros"
 
 #. TRANSLATORS: None
 msgid "job-error-sheet-type.none"
@@ -8102,7 +8098,7 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-error-sheet-type.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #. TRANSLATORS: Print Error Sheet
 msgid "job-error-sheet-when"
@@ -8110,7 +8106,7 @@ msgstr "Imprimir a Folha de Erros"
 
 #. TRANSLATORS: Always
 msgid "job-error-sheet-when.always"
-msgstr "Constantemente"
+msgstr "Sempre"
 
 #. TRANSLATORS: On Error
 msgid "job-error-sheet-when.on-error"
@@ -8138,7 +8134,7 @@ msgstr "Período do Fim da Tarde"
 
 #. TRANSLATORS: Released
 msgid "job-hold-until.indefinite"
-msgstr "Liberado"
+msgstr "Lançado"
 
 #. TRANSLATORS: Night
 msgid "job-hold-until.night"
@@ -8150,7 +8146,7 @@ msgstr "Não Reter"
 
 #. TRANSLATORS: Second Shift
 msgid "job-hold-until.second-shift"
-msgstr "Segundo turno"
+msgstr "Segundo Turno"
 
 #. TRANSLATORS: Third Shift
 msgid "job-hold-until.third-shift"
@@ -8197,7 +8193,7 @@ msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-attributes.default"
-msgstr "Padrão"
+msgstr "Predefinição"
 
 #. TRANSLATORS: Job Description
 msgid "job-privacy-attributes.job-description"
@@ -8221,7 +8217,7 @@ msgstr "Todos"
 
 #. TRANSLATORS: Default
 msgid "job-privacy-scope.default"
-msgstr "Padrão"
+msgstr "Predefinição"
 
 #. TRANSLATORS: None
 msgid "job-privacy-scope.none"
@@ -8241,11 +8237,11 @@ msgstr "Reter o Trabalho Até"
 
 #. TRANSLATORS: Job Retain Until Interval
 msgid "job-retain-until-interval"
-msgstr "Reter o Trabalho Até o Intervalo"
+msgstr "Reter o Trabalho Até ao Intervalo"
 
 #. TRANSLATORS: Job Retain Until Time
 msgid "job-retain-until-time"
-msgstr "Reter o Trabalho Até o Momento"
+msgstr "Reter o Trabalho Até ao Momento"
 
 #. TRANSLATORS: End Of Day
 msgid "job-retain-until.end-of-day"
@@ -8261,7 +8257,7 @@ msgstr "Fim da Semana"
 
 #. TRANSLATORS: Indefinite
 msgid "job-retain-until.indefinite"
-msgstr "Não Foi Determinado"
+msgstr "Indefinido"
 
 #. TRANSLATORS: None
 msgid "job-retain-until.none"
@@ -8277,11 +8273,11 @@ msgstr "Mensagem da Folha do Trabalho"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets"
-msgstr "Página da Faixa"
+msgstr "Página de Insígnia"
 
 #. TRANSLATORS: Banner Page
 msgid "job-sheets-col"
-msgstr "Página da Faixa"
+msgstr "Página de Insígnia"
 
 #. TRANSLATORS: First Page in Document
 msgid "job-sheets.first-print-stream-page"
@@ -8305,7 +8301,7 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "job-sheets.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #. TRANSLATORS: Job State
 msgid "job-state"
@@ -8321,11 +8317,11 @@ msgstr "Estado Detalhado do Trabalho"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.aborted-by-system"
-msgstr "A parar"
+msgstr "A Parar"
 
 #. TRANSLATORS: Account Authorization Failed
 msgid "job-state-reasons.account-authorization-failed"
-msgstr "Ocorreu uma Falha na Autorização da Conta"
+msgstr "Falha na Autorização da Conta"
 
 #. TRANSLATORS: Account Closed
 msgid "job-state-reasons.account-closed"
@@ -8341,87 +8337,87 @@ msgstr "O Limite da Conta Foi Alcançado"
 
 #. TRANSLATORS: Decompression error
 msgid "job-state-reasons.compression-error"
-msgstr "Ocorreu um Erro na Descompactação"
+msgstr "Erro de Descompactação"
 
 #. TRANSLATORS: Conflicting Attributes
 msgid "job-state-reasons.conflicting-attributes"
-msgstr "Existem Atributos Conflitantes"
+msgstr "Atributos em Conflito"
 
 #. TRANSLATORS: Connected To Destination
 msgid "job-state-reasons.connected-to-destination"
-msgstr "Está conectado ao destino"
+msgstr "Ligado ao Destino"
 
 #. TRANSLATORS: Connecting To Destination
 msgid "job-state-reasons.connecting-to-destination"
-msgstr "A conectar ao destino"
+msgstr "A Ligar ao Destino"
 
 #. TRANSLATORS: Destination Uri Failed
 msgid "job-state-reasons.destination-uri-failed"
-msgstr "Ocorreu uma Falha no Destino do URI"
+msgstr "Falha do URI de Destino"
 
 #. TRANSLATORS: Digital Signature Did Not Verify
 msgid "job-state-reasons.digital-signature-did-not-verify"
-msgstr "A Assinatura Digital Não Foi Verificada"
+msgstr "Assinatura Digital Não Correspondeu"
 
 #. TRANSLATORS: Digital Signature Type Not Supported
 msgid "job-state-reasons.digital-signature-type-not-supported"
-msgstr "O Tipo da Assinatura Digital Não é Compatível"
+msgstr "Tipo de Assinatura Digital Não Suportado"
 
 #. TRANSLATORS: Document Access Error
 msgid "job-state-reasons.document-access-error"
-msgstr "Ocorreu um Erro de Acesso ao Documento"
+msgstr "Erro de Acesso ao Documento"
 
 #. TRANSLATORS: Document Format Error
 msgid "job-state-reasons.document-format-error"
-msgstr "Ocorreu um Erro no Formato do Documento"
+msgstr "Erro no Formato do Documento"
 
 #. TRANSLATORS: Document Password Error
 msgid "job-state-reasons.document-password-error"
-msgstr "Ocorreu um Erro na Palavra-passe do Documento"
+msgstr "Erro na Palavra-passe do Documento"
 
 #. TRANSLATORS: Document Permission Error
 msgid "job-state-reasons.document-permission-error"
-msgstr "Ocorreu um Erro de Permissão no Documento"
+msgstr "Erro de Permissão no Documento"
 
 #. TRANSLATORS: Document Security Error
 msgid "job-state-reasons.document-security-error"
-msgstr "Ocorreu um Erro de Segurança no Documento"
+msgstr "Erro de Segurança do Documento"
 
 #. TRANSLATORS: Document Unprintable Error
 msgid "job-state-reasons.document-unprintable-error"
-msgstr "Ocorreu um Erro no Documento que Não Pode ser Impresso"
+msgstr "Erro no Documento que Não Pode ser Impresso"
 
 #. TRANSLATORS: Errors Detected
 msgid "job-state-reasons.errors-detected"
-msgstr "Alguns Erros Foram Detetados"
+msgstr "Erros Detetados"
 
 #. TRANSLATORS: Canceled at printer
 msgid "job-state-reasons.job-canceled-at-device"
-msgstr "O Trabalho Foi Cancelado na Impressora"
+msgstr "Cancelado na Impressora"
 
 #. TRANSLATORS: Canceled by operator
 msgid "job-state-reasons.job-canceled-by-operator"
-msgstr "O Trabalho Foi Cancelado pelo Operador"
+msgstr "Cancelado pelo Operador"
 
 #. TRANSLATORS: Canceled by user
 msgid "job-state-reasons.job-canceled-by-user"
-msgstr "O Trabalho Foi Cancelado pelo Utilizador"
+msgstr "Cancelado pelo Utilizador"
 
 #. TRANSLATORS:
 msgid "job-state-reasons.job-completed-successfully"
-msgstr "O Trabalho Foi Concluído com Sucesso"
+msgstr "Concluído com Sucesso"
 
 #. TRANSLATORS: Completed with errors
 msgid "job-state-reasons.job-completed-with-errors"
-msgstr "O Trabalho Foi Concluído com Erros"
+msgstr "Concluído com Erros"
 
 #. TRANSLATORS: Completed with warnings
 msgid "job-state-reasons.job-completed-with-warnings"
-msgstr "O Trabalho Foi Concluído com Avisos"
+msgstr "Concluído com Avisos"
 
 #. TRANSLATORS: Insufficient data
 msgid "job-state-reasons.job-data-insufficient"
-msgstr "Os Dados Não São Suficientes"
+msgstr "Dados Insuficientes"
 
 #. TRANSLATORS: Job Delay Output Until Specified
 msgid "job-state-reasons.job-delay-output-until-specified"
@@ -8433,11 +8429,11 @@ msgstr "A aguardar a Assinatura Digital do Trabalho"
 
 #. TRANSLATORS: Job Fetchable
 msgid "job-state-reasons.job-fetchable"
-msgstr "O Trabalho Pode Ser Localizado"
+msgstr "O Trabalho É Obtível"
 
 #. TRANSLATORS: Job Held For Review
 msgid "job-state-reasons.job-held-for-review"
-msgstr "Reter o Trabalho para Ser Revisado"
+msgstr "Trabalho Retido Para Revisão"
 
 #. TRANSLATORS: Job held
 msgid "job-state-reasons.job-hold-until-specified"
@@ -8457,19 +8453,19 @@ msgstr "A sair"
 
 #. TRANSLATORS: Job Password Wait
 msgid "job-state-reasons.job-password-wait"
-msgstr "A aguardar a palavra-passe do trabalho"
+msgstr "Aguardar a Palavra-Passe do Trabalho"
 
 #. TRANSLATORS: Job Printed Successfully
 msgid "job-state-reasons.job-printed-successfully"
-msgstr "O Trabalho Foi Impresso com Sucesso"
+msgstr "Trabalho Impresso com Sucesso"
 
 #. TRANSLATORS: Job Printed With Errors
 msgid "job-state-reasons.job-printed-with-errors"
-msgstr "Ocorreu Alguns Erros no Trabalho que Foi Impresso"
+msgstr "Trabalho Impresso Com Erros"
 
 #. TRANSLATORS: Job Printed With Warnings
 msgid "job-state-reasons.job-printed-with-warnings"
-msgstr "Ocorreu Alguns Avisos no Trabalho que Foi Impresso"
+msgstr "Trabalho Impresso Com Avisos"
 
 #. TRANSLATORS: Printing
 msgid "job-state-reasons.job-printing"
@@ -8477,7 +8473,7 @@ msgstr "A imprimir"
 
 #. TRANSLATORS: Preparing to print
 msgid "job-state-reasons.job-queued"
-msgstr "A preparar para imprimir"
+msgstr "A Preparar para Imprimir"
 
 #. TRANSLATORS: Processing document
 msgid "job-state-reasons.job-queued-for-marker"
@@ -8485,19 +8481,19 @@ msgstr "A processar o documento"
 
 #. TRANSLATORS: Job Release Wait
 msgid "job-state-reasons.job-release-wait"
-msgstr "A aguardar a liberação do trabalho"
+msgstr "Aguardar o Lançamento do Trabalho"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
-msgstr "Pode Ser Reiniciado"
+msgstr "Reiniciável"
 
 #. TRANSLATORS: Job Resuming
 msgid "job-state-reasons.job-resuming"
-msgstr "O Trabalho está a ser retomado"
+msgstr "Trabalho a Ser Retomado"
 
 #. TRANSLATORS: Job Saved Successfully
 msgid "job-state-reasons.job-saved-successfully"
-msgstr "O Trabalho Foi Gravado com Sucesso"
+msgstr "Trabalho Gravado com Sucesso"
 
 #. TRANSLATORS: Job Saved With Errors
 msgid "job-state-reasons.job-saved-with-errors"
@@ -8509,43 +8505,43 @@ msgstr "O Trabalho Foi Gravado com Avisos"
 
 #. TRANSLATORS: Job Saving
 msgid "job-state-reasons.job-saving"
-msgstr "O Trabalho está a ser gravado"
+msgstr "Trabalho a Ser Gravado"
 
 #. TRANSLATORS: Job Spooling
 msgid "job-state-reasons.job-spooling"
-msgstr "O Trabalho Foi Enviado para a Área da Memória Temporária"
+msgstr "Trabalho Enviado para o Spool"
 
 #. TRANSLATORS: Job Streaming
 msgid "job-state-reasons.job-streaming"
-msgstr "O trabalho está a ser transmitido"
+msgstr "Trabalho em Transmissão"
 
 #. TRANSLATORS: Suspended
 msgid "job-state-reasons.job-suspended"
-msgstr "O Trabalho Foi Suspenso"
+msgstr "Suspenso"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
-msgstr "O Trabalho Foi Suspenso pelo Operador"
+msgstr "Trabalho Suspenso pelo Operador"
 
 #. TRANSLATORS: Job Suspended By System
 msgid "job-state-reasons.job-suspended-by-system"
-msgstr "O Trabalho Foi Suspenso pelo Sistema Operacional"
+msgstr "Trabalho Suspenso pelo Sistema"
 
 #. TRANSLATORS: Job Suspended By User
 msgid "job-state-reasons.job-suspended-by-user"
-msgstr "O Trabalho Foi Suspenso pelo Utilizador"
+msgstr "Trabalho Suspenso pelo Utilizador"
 
 #. TRANSLATORS: Job Suspending
 msgid "job-state-reasons.job-suspending"
-msgstr "O trabalho está a ser suspenso"
+msgstr "Trabalho a ser Suspenso"
 
 #. TRANSLATORS: Job Transferring
 msgid "job-state-reasons.job-transferring"
-msgstr "O Trabalho está a ser transferido"
+msgstr "Trabalho a ser Transferido"
 
 #. TRANSLATORS: Transforming
 msgid "job-state-reasons.job-transforming"
-msgstr "O Trabalho está a ser transformando"
+msgstr "A Transformar"
 
 #. TRANSLATORS: None
 msgid "job-state-reasons.none"
@@ -8553,39 +8549,39 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Printer offline
 msgid "job-state-reasons.printer-stopped"
-msgstr "A Impressora Está Desativada"
+msgstr "Impressora desligada"
 
 #. TRANSLATORS: Printer partially stopped
 msgid "job-state-reasons.printer-stopped-partly"
-msgstr "A Impressora Está Parcialmente Paragem"
+msgstr "Impressora parcialmente parada"
 
 #. TRANSLATORS: Stopping
 msgid "job-state-reasons.processing-to-stop-point"
-msgstr "O Trabalho está a parar"
+msgstr "A parar"
 
 #. TRANSLATORS: Ready
 msgid "job-state-reasons.queued-in-device"
-msgstr "O Trabalho Está Pronto"
+msgstr "Pronto"
 
 #. TRANSLATORS: Resources Are Not Ready
 msgid "job-state-reasons.resources-are-not-ready"
-msgstr "Os Recursos Não Estão Prontos"
+msgstr "Recursos Não Estão Prontos"
 
 #. TRANSLATORS: Resources Are Not Supported
 msgid "job-state-reasons.resources-are-not-supported"
-msgstr "Os Recursos Não São Compatíveis"
+msgstr "Recursos Não São Suportados"
 
 #. TRANSLATORS: Service offline
 msgid "job-state-reasons.service-off-line"
-msgstr "O Serviço Está Desconectado"
+msgstr "Serviço Desligado"
 
 #. TRANSLATORS: Submission Interrupted
 msgid "job-state-reasons.submission-interrupted"
-msgstr "O Envio Foi Interrompido"
+msgstr "Submissão Interrompida"
 
 #. TRANSLATORS: Unsupported Attributes Or Values
 msgid "job-state-reasons.unsupported-attributes-or-values"
-msgstr "Os Atributos ou os Valores Não São Compatíveis"
+msgstr "Atributos ou Valores Não Suportados"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
@@ -12536,7 +12532,7 @@ msgstr "A impressora %s está a reter novos trabalhos.  Está ativada desde %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
-msgstr "A impressora %s está inativa.  Está ativada desde %s"
+msgstr "a impressora %s está em repouso.  ativada desde %s"
 
 #, c-format
 msgid "printer %s now printing %s-%d.  enabled since %s"
@@ -12548,7 +12544,7 @@ msgstr "A impressora %s/%s está desativada desde %s -"
 
 #, c-format
 msgid "printer %s/%s is idle.  enabled since %s"
-msgstr "A impressora %s/%s está inativa. Está ativada desde %s"
+msgstr "A impressora %s/%s está em repouso.  ativada desde %s"
 
 #, c-format
 msgid "printer %s/%s now printing %s-%d.  enabled since %s"
