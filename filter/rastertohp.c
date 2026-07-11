@@ -538,7 +538,7 @@ OutputLine(cups_page_header2_t *header)	/* I - Page header */
 
       for (count = header->cupsBytesPerLine / NumPlanes,
                plane_ptr = Planes[plane], bit_ptr = BitBuffer;
-	   count > 0;
+	   count > 0 && bit_ptr < (BitBuffer + bytes);
 	   count -= 2, plane_ptr += 2, bit_ptr ++)
       {
         bit = plane_ptr[0];
