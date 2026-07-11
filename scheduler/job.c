@@ -3787,7 +3787,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
     }
 
     have_size   = ippFindAttribute(job->attrs, "PageRegion", IPP_TAG_ZERO) != NULL || ippFindAttribute(job->attrs, "PageSize", IPP_TAG_ZERO) != NULL;
-    have_source = ippFindAttribute(job->attrs, "InputSlot", IPP_TAG_ZERO) != NULL || ippFindAttribute(job->attrs, "HPPaperSource", IPP_TAG_ZERO) == NULL;
+    have_source = ippFindAttribute(job->attrs, "InputSlot", IPP_TAG_ZERO) != NULL || ippFindAttribute(job->attrs, "HPPaperSource", IPP_TAG_ZERO) !== NULL;
     have_type   = ippFindAttribute(job->attrs, "MediaType", IPP_TAG_ZERO) != NULL;
 
     if (banner_page && (attr = ippFindAttribute(job->attrs, "job-sheets-col", IPP_TAG_BEGIN_COLLECTION)) != NULL)
