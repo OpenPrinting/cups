@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-11 04:01+0000\n"
+"PO-Revision-Date: 2026-07-12 15:01+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -8585,19 +8585,19 @@ msgstr "Atributos ou Valores Não Suportados"
 
 #. TRANSLATORS: Unsupported Compression
 msgid "job-state-reasons.unsupported-compression"
-msgstr "A Compactação Não é Compatível"
+msgstr "Compressão Não Suportada"
 
 #. TRANSLATORS: Unsupported Document Format
 msgid "job-state-reasons.unsupported-document-format"
-msgstr "O Formato do Documento Não é Compatível"
+msgstr "Formato do Documento Não Suportado"
 
 #. TRANSLATORS: Waiting For User Action
 msgid "job-state-reasons.waiting-for-user-action"
-msgstr "A aguardar a ação do utilizador"
+msgstr "A Aguardar Por Ação do Utilizador"
 
 #. TRANSLATORS: Warnings Detected
 msgid "job-state-reasons.warnings-detected"
-msgstr "Foram Detetados Avisos"
+msgstr "Avisos Detetados"
 
 #. TRANSLATORS: Pending
 msgid "job-state.3"
@@ -8637,7 +8637,7 @@ msgstr "Laminar"
 
 #. TRANSLATORS: Back Only
 msgid "laminating-sides.back"
-msgstr "Somente o Verso"
+msgstr "Apenas o Verso"
 
 #. TRANSLATORS: Front and Back
 msgid "laminating-sides.both"
@@ -8649,7 +8649,7 @@ msgstr "Apenas a Frente"
 
 #. TRANSLATORS: Type of Lamination
 msgid "laminating-type"
-msgstr "Tipo da Laminação"
+msgstr "Tipo de Laminação"
 
 #. TRANSLATORS: Archival
 msgid "laminating-type.archival"
@@ -8684,56 +8684,52 @@ msgstr "lpadmin: O nome da classe só pode conter caracteres imprimíveis."
 
 #, c-format
 msgid "lpadmin: Expected PPD after \"-%c\" option."
-msgstr "Era esperado o PPD após a opção \"-%c\" para o lpadmin."
+msgstr "lpadmin: Esperado PPD após a opção \"-%c\"."
 
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
-msgstr ""
-"Era esperado a lista dos nomes de utilizadores que são permitidos ou "
-"impedidos após a opção \"-u\" para o lpadmin."
+msgstr "lpadmin: Esperado allow/deny:userlist após a opção \"-u\"."
 
 msgid "lpadmin: Expected class after \"-r\" option."
-msgstr "Era esperado a classe após a opção \"-r\" para o lpadmin."
+msgstr "lpadmin: Esperada classe após a opção \"-r\"."
 
 msgid "lpadmin: Expected class name after \"-c\" option."
-msgstr "Era esperado o nome da classe após a opção \"-c\" para o lpadmin."
+msgstr "lpadmin: Esperado nome da classe após a opção \"-c\"."
 
 msgid "lpadmin: Expected description after \"-D\" option."
-msgstr "Era esperado a descrição após a opção \"-D\" para o lpadmin."
+msgstr "lpadmin: Esperada descrição após a opção \"-D\"."
 
 msgid "lpadmin: Expected device URI after \"-v\" option."
-msgstr "Era esperado o URI do dispositivo após a opção \"-v\" para o lpadmin."
+msgstr "lpadmin: Esperado o URI do dispositivo após a opção \"-v\"."
 
 msgid "lpadmin: Expected file type(s) after \"-I\" option."
-msgstr ""
-"Era esperado o tipo do(s) ficheiro(s) após a opção \"-I\" para o lpadmin."
+msgstr "lpadmin: Esperado tipo(s) de ficheiro após a opção \"-I\"."
 
 msgid "lpadmin: Expected hostname after \"-h\" option."
-msgstr "Era esperado o nome da máquina após a opção \"-h\" para o lpadmin."
+msgstr "lpadmin: Esperado o nome de máquina após a opção \"-h\"."
 
 msgid "lpadmin: Expected location after \"-L\" option."
-msgstr "Era esperado a localização após a opção \"-L\" para o lpadmin."
+msgstr "lpadmin: Esperada localização após a opção \"-L\"."
 
 msgid "lpadmin: Expected model after \"-m\" option."
-msgstr "Era esperado o modelo após a opção \"-m\" para o lpadmin."
+msgstr "lpadmin: Esperado o modelo após a opção \"-m\"."
 
 msgid "lpadmin: Expected name after \"-R\" option."
 msgstr "lpadmin: Esperado nome após opção \"-R\"."
 
 msgid "lpadmin: Expected name=value after \"-o\" option."
-msgstr "Era esperado o \"nome=valor\" após a opção \"-o\" para o lpadmin."
+msgstr "lpadmin: Esperado nome=valor após a opção \"-o\"."
 
 msgid "lpadmin: Expected printer after \"-p\" option."
-msgstr "Era esperado a impressora após a opção \"-p\" para o lpadmin."
+msgstr "lpadmin: Esperado a impressora após a opção \"-p\"."
 
 msgid "lpadmin: Expected printer name after \"-d\" option."
-msgstr "Era esperado o nome da impressora após a opção \"-d\" para o lpadmin."
+msgstr "lpadmin: Esperado o nome da impressora após a opção \"-d\"."
 
 msgid "lpadmin: Expected printer or class after \"-x\" option."
-msgstr ""
-"Era esperado a impressora ou a classe após a opção \"-x\" para o lpadmin."
+msgstr "lpadmin: Esperado impressora ou classe após a opção \"-x\"."
 
 msgid "lpadmin: No member names were seen."
-msgstr "Não foi encontrado o nome do membro para o lpadmin."
+msgstr "lpadmin: Nenhuns nomes de membro foram vistos."
 
 #, c-format
 msgid "lpadmin: Printer %s is already a member of class %s."
@@ -8771,136 +8767,128 @@ msgid ""
 "lpadmin: System V interface scripts are no longer supported for security "
 "reasons."
 msgstr ""
-"Os programas da interface do System V do lpadmin não são mais compatíveis "
-"por motivos de segurança."
+"lpadmin: Os scripts de interface do System V não são mais compatíveis por "
+"motivos de segurança."
 
 msgid ""
 "lpadmin: Unable to add a printer to the class:\n"
 "         You must specify a printer name first."
 msgstr ""
-"Incapaz de adicionar uma impressora à classe para o lpadmin.\n"
-"         Tem que especificar primeiro o nome da impressora."
+"lpadmin: Incapaz de adicionar uma impressora à classe:\n"
+"         Tem que especificar primeiro um nome de impressora."
 
 #, c-format
 msgid "lpadmin: Unable to connect to server: %s"
-msgstr "Incapaz de conectar ao servidor %s para o lpadmin"
+msgstr "lpadmin: Incapaz de ligar ao servidor: %s."
 
 msgid "lpadmin: Unable to create temporary file"
-msgstr "Incapaz de criar um ficheiro temporário para o lpadmin"
+msgstr "lpadmin: Incapaz de criar ficheiro temporário"
 
 msgid ""
 "lpadmin: Unable to delete option:\n"
 "         You must specify a printer name first."
 msgstr ""
-"Incapaz de apagar a opção para o lpadmin.\n"
-"         Tem que primeiro especificar o nome da impressora."
+"lpadmin: Incapaz de apagar a opção.\n"
+"         Tem que primeiro especificar um nome de impressora."
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s"
-msgstr "Incapaz de abrir o PPD \"%s\" de %s para o lpadmin"
+msgstr "lpadmin: Incapaz de abrir o PPD \"%s\": %s"
 
 #, c-format
 msgid "lpadmin: Unable to open PPD \"%s\": %s on line %d."
-msgstr "Incapaz de abrir o PPD \"%s\" de %s na linha %d para o lpadmin."
+msgstr "lpadmin: Incapaz de abrir o PPD \"%s\": %s na linha %d."
 
 msgid ""
 "lpadmin: Unable to remove a printer from the class:\n"
 "         You must specify a printer name first."
 msgstr ""
-"Incapaz de remover a impressora da classe para o lpadmin.\n"
-"         Tem que primeiro especificar o nome da impressora."
+"lpadmin: Incapaz de remover impressora da classe:\n"
+"         Tem que primeiro especificar um nome de impressora."
 
 msgid ""
 "lpadmin: Unable to set the printer options:\n"
 "         You must specify a printer name first."
 msgstr ""
-"Incapaz de definir as opções da impressora para o lpadmin.\n"
-"         Tem que primeiro especificar o nome da impressora."
+"lpadmin: Incapaz de definir as opções da impressora.\n"
+"         Tem que primeiro especificar um nome de impressora."
 
 #, c-format
 msgid "lpadmin: Unknown allow/deny option \"%s\"."
-msgstr "A opção de permitir ou negar o \"%s\" não é conhecida para o lpadmin."
+msgstr "lpadmin: Opção de permitir/negar desconhecida \"%s\"."
 
 #, c-format
 msgid "lpadmin: Unknown argument \"%s\"."
-msgstr "O argumento \"%s\" não é conhecido para o lpadmin."
+msgstr "lpadmin: Argumento desconhecido \"%s\"."
 
 #, c-format
 msgid "lpadmin: Unknown option \"%c\"."
-msgstr "A opção \"%c\" não é conhecida para o lpadmin."
+msgstr "lpadmin: Opção desconhecida \"%c\"."
 
 msgid "lpadmin: Use the 'everywhere' model for shared printers."
-msgstr ""
-"Utilize o modelo 'everywhere' (em todos os lugares) para as impressoras "
-"partilhadas no lpadmin."
+msgstr "lpadmin: Utilize o modelo 'everywhere' para impressoras partilhadas."
 
 msgid "lpadmin: Warning - content type list ignored."
-msgstr "Aviso: A lista dos tipos de conteúdos foi ignorada para o lpadmin."
+msgstr "lpadmin: Aviso - lista de tipo de conteúdo ignorada."
 
 msgid "lpc> "
 msgstr "lpc> "
 
 msgid "lpinfo: Expected 1284 device ID string after \"--device-id\"."
 msgstr ""
-"Era esperado uma cadeia de caracteres do ID (identificador) do dispositivo "
-"1284 após o \"--device-id\" para o lpinfo."
+"lpinfo: Esperado sequência de caracteres de ID de dispositivo 1284 após o "
+"\"--device-id\"."
 
 msgid "lpinfo: Expected language after \"--language\"."
-msgstr "Era esperado o idioma após o \"--language\" para o lpinfo."
+msgstr "lpinfo: Esperado o idioma após o \"--language\"."
 
 msgid "lpinfo: Expected make and model after \"--make-and-model\"."
-msgstr ""
-"Era esperado a marca e o modelo após o \"--make-and-model\" para o lpinfo."
+msgstr "lpinfo: Esperado a marca e o modelo após \"--make-and-model\"."
 
 msgid "lpinfo: Expected product string after \"--product\"."
-msgstr ""
-"Era esperado uma cadeia de caracteres do produto após o \"--product\" para o "
-"lpinfo."
+msgstr "lpinfo: Esperada sequência de caracteres do produto após \"--product\"."
 
 msgid "lpinfo: Expected scheme list after \"--exclude-schemes\"."
-msgstr ""
-"Era esperado a lista de esquemas após o \"--exclude-schemes\" para o lpinfo."
+msgstr "lpinfo: Esperado a lista de esquemas após \"--exclude-schemes\"."
 
 msgid "lpinfo: Expected scheme list after \"--include-schemes\"."
-msgstr ""
-"Era esperado a lista dos esquemas após o \"--include-schemes\" para o lpinfo."
+msgstr "lpinfo: Esperado a lista dos esquemas após \"--include-schemes\"."
 
 msgid "lpinfo: Expected timeout after \"--timeout\"."
-msgstr "Era esperado o tempo de espera após o \"--timeout\" para o lpinfo."
+msgstr "lpinfo: Esperado o tempo limite após \"--timeout\"."
 
 #, c-format
 msgid "lpmove: Unable to connect to server: %s"
-msgstr "Incapaz de conectar ao servidor %s para o lpmove"
+msgstr "lpmove: Incapaz de ligar ao servidor: %s"
 
 #, c-format
 msgid "lpmove: Unknown argument \"%s\"."
-msgstr "O argumento \"%s\" não é conhecido para o lpmove."
+msgstr "lpmove: Argumento desconhecido \"%s\"."
 
 msgid "lpoptions: No printers."
-msgstr "Não tem uma impressora no lpoptions."
+msgstr "lpoptions: Sem impressoras."
 
 #, c-format
 msgid "lpoptions: Unable to add printer or instance: %s"
-msgstr "Incapaz de adicionar a impressora ou a instância %s no lpoptions"
+msgstr "lpoptions: Incapaz de adicionar a impressora ou a instância: %s"
 
 #, c-format
 msgid "lpoptions: Unable to get PPD file for %s: %s"
-msgstr "Incapaz de obter o ficheiro PPD para o %s de %s do lpoptions"
+msgstr "lpoptions: Incapaz de obter o ficheiro PPD para %s: %s"
 
 #, c-format
 msgid "lpoptions: Unable to open PPD file for %s."
-msgstr "Incapaz de abrir o ficheiro PPD para %s do lpoptions."
+msgstr "lpoptions: Incapaz de abrir o ficheiro PPD para %s."
 
 msgid "lpoptions: Unknown printer or class."
-msgstr "A impressora ou a classe não é conhecida para o lpoptions."
+msgstr "lpoptions: Impressora ou classe desconhecida."
 
 #, c-format
 msgid ""
 "lpstat: error - %s environment variable names non-existent destination \"%s"
 "\"."
 msgstr ""
-"Ocorreu um erro no nome da variável de ambiente %s que contém o destino \"%s"
-"\" que não existe para o lpstat."
+"lpstat: erro - variável de ambiente %s nomeia destino não existente \"%s\"."
 
 #. TRANSLATORS: Amount of Material
 msgid "material-amount"
@@ -8908,7 +8896,7 @@ msgstr "Quantidade de material"
 
 #. TRANSLATORS: Amount Units
 msgid "material-amount-units"
-msgstr "Quantidade em unidades"
+msgstr "Unidades de Quantidade"
 
 #. TRANSLATORS: Grams
 msgid "material-amount-units.g"
@@ -8944,23 +8932,23 @@ msgstr "Diâmetro do material"
 
 #. TRANSLATORS: Material Diameter Tolerance
 msgid "material-diameter-tolerance"
-msgstr "Tolerância no diâmetro do material"
+msgstr "Tolerância no Diâmetro do Material"
 
 #. TRANSLATORS: Material Fill Density
 msgid "material-fill-density"
-msgstr "Densidade do preenchimento do material"
+msgstr "Densidade de Preenchimento do Material"
 
 #. TRANSLATORS: Material Name
 msgid "material-name"
-msgstr "Nome do material"
+msgstr "Nome do Material"
 
 #. TRANSLATORS: Material Nozzle Diameter
 msgid "material-nozzle-diameter"
-msgstr "Diâmetro do bico do material"
+msgstr "Diâmetro do Bocal do Material"
 
 #. TRANSLATORS: Use Material For
 msgid "material-purpose"
-msgstr "Utilizar o material para"
+msgstr "Utilizar Material Para"
 
 #. TRANSLATORS: Everything
 msgid "material-purpose.all"
@@ -8976,7 +8964,7 @@ msgstr "Preenchimento"
 
 #. TRANSLATORS: Shell
 msgid "material-purpose.shell"
-msgstr "Superfície"
+msgstr "Revestimento"
 
 #. TRANSLATORS: Supports
 msgid "material-purpose.support"
@@ -8984,11 +8972,11 @@ msgstr "Suportes"
 
 #. TRANSLATORS: Feed Rate
 msgid "material-rate"
-msgstr "Taxa de alimentação"
+msgstr "Taxa de Alimentação"
 
 #. TRANSLATORS: Feed Rate Units
 msgid "material-rate-units"
-msgstr "Unidades da taxa de alimentação"
+msgstr "Unidades da Taxa de Alimentação"
 
 #. TRANSLATORS: Milligrams per second
 msgid "material-rate-units.mg_second"
@@ -9004,19 +8992,19 @@ msgstr "Milímetros por segundo"
 
 #. TRANSLATORS: Material Retraction
 msgid "material-retraction"
-msgstr "Retração do material"
+msgstr "Retração do Material"
 
 #. TRANSLATORS: Material Shell Thickness
 msgid "material-shell-thickness"
-msgstr "Espessura da superfície do material"
+msgstr "Espessura do Revestimento do Material"
 
 #. TRANSLATORS: Material Temperature
 msgid "material-temperature"
-msgstr "Temperatura do material"
+msgstr "Temperatura do Material"
 
 #. TRANSLATORS: Material Type
 msgid "material-type"
-msgstr "Tipo do material"
+msgstr "Tipo de Material"
 
 #. TRANSLATORS: ABS
 msgid "material-type.abs"
@@ -9024,11 +9012,11 @@ msgstr "ABS"
 
 #. TRANSLATORS: Carbon Fiber ABS
 msgid "material-type.abs-carbon-fiber"
-msgstr "ABS com Fibra de Carbono"
+msgstr "ABS de Fibra de Carbono"
 
 #. TRANSLATORS: Carbon Nanotube ABS
 msgid "material-type.abs-carbon-nanotube"
-msgstr "ABS com Nanotubos de Carbono"
+msgstr "ABS de Nanotubos de Carbono"
 
 #. TRANSLATORS: Chocolate
 msgid "material-type.chocolate"
@@ -9052,35 +9040,35 @@ msgstr "Fotopolímero"
 
 #. TRANSLATORS: PLA
 msgid "material-type.pla"
-msgstr "Ácido Polilático"
+msgstr "Poliácido Láctico"
 
 #. TRANSLATORS: Conductive PLA
 msgid "material-type.pla-conductive"
-msgstr "Ácido Polilático"
+msgstr "Poliácido Láctico Condutivo"
 
 #. TRANSLATORS: Pla Dissolvable
 msgid "material-type.pla-dissolvable"
-msgstr "Ácido Polilático Dissolúvel"
+msgstr "Poliácido Láctico Dissolúvel"
 
 #. TRANSLATORS: Flexible PLA
 msgid "material-type.pla-flexible"
-msgstr "Ácido Polilático Flexível"
+msgstr "Poliácido Láctico Flexível"
 
 #. TRANSLATORS: Magnetic PLA
 msgid "material-type.pla-magnetic"
-msgstr "Ácido Polilático Magnético"
+msgstr "Poliácido Láctico Magnético"
 
 #. TRANSLATORS: Steel PLA
 msgid "material-type.pla-steel"
-msgstr "Ácido Polilático com Pó de Aço"
+msgstr "Poliácido Láctico de Aço"
 
 #. TRANSLATORS: Stone PLA
 msgid "material-type.pla-stone"
-msgstr "Ácido Polilático com a Aparência de Pedra"
+msgstr "Poliácido Láctico de Pedra"
 
 #. TRANSLATORS: Wood PLA
 msgid "material-type.pla-wood"
-msgstr "Ácido Polilático com Fibras de Madeira"
+msgstr "Poliácido Láctico de Madeira"
 
 #. TRANSLATORS: Polycarbonate
 msgid "material-type.polycarbonate"
@@ -9136,11 +9124,11 @@ msgstr "Acetinado"
 
 #. TRANSLATORS: Semi-gloss
 msgid "media-back-coating.semi-gloss"
-msgstr "Semibrilhante"
+msgstr "Semi-brilhante"
 
 #. TRANSLATORS: Media Bottom Margin
 msgid "media-bottom-margin"
-msgstr "Margem Inferior da Média"
+msgstr "Margem de Fundo da Média"
 
 #. TRANSLATORS: Media
 msgid "media-col"
@@ -9164,7 +9152,7 @@ msgstr "Castanho"
 
 #. TRANSLATORS: Buff
 msgid "media-color.buff"
-msgstr "Laranja-Claro Dourado"
+msgstr "Amarelo Acastanhado Claro"
 
 #. TRANSLATORS: Clear Black
 msgid "media-color.clear-black"
@@ -9180,7 +9168,7 @@ msgstr "Castanho Transparente"
 
 #. TRANSLATORS: Clear Buff
 msgid "media-color.clear-buff"
-msgstr "Laranja-Transparente Dourado"
+msgstr "Amarelo Acastanhado Transparente"
 
 #. TRANSLATORS: Clear Cyan
 msgid "media-color.clear-cyan"
@@ -9264,7 +9252,7 @@ msgstr "Castanho Escuro"
 
 #. TRANSLATORS: Dark Buff
 msgid "media-color.dark-buff"
-msgstr "Castanho Escuro"
+msgstr "Amarelo Acastanhado Escuro"
 
 #. TRANSLATORS: Dark Cyan
 msgid "media-color.dark-cyan"
@@ -9276,7 +9264,7 @@ msgstr "Ouro Escuro"
 
 #. TRANSLATORS: Dark Goldenrod
 msgid "media-color.dark-goldenrod"
-msgstr "Amarelo-Alaranjado Escuro"
+msgstr "Amarelo Dourado Escuro"
 
 #. TRANSLATORS: Dark Gray
 msgid "media-color.dark-gray"
@@ -9332,7 +9320,7 @@ msgstr "Ouro"
 
 #. TRANSLATORS: Goldenrod
 msgid "media-color.goldenrod"
-msgstr "Amarelo-Alaranjado"
+msgstr "Amarelo-Dourado"
 
 #. TRANSLATORS: Gray
 msgid "media-color.gray"
@@ -9360,7 +9348,7 @@ msgstr "Castanho Claro"
 
 #. TRANSLATORS: Light Buff
 msgid "media-color.light-buff"
-msgstr "Laranja-Claro Dourado"
+msgstr "Amarelo Acastanhado Claro"
 
 #. TRANSLATORS: Light Cyan
 msgid "media-color.light-cyan"
@@ -9472,7 +9460,7 @@ msgstr "Amarelo"
 
 #. TRANSLATORS: Front Coating of Media
 msgid "media-front-coating"
-msgstr "Acabamento Frontal da Média"
+msgstr "Revestimento Frontal da Média"
 
 #. TRANSLATORS: Media Grain
 msgid "media-grain"
@@ -9500,11 +9488,11 @@ msgstr "Forçar a Média"
 
 #. TRANSLATORS: Media Left Margin
 msgid "media-left-margin"
-msgstr "Margem à Esquerda da Média"
+msgstr "Margem Esquerda da Média"
 
 #. TRANSLATORS: Pre-printed Media
 msgid "media-pre-printed"
-msgstr "Pré-Impressão da Média"
+msgstr "Média Pré-Imprimida"
 
 #. TRANSLATORS: Blank
 msgid "media-pre-printed.blank"
@@ -9516,7 +9504,7 @@ msgstr "Papel Timbrado"
 
 #. TRANSLATORS: Pre-printed
 msgid "media-pre-printed.pre-printed"
-msgstr "Pré-Impressão"
+msgstr "Pré-Imprimido"
 
 #. TRANSLATORS: Recycled Media
 msgid "media-recycled"
@@ -9528,11 +9516,11 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "media-recycled.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #. TRANSLATORS: Media Right Margin
 msgid "media-right-margin"
-msgstr "Margem à Direita da Média"
+msgstr "Margem Direita da Média"
 
 #. TRANSLATORS: Media Dimensions
 msgid "media-size"
@@ -9560,11 +9548,11 @@ msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "media-source.bottom"
-msgstr "Inferior"
+msgstr "Fundo"
 
 #. TRANSLATORS: By-pass Tray
 msgid "media-source.by-pass-tray"
-msgstr "Desvio da Bandeja"
+msgstr "Bandeja de Passagem Direta"
 
 #. TRANSLATORS: Center
 msgid "media-source.center"
@@ -9580,7 +9568,7 @@ msgstr "Envelope"
 
 #. TRANSLATORS: Hagaki
 msgid "media-source.hagaki"
-msgstr "Cartão Postal"
+msgstr "Hagaki"
 
 #. TRANSLATORS: Large Capacity
 msgid "media-source.large-capacity"
@@ -9664,7 +9652,7 @@ msgstr "Lado"
 
 #. TRANSLATORS: Top
 msgid "media-source.top"
-msgstr "Superior"
+msgstr "Topo"
 
 #. TRANSLATORS: Tray 1
 msgid "media-source.tray-1"
@@ -9760,7 +9748,7 @@ msgstr "Antigo"
 
 #. TRANSLATORS: Extra Smooth
 msgid "media-tooth.calendared"
-msgstr "Extra Liso"
+msgstr "Extra Suave"
 
 #. TRANSLATORS: Coarse
 msgid "media-tooth.coarse"
@@ -9780,7 +9768,7 @@ msgstr "Médio"
 
 #. TRANSLATORS: Smooth
 msgid "media-tooth.smooth"
-msgstr "Liso"
+msgstr "Suave"
 
 #. TRANSLATORS: Stipple
 msgid "media-tooth.stipple"
@@ -9792,11 +9780,11 @@ msgstr "Áspero"
 
 #. TRANSLATORS: Vellum
 msgid "media-tooth.vellum"
-msgstr "Veludo"
+msgstr "Pergaminho"
 
 #. TRANSLATORS: Media Top Margin
 msgid "media-top-margin"
-msgstr "Margem Superior da Média"
+msgstr "Margem de Topo da Média"
 
 #. TRANSLATORS: Media Type
 msgid "media-type"
@@ -9856,7 +9844,7 @@ msgstr "Papel Fosco para Uso Diário"
 
 #. TRANSLATORS: Extra Heavyweight Paper
 msgid "media-type.com.hp.extra-heavy"
-msgstr "Papel Extrapesado"
+msgstr "Papel Extra Pesado"
 
 #. TRANSLATORS: Intermediate Paper
 msgid "media-type.com.hp.intermediate"
@@ -9876,7 +9864,7 @@ msgstr "Papel de Fotografia Premium"
 
 #. TRANSLATORS: Premium Matte Presentation Paper
 msgid "media-type.com.hp.premium-presentation-matte"
-msgstr "Papel Fosco e Pesado de Apresentação"
+msgstr "Papel Fosco de Apresentação Premium"
 
 #. TRANSLATORS: Continuous
 msgid "media-type.continuous"
@@ -9896,27 +9884,27 @@ msgstr "Papelão Ondulado"
 
 #. TRANSLATORS: Optical Disc
 msgid "media-type.disc"
-msgstr "Disco Ótico"
+msgstr "Disco Óptico"
 
 #. TRANSLATORS: Glossy Optical Disc
 msgid "media-type.disc-glossy"
-msgstr "Disco Ótico Brilhante"
+msgstr "Disco Óptico Brilhante"
 
 #. TRANSLATORS: High Gloss Optical Disc
 msgid "media-type.disc-high-gloss"
-msgstr "Disco Ótico Muito Brilhante"
+msgstr "Disco Óptico Muito Brilhante"
 
 #. TRANSLATORS: Matte Optical Disc
 msgid "media-type.disc-matte"
-msgstr "Disco Ótico Fosco"
+msgstr "Disco Óptico Fosco"
 
 #. TRANSLATORS: Satin Optical Disc
 msgid "media-type.disc-satin"
-msgstr "Disco Ótico de Acetinado"
+msgstr "Disco Óptico Acetinado"
 
 #. TRANSLATORS: Semi-Gloss Optical Disc
 msgid "media-type.disc-semi-gloss"
-msgstr "Disco Ótico Semibrilhante"
+msgstr "Disco Óptico Semi-brilhante"
 
 #. TRANSLATORS: Double Wall
 msgid "media-type.double-wall"
@@ -9932,7 +9920,7 @@ msgstr "DVD"
 
 #. TRANSLATORS: Embossing Foil
 msgid "media-type.embossing-foil"
-msgstr "Folha de Estampagem"
+msgstr "Folha de Gravação em Relevo"
 
 #. TRANSLATORS: End Board
 msgid "media-type.end-board"
@@ -9944,7 +9932,7 @@ msgstr "Envelope"
 
 #. TRANSLATORS: Archival Envelope
 msgid "media-type.envelope-archival"
-msgstr "Envelope de Arquivamento"
+msgstr "Envelope de Arquivo"
 
 #. TRANSLATORS: Bond Envelope
 msgid "media-type.envelope-bond"
@@ -9964,19 +9952,19 @@ msgstr "Envelope Fino"
 
 #. TRANSLATORS: Heavyweight Envelope
 msgid "media-type.envelope-heavyweight"
-msgstr "Envelope Grosso"
+msgstr "Envelope Pesado"
 
 #. TRANSLATORS: Inkjet Envelope
 msgid "media-type.envelope-inkjet"
-msgstr "Envelope para Impressora a Jato de Tinta"
+msgstr "Envelope para Jacto de Tinta"
 
 #. TRANSLATORS: Lightweight Envelope
 msgid "media-type.envelope-lightweight"
-msgstr "Envelope Fino"
+msgstr "Envelope Leve"
 
 #. TRANSLATORS: Plain Envelope
 msgid "media-type.envelope-plain"
-msgstr "Envelope em Branco"
+msgstr "Envelope Simples"
 
 #. TRANSLATORS: Preprinted Envelope
 msgid "media-type.envelope-preprinted"
@@ -9992,7 +9980,7 @@ msgstr "Tecido"
 
 #. TRANSLATORS: Archival Fabric
 msgid "media-type.fabric-archival"
-msgstr "Arquivo de Tecido"
+msgstr "Tecido de Arquivo"
 
 #. TRANSLATORS: Glossy Fabric
 msgid "media-type.fabric-glossy"
@@ -10008,7 +9996,7 @@ msgstr "Tecido Fosco"
 
 #. TRANSLATORS: Semi-Gloss Fabric
 msgid "media-type.fabric-semi-gloss"
-msgstr "Tecido Semibrilhante"
+msgstr "Tecido Semi-brilhante"
 
 #. TRANSLATORS: Waterproof Fabric
 msgid "media-type.fabric-waterproof"
@@ -10024,7 +10012,7 @@ msgstr "Base Flexográfica"
 
 #. TRANSLATORS: Flexo Photo Polymer
 msgid "media-type.flexo-photo-polymer"
-msgstr "Fotopolímero Flexográfico"
+msgstr "Foto Polímero Flexográfico"
 
 #. TRANSLATORS: Flute
 msgid "media-type.flute"
@@ -10032,11 +10020,11 @@ msgstr "Flauta"
 
 #. TRANSLATORS: Foil
 msgid "media-type.foil"
-msgstr "Folha de Alumínio"
+msgstr "Folha Metálica"
 
 #. TRANSLATORS: Full Cut Tabs
 msgid "media-type.full-cut-tabs"
-msgstr "Guias de Corte Completo"
+msgstr "Abas de Corte Completo"
 
 #. TRANSLATORS: Glass
 msgid "media-type.glass"
@@ -10060,7 +10048,7 @@ msgstr "Vidro Texturizado"
 
 #. TRANSLATORS: Gravure Cylinder
 msgid "media-type.gravure-cylinder"
-msgstr "Cilindro de Rotogravura"
+msgstr "Cilindro de Gravura"
 
 #. TRANSLATORS: Image Setter Paper
 msgid "media-type.image-setter-paper"
@@ -10124,7 +10112,7 @@ msgstr "Etiquetas de Segurança"
 
 #. TRANSLATORS: Semi-Gloss Labels
 msgid "media-type.labels-semi-gloss"
-msgstr "Etiquetas Semibrilhantes"
+msgstr "Etiquetas Semi-brilhantes"
 
 #. TRANSLATORS: Laminating Foil
 msgid "media-type.laminating-foil"
@@ -10152,11 +10140,11 @@ msgstr "Metal Fosco"
 
 #. TRANSLATORS: Metal Satin
 msgid "media-type.metal-satin"
-msgstr "Metal de Acetinado"
+msgstr "Metal Acetinado"
 
 #. TRANSLATORS: Metal Semi Gloss
 msgid "media-type.metal-semi-gloss"
-msgstr "Metal Semibrilhante"
+msgstr "Metal Semi-brilhante"
 
 #. TRANSLATORS: Mounting Tape
 msgid "media-type.mounting-tape"
@@ -10204,11 +10192,11 @@ msgstr "Papel Fotográfico Fosco"
 
 #. TRANSLATORS: Satin Photo Paper
 msgid "media-type.photographic-satin"
-msgstr "Papel Fotográfico de Acetinado"
+msgstr "Papel Fotográfico Acetinado"
 
 #. TRANSLATORS: Semi-Gloss Photo Paper
 msgid "media-type.photographic-semi-gloss"
-msgstr "Papel Fotográfico Semibrilhante"
+msgstr "Papel Fotográfico Semi-brilhante"
 
 #. TRANSLATORS: Plastic
 msgid "media-type.plastic"
@@ -10236,11 +10224,11 @@ msgstr "Plástico Fosco"
 
 #. TRANSLATORS: Plastic Satin
 msgid "media-type.plastic-satin"
-msgstr "Plástico de Acetinado"
+msgstr "Plástico Acetinado"
 
 #. TRANSLATORS: Plastic Semi Gloss
 msgid "media-type.plastic-semi-gloss"
-msgstr "Plástico Semibrilhante"
+msgstr "Plástico Semi-brilhante"
 
 #. TRANSLATORS: Plate
 msgid "media-type.plate"
@@ -10252,7 +10240,7 @@ msgstr "Poliéster"
 
 #. TRANSLATORS: Pre Cut Tabs
 msgid "media-type.pre-cut-tabs"
-msgstr "Guias Pré-Cortadas"
+msgstr "Abas Pré-Cortadas"
 
 #. TRANSLATORS: Roll
 msgid "media-type.roll"
@@ -10264,15 +10252,15 @@ msgstr "Ecrã"
 
 #. TRANSLATORS: Screen Paged
 msgid "media-type.screen-paged"
-msgstr "Ecrã paginado"
+msgstr "Ecrã Paginado"
 
 #. TRANSLATORS: Self Adhesive
 msgid "media-type.self-adhesive"
-msgstr "Autoadesivo"
+msgstr "Auto-Adesivo"
 
 #. TRANSLATORS: Self Adhesive Film
 msgid "media-type.self-adhesive-film"
-msgstr "Película Autoadesiva"
+msgstr "Película Auto-Adesiva"
 
 #. TRANSLATORS: Shrink Foil
 msgid "media-type.shrink-foil"
@@ -10288,7 +10276,7 @@ msgstr "Camada Única"
 
 #. TRANSLATORS: Sleeve
 msgid "media-type.sleeve"
-msgstr "Capa"
+msgstr "Manga"
 
 #. TRANSLATORS: Stationery
 msgid "media-type.stationery"
@@ -10308,15 +10296,15 @@ msgstr "Papel de Algodão"
 
 #. TRANSLATORS: Vellum Paper
 msgid "media-type.stationery-fine"
-msgstr "Papel com Superfície Lisa e Translúcida"
+msgstr "Papel Vegetal"
 
 #. TRANSLATORS: Heavyweight Paper
 msgid "media-type.stationery-heavyweight"
-msgstr "Papel Grosso"
+msgstr "Papel Pesado"
 
 #. TRANSLATORS: Stationery Heavyweight Coated
 msgid "media-type.stationery-heavyweight-coated"
-msgstr "Papel com Revestimento Grosso"
+msgstr "Papel com Revestimento Pesado"
 
 #. TRANSLATORS: Stationery Inkjet Paper
 msgid "media-type.stationery-inkjet"
@@ -10340,7 +10328,7 @@ msgstr "Papel Perfurado"
 
 #. TRANSLATORS: Tab Stock
 msgid "media-type.tab-stock"
-msgstr "Papel Espesso para Criar Guias ou Divisórias"
+msgstr "Stock de Separadores"
 
 #. TRANSLATORS: Tractor
 msgid "media-type.tractor"
@@ -10360,7 +10348,7 @@ msgstr "Parede Tripla"
 
 #. TRANSLATORS: Wet Film
 msgid "media-type.wet-film"
-msgstr "Filme Úmido"
+msgstr "Filme Húmido"
 
 #. TRANSLATORS: Media Weight (grams per m²)
 msgid "media-weight-metric"
@@ -10372,7 +10360,7 @@ msgstr "28 x 40″"
 
 #. TRANSLATORS: A4 or US Letter
 msgid "media.choice_iso_a4_210x297mm_na_letter_8.5x11in"
-msgstr "A4 ou Legal dos EUA"
+msgstr "A4 ou Carta dos EUA"
 
 #. TRANSLATORS: 2a0
 msgid "media.iso_2a0_1189x1682mm"
@@ -10420,7 +10408,7 @@ msgstr "A2x5"
 
 #. TRANSLATORS: A3 (Extra)
 msgid "media.iso_a3-extra_322x445mm"
-msgstr "A3 (Alta Qualidade)"
+msgstr "A3 (Extra)"
 
 #. TRANSLATORS: A3
 msgid "media.iso_a3_297x420mm"
@@ -10448,11 +10436,11 @@ msgstr "A3x7"
 
 #. TRANSLATORS: A4 (Extra)
 msgid "media.iso_a4-extra_235.5x322.3mm"
-msgstr "A4 (Alta Qualidade)"
+msgstr "A4 (Extra)"
 
 #. TRANSLATORS: A4 (Tab)
 msgid "media.iso_a4-tab_225x297mm"
-msgstr "A4 (Tab)"
+msgstr "A4 (Separador)"
 
 #. TRANSLATORS: A4
 msgid "media.iso_a4_210x297mm"
@@ -10488,7 +10476,7 @@ msgstr "A4x9"
 
 #. TRANSLATORS: A5 (Extra)
 msgid "media.iso_a5-extra_174x235mm"
-msgstr "A5 (Alta Qualidade)"
+msgstr "A5 (Extra)"
 
 #. TRANSLATORS: A5
 msgid "media.iso_a5_148x210mm"
@@ -10536,7 +10524,7 @@ msgstr "B4"
 
 #. TRANSLATORS: B5 (Extra)
 msgid "media.iso_b5-extra_201x276mm"
-msgstr "B5 (Alta Qualidade)"
+msgstr "B5 (Extra)"
 
 #. TRANSLATORS: Envelope B5
 msgid "media.iso_b5_176x250mm"
@@ -10732,7 +10720,7 @@ msgstr "Envelope Chou 4"
 
 #. TRANSLATORS: Hagaki
 msgid "media.jpn_hagaki_100x148mm"
-msgstr "Cartão Postal"
+msgstr "Hagaki"
 
 #. TRANSLATORS: Envelope Kahu
 msgid "media.jpn_kahu_240x322.1mm"
@@ -10772,7 +10760,7 @@ msgstr "Cartão Postal de Resposta Oufuku"
 
 #. TRANSLATORS: Envelope You 4
 msgid "media.jpn_you4_105x235mm"
-msgstr "Envelope para Você 4"
+msgstr "Envelope You 4"
 
 #. TRANSLATORS: 10 x 11″
 msgid "media.na_10x11_10x11in"
@@ -10896,7 +10884,7 @@ msgstr "Papelão Ondulado dos EUA"
 
 #. TRANSLATORS: Foolscap
 msgid "media.na_foolscap_8.5x13in"
-msgstr "Papel Almaço"
+msgstr "Foolscap"
 
 #. TRANSLATORS: 8 x 13″
 msgid "media.na_govt-legal_8x13in"
@@ -10932,19 +10920,19 @@ msgstr "11 x 17″"
 
 #. TRANSLATORS: US Legal (Extra)
 msgid "media.na_legal-extra_9.5x15in"
-msgstr "Ofício dos EUA (Alta Qualidade)"
+msgstr "Oficial dos EUA (Extra)"
 
 #. TRANSLATORS: US Legal
 msgid "media.na_legal_8.5x14in"
-msgstr "Ofício dos EUA"
+msgstr "Oficial dos EUA"
 
 #. TRANSLATORS: US Letter (Extra)
 msgid "media.na_letter-extra_9.5x12in"
-msgstr "Carta dos EUA (Alta Qualidade)"
+msgstr "Carta dos EUA (Extra)"
 
 #. TRANSLATORS: US Letter (Plus)
 msgid "media.na_letter-plus_8.5x12.69in"
-msgstr "Carta dos EUA (Maior que o Padrão)"
+msgstr "Carta dos EUA (Mais)"
 
 #. TRANSLATORS: US Letter
 msgid "media.na_letter_8.5x11in"
@@ -11072,11 +11060,11 @@ msgstr "89 x 119mm"
 
 #. TRANSLATORS: Folio
 msgid "media.om_folio-sp_215x315mm"
-msgstr "Envelope de Saco"
+msgstr "Fólio"
 
 #. TRANSLATORS: Folio (Special)
 msgid "media.om_folio_210x330mm"
-msgstr "Envelope de Saco (Especial)"
+msgstr "Fólio (Especial)"
 
 #. TRANSLATORS: Envelope Invitation
 msgid "media.om_invite_220x220mm"
@@ -11176,7 +11164,7 @@ msgstr "membros da classe %s:"
 
 #. TRANSLATORS: Multiple Document Handling
 msgid "multiple-document-handling"
-msgstr "Tratamento de Vários Documentos"
+msgstr "Manuseamento de Vários Documentos"
 
 #. TRANSLATORS: Separate Documents Collated Copies
 msgid "multiple-document-handling.separate-documents-collated-copies"
@@ -11192,15 +11180,15 @@ msgstr "Documento Único"
 
 #. TRANSLATORS: Single Document New Sheet
 msgid "multiple-document-handling.single-document-new-sheet"
-msgstr "Documento Único com uma Nova Folha"
+msgstr "Nova Folha de Documento Único"
 
 #. TRANSLATORS: Multiple Object Handling
 msgid "multiple-object-handling"
-msgstr "Tratamento de Vários Objetos"
+msgstr "Manuseamento de Vários Objetos"
 
 #. TRANSLATORS: Multiple Object Handling Actual
 msgid "multiple-object-handling-actual"
-msgstr "Tratamento Atual de Vários Objetos"
+msgstr "Manuseamento Atual de Vários Objetos"
 
 #. TRANSLATORS: Automatic
 msgid "multiple-object-handling.auto"
@@ -11224,7 +11212,7 @@ msgstr "Um de Cada Vez"
 
 #. TRANSLATORS: On Timeout
 msgid "multiple-operation-time-out-action"
-msgstr "No limite do tempo"
+msgstr "No Tempo Limite"
 
 #. TRANSLATORS: Abort Job
 msgid "multiple-operation-time-out-action.abort-job"
@@ -11239,10 +11227,10 @@ msgid "multiple-operation-time-out-action.process-job"
 msgstr "Processar o Trabalho"
 
 msgid "no entries"
-msgstr "sem registos"
+msgstr "sem entradas"
 
 msgid "no system default destination"
-msgstr "nenhum destino padrão de sistema"
+msgstr "nenhum destino predefinido de sistema"
 
 #. TRANSLATORS: Noise Removal
 msgid "noise-removal"
@@ -11250,22 +11238,22 @@ msgstr "Remoção de Ruído"
 
 #. TRANSLATORS: Notify Attributes
 msgid "notify-attributes"
-msgstr "Notificar os Atributos"
+msgstr "Atributos de Notificação"
 
 #. TRANSLATORS: Notify Charset
 msgid "notify-charset"
-msgstr "Notificar o Conjunto de Caracteres"
+msgstr "Conjunto de Caracteres de Notificação"
 
 #. TRANSLATORS: Notify Events
 msgid "notify-events"
-msgstr "Notificar os Eventos"
+msgstr "Eventos de Notificação"
 
 msgid "notify-events not specified."
 msgstr "O notify-events não foi especificado."
 
 #. TRANSLATORS: Document Completed
 msgid "notify-events.document-completed"
-msgstr "O documento foi concluído"
+msgstr "Documento Concluído"
 
 #. TRANSLATORS: Document Config Changed
 msgid "notify-events.document-config-changed"
@@ -11277,7 +11265,7 @@ msgstr "O Documento Foi Criado"
 
 #. TRANSLATORS: Document Fetchable
 msgid "notify-events.document-fetchable"
-msgstr "Documento Localizável"
+msgstr "Documento Obtível"
 
 #. TRANSLATORS: Document State Changed
 msgid "notify-events.document-state-changed"
@@ -11301,7 +11289,7 @@ msgstr "O Trabalho Foi Criado"
 
 #. TRANSLATORS: Job Fetchable
 msgid "notify-events.job-fetchable"
-msgstr "O Trabalho Pode Ser Localizado"
+msgstr "O Trabalho Pode Ser Obtido"
 
 #. TRANSLATORS: Job Progress
 msgid "notify-events.job-progress"
@@ -11349,7 +11337,7 @@ msgstr "O Estado da Impressora Alterado"
 
 #. TRANSLATORS: Printer Stopped
 msgid "notify-events.printer-stopped"
-msgstr "A Impressora Está Paragem"
+msgstr "A Impressora Está Parada"
 
 #. TRANSLATORS: Notify Get Interval
 msgid "notify-get-interval"
@@ -11373,12 +11361,11 @@ msgstr "Notificar o Destinatário"
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" is already used."
-msgstr "O URI \"%s\" do notify-recipient-uri já é utilizado."
+msgstr "O URI \"%s\" do notify-recipient-uri já está utilizado."
 
 #, c-format
 msgid "notify-recipient-uri URI \"%s\" uses unknown scheme."
-msgstr ""
-"O URI \"%s\" do notify-recipient-uri utiliza um esquema que não é conhecido."
+msgstr "O URI \"%s\" do notify-recipient-uri utiliza um esquema desconhecido."
 
 #. TRANSLATORS: Notify Sequence Numbers
 msgid "notify-sequence-numbers"
@@ -11386,11 +11373,11 @@ msgstr "Notificar os Números da Sequência"
 
 #. TRANSLATORS: Notify Subscription Ids
 msgid "notify-subscription-ids"
-msgstr "Notificar os IDs da Assinatura"
+msgstr "Notificar os IDs de Subscrição"
 
 #. TRANSLATORS: Notify Time Interval
 msgid "notify-time-interval"
-msgstr "Intervalo do Tempo de Notificação"
+msgstr "Notificar Intervalo do Tempo"
 
 #. TRANSLATORS: Notify User Data
 msgid "notify-user-data"
@@ -11410,11 +11397,11 @@ msgstr "Aumentar o Número"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "number-up-layout"
-msgstr "Aumentar o Número do Leiaute"
+msgstr "Aumentar o Número da Disposição"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
 msgid "number-up-layout.btlr"
-msgstr "Inferior ou Superior, Esquerda ou Direita"
+msgstr "Fundo-Topo, Esquerda-Direita"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
 msgid "number-up-layout.btrl"
@@ -11430,23 +11417,23 @@ msgstr "Esquerda-Direita, Topo-Fundo"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
 msgid "number-up-layout.rlbt"
-msgstr "Direita ou Esquerda, Inferior ou Superior"
+msgstr "Direita-Esquerda, Fundo-Topo"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
 msgid "number-up-layout.rltb"
-msgstr "Direita ou Esquerda, Superior ou Inferior"
+msgstr "Direita-Esquerda, Topo-Fundo"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
 msgid "number-up-layout.tblr"
-msgstr "Superior ou Inferior, Esquerda ou Direita"
+msgstr "Topo-Fundo, Esquerda-Direita"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
 msgid "number-up-layout.tbrl"
-msgstr "Superior ou Inferior, Direita ou Esquerda"
+msgstr "Topo-Fundo, Direita-Esquerda"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
-msgstr "Deslocamento do Objeto"
+msgstr "Desvio do Objeto"
 
 #. TRANSLATORS: Object Size
 msgid "object-size"
@@ -11482,7 +11469,7 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Scanned Image Options
 msgid "output-attributes"
-msgstr "Opções da Imagem Digitalizada"
+msgstr "Opções de Imagem Digitalizada"
 
 #. TRANSLATORS: Output Tray
 msgid "output-bin"
@@ -11494,7 +11481,7 @@ msgstr "Automático"
 
 #. TRANSLATORS: Bottom
 msgid "output-bin.bottom"
-msgstr "Inferior"
+msgstr "Fundo"
 
 #. TRANSLATORS: Center
 msgid "output-bin.center"
@@ -11618,7 +11605,7 @@ msgstr "Empilhador 9"
 
 #. TRANSLATORS: Top
 msgid "output-bin.top"
-msgstr "Superior"
+msgstr "Topo"
 
 #. TRANSLATORS: Tray 1
 msgid "output-bin.tray-1"
@@ -11662,7 +11649,7 @@ msgstr "Bandeja 9"
 
 #. TRANSLATORS: Scanned Image Quality
 msgid "output-compression-quality-factor"
-msgstr "Qualidade da Imagem Digitalizada"
+msgstr "Qualidade de Imagem Digitalizada"
 
 #. TRANSLATORS: Page Border
 msgid "page-border"
@@ -11694,27 +11681,27 @@ msgstr "Entrega da Página"
 
 #. TRANSLATORS: Reverse Order Face-down
 msgid "page-delivery.reverse-order-face-down"
-msgstr "A Ordem Inversa Virado para Baixo"
+msgstr "Ordem Inversa Virado para Baixo"
 
 #. TRANSLATORS: Reverse Order Face-up
 msgid "page-delivery.reverse-order-face-up"
-msgstr "A Ordem Inversa Virado para Cima"
+msgstr "Ordem Inversa Virado para Cima"
 
 #. TRANSLATORS: Same Order Face-down
 msgid "page-delivery.same-order-face-down"
-msgstr "A Mesma Ordem Virado para Baixo"
+msgstr "Mesma Ordem Virado para Baixo"
 
 #. TRANSLATORS: Same Order Face-up
 msgid "page-delivery.same-order-face-up"
-msgstr "A Mesma Ordem Virado para Cima"
+msgstr "Mesma Ordem Virado para Cima"
 
 #. TRANSLATORS: System Specified
 msgid "page-delivery.system-specified"
-msgstr "Sistema Especificado"
+msgstr "Especificado do Sistema"
 
 #. TRANSLATORS: Page Order Received
 msgid "page-order-received"
-msgstr "A Ordem da Página Foi Recebida"
+msgstr "Ordem da Página Recebida"
 
 #. TRANSLATORS: 1 To N
 msgid "page-order-received.1-to-n-order"
@@ -11726,7 +11713,7 @@ msgstr "N para 1"
 
 #. TRANSLATORS: Page Ranges
 msgid "page-ranges"
-msgstr "Intervalos das Páginas"
+msgstr "Gamas das Páginas"
 
 #. TRANSLATORS: Page Set
 msgid "page-set"
@@ -11754,7 +11741,7 @@ msgstr "Páginas por Subconjunto"
 
 #. TRANSLATORS: Pclm Raster Back Side
 msgid "pclm-raster-back-side"
-msgstr "Parte de Trás do Raster PCLM"
+msgstr "Parte de Trás do Rastreio PCLM"
 
 #. TRANSLATORS: Flipped
 msgid "pclm-raster-back-side.flipped"
@@ -11766,7 +11753,7 @@ msgstr "Normal"
 
 #. TRANSLATORS: Rotated
 msgid "pclm-raster-back-side.rotated"
-msgstr "Rotacionado"
+msgstr "Rodado"
 
 #. TRANSLATORS: Pclm Source Resolution
 msgid "pclm-source-resolution"
@@ -11797,15 +11784,15 @@ msgstr "Posição da Imagem"
 
 #. TRANSLATORS: Bottom-Center
 msgid "position.bottom"
-msgstr "No Canto Inferior e no Centro"
+msgstr "Fundo-Centro"
 
 #. TRANSLATORS: Bottom-Left
 msgid "position.bottom-left"
-msgstr "No Canto Inferior Esquerdo"
+msgstr "Fundo-Esquerda"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr "No Canto Inferior Direito"
+msgstr "Fundo-Direita"
 
 #. TRANSLATORS: Center
 msgid "position.center"
@@ -11813,23 +11800,23 @@ msgstr "Centro"
 
 #. TRANSLATORS: Left-Center
 msgid "position.left"
-msgstr "No Canto Esquerdo e no Centro"
+msgstr "Centro-Esquerda"
 
 #. TRANSLATORS: Right-Center
 msgid "position.right"
-msgstr "No Canto Direito e no Centro"
+msgstr "Centro-Direita"
 
 #. TRANSLATORS: Top-Center
 msgid "position.top"
-msgstr "No Canto Superior e no Centro"
+msgstr "Topo-Centro"
 
 #. TRANSLATORS: Top-Left
 msgid "position.top-left"
-msgstr "No Canto Superior Esquerdo"
+msgstr "Topo-Esquerda"
 
 #. TRANSLATORS: Top-Right
 msgid "position.top-right"
-msgstr "No Canto Superior Direito"
+msgstr "Topo-Direita"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
