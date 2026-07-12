@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-12 15:01+0000\n"
+"PO-Revision-Date: 2026-07-13 16:03+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.7.1.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(todos)"
@@ -11820,490 +11820,437 @@ msgstr "Topo-Direita"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr "Cadeia de Caracteres da Pós-Discagem"
+msgstr "Sequência de Caracteres da Pós-Discagem"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
-msgstr "A adicionar o diretório de inclusão \"%s\" para o ppdc."
+msgstr "ppdc: A adicionar o diretório de inclusão \"%s\"."
 
 #, c-format
 msgid "ppdc: Adding/updating UI text from %s."
-msgstr ""
-"A adicionar ou atualizar o texto da interface do utilizador de %s para o "
-"ppdc."
+msgstr "ppdc: A adicionar/atualizar o texto da UI a partir de %s."
 
 #, c-format
 msgid "ppdc: Bad boolean value (%s) on line %d of %s."
-msgstr "O valor booleano (%s) não é válido na linha %d de %s para o ppdc."
+msgstr "ppdc: Valor booleano (%s) errado linha %d de %s."
 
 #, c-format
 msgid "ppdc: Bad font attribute: %s"
-msgstr "O atributo %s da fonte não é válido para o ppdc"
+msgstr "ppdc: Atributo do tipo de letra errado: %s"
 
 #, c-format
 msgid "ppdc: Bad resolution name \"%s\" on line %d of %s."
-msgstr "O nome da resolução \"%s\" não é válido na linha %d de %s para o ppdc."
+msgstr "ppdc: Nome de resolução errado \"%s\" linha %d de %s."
 
 #, c-format
 msgid "ppdc: Bad status keyword %s on line %d of %s."
-msgstr ""
-"A palavra-chave do estado %s não é válida na linha %d de %s para o ppdc."
+msgstr "ppdc: Palavra-chave de estado errada %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Bad variable substitution ($%c) on line %d of %s."
-msgstr ""
-"A substituição da variável ($%c) não é válida na linha %d de %s para o ppdc."
+msgstr "ppdc: Substituição de variável errada ($%c) linha %d de %s."
 
 #, c-format
 msgid "ppdc: Choice found on line %d of %s with no Option."
-msgstr ""
-"A escolha foi encontrada na linha %d de %s com nenhuma opção para o ppdc."
+msgstr "ppdc: Escolha encontrada na linha %d de %s sem nenhuma Opção."
 
 #, c-format
 msgid "ppdc: Duplicate #po for locale %s on line %d of %s."
-msgstr "Duplicar o #po para a localidade %s na linha %d de %s para o ppdc."
+msgstr "ppdc: #po duplicado para o local %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected a filter definition on line %d of %s."
-msgstr "Era esperado a definição de um filtro na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperada uma definição de filtro na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected a program name on line %d of %s."
-msgstr "Era esperado o nome de um programa na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado um nome de programa na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected boolean value on line %d of %s."
-msgstr "Era esperado um valor booleano na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado valor booleano na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
 msgstr ""
-"Era esperado o conjunto de caracteres após o \"Font\" na linha %d de %s para "
-"o ppdc."
+"ppdc: Esperado o conjunto de caracteres após \"Font\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
-msgstr "Era esperado o código da escolha na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado código de escolha na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected choice name/text on line %d of %s."
-msgstr ""
-"Era esperado o nome ou o texto da escolha na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado o nome/texto da escolha na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected color order for ColorModel on line %d of %s."
-msgstr ""
-"Era esperado a ordem de cores para o ColorModel na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Esperada a ordem de cores para ColorModel na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected colorspace for ColorModel on line %d of %s."
-msgstr ""
-"Era esperado o espaço da cores para o ColorModel na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Esperado o espaço de cor para ColorModel na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected compression for ColorModel on line %d of %s."
-msgstr ""
-"Era esperado a compactação para o ColorModel na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperada compressão ColorModel na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected constraints string for UIConstraints on line %d of %s."
 msgstr ""
-"Era esperado uma cadeia de caracteres das restrições para o UIConstraints na "
-"linha %d de %s para o ppdc."
+"ppdc: Esperada sequência de caracteres de restrições para UIConstraints na "
+"linha %d de %s."
 
 #, c-format
 msgid ""
 "ppdc: Expected driver type keyword following DriverType on line %d of %s."
 msgstr ""
-"Era esperado a palavra-chave do tipo do controlador após o DriverType na "
-"linha %d de %s para o ppdc."
+"ppdc: Esperada palavra-chave do tipo do controlador após DriverType na linha "
+"%d de %s."
 
 #, c-format
 msgid "ppdc: Expected duplex type after Duplex on line %d of %s."
-msgstr ""
-"Era esperado o tipo do duplex (frente e verso) após o \"Duplex\" na linha %d "
-"de %s para o ppdc."
+msgstr "ppdc: Esperado tipo de duplex após \"Duplex\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected encoding after Font on line %d of %s."
-msgstr ""
-"Era esperado a codificação após o \"Font\" na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperada codificação após \"Font\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected filename after #po %s on line %d of %s."
-msgstr ""
-"Era esperado o nome do ficheiro após o #po %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome de ficheiro após #po %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected group name/text on line %d of %s."
-msgstr "Era esperado o texto ou o nome do grupo na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome/texto do grupo na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected include filename on line %d of %s."
-msgstr ""
-"Era esperado o nome do ficheiro a ser incluso na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome de ficheiro a incluir na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected integer on line %d of %s."
-msgstr "Era esperado um número inteiro na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado número inteiro na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected locale after #po on line %d of %s."
-msgstr "Era esperado o \"locale\" após o #po na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado local após #po na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after %s on line %d of %s."
-msgstr "Era esperado o nome após o %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after FileName on line %d of %s."
-msgstr "Era esperado o nome após o FileName na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após FileName na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after Font on line %d of %s."
-msgstr "Era esperado o nome após o Font na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após Font na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after Manufacturer on line %d of %s."
-msgstr "Era esperado o nome após o Manufacturer na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após Manufacturer na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after MediaSize on line %d of %s."
-msgstr "Era esperado o nome após o MediaSize na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após MediaSize na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after ModelName on line %d of %s."
-msgstr "Era esperado o nome após o ModelName na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após ModelName na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name after PCFileName on line %d of %s."
-msgstr "Era esperado o nome após o PCFileName na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome após PCFileName na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after %s on line %d of %s."
-msgstr ""
-"Era esperado o nome ou o texto após o %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome/texto após %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after Installable on line %d of %s."
-msgstr ""
-"Era esperado o nome ou o texto após o Installable na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Esperado nome/texto após Installable na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name/text after Resolution on line %d of %s."
-msgstr ""
-"Era esperado o nome ou o texto após o Resolution na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Esperado nome/texto após Resolution na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected name/text combination for ColorModel on line %d of %s."
 msgstr ""
-"Era esperado a combinação do texto ou do nome para o ColorModel na linha %d "
-"de %s para o ppdc."
+"ppdc: Esperado combinação de nome/texto para ColorModel na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected option name/text on line %d of %s."
-msgstr "Era esperado o texto ou o nome da opção na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado nome/texto da opção na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected option section on line %d of %s."
-msgstr "Era esperada a opção da secção na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperada secção de opção na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected option type on line %d of %s."
-msgstr "Era esperado o tipo da opção na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado tipo de opção na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
-msgstr ""
-"Era esperado o campo de substituição após o Resolution na linha %d de %s "
-"para o ppdc."
+msgstr "ppdc: Esperado campo de sobreposição após Resolution na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
-msgstr ""
-"Era esperado uma cadeia de caracteres entre aspas na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Esperada sequência de caracteres citada na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected real number on line %d of %s."
-msgstr "Era esperado um número real na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado número real na linha %d de %s."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following ColorProfile on line %d of %s."
 msgstr ""
-"Era esperada a resolução ou o tipo da média após o ColorProfile na linha %d "
-"de %s para o ppdc."
+"ppdc: Esperado resolução/tipo-de-média a seguir a ColorProfile na linha %d "
+"de %s."
 
 #, c-format
 msgid ""
 "ppdc: Expected resolution/mediatype following SimpleColorProfile on line %d "
 "of %s."
 msgstr ""
-"Era esperada a resolução ou o tipo da média após SimpleColorProfile na linha "
-"%d de %s para o ppdc."
+"ppdc: Esperado resolução/tipo-de-média a seguir a SimpleColorProfile na "
+"linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected selector after %s on line %d of %s."
-msgstr "Era esperado o seletor após o %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado seletor após %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected status after Font on line %d of %s."
-msgstr "Era esperado o estado após o Font na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado estado após Font na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected string after Copyright on line %d of %s."
 msgstr ""
-"Era esperado uma cadeia de caracteres após o Copyright (direitos autorais) "
-"na linha %d de %s do ppdc."
+"ppdc: Esperada sequência de caracteres após Copyright na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected string after Version on line %d of %s."
-msgstr ""
-"Era esperado uma cadeia de caracteres após o Version na linha %d de %s do "
-"ppdc."
+msgstr "ppdc: Esperada sequência de caracteres após Version na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected two option names on line %d of %s."
-msgstr "Era esperado os nomes de duas opções na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperados dois nomes de opção na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected value after %s on line %d of %s."
-msgstr "Era esperado um valor após %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperado valor após %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected version after Font on line %d of %s."
-msgstr "Era esperado a versão após o Font na linha %d de %s para o ppdc."
+msgstr "ppdc: Esperada versão após Font na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid #include/#po filename \"%s\"."
-msgstr "O nome do ficheiro \"%s\" do #include/#po não é válido para o ppdc."
+msgstr "ppdc: Nome de ficheiro #include/#po errado \"%s\"."
 
 #, c-format
 msgid "ppdc: Invalid cost for filter on line %d of %s."
-msgstr ""
-"O cost (custo) para o filtro na linha %d de %s não é válido para o ppdc."
+msgstr "ppdc: Custo inválido para o filtro na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid empty MIME type for filter on line %d of %s."
-msgstr ""
-"O tipo do MIME vazio ou em branco para o filtro na linha %d de %s não é "
-"válido para o ppdc."
+msgstr "ppdc: Tipo de MIME vazio inválido para filtro na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid empty program name for filter on line %d of %s."
-msgstr ""
-"O nome do programa vazio ou em branco na linha %d de %s não é válido para o "
-"ppdc."
+msgstr "ppdc: Nome de programa vazio inválido para filtro na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid option section \"%s\" on line %d of %s."
-msgstr "A opção da secção \"%s\" na linha %d de %s não é válida para o ppdc."
+msgstr "ppdc: Secção de opção inválida \"%s\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Invalid option type \"%s\" on line %d of %s."
-msgstr "A opção do tipo \"%s\" na linha %d de %s não é válida para o ppdc."
+msgstr "ppdc: Tipo de opção inválido \"%s\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Loading driver information file \"%s\"."
-msgstr ""
-"A carregar o ficheiro \"%s\" contendo as informações do controlador do ppdc."
+msgstr "ppdc: A carregar o ficheiro de informações do controlador \"%s\"."
 
 #, c-format
 msgid "ppdc: Loading messages for locale \"%s\"."
-msgstr "A carregar as mensagens para o locale (local) \"%s\" do ppdc."
+msgstr "ppdc: A carregar mensagens para local \"%s\"."
 
 #, c-format
 msgid "ppdc: Loading messages from \"%s\"."
-msgstr "A carregar as mensagens de \"%s\" do ppdc."
+msgstr "ppdc: A carregar mensagens de \"%s\"."
 
 #, c-format
 msgid "ppdc: Missing #endif at end of \"%s\"."
-msgstr "Falta o #endif no final de \"%s\" para o ppdc."
+msgstr "ppdc: Falta o #endif no final de \"%s\"."
 
 #, c-format
 msgid "ppdc: Missing #if on line %d of %s."
-msgstr "Falta o #if na linha %d de %s para o ppdc."
+msgstr "ppdc: Falta o #if na linha %d de %s."
 
 #, c-format
 msgid ""
 "ppdc: Need a msgid line before any translation strings on line %d of %s."
 msgstr ""
-"O ppdc necessita de uma linha do msgid antes de qualquer cadeia de tradução "
+"ppdc: Necessário uma linha msgid antes de quaisquer sequências de tradução "
 "na linha %d de %s."
 
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
-msgstr ""
-"Nenhum catálogo de mensagens foi fornecido para o locale (local) %s para o "
-"ppdc."
+msgstr "ppdc: Nenhum catálogo de mensagens fornecido para o locale %s."
 
 #, c-format
 msgid "ppdc: Option %s defined in two different groups on line %d of %s."
-msgstr ""
-"A opção %s foi definida em dois grupos diferentes na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Opção %s definida em dois grupos diferentes na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
-msgstr ""
-"A opção %s foi redefinida com um tipo diferente na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Opção %s redefinida com um tipo diferente na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
-msgstr ""
-"A restrição da opção tem que conter *name na linha %d de %s para o ppdc."
+msgstr "ppdc: A restrição de opção tem que conter *name na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
-msgstr "Existem muitos #if aninhados na linha %d de %s para o ppdc."
+msgstr "ppdc: Demasiados #if aninhados na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unable to create PPD file \"%s\" - %s."
-msgstr "Incapaz de criar o ficheiro PPD \"%s\" de %s para o ppdc."
+msgstr "ppdc: Incapaz de criar o ficheiro PPD \"%s\" - %s."
 
 #, c-format
 msgid "ppdc: Unable to create output directory %s: %s"
-msgstr "Incapaz de criar o diretório de saída %s de %s para o ppdc"
+msgstr "ppdc: Incapaz de criar o diretório de saída %s: %s"
 
 #, c-format
 msgid "ppdc: Unable to create output pipes: %s"
-msgstr "Incapaz de criar o redirecionamento da saída %s para o ppdc"
+msgstr "ppdc: Incapaz de criar canos de saída: %s"
 
 #, c-format
 msgid "ppdc: Unable to execute cupstestppd: %s"
-msgstr "Incapaz de executar o %s do cupstestppd para o ppdc"
+msgstr "ppdc: Incapaz de executar o cupstestppd: %s"
 
 #, c-format
 msgid "ppdc: Unable to find #po file %s on line %d of %s."
-msgstr "Incapaz de encontrar o ficheiro #po %s na linha %d de %s para o ppdc."
+msgstr "ppdc: Incapaz de encontrar o ficheiro #po %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unable to find include file \"%s\" on line %d of %s."
 msgstr ""
-"Incapaz de encontrar o ficheiro \"%s\" a ser incluído na linha %d de %s para "
-"o ppdc."
+"ppdc: Incapaz de encontrar o ficheiro a incluir \"%s\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unable to find localization for \"%s\" - %s"
-msgstr "Incapaz de encontrar a localização \"%s\" de %s para o ppdc"
+msgstr "ppdc: Incapaz de encontrar a localização para \"%s\" - %s"
 
 #, c-format
 msgid "ppdc: Unable to load localization file \"%s\" - %s"
-msgstr "Incapaz de carregar o ficheiro da localização \"%s\" de %s para o ppdc"
+msgstr "ppdc: Incapaz de carregar o ficheiro de localização \"%s\" - %s"
 
 #, c-format
 msgid "ppdc: Unable to open %s: %s"
-msgstr "Incapaz de abrir o %s de %s para o ppdc"
+msgstr "ppdc: Incapaz de abrir %s: %s"
 
 #, c-format
 msgid "ppdc: Undefined variable (%s) on line %d of %s."
-msgstr "A variável (%s) não foi definida na linha %d de %s para o ppdc."
+msgstr "ppdc: Variável indefinida (%s) na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unexpected text on line %d of %s."
-msgstr "O texto não era esperado na linha %d de %s para o ppdc."
+msgstr "ppdc: Texto inesperado na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unknown driver type %s on line %d of %s."
-msgstr ""
-"O tipo do controlador %s não é conhecido na linha %d de %s para o ppdc."
+msgstr "ppdc: Tipo de controlador desconhecido %s na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unknown duplex type \"%s\" on line %d of %s."
-msgstr ""
-"O tipo do duplex (frente e verso) \"%s\" não é conhecido na linha %d de %s "
-"para o ppdc."
+msgstr "ppdc: Tipo de duplex desconhecido \"%s\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unknown media size \"%s\" on line %d of %s."
-msgstr ""
-"O tamanho da média \"%s\" não é conhecido na linha %d de %s para o ppdc."
+msgstr "ppdc: Tamanho de média desconhecido \"%s\" na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Unknown message catalog format for \"%s\"."
-msgstr ""
-"O formato do catálogo das mensagens \"%s\" não é conhecido para o ppdc."
+msgstr "ppdc: Formato de catálogo de mensagens desconhecido \"%s\"."
 
 #, c-format
 msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
-msgstr ""
-"A chave do portador de acesso \"%s\" não é conhecida na linha %d de %s do "
-"ppdc."
+msgstr "ppdc: Testemunho desconhecido \"%s\" na linha %d de %s."
 
 #, c-format
 msgid ""
 "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
 msgstr ""
-"O caractere final no número real \"%s\" não é conhecido na linha %d de %s "
-"para o ppdc."
+"ppdc: Caracteres finais desconhecidos em número real \"%s\" na linha %d de "
+"%s."
 
 #, c-format
 msgid "ppdc: Unterminated string starting with %c on line %d of %s."
-msgstr ""
-"A cadeia %c que foi iniciada não foi finalizada na linha %d de %s para o "
-"ppdc."
+msgstr "ppdc: Sequência indeterminada que começa com %c na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Warning - overlapping filename \"%s\"."
-msgstr "Aviso. O nome do ficheiro está sobreposto a \"%s\" para o ppdc."
+msgstr "ppdc: Aviso - nome do ficheiro sobreposto \"%s\"."
 
 #, c-format
 msgid "ppdc: Writing %s."
-msgstr "A gravar %s para o ppdc."
+msgstr "ppdc: A gravar %s."
 
 #, c-format
 msgid "ppdc: Writing PPD files to directory \"%s\"."
-msgstr "A gravar os ficheiros PPD no diretório \"%s\" para o ppdc."
+msgstr "ppdc: A gravar os ficheiros PPD no diretório \"%s\"."
 
 #, c-format
 msgid "ppdmerge: Bad LanguageVersion \"%s\" in %s."
-msgstr "ppdmerge: LanguageVersion incorreto \"%s\" em %s."
+msgstr "ppdmerge: LanguageVersion errado \"%s\" em %s."
 
 #, c-format
 msgid "ppdmerge: Ignoring PPD file %s."
-msgstr "ppdmerge: Ignorando o ficheiro PPD %s."
+msgstr "ppdmerge: A ignorar o ficheiro PPD %s."
 
 #, c-format
 msgid "ppdmerge: Unable to backup %s to %s - %s"
-msgstr "ppdmerge: Incapaz de fazer backup de %s para %s - %s"
+msgstr "ppdmerge: Incapaz de fazer salvaguarda de %s para %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr "Cadeia de caracteres da pós-discagem"
+msgstr "Sequência de caracteres da Pré-discagem"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
-msgstr "Disposição Crescente da Numeração"
+msgstr "Disposição de Número-Acima"
 
 #. TRANSLATORS: Top-bottom, Right-left
 msgid "presentation-direction-number-up.tobottom-toleft"
-msgstr "Superior ou Inferior, Direita ou Esquerda"
+msgstr "Topo-fundo, Direita-esquerda"
 
 #. TRANSLATORS: Top-bottom, Left-right
 msgid "presentation-direction-number-up.tobottom-toright"
-msgstr "Superior ou Inferior, Esquerda ou Direita"
+msgstr "Topo-fundo, Esquerda-direita"
 
 #. TRANSLATORS: Right-left, Top-bottom
 msgid "presentation-direction-number-up.toleft-tobottom"
-msgstr "Direita ou Esquerda, Superior ou Inferior"
+msgstr "Direita-esquerda, Topo-fundo"
 
 #. TRANSLATORS: Right-left, Bottom-top
 msgid "presentation-direction-number-up.toleft-totop"
-msgstr "Direita ou Esquerda, Inferior ou Superior"
+msgstr "Direita-esquerda, Fundo-topo"
 
 #. TRANSLATORS: Left-right, Top-bottom
 msgid "presentation-direction-number-up.toright-tobottom"
-msgstr "Esquerda ou Direita , Superior ou Inferior"
+msgstr "Esquerda-direita , Topo-fundo"
 
 #. TRANSLATORS: Left-right, Bottom-top
 msgid "presentation-direction-number-up.toright-totop"
-msgstr "Esquerda ou Direita , Inferior ou Superior"
+msgstr "Esquerda-direita , Fundo-topo"
 
 #. TRANSLATORS: Bottom-top, Right-left
 msgid "presentation-direction-number-up.totop-toleft"
@@ -12311,7 +12258,7 @@ msgstr "Fundo-topo, Direita-esquerda"
 
 #. TRANSLATORS: Bottom-top, Left-right
 msgid "presentation-direction-number-up.totop-toright"
-msgstr "Inferior ou Direita, Esquerda ou Direita"
+msgstr "Fundo-topo, Esquerda-direita"
 
 #. TRANSLATORS: Print Accuracy
 msgid "print-accuracy"
@@ -12323,11 +12270,11 @@ msgstr "Base da Impressão"
 
 #. TRANSLATORS: Print Base Actual
 msgid "print-base-actual"
-msgstr "Base Real da Impressão"
+msgstr "Base Atual da Impressão"
 
 #. TRANSLATORS: Brim
 msgid "print-base.brim"
-msgstr "Borda"
+msgstr "Abas"
 
 #. TRANSLATORS: None
 msgid "print-base.none"
@@ -12343,7 +12290,7 @@ msgstr "Saia"
 
 #. TRANSLATORS: Standard
 msgid "print-base.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #. TRANSLATORS: Print Color Mode
 msgid "print-color-mode"
@@ -12451,7 +12398,7 @@ msgstr "Automático"
 
 #. TRANSLATORS: Perceptual
 msgid "print-rendering-intent.perceptual"
-msgstr "Perceptivo"
+msgstr "Percetivo"
 
 #. TRANSLATORS: Relative
 msgid "print-rendering-intent.relative"
@@ -12507,39 +12454,39 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Standard
 msgid "print-supports.standard"
-msgstr "Padrão"
+msgstr "Normalizado"
 
 #, c-format
 msgid "printer %s disabled since %s -"
-msgstr "A impressora %s está desativada desde %s -"
+msgstr "impressora %s desativada desde %s -"
 
 #, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr "A impressora %s está a reter novos trabalhos.  Está ativada desde %s"
+msgstr "impressora %s a reter novos trabalhos.  ativada desde %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
-msgstr "a impressora %s está em repouso.  ativada desde %s"
+msgstr "impressora %s em repouso.  ativada desde %s"
 
 #, c-format
 msgid "printer %s now printing %s-%d.  enabled since %s"
-msgstr "A impressora %s está a imprimir %s de %d. Está ativada desde %s"
+msgstr "impressora %s a imprimir %s-%d.  ativada desde %s"
 
 #, c-format
 msgid "printer %s/%s disabled since %s -"
-msgstr "A impressora %s/%s está desativada desde %s -"
+msgstr "impressora %s/%s desativada desde %s -"
 
 #, c-format
 msgid "printer %s/%s is idle.  enabled since %s"
-msgstr "A impressora %s/%s está em repouso.  ativada desde %s"
+msgstr "impressora %s/%s em repouso.  ativada desde %s"
 
 #, c-format
 msgid "printer %s/%s now printing %s-%d.  enabled since %s"
-msgstr "A impressora %s/%s está a imprimir %s de %d. Está ativada desde %s"
+msgstr "impressora %s/%s agora a imprimir %s-%d.  ativada desde %s"
 
 #. TRANSLATORS: Printer Kind
 msgid "printer-kind"
-msgstr "Tipo da Impressora"
+msgstr "Tipo de Impressora"
 
 #. TRANSLATORS: Disc
 msgid "printer-kind.disc"
@@ -12591,7 +12538,7 @@ msgstr "Estado da Impressora"
 
 #. TRANSLATORS: Detailed Printer State
 msgid "printer-state-reasons"
-msgstr "Pormenores do Estado da Impressora"
+msgstr "Estado da Impressora Detalhado"
 
 #. TRANSLATORS: Old Alerts Have Been Removed
 msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
@@ -12639,63 +12586,63 @@ msgstr "A Enfaixadora Está Cheia"
 
 #. TRANSLATORS: Bander Interlock Closed
 msgid "printer-state-reasons.bander-interlock-closed"
-msgstr "O Intertravamento da Enfaixadora Está Fechado"
+msgstr "Câmara Interna da Enfaixadora Fechada"
 
 #. TRANSLATORS: Bander Interlock Open
 msgid "printer-state-reasons.bander-interlock-open"
-msgstr "O Intertravamento da Enfaixadora Está Aberto"
+msgstr "Câmara Interna da Enfaixadora Aberta"
 
 #. TRANSLATORS: Bander Jam
 msgid "printer-state-reasons.bander-jam"
-msgstr "Ocorreu um Atolamento na Enfaixadora"
+msgstr "Enfaixadora Encravada"
 
 #. TRANSLATORS: Bander Life Almost Over
 msgid "printer-state-reasons.bander-life-almost-over"
-msgstr "A Enfaixadora Está Quase no Fim da Sua Vida Útil"
+msgstr "Enfaixadora Quase no Fim de Vida"
 
 #. TRANSLATORS: Bander Life Over
 msgid "printer-state-reasons.bander-life-over"
-msgstr "A Enfaixadora Está no Fim da Sua Vida Útil"
+msgstr "Enfaixadora no Fim de Vida"
 
 #. TRANSLATORS: Bander Memory Exhausted
 msgid "printer-state-reasons.bander-memory-exhausted"
-msgstr "A Memória da Enfaixadora Foi Esgotada"
+msgstr "Memória da Enfaixadora Esgotada"
 
 #. TRANSLATORS: Bander Missing
 msgid "printer-state-reasons.bander-missing"
-msgstr "Ocorreu uma Falha na Enfaixadora"
+msgstr "Enfaixadora em Falta"
 
 #. TRANSLATORS: Bander Motor Failure
 msgid "printer-state-reasons.bander-motor-failure"
-msgstr "Ocorreu uma Falha no Motor da Enfaixadora"
+msgstr "Falha no Motor da Enfaixadora"
 
 #. TRANSLATORS: Bander Near Limit
 msgid "printer-state-reasons.bander-near-limit"
-msgstr "A Enfaixadora Está Próximo do Seu Limite"
+msgstr "A Enfaixadora Está Próxima do Seu Limite"
 
 #. TRANSLATORS: Bander Offline
 msgid "printer-state-reasons.bander-offline"
-msgstr "A Enfaixadora Não Está Conectada"
+msgstr "A Enfaixadora Não Está Ligada"
 
 #. TRANSLATORS: Bander Opened
 msgid "printer-state-reasons.bander-opened"
-msgstr "A Enfaixadora Está Aberta"
+msgstr "Enfaixadora Aberta"
 
 #. TRANSLATORS: Bander Over Temperature
 msgid "printer-state-reasons.bander-over-temperature"
-msgstr "A Enfaixadora Atingiu uma Temperatura Excessiva"
+msgstr "Enfaixadora Com Temperatura Excessiva"
 
 #. TRANSLATORS: Bander Power Saver
 msgid "printer-state-reasons.bander-power-saver"
-msgstr "A Enfaixadora Entrou no Modo de Economia de Energia"
+msgstr "Enfaixadora em Poupança de Energia"
 
 #. TRANSLATORS: Bander Recoverable Failure
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr "Ocorreu uma Falha na Enfaixadora que Pode ser Restaurado"
+msgstr "Falha Recuperável da Enfaixadora"
 
 #. TRANSLATORS: Bander Recoverable Storage
 msgid "printer-state-reasons.bander-recoverable-storage"
-msgstr "O Armazenamento da Enfaixadora Pode ser Restaurado"
+msgstr "Armazenamento Recuperável da Enfaixadora"
 
 #. TRANSLATORS: Bander Removed
 msgid "printer-state-reasons.bander-removed"
@@ -12703,40 +12650,39 @@ msgstr "A Enfaixadora Foi Removida"
 
 #. TRANSLATORS: Bander Resource Added
 msgid "printer-state-reasons.bander-resource-added"
-msgstr "A Funcionalidade da Enfaixadora Foi Adicionada"
+msgstr "Funcionalidade da Enfaixadora Adicionada"
 
 #. TRANSLATORS: Bander Resource Removed
 msgid "printer-state-reasons.bander-resource-removed"
-msgstr "A Funcionalidade da Enfaixadora Foi Removida"
+msgstr "Funcionalidade da Enfaixadora Removida"
 
 #. TRANSLATORS: Bander Thermistor Failure
 msgid "printer-state-reasons.bander-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor da Enfaixadora"
+msgstr "Falha no Termístor da Enfaixadora"
 
 #. TRANSLATORS: Bander Timing Failure
 msgid "printer-state-reasons.bander-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador da Enfaixadora"
+msgstr "Falha no Temporizador da Enfaixadora"
 
 #. TRANSLATORS: Bander Turned Off
 msgid "printer-state-reasons.bander-turned-off"
-msgstr "A Enfaixadora Está Desligada"
+msgstr "A Enfaixadora Foi Desligada"
 
 #. TRANSLATORS: Bander Turned On
 msgid "printer-state-reasons.bander-turned-on"
-msgstr "A Enfaixadora Está Ligada"
+msgstr "A Enfaixadora Foi Ligada"
 
 #. TRANSLATORS: Bander Under Temperature
 msgid "printer-state-reasons.bander-under-temperature"
-msgstr "A Enfaixadora Está com a Temperatura Abaixo do Normal"
+msgstr "Enfaixadora com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
 msgid "printer-state-reasons.bander-unrecoverable-failure"
-msgstr "Ocorreu uma Falha na Enfaixadora que Não Pode Ser Restaurado"
+msgstr "Falha Irrecuperável da Enfaixadora"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento da Enfaixadora que Não Pode Ser Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável da Enfaixadora"
 
 #. TRANSLATORS: Bander Warming Up
 msgid "printer-state-reasons.bander-warming-up"
@@ -12784,35 +12730,35 @@ msgstr "O Encadernador Está Cheio"
 
 #. TRANSLATORS: Binder Interlock Closed
 msgid "printer-state-reasons.binder-interlock-closed"
-msgstr "O Intertravamento do Encadernador Está Fechado"
+msgstr "Câmara Interna do Encadernador Está Fechada"
 
 #. TRANSLATORS: Binder Interlock Open
 msgid "printer-state-reasons.binder-interlock-open"
-msgstr "O Intertravamento do Encadernador Está Aberto"
+msgstr "Câmara Interna do Encadernador Está Aberta"
 
 #. TRANSLATORS: Binder Jam
 msgid "printer-state-reasons.binder-jam"
-msgstr "Ocorreu um Atolamento no Encadernador"
+msgstr "Encadernador Encravado"
 
 #. TRANSLATORS: Binder Life Almost Over
 msgid "printer-state-reasons.binder-life-almost-over"
-msgstr "O Encadernador Está Quase no Fim da Sua Vida Útil"
+msgstr "Encadernador Quase no Fim de Vida"
 
 #. TRANSLATORS: Binder Life Over
 msgid "printer-state-reasons.binder-life-over"
-msgstr "O Encadernador Está no Fim da Sua Vida Útil"
+msgstr "Encadernador no Fim de Vida"
 
 #. TRANSLATORS: Binder Memory Exhausted
 msgid "printer-state-reasons.binder-memory-exhausted"
-msgstr "A Memória do Encadernador Foi Esgotada"
+msgstr "Memória do Encadernador Esgotada"
 
 #. TRANSLATORS: Binder Missing
 msgid "printer-state-reasons.binder-missing"
-msgstr "Ocorreu uma Falha no Encadernador"
+msgstr "Encadernador Em Falta"
 
 #. TRANSLATORS: Binder Motor Failure
 msgid "printer-state-reasons.binder-motor-failure"
-msgstr "Ocorreu uma Falha no Motor do Encadernador"
+msgstr "Falha no Motor do Encadernador"
 
 #. TRANSLATORS: Binder Near Limit
 msgid "printer-state-reasons.binder-near-limit"
@@ -12820,7 +12766,7 @@ msgstr "O Encadernador Está Próximo do Seu Limite"
 
 #. TRANSLATORS: Binder Offline
 msgid "printer-state-reasons.binder-offline"
-msgstr "O Encadernador Não Está Conectado"
+msgstr "O Encadernador Não Está Ligado"
 
 #. TRANSLATORS: Binder Opened
 msgid "printer-state-reasons.binder-opened"
@@ -12828,19 +12774,19 @@ msgstr "O Encadernador Está Aberto"
 
 #. TRANSLATORS: Binder Over Temperature
 msgid "printer-state-reasons.binder-over-temperature"
-msgstr "O Encadernador Atingiu uma Temperatura Excessiva"
+msgstr "Encadernador com Temperatura Excessiva"
 
 #. TRANSLATORS: Binder Power Saver
 msgid "printer-state-reasons.binder-power-saver"
-msgstr "O Encadernador Entrou no Modo de Economia de Energia"
+msgstr "Encadernador em Poupança de Energia"
 
 #. TRANSLATORS: Binder Recoverable Failure
 msgid "printer-state-reasons.binder-recoverable-failure"
-msgstr "Ocorreu uma Falha no Encadernador que Pode Ser Restaurado"
+msgstr "Falha Recuperável do Encadernador"
 
 #. TRANSLATORS: Binder Recoverable Storage
 msgid "printer-state-reasons.binder-recoverable-storage"
-msgstr "O Armazenamento do Encadernador Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável do Encadernador"
 
 #. TRANSLATORS: Binder Removed
 msgid "printer-state-reasons.binder-removed"
@@ -12848,40 +12794,39 @@ msgstr "O Encadernador Foi Removido"
 
 #. TRANSLATORS: Binder Resource Added
 msgid "printer-state-reasons.binder-resource-added"
-msgstr "A Funcionalidade do Encadernador Foi Adicionada"
+msgstr "Funcionalidade do Encadernador Adicionada"
 
 #. TRANSLATORS: Binder Resource Removed
 msgid "printer-state-reasons.binder-resource-removed"
-msgstr "A Funcionalidade do Encadernador Foi Removida"
+msgstr "Funcionalidade do Encadernador Removida"
 
 #. TRANSLATORS: Binder Thermistor Failure
 msgid "printer-state-reasons.binder-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor do Encadernador"
+msgstr "Falha no Termístor do Encadernador"
 
 #. TRANSLATORS: Binder Timing Failure
 msgid "printer-state-reasons.binder-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Encadernador"
+msgstr "Falha no Temporizador do Encadernador"
 
 #. TRANSLATORS: Binder Turned Off
 msgid "printer-state-reasons.binder-turned-off"
-msgstr "O Encadernador Está Desligado"
+msgstr "O Encadernador Foi Desligado"
 
 #. TRANSLATORS: Binder Turned On
 msgid "printer-state-reasons.binder-turned-on"
-msgstr "O Encadernador Está Ligado"
+msgstr "O Encadernador Foi Ligado"
 
 #. TRANSLATORS: Binder Under Temperature
 msgid "printer-state-reasons.binder-under-temperature"
-msgstr "O Encadernador Está com a Temperatura Abaixo do Normal"
+msgstr "Encadernador com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Binder Unrecoverable Failure
 msgid "printer-state-reasons.binder-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Encadernador que Não Pode Ser Restaurado"
+msgstr "Falha Irrecuperável do Encadernador"
 
 #. TRANSLATORS: Binder Unrecoverable Storage Error
 msgid "printer-state-reasons.binder-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Encadernador que Não Pode Ser Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Encadernador"
 
 #. TRANSLATORS: Binder Warming Up
 msgid "printer-state-reasons.binder-warming-up"
@@ -12889,15 +12834,15 @@ msgstr "O Encadernador Está a Aquecer"
 
 #. TRANSLATORS: Camera Failure
 msgid "printer-state-reasons.camera-failure"
-msgstr "Ocorreu um Erro na Câmara"
+msgstr "Falha da Câmara"
 
 #. TRANSLATORS: Chamber Cooling
 msgid "printer-state-reasons.chamber-cooling"
-msgstr "Resfriamento da Câmara"
+msgstr "Arrefecimento da Câmara"
 
 #. TRANSLATORS: Chamber Failure
 msgid "printer-state-reasons.chamber-failure"
-msgstr "Ocorreu uma Falha na Câmara"
+msgstr "Falha da Câmara"
 
 #. TRANSLATORS: Chamber Heating
 msgid "printer-state-reasons.chamber-heating"
@@ -12905,19 +12850,19 @@ msgstr "Aquecimento da Câmara"
 
 #. TRANSLATORS: Chamber Temperature High
 msgid "printer-state-reasons.chamber-temperature-high"
-msgstr "A Câmara Está com a Temperatura Alta"
+msgstr "Câmara com Temperatura Alta"
 
 #. TRANSLATORS: Chamber Temperature Low
 msgid "printer-state-reasons.chamber-temperature-low"
-msgstr "A Câmara Está com a Temperatura Baixa"
+msgstr "Câmara com Temperatura Baixa"
 
 #. TRANSLATORS: Cleaner Life Almost Over
 msgid "printer-state-reasons.cleaner-life-almost-over"
-msgstr "O Limpador Está Quase no Fim da Sua Vida Útil"
+msgstr "Limpador Quase no Fim de Vida"
 
 #. TRANSLATORS: Cleaner Life Over
 msgid "printer-state-reasons.cleaner-life-over"
-msgstr "O Limpador Está no Fim da Sua Vida Útil"
+msgstr "Limpador no Fim de Vida"
 
 #. TRANSLATORS: Configuration Change
 msgid "printer-state-reasons.configuration-change"
@@ -12925,7 +12870,7 @@ msgstr "Alterar as Configurações"
 
 #. TRANSLATORS: Connecting To Device
 msgid "printer-state-reasons.connecting-to-device"
-msgstr "A conectar ao dispositivo"
+msgstr "A Ligar ao Dispositivo"
 
 #. TRANSLATORS: Cover Open
 msgid "printer-state-reasons.cover-open"
@@ -12937,11 +12882,11 @@ msgstr "Desativado"
 
 #. TRANSLATORS: Developer Empty
 msgid "printer-state-reasons.developer-empty"
-msgstr "O Programador Está Vazio"
+msgstr "Desenvolvedor Vazio"
 
 #. TRANSLATORS: Developer Low
 msgid "printer-state-reasons.developer-low"
-msgstr "O Programador Está Baixo"
+msgstr "Desenvolvedor em Baixo"
 
 #. TRANSLATORS: Die Cutter Added
 msgid "printer-state-reasons.die-cutter-added"
@@ -12985,43 +12930,43 @@ msgstr "O Cortador Matricial Está Cheio"
 
 #. TRANSLATORS: Die Cutter Interlock Closed
 msgid "printer-state-reasons.die-cutter-interlock-closed"
-msgstr "O Intertravamento do Cortador Matricial Está Fechado"
+msgstr "Câmara Interna do Cortador Matricial Fechada"
 
 #. TRANSLATORS: Die Cutter Interlock Open
 msgid "printer-state-reasons.die-cutter-interlock-open"
-msgstr "O Intertravamento do Cortador Matricial Está Aberto"
+msgstr "Câmara Interna do Cortador Matricial Aberta"
 
 #. TRANSLATORS: Die Cutter Jam
 msgid "printer-state-reasons.die-cutter-jam"
-msgstr "Ocorreu um Atolamento no Cortador Matricial"
+msgstr "Cortador Matricial Encravado"
 
 #. TRANSLATORS: Die Cutter Life Almost Over
 msgid "printer-state-reasons.die-cutter-life-almost-over"
-msgstr "O Cortador Matricial Está Quase no Fim da Sua Vida Útil"
+msgstr "Cortador Matricial Quase no Fim de Vida"
 
 #. TRANSLATORS: Die Cutter Life Over
 msgid "printer-state-reasons.die-cutter-life-over"
-msgstr "O Cortador Matricial Está no Fim da Sua Vida Útil"
+msgstr "Cortador Matricial no Fim de Vida"
 
 #. TRANSLATORS: Die Cutter Memory Exhausted
 msgid "printer-state-reasons.die-cutter-memory-exhausted"
-msgstr "A Memória do Cortador Matricial Foi Esgotada"
+msgstr "Memória do Cortador Matricial Esgotada"
 
 #. TRANSLATORS: Die Cutter Missing
 msgid "printer-state-reasons.die-cutter-missing"
-msgstr "Ocorreu uma Falha no Cortador Matricial"
+msgstr "Cortador Matricial em Falta"
 
 #. TRANSLATORS: Die Cutter Motor Failure
 msgid "printer-state-reasons.die-cutter-motor-failure"
-msgstr "Ocorreu uma Falha no Motor do Cortador Matricial"
+msgstr "Falha no Motor do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Near Limit
 msgid "printer-state-reasons.die-cutter-near-limit"
-msgstr "O Cortador Matricial Está Próximo do Seu Limite"
+msgstr "Cortador Matricial Próximo do Limite"
 
 #. TRANSLATORS: Die Cutter Offline
 msgid "printer-state-reasons.die-cutter-offline"
-msgstr "O Cortador Matricial Não Está Conectado"
+msgstr "O Cortador Matricial Não Está Ligado"
 
 #. TRANSLATORS: Die Cutter Opened
 msgid "printer-state-reasons.die-cutter-opened"
@@ -13029,19 +12974,19 @@ msgstr "O Cortador Matricial Está Aberto"
 
 #. TRANSLATORS: Die Cutter Over Temperature
 msgid "printer-state-reasons.die-cutter-over-temperature"
-msgstr "O Cortador Matricial Atingiu uma Temperatura Excessiva"
+msgstr "Cortador Matricial com Temperatura Excessiva"
 
 #. TRANSLATORS: Die Cutter Power Saver
 msgid "printer-state-reasons.die-cutter-power-saver"
-msgstr "O Cortador Matricial Entrou no Modo de Economia de Energia"
+msgstr "Cortador Matricial em Poupança de Energia"
 
 #. TRANSLATORS: Die Cutter Recoverable Failure
 msgid "printer-state-reasons.die-cutter-recoverable-failure"
-msgstr "Ocorreu uma Falha no Cortador Matricial que Pode Ser Restaurada"
+msgstr "Falha Recuperável do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Recoverable Storage
 msgid "printer-state-reasons.die-cutter-recoverable-storage"
-msgstr "O Armazenamento do Cortador Matricial Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Removed
 msgid "printer-state-reasons.die-cutter-removed"
@@ -13049,41 +12994,39 @@ msgstr "O Cortador Matricial Foi Removido"
 
 #. TRANSLATORS: Die Cutter Resource Added
 msgid "printer-state-reasons.die-cutter-resource-added"
-msgstr "A Funcionalidade do Cortador Matricial Foi Adicionada"
+msgstr "Funcionalidade do Cortador Matricial Adicionada"
 
 #. TRANSLATORS: Die Cutter Resource Removed
 msgid "printer-state-reasons.die-cutter-resource-removed"
-msgstr "A Funcionalidade do Cortador Matricial Foi Removida"
+msgstr "Funcionalidade do Cortador Matricial Removida"
 
 #. TRANSLATORS: Die Cutter Thermistor Failure
 msgid "printer-state-reasons.die-cutter-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor do Cortador Matricial"
+msgstr "Falha no Termístor do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Timing Failure
 msgid "printer-state-reasons.die-cutter-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Cortador Matricial"
+msgstr "Falha no Temporizador do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Turned Off
 msgid "printer-state-reasons.die-cutter-turned-off"
-msgstr "O Cortador Matricial Está Desligado"
+msgstr "O Cortador Matricial Foi Desligado"
 
 #. TRANSLATORS: Die Cutter Turned On
 msgid "printer-state-reasons.die-cutter-turned-on"
-msgstr "O Cortador Matricial Está Ligado"
+msgstr "O Cortador Matricial Foi Ligado"
 
 #. TRANSLATORS: Die Cutter Under Temperature
 msgid "printer-state-reasons.die-cutter-under-temperature"
-msgstr "O Cortador Matricial Está com a Temperatura Abaixo do Normal"
+msgstr "Cortador Matricial com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Failure
 msgid "printer-state-reasons.die-cutter-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Cortador Matricial que Não Pode Ser Restaurado"
+msgstr "Falha Irrecuperável do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.die-cutter-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Cortador Matricial que Não Pode ser "
-"Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Cortador Matricial"
 
 #. TRANSLATORS: Die Cutter Warming Up
 msgid "printer-state-reasons.die-cutter-warming-up"
@@ -13091,15 +13034,15 @@ msgstr "O Cortador Matricial Está a Aquecer"
 
 #. TRANSLATORS: Door Open
 msgid "printer-state-reasons.door-open"
-msgstr "A Porta Está Aberta"
+msgstr "Porta Aberta"
 
 #. TRANSLATORS: Extruder Cooling
 msgid "printer-state-reasons.extruder-cooling"
-msgstr "Resfriamento da Extrusora"
+msgstr "Arrefecimento da Extrusora"
 
 #. TRANSLATORS: Extruder Failure
 msgid "printer-state-reasons.extruder-failure"
-msgstr "Ocorreu uma Falha na Extrusora"
+msgstr "Falha na Extrusora"
 
 #. TRANSLATORS: Extruder Heating
 msgid "printer-state-reasons.extruder-heating"
@@ -13107,193 +13050,191 @@ msgstr "Aquecimento da Extrusora"
 
 #. TRANSLATORS: Extruder Jam
 msgid "printer-state-reasons.extruder-jam"
-msgstr "Ocorreu um Atolamento na Extrusora"
+msgstr "Extrusora Encravada"
 
 #. TRANSLATORS: Extruder Temperature High
 msgid "printer-state-reasons.extruder-temperature-high"
-msgstr "A Extrusora Está com a Temperatura Alta"
+msgstr "Extrusora com Temperatura Alta"
 
 #. TRANSLATORS: Extruder Temperature Low
 msgid "printer-state-reasons.extruder-temperature-low"
-msgstr "A Extrusora Está com a Temperatura Baixa"
+msgstr "Extrusora com Temperatura Baixa"
 
 #. TRANSLATORS: Fan Failure
 msgid "printer-state-reasons.fan-failure"
-msgstr "Ocorreu uma Falha do Ventilador"
+msgstr "Falha do Ventilador"
 
 #. TRANSLATORS: Fax Modem Life Almost Over
 msgid "printer-state-reasons.fax-modem-life-almost-over"
-msgstr "A Placa do Fax Modem Está Quase no Fim da Sua Vida Útil"
+msgstr "Fax Modem Quase no Fim de Vida"
 
 #. TRANSLATORS: Fax Modem Life Over
 msgid "printer-state-reasons.fax-modem-life-over"
-msgstr "A Placa do Fax Modem Está no Fim da Sua Vida Útil"
+msgstr "Fax Modem no Fim de Vida"
 
 #. TRANSLATORS: Fax Modem Missing
 msgid "printer-state-reasons.fax-modem-missing"
-msgstr "Ocorreu uma Falha na Placa do Fax Modem"
+msgstr "Fax Modem em Falta"
 
 #. TRANSLATORS: Fax Modem Turned Off
 msgid "printer-state-reasons.fax-modem-turned-off"
-msgstr "A Placa do Fax Modem Está Desligada"
+msgstr "Fax Modem Desligado"
 
 #. TRANSLATORS: Fax Modem Turned On
 msgid "printer-state-reasons.fax-modem-turned-on"
-msgstr "A Placa do Fax Modem Está Ligada"
+msgstr "O Fax Modem foi Ligado"
 
 #. TRANSLATORS: Folder Added
 msgid "printer-state-reasons.folder-added"
-msgstr "A Dobradeira de Papel Foi Adicionada"
+msgstr "Dobradeira Adicionada"
 
 #. TRANSLATORS: Folder Almost Empty
 msgid "printer-state-reasons.folder-almost-empty"
-msgstr "A Dobradeira de Papel Está Quase Vazia"
+msgstr "Dobradeira Quase Vazia"
 
 #. TRANSLATORS: Folder Almost Full
 msgid "printer-state-reasons.folder-almost-full"
-msgstr "Dobradeira de Papel Está Quase Cheia"
+msgstr "Dobradeira Quase Cheia"
 
 #. TRANSLATORS: Folder At Limit
 msgid "printer-state-reasons.folder-at-limit"
-msgstr "A Dobradeira de Papel Está no Limite"
+msgstr "Dobradeira no Limite"
 
 #. TRANSLATORS: Folder Closed
 msgid "printer-state-reasons.folder-closed"
-msgstr "A Dobradeira de Papel Está Fechada"
+msgstr "Dobradeira Fechada"
 
 #. TRANSLATORS: Folder Configuration Change
 msgid "printer-state-reasons.folder-configuration-change"
-msgstr "Alterar as Configurações da Dobradeira de Papel"
+msgstr "Alterar as Configurações da Dobradeira"
 
 #. TRANSLATORS: Folder Cover Closed
 msgid "printer-state-reasons.folder-cover-closed"
-msgstr "A Tampa da Dobradeira de Papel Está Fechada"
+msgstr "Tampa da Dobradeira Fechada"
 
 #. TRANSLATORS: Folder Cover Open
 msgid "printer-state-reasons.folder-cover-open"
-msgstr "A Tampa da Dobradeira de Papel Está Aberta"
+msgstr "Tampa da Dobradeira Aberta"
 
 #. TRANSLATORS: Folder Empty
 msgid "printer-state-reasons.folder-empty"
-msgstr "A Dobradeira de Papel Está Vazia"
+msgstr "Dobradeira Vazia"
 
 #. TRANSLATORS: Folder Full
 msgid "printer-state-reasons.folder-full"
-msgstr "A Dobradeira de Papel Está Cheia"
+msgstr "Dobradeira Cheia"
 
 #. TRANSLATORS: Folder Interlock Closed
 msgid "printer-state-reasons.folder-interlock-closed"
-msgstr "O Intertravamento da Dobradeira de Papel Está Fechado"
+msgstr "Câmara Interna da Dobradeira Fechada"
 
 #. TRANSLATORS: Folder Interlock Open
 msgid "printer-state-reasons.folder-interlock-open"
-msgstr "O Intertravamento da Dobradeira de Papel Está Aberta"
+msgstr "Câmara Interna da Dobradeira Aberta"
 
 #. TRANSLATORS: Folder Jam
 msgid "printer-state-reasons.folder-jam"
-msgstr "Ocorreu um Atolamento na Dobradeira de Papel"
+msgstr "Dobradeira Encravada"
 
 #. TRANSLATORS: Folder Life Almost Over
 msgid "printer-state-reasons.folder-life-almost-over"
-msgstr "A Dobradeira de Papel Está Quase no Fim da Sua Vida Útil"
+msgstr "Dobradeira Quase no Fim de Vida"
 
 #. TRANSLATORS: Folder Life Over
 msgid "printer-state-reasons.folder-life-over"
-msgstr "A Dobradeira de Papel Está no Fim da Sua Vida Útil"
+msgstr "Dobradeira no Fim de Vida"
 
 #. TRANSLATORS: Folder Memory Exhausted
 msgid "printer-state-reasons.folder-memory-exhausted"
-msgstr "A Memória da Dobradeira de Papel Foi Esgotada"
+msgstr "Memória da Dobradeira Esgotada"
 
 #. TRANSLATORS: Folder Missing
 msgid "printer-state-reasons.folder-missing"
-msgstr "Ocorreu uma Falha na Dobradeira de Papel"
+msgstr "Dobradeira em Falta"
 
 #. TRANSLATORS: Folder Motor Failure
 msgid "printer-state-reasons.folder-motor-failure"
-msgstr "Ocorreu uma Falha no Motor da Dobradeira de Papel"
+msgstr "Falha no Motor da Dobradeira"
 
 #. TRANSLATORS: Folder Near Limit
 msgid "printer-state-reasons.folder-near-limit"
-msgstr "A Dobradeira de Papel Está Próxima do Seu Limite"
+msgstr "Dobradeira Próxima do Seu Limite"
 
 #. TRANSLATORS: Folder Offline
 msgid "printer-state-reasons.folder-offline"
-msgstr "A Dobradeira de Papel Não Está Conectada"
+msgstr "A Dobradeira Não Está Ligada"
 
 #. TRANSLATORS: Folder Opened
 msgid "printer-state-reasons.folder-opened"
-msgstr "A Dobradeira de Papel Está Aberta"
+msgstr "Dobradeira Aberta"
 
 #. TRANSLATORS: Folder Over Temperature
 msgid "printer-state-reasons.folder-over-temperature"
-msgstr "A Dobradeira de Papel Atingiu uma Temperatura Excessiva"
+msgstr "Dobradeira com Temperatura Excessiva"
 
 #. TRANSLATORS: Folder Power Saver
 msgid "printer-state-reasons.folder-power-saver"
-msgstr "A Dobradeira de Papel Entrou no Modo de Economia de Energia"
+msgstr "Dobradeira em Poupança de Energia"
 
 #. TRANSLATORS: Folder Recoverable Failure
 msgid "printer-state-reasons.folder-recoverable-failure"
-msgstr "Ocorreu uma Falha na Dobradeira de Papel que Pode Ser Restaurada"
+msgstr "Falha Recuperável da Dobradeira"
 
 #. TRANSLATORS: Folder Recoverable Storage
 msgid "printer-state-reasons.folder-recoverable-storage"
-msgstr "O Armazenamento da Dobradeira de Papel Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável da Dobradeira"
 
 #. TRANSLATORS: Folder Removed
 msgid "printer-state-reasons.folder-removed"
-msgstr "A Dobradeira de Papel Foi Removida"
+msgstr "Dobradeira Removida"
 
 #. TRANSLATORS: Folder Resource Added
 msgid "printer-state-reasons.folder-resource-added"
-msgstr "A Funcionalidade da Dobradeira de Papel Foi Adicionada"
+msgstr "Funcionalidade da Dobradeira Adicionada"
 
 #. TRANSLATORS: Folder Resource Removed
 msgid "printer-state-reasons.folder-resource-removed"
-msgstr "A Funcionalidade da Dobradeira de Papel Foi Removida"
+msgstr "Funcionalidade da Dobradeira Removida"
 
 #. TRANSLATORS: Folder Thermistor Failure
 msgid "printer-state-reasons.folder-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor da Dobradeira de Papel"
+msgstr "Falha no Termístor da Dobradeira"
 
 #. TRANSLATORS: Folder Timing Failure
 msgid "printer-state-reasons.folder-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador da Dobradeira de Papel"
+msgstr "Falha no Temporizador da Dobradeira"
 
 #. TRANSLATORS: Folder Turned Off
 msgid "printer-state-reasons.folder-turned-off"
-msgstr "A Dobradeira de Papel Está Desligada"
+msgstr "A Dobradeira foi Desligada"
 
 #. TRANSLATORS: Folder Turned On
 msgid "printer-state-reasons.folder-turned-on"
-msgstr "A Dobradeira de Papel Está Ligada"
+msgstr "A Dobradeira foi Ligada"
 
 #. TRANSLATORS: Folder Under Temperature
 msgid "printer-state-reasons.folder-under-temperature"
-msgstr "A Dobradeira de Papel Está com a Temperatura Abaixo do Normal"
+msgstr "Dobradeira com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Folder Unrecoverable Failure
 msgid "printer-state-reasons.folder-unrecoverable-failure"
-msgstr "Ocorreu uma Falha na Dobradeira de Papel que Não Pode Ser Restaurada"
+msgstr "Falha Irrecuperável da Dobradeira"
 
 #. TRANSLATORS: Folder Unrecoverable Storage Error
 msgid "printer-state-reasons.folder-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento da Dobradeira de Papel que Não Pode Ser "
-"Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável da Dobradeira"
 
 #. TRANSLATORS: Folder Warming Up
 msgid "printer-state-reasons.folder-warming-up"
-msgstr "A Dobradeira de Papel Está a Aquecer"
+msgstr "A Dobradeira Está a Aquecer"
 
 #. TRANSLATORS: Fuser temperature high
 msgid "printer-state-reasons.fuser-over-temp"
-msgstr "A Unidade de Fusão Está com a Temperatura Alta"
+msgstr "Temperatura alta da unidade de fusão"
 
 #. TRANSLATORS: Fuser temperature low
 msgid "printer-state-reasons.fuser-under-temp"
-msgstr "A Unidade de Fusão Está com a Temperatura Baixa"
+msgstr "Temperatura baixa da unidade de fusão"
 
 #. TRANSLATORS: Hold New Jobs
 msgid "printer-state-reasons.hold-new-jobs"
@@ -13305,99 +13246,99 @@ msgstr "Identificação da Impressora"
 
 #. TRANSLATORS: Imprinter Added
 msgid "printer-state-reasons.imprinter-added"
-msgstr "A Impressora Foi Adicionada"
+msgstr "Imprinter Adicionada"
 
 #. TRANSLATORS: Imprinter Almost Empty
 msgid "printer-state-reasons.imprinter-almost-empty"
-msgstr "A Impressora Está Quase Vazia"
+msgstr "Imprinter Quase Vazia"
 
 #. TRANSLATORS: Imprinter Almost Full
 msgid "printer-state-reasons.imprinter-almost-full"
-msgstr "A Impressora Está Quase Cheia"
+msgstr "Imprinter Quase Cheia"
 
 #. TRANSLATORS: Imprinter At Limit
 msgid "printer-state-reasons.imprinter-at-limit"
-msgstr "A Impressora Está no Limite"
+msgstr "Imprinter no Limite"
 
 #. TRANSLATORS: Imprinter Closed
 msgid "printer-state-reasons.imprinter-closed"
-msgstr "A Impressora Está Fechada"
+msgstr "Imprinter Fechada"
 
 #. TRANSLATORS: Imprinter Configuration Change
 msgid "printer-state-reasons.imprinter-configuration-change"
-msgstr "Alterar as Configurações da Impressora"
+msgstr "Alterar as Configurações da Imprinter"
 
 #. TRANSLATORS: Imprinter Cover Closed
 msgid "printer-state-reasons.imprinter-cover-closed"
-msgstr "A Tampa da Impressora Está Fechada"
+msgstr "A Tampa da Imprinter Está Fechada"
 
 #. TRANSLATORS: Imprinter Cover Open
 msgid "printer-state-reasons.imprinter-cover-open"
-msgstr "A Tampa da Impressora Está Aberta"
+msgstr "A Tampa da Imprinter Está Aberta"
 
 #. TRANSLATORS: Imprinter Empty
 msgid "printer-state-reasons.imprinter-empty"
-msgstr "A Impressora Está Vazia"
+msgstr "Imprinter Vazia"
 
 #. TRANSLATORS: Imprinter Full
 msgid "printer-state-reasons.imprinter-full"
-msgstr "A Impressora Está Cheia"
+msgstr "Imprinter Cheia"
 
 #. TRANSLATORS: Imprinter Interlock Closed
 msgid "printer-state-reasons.imprinter-interlock-closed"
-msgstr "O Intertravamento da Impressora Está Fechado"
+msgstr "Câmara Interna da Imprinter Fechada"
 
 #. TRANSLATORS: Imprinter Interlock Open
 msgid "printer-state-reasons.imprinter-interlock-open"
-msgstr "O Intertravamento da Impressora Está Aberto"
+msgstr "Câmara Interna da Imprinter Aberta"
 
 #. TRANSLATORS: Imprinter Jam
 msgid "printer-state-reasons.imprinter-jam"
-msgstr "Ocorreu um Atolamento na Impressora"
+msgstr "Imprinter Encravada"
 
 #. TRANSLATORS: Imprinter Life Almost Over
 msgid "printer-state-reasons.imprinter-life-almost-over"
-msgstr "A Impressora Está Quase no Fim da Sua Vida Útil"
+msgstr "Imprinter Quase no Fim de Vida"
 
 #. TRANSLATORS: Imprinter Life Over
 msgid "printer-state-reasons.imprinter-life-over"
-msgstr "A Impressora Está no Fim da Sua Vida Útil"
+msgstr "Imprinter no Fim de Vida"
 
 #. TRANSLATORS: Imprinter Memory Exhausted
 msgid "printer-state-reasons.imprinter-memory-exhausted"
-msgstr "A Memória da Impressora Foi Esgotada"
+msgstr "Memória da Imprinter Esgotada"
 
 #. TRANSLATORS: Imprinter Missing
 msgid "printer-state-reasons.imprinter-missing"
-msgstr "Ocorreu uma Falha na Impressora"
+msgstr "Imprinter em Falta"
 
 #. TRANSLATORS: Imprinter Motor Failure
 msgid "printer-state-reasons.imprinter-motor-failure"
-msgstr "Ocorreu uma Falha no Motor da Impressora"
+msgstr "Falha no Motor da Imprinter"
 
 #. TRANSLATORS: Imprinter Near Limit
 msgid "printer-state-reasons.imprinter-near-limit"
-msgstr "A Impressora Está Próximo do Seu Limite"
+msgstr "Imprinter Próximo do Limite"
 
 #. TRANSLATORS: Imprinter Offline
 msgid "printer-state-reasons.imprinter-offline"
-msgstr "A Impressora Não Está Conectada"
+msgstr "A Imprinter Não Está Ligada"
 
 #. TRANSLATORS: Imprinter Opened
 msgid "printer-state-reasons.imprinter-opened"
-msgstr "A Impressora Está Aberta"
+msgstr "Imprinter Aberta"
 
 #. TRANSLATORS: Imprinter Over Temperature
 msgid "printer-state-reasons.imprinter-over-temperature"
-msgstr "A Impressora Atingiu uma Temperatura Excessiva"
+msgstr "Imprinter com Temperatura Excessiva"
 
 #. TRANSLATORS: Imprinter Power Saver
 msgid "printer-state-reasons.imprinter-power-saver"
-msgstr "A Impressora Entrou no Modo de Economia de Energia"
+msgstr "Imprinter em Modo de Economia de Energia"
 
 #. TRANSLATORS: Imprinter Recoverable Failure
 msgid "printer-state-reasons.imprinter-recoverable-failure"
-msgstr "Ocorreu uma Falha na Impressora que Pode Ser Restaurada"
+msgstr "Falha Recuperável da Imprinter"
 
 #. TRANSLATORS: Imprinter Recoverable Storage
 msgid "printer-state-reasons.imprinter-recoverable-storage"
