@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-14 22:01+0000\n"
+"PO-Revision-Date: 2026-07-15 23:01+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -13722,89 +13722,87 @@ msgstr "Criador de Envelope Quase no Fim de Vida"
 
 #. TRANSLATORS: Envelope Maker Life Over
 msgid "printer-state-reasons.make-envelope-life-over"
-msgstr "O Criador de Envelope Está no Fim da Sua Vida Útil"
+msgstr "Criador de Envelope no Fim de Vida"
 
 #. TRANSLATORS: Envelope Maker Memory Exhausted
 msgid "printer-state-reasons.make-envelope-memory-exhausted"
-msgstr "A Memória do Criador de Envelope Foi Esgotada"
+msgstr "Memória do Criador de Envelope Esgotada"
 
 #. TRANSLATORS: Envelope Maker Missing
 msgid "printer-state-reasons.make-envelope-missing"
-msgstr "Ocorreu uma Falha no Criador de Envelope"
+msgstr "Criador de Envelope em Falta"
 
 #. TRANSLATORS: Envelope Maker Motor Failure
 msgid "printer-state-reasons.make-envelope-motor-failure"
-msgstr "Ocorreu uma Falha no Motor do Criador de Envelope"
+msgstr "Falha no Motor do Criador de Envelope"
 
 #. TRANSLATORS: Envelope Maker Near Limit
 msgid "printer-state-reasons.make-envelope-near-limit"
-msgstr "O Criador de Envelope Está Próximo do Seu Limite"
+msgstr "Criador de Envelope Próximo do Limite"
 
 #. TRANSLATORS: Envelope Maker Offline
 msgid "printer-state-reasons.make-envelope-offline"
-msgstr "O Criador de Envelope Não Está Conectado"
+msgstr "O Criador de Envelope Não Está Ligado"
 
 #. TRANSLATORS: Envelope Maker Opened
 msgid "printer-state-reasons.make-envelope-opened"
-msgstr "O Criador de Envelope Está Aberto"
+msgstr "Criador de Envelope Aberto"
 
 #. TRANSLATORS: Envelope Maker Over Temperature
 msgid "printer-state-reasons.make-envelope-over-temperature"
-msgstr "O Criador de Envelope Atingiu uma Temperatura Excessiva"
+msgstr "Criador de Envelope Atingiu Temperatura Excessiva"
 
 #. TRANSLATORS: Envelope Maker Power Saver
 msgid "printer-state-reasons.make-envelope-power-saver"
-msgstr "O Criador de Envelope Entrou no Modo de Economia de Energia"
+msgstr "Criador de Envelope em Modo de Economia de Energia"
 
 #. TRANSLATORS: Envelope Maker Recoverable Failure
 msgid "printer-state-reasons.make-envelope-recoverable-failure"
-msgstr "Ocorreu uma Falha no Criador de Envelope que Pode Ser Restaurado"
+msgstr "Falha Recuperável do Criador de Envelope"
 
 #. TRANSLATORS: Envelope Maker Recoverable Storage
 msgid "printer-state-reasons.make-envelope-recoverable-storage"
-msgstr "O Armazenamento do Criador de Envelope Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável do Criador de Envelope"
 
 #. TRANSLATORS: Envelope Maker Removed
 msgid "printer-state-reasons.make-envelope-removed"
-msgstr "O Criador de Envelope Foi Removido"
+msgstr "Criador de Envelope Removido"
 
 #. TRANSLATORS: Envelope Maker Resource Added
 msgid "printer-state-reasons.make-envelope-resource-added"
-msgstr "A Funcionalidade do Criador de Envelope Foi Adicionada"
+msgstr "Funcionalidade do Criador de Envelope Adicionada"
 
 #. TRANSLATORS: Envelope Maker Resource Removed
 msgid "printer-state-reasons.make-envelope-resource-removed"
-msgstr "A Funcionalidade do Criador de Envelopes Foi Removida"
+msgstr "Funcionalidade do Criador de Envelopes Removida"
 
 #. TRANSLATORS: Envelope Maker Thermistor Failure
 msgid "printer-state-reasons.make-envelope-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor do Criador de Envelope"
+msgstr "Falha no Termístor do Criador de Envelope"
 
 #. TRANSLATORS: Envelope Maker Timing Failure
 msgid "printer-state-reasons.make-envelope-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Criador de Envelopes"
+msgstr "Falha no Temporizador do Criador de Envelopes"
 
 #. TRANSLATORS: Envelope Maker Turned Off
 msgid "printer-state-reasons.make-envelope-turned-off"
-msgstr "O Criador de Envelope Está Desligado"
+msgstr "O Criador de Envelope foi Desligado"
 
 #. TRANSLATORS: Envelope Maker Turned On
 msgid "printer-state-reasons.make-envelope-turned-on"
-msgstr "O Criador de Envelope Está Ligado"
+msgstr "O Criador de Envelope foi Ligado"
 
 #. TRANSLATORS: Envelope Maker Under Temperature
 msgid "printer-state-reasons.make-envelope-under-temperature"
-msgstr "O Criador de Envelope Está com a Temperatura Abaixo do Normal"
+msgstr "Criador de Envelope com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Envelope Maker Unrecoverable Failure
 msgid "printer-state-reasons.make-envelope-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Criador de Envelope que Não Pode Ser Restaurado"
+msgstr "Falha Irrecuperável do Criador de Envelopes"
 
 #. TRANSLATORS: Envelope Maker Unrecoverable Storage Error
 msgid "printer-state-reasons.make-envelope-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Criador de Envelope que Não Pode Ser "
-"Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Criador de Envelopes"
 
 #. TRANSLATORS: Envelope Maker Warming Up
 msgid "printer-state-reasons.make-envelope-warming-up"
@@ -13820,15 +13818,15 @@ msgstr "Falta o Limpador do Marcador"
 
 #. TRANSLATORS: Marker Developer Almost Empty
 msgid "printer-state-reasons.marker-developer-almost-empty"
-msgstr "O Programador do Marcador Está Quase Vazio"
+msgstr "O Desenvolvedor de Marcador Está Quase Vazio"
 
 #. TRANSLATORS: Marker Developer Empty
 msgid "printer-state-reasons.marker-developer-empty"
-msgstr "O Programador do Marcador Está Vazio"
+msgstr "O Desenvolvedor de Marcador Está Vazio"
 
 #. TRANSLATORS: Marker Developer Missing
 msgid "printer-state-reasons.marker-developer-missing"
-msgstr "Falta o Programador do Marcador"
+msgstr "Falta o Desenvolvedor de Marcador"
 
 #. TRANSLATORS: Marker Fuser Missing
 msgid "printer-state-reasons.marker-fuser-missing"
@@ -13836,11 +13834,11 @@ msgstr "Falta a Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Fuser Thermistor Failure
 msgid "printer-state-reasons.marker-fuser-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor da Unidade de Fusão do Marcador"
+msgstr "Falha no Termístor da Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Fuser Timing Failure
 msgid "printer-state-reasons.marker-fuser-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador da Unidade de Fusão do Marcador"
+msgstr "Falha no Temporizador da Unidade de Fusão do Marcador"
 
 #. TRANSLATORS: Marker Ink Almost Empty
 msgid "printer-state-reasons.marker-ink-almost-empty"
@@ -13860,11 +13858,11 @@ msgstr "Falta o Marcador do Fotocondutor Óptico"
 
 #. TRANSLATORS: Marker Print Ribbon Almost Empty
 msgid "printer-state-reasons.marker-print-ribbon-almost-empty"
-msgstr "A Fita de Impressão do Marcador Está Quase no Fim"
+msgstr "Fita de Impressão do Marcador Quase Vazia"
 
 #. TRANSLATORS: Marker Print Ribbon Empty
 msgid "printer-state-reasons.marker-print-ribbon-empty"
-msgstr "A Fita de Impressão do Marcador Atingiu o Seu Fim"
+msgstr "Fita de Impressão do Marcador Vazia"
 
 #. TRANSLATORS: Marker Print Ribbon Missing
 msgid "printer-state-reasons.marker-print-ribbon-missing"
@@ -13876,11 +13874,11 @@ msgstr "A Reservatório do Marcador Está Quase Vazio"
 
 #. TRANSLATORS: Ink/toner empty
 msgid "printer-state-reasons.marker-supply-empty"
-msgstr "A Tinta ou o Cartucho Está Vazio"
+msgstr "Tinta/Cartucho-toner Vazio"
 
 #. TRANSLATORS: Ink/toner low
 msgid "printer-state-reasons.marker-supply-low"
-msgstr "O Nível da Tinta do Cartucho Está Baixo"
+msgstr "Nível de Tinta/Toner em Baixo"
 
 #. TRANSLATORS: Marker Supply Missing
 msgid "printer-state-reasons.marker-supply-missing"
@@ -13888,7 +13886,7 @@ msgstr "Falta o Reservatório do Marcador"
 
 #. TRANSLATORS: Marker Toner Cartridge Missing
 msgid "printer-state-reasons.marker-toner-cartridge-missing"
-msgstr "Falta o Cartucho ou o Toner do Marcador"
+msgstr "Falta o Cartucho de Toner do Marcador"
 
 #. TRANSLATORS: Marker Toner Missing
 msgid "printer-state-reasons.marker-toner-missing"
@@ -13896,43 +13894,43 @@ msgstr "Falta o Toner do Marcador"
 
 #. TRANSLATORS: Ink/toner waste bin almost full
 msgid "printer-state-reasons.marker-waste-almost-full"
-msgstr "O Reservatório de Tinta do Cartucho Está Quase Cheio"
+msgstr "O reservatório de resíduos de Tinta/Toner está quase cheio"
 
 #. TRANSLATORS: Ink/toner waste bin full
 msgid "printer-state-reasons.marker-waste-full"
-msgstr "O Reservatório de Tinta do Cartucho Está Cheio"
+msgstr "O reservatório de resíduos de Tinta/Toner está cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-almost-full"
-msgstr "O Reservatório de Tinta do Marcador Está Quase Cheio"
+msgstr "O Reservatório de Resíduos de Tinta do Marcador Está Quase Cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Full
 msgid "printer-state-reasons.marker-waste-ink-receptacle-full"
-msgstr "O Reservatório de Tinta do Marcador Está Cheio"
+msgstr "O Reservatório de Resíduos de Tinta do Marcador Está Cheio"
 
 #. TRANSLATORS: Marker Waste Ink Receptacle Missing
 msgid "printer-state-reasons.marker-waste-ink-receptacle-missing"
-msgstr "Falta o Reservatório de Tinta do Marcador"
+msgstr "Falta o Reservatório de Resíduos de Tinta do Marcador"
 
 #. TRANSLATORS: Marker Waste Missing
 msgid "printer-state-reasons.marker-waste-missing"
-msgstr "Falta o Reservatório do Marcador"
+msgstr "Falta o Reservatório de Resíduos do Marcador"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Almost Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-almost-full"
-msgstr "O Reservatório do Toner do Marcador Está Quase Cheio"
+msgstr "O Reservatório de Resíduos de Toner do Marcador Está Quase Cheio"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Full
 msgid "printer-state-reasons.marker-waste-toner-receptacle-full"
-msgstr "O Reservatório do Toner do Marcador Está Cheio"
+msgstr "O Reservatório de Resíduos de Toner do Marcador Está Cheio"
 
 #. TRANSLATORS: Marker Waste Toner Receptacle Missing
 msgid "printer-state-reasons.marker-waste-toner-receptacle-missing"
-msgstr "Falta o Reservatório do Toner do Marcador"
+msgstr "Falta o Reservatório de Resíduos do Toner do Marcador"
 
 #. TRANSLATORS: Material Empty
 msgid "printer-state-reasons.material-empty"
-msgstr "Está Sem Material"
+msgstr "Material Vazio"
 
 #. TRANSLATORS: Material Low
 msgid "printer-state-reasons.material-low"
@@ -13952,7 +13950,7 @@ msgstr "A bandeja de papel está vazia"
 
 #. TRANSLATORS: Paper jam
 msgid "printer-state-reasons.media-jam"
-msgstr "Ocorreu um atolamento no papel"
+msgstr "Papel encravado"
 
 #. TRANSLATORS: Paper tray is almost empty
 msgid "printer-state-reasons.media-low"
@@ -13960,15 +13958,15 @@ msgstr "A bandeja de papel está quase vazia"
 
 #. TRANSLATORS: Load paper
 msgid "printer-state-reasons.media-needed"
-msgstr "Adicionar papel"
+msgstr "Carregar papel"
 
 #. TRANSLATORS: Media Path Cannot Do 2-Sided Printing
 msgid "printer-state-reasons.media-path-cannot-duplex-media-selected"
-msgstr "O Caminho da Média Não Consegue Fazer a Impressão Frente e Verso"
+msgstr "O Caminho da Média Não Consegue Fazer Impressão de 2 Lados"
 
 #. TRANSLATORS: Media Path Failure
 msgid "printer-state-reasons.media-path-failure"
-msgstr "Ocorreu uma Falha no Caminho da Média"
+msgstr "Falha no Caminho da Média"
 
 #. TRANSLATORS: Media Path Input Empty
 msgid "printer-state-reasons.media-path-input-empty"
@@ -13980,7 +13978,7 @@ msgstr "Ocorreu um Erro na Alimentação da Entrada do Caminho da Média"
 
 #. TRANSLATORS: Media Path Input Jam
 msgid "printer-state-reasons.media-path-input-jam"
-msgstr "Ocorreu um Atolamento na Entrada do Caminho da Média"
+msgstr "Ocorreu Encravamento na Entrada do Caminho da Média"
 
 #. TRANSLATORS: Media Path Input Request
 msgid "printer-state-reasons.media-path-input-request"
@@ -13988,23 +13986,23 @@ msgstr "Requisição da Entrada do Caminho da Média"
 
 #. TRANSLATORS: Media Path Jam
 msgid "printer-state-reasons.media-path-jam"
-msgstr "Ocorreu um Atolamento no Caminho da Média"
+msgstr "Ocorreu Encravamento no Caminho da Média"
 
 #. TRANSLATORS: Media Path Media Tray Almost Full
 msgid "printer-state-reasons.media-path-media-tray-almost-full"
-msgstr "O Caminho da Média da Bandeja Está Quase Cheia"
+msgstr "Bandeja do Caminho da Média Está Quase Cheia"
 
 #. TRANSLATORS: Media Path Media Tray Full
 msgid "printer-state-reasons.media-path-media-tray-full"
-msgstr "O Caminho da Média na Bandeja Está Quase Cheio"
+msgstr "Bandeja do Caminho da Média Está Cheia"
 
 #. TRANSLATORS: Media Path Media Tray Missing
 msgid "printer-state-reasons.media-path-media-tray-missing"
-msgstr "Falta o Caminho da Média na Bandeja"
+msgstr "Falta a Bandeja do Caminho da Média"
 
 #. TRANSLATORS: Media Path Output Feed Error
 msgid "printer-state-reasons.media-path-output-feed-error"
-msgstr "Ocorreu um Erro na Saída do Caminho da Média de Alimentação"
+msgstr "Erro no Fluxo de Saída do Caminho da Média"
 
 #. TRANSLATORS: Media Path Output Full
 msgid "printer-state-reasons.media-path-output-full"
@@ -14012,31 +14010,31 @@ msgstr "A Saída do Caminho da Média Está Cheia"
 
 #. TRANSLATORS: Media Path Output Jam
 msgid "printer-state-reasons.media-path-output-jam"
-msgstr "Ocorreu um Atolamento na Saída do Caminho da Média"
+msgstr "Ocorreu Encravamento na Saída do Caminho da Média"
 
 #. TRANSLATORS: Media Path Pick Roller Failure
 msgid "printer-state-reasons.media-path-pick-roller-failure"
-msgstr "Ocorreu uma Falha no Rolete de Coleta no Caminho da Média"
+msgstr "Falha no Rolete de Escolha no Caminho da Média"
 
 #. TRANSLATORS: Media Path Pick Roller Life Over
 msgid "printer-state-reasons.media-path-pick-roller-life-over"
-msgstr "O Rolete de Coleta Atingiu o Fim da Sua Vida Útil"
+msgstr "O Rolete de Escolha Atingiu o Fim de Vida"
 
 #. TRANSLATORS: Media Path Pick Roller Life Warn
 msgid "printer-state-reasons.media-path-pick-roller-life-warn"
-msgstr "Aviso Sobre o Fim da Vida Útil do Rolete de Coleta do Caminho da Média"
+msgstr "Aviso Sobre o Fim da Vida do Rolete de Escolha do Caminho da Média"
 
 #. TRANSLATORS: Media Path Pick Roller Missing
 msgid "printer-state-reasons.media-path-pick-roller-missing"
-msgstr "Falta o Rolete de Coleta do Caminho da Média"
+msgstr "Falta o Rolete de Escolha do Caminho da Média"
 
 #. TRANSLATORS: Motor Failure
 msgid "printer-state-reasons.motor-failure"
-msgstr "Ocorreu uma Falha no Motor"
+msgstr "Falha no Motor"
 
 #. TRANSLATORS: Printer going offline
 msgid "printer-state-reasons.moving-to-paused"
-msgstr "A impressora não está conectada"
+msgstr "A impressora vai desligar"
 
 #. TRANSLATORS: None
 msgid "printer-state-reasons.none"
@@ -14044,11 +14042,11 @@ msgstr "Nenhum"
 
 #. TRANSLATORS: Optical Photoconductor Life Over
 msgid "printer-state-reasons.opc-life-over"
-msgstr "O Fotocondutor Óptico Está no Fim da Sua Vida Útil"
+msgstr "Fotocondutor Óptico no Fim de Vida"
 
 #. TRANSLATORS: OPC almost at end-of-life
 msgid "printer-state-reasons.opc-near-eol"
-msgstr "O Fotocondutor Óptico Está Quase no Fim da Sua Vida Útil"
+msgstr "Fotocondutor Óptico Quase no Fim de Vida"
 
 #. TRANSLATORS: Check the printer for errors
 msgid "printer-state-reasons.other"
@@ -14064,11 +14062,11 @@ msgstr "A caixa da saída está cheia"
 
 #. TRANSLATORS: Output Mailbox Select Failure
 msgid "printer-state-reasons.output-mailbox-select-failure"
-msgstr "Ocorreu uma Falha na Seleção da Saída da Caixa de Correio"
+msgstr "Falha na Seleção da Saída da Caixa de Correio"
 
 #. TRANSLATORS: Output Media Tray Failure
 msgid "printer-state-reasons.output-media-tray-failure"
-msgstr "Ocorreu uma Falha na Bandeja de Saída da Média"
+msgstr "Falha na Bandeja de Saída da Média"
 
 #. TRANSLATORS: Output Media Tray Feed Error
 msgid "printer-state-reasons.output-media-tray-feed-error"
@@ -14200,19 +14198,19 @@ msgstr "Funcionalidade do Perfurador Removida"
 
 #. TRANSLATORS: Perforater Thermistor Failure
 msgid "printer-state-reasons.perforater-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor do Perfurador"
+msgstr "Falha no Termístor do Perfurador"
 
 #. TRANSLATORS: Perforater Timing Failure
 msgid "printer-state-reasons.perforater-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Perfurador"
+msgstr "Falha no Temporizador do Perfurador"
 
 #. TRANSLATORS: Perforater Turned Off
 msgid "printer-state-reasons.perforater-turned-off"
-msgstr "O Perfurador Está Desligado"
+msgstr "O Perfurador foi Desligado"
 
 #. TRANSLATORS: Perforater Turned On
 msgid "printer-state-reasons.perforater-turned-on"
-msgstr "O Perfurador Está Ligado"
+msgstr "O Perfurador foi Ligado"
 
 #. TRANSLATORS: Perforater Under Temperature
 msgid "printer-state-reasons.perforater-under-temperature"
@@ -14220,17 +14218,15 @@ msgstr "O Perfurador Está com a Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Perforater Unrecoverable Failure
 msgid "printer-state-reasons.perforater-unrecoverable-failure"
-msgstr "Ocorreu uma Falha no Perfurador que Não Pode Ser Restaurado"
+msgstr "Falha Irrecuperável do Perfurador"
 
 #. TRANSLATORS: Perforater Unrecoverable Storage Error
 msgid "printer-state-reasons.perforater-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Perfurador que Não Pode Ser Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Perfurador"
 
 #. TRANSLATORS: Perforater Warming Up
 msgid "printer-state-reasons.perforater-warming-up"
-msgstr ""
-"O perfurador printer-state-reasons.perforater-warming-up está a aquecer"
+msgstr "Perfurador a Aquecer"
 
 #. TRANSLATORS: Platform Cooling
 msgid "printer-state-reasons.platform-cooling"
@@ -14418,23 +14414,23 @@ msgstr "Punção a Aquecer"
 
 #. TRANSLATORS: Separation Cutter Added
 msgid "printer-state-reasons.separation-cutter-added"
-msgstr "O Separador e Cortador Foi Adicionado"
+msgstr "Cortador de Separação Adicionado"
 
 #. TRANSLATORS: Separation Cutter Almost Empty
 msgid "printer-state-reasons.separation-cutter-almost-empty"
-msgstr "O Separador e Cortador Está Quase Vazio"
+msgstr "Cortador de Separação Quase Vazio"
 
 #. TRANSLATORS: Separation Cutter Almost Full
 msgid "printer-state-reasons.separation-cutter-almost-full"
-msgstr "O Separador e Cortador Está Quase Cheio"
+msgstr "Cortador de Separação Quase Cheio"
 
 #. TRANSLATORS: Separation Cutter At Limit
 msgid "printer-state-reasons.separation-cutter-at-limit"
-msgstr "O Separador e Cortador Está no Limite"
+msgstr "Cortador de Separação no Limite"
 
 #. TRANSLATORS: Separation Cutter Closed
 msgid "printer-state-reasons.separation-cutter-closed"
-msgstr "O Separador e Cortador Está Fechado"
+msgstr "Cortador de Separação Fechado"
 
 #. TRANSLATORS: Separation Cutter Configuration Change
 msgid "printer-state-reasons.separation-cutter-configuration-change"
