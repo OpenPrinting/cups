@@ -76,9 +76,9 @@ cupsMarkOptions(
   * print-color-mode, print-quality, and PageSize...
   */
 
-  int		media_pagesize = 0,	/* Did media= set PageSize? */
-		media_source = 0,	/* Did media= set InputSlot? */
-		media_type = 0;		/* Did media= set MediaType? */
+  int		set_pagesize = 0,	/* Did media= set PageSize? */
+		set_source = 0,	/* Did media= set InputSlot? */
+		set_type = 0;		/* Did media= set MediaType? */
 
   media         = cupsGetOption("media", num_options, options);
   page_size     = cupsGetOption("PageSize", num_options, options);
@@ -134,24 +134,24 @@ cupsMarkOptions(
       if (!_cups_strncasecmp(s, "Custom.", 7) && ppdPageSize(ppd, s))
       {
 	ppd_mark_option(ppd, "PageSize", s);
-	media_pagesize = 1;
+	set_pagesize = 1;
       }
       else if ((ppd_keyword = _ppdCacheGetPageSize(cache, NULL, s, NULL)) != NULL)
       {
 	ppd_mark_option(ppd, "PageSize", ppd_keyword);
-	media_pagesize = 1;
+	set_pagesize = 1;
       }
 
       if (cache && cache->source_option && (ppd_keyword = _ppdCacheGetInputSlot(cache, NULL, s)) != NULL)
       {
 	ppd_mark_option(ppd, cache->source_option, ppd_keyword);
-	media_source = 1;
+	set_source = 1;
       }
 
       if ((ppd_keyword = _ppdCacheGetMediaType(cache, NULL, s)) != NULL)
       {
 	ppd_mark_option(ppd, "MediaType", ppd_keyword);
-	media_type = 1;
+	set_type = 1;
       }
     }
   }
@@ -343,9 +343,9 @@ cupsMarkOptions(
     }
     else if (!_cups_strcasecmp(optptr->name, "mirror"))
       ppd_mark_option(ppd, "MirrorPrint", optptr->value);
-    else if ((!media_pagesize || (_cups_strcasecmp(optptr->name, "PageSize") && _cups_strcasecmp(optptr->name, "PageRegion"))) &&
-             (!media_source || _cups_strcasecmp(optptr->name, (cache && cache->source_option) ? cache->source_option : "InputSlot")) &&
-             (!media_type || _cups_strcasecmp(optptr->name, "MediaType")))
+    else if ((!set_pagesize || (_cups_strcasecmp(optptr->name, "PageSize") && _cups_strcasecmp(optptr->name, "PageRegion"))) &&
+             (!set_source || _cups_strcasecmp(optptr->name, (cache && cache->source_option) ? cache->source_option : "InputSlot")) &&
+             (!set_type || _cups_strcasecmp(optptr->name, "MediaType")))
       ppd_mark_option(ppd, optptr->name, optptr->value);
   }
 
