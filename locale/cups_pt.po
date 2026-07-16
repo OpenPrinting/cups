@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-07-15 23:01+0000\n"
+"PO-Revision-Date: 2026-07-16 08:51+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
 "\n"
@@ -2365,11 +2365,8 @@ msgid "-o job-sheets=standard  Print a banner page with the job"
 msgstr ""
 "-o job-sheets=standard  Imprime a faixa (banner) de uma página com o trabalho"
 
-#, fuzzy
 msgid "-o media=size           Specify the media size to use"
-msgstr ""
-"-o media=tamanho        Especifica o tamanho do papel a ser utilizado   "
-"verificar se média é mesmo papel..."
+msgstr "-o media=tamanho        Especifica o tamanho da média a usar"
 
 msgid "-o name-default=value   Specify the default value for the named option"
 msgstr ""
@@ -6067,7 +6064,7 @@ msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr "ca NOME-COMUM             Assina um CSR para produzir um certificado."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr "cacert NOME-COMUM         Cria um certificado CA"
+msgstr "cacert NOME-COMUM         Cria um certificado CA."
 
 msgid "canceled"
 msgstr "cancelado"
@@ -6438,7 +6435,7 @@ msgstr "cups-x509: Incapaz de ler '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr "cups-x509: Incapaz de tirar estatística  '%s': %s"
+msgstr "cups-x509: Incapaz de tirar estatística '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
@@ -8779,7 +8776,7 @@ msgstr ""
 
 #, c-format
 msgid "lpadmin: Unable to connect to server: %s"
-msgstr "lpadmin: Incapaz de ligar ao servidor: %s."
+msgstr "lpadmin: Incapaz de ligar ao servidor: %s"
 
 msgid "lpadmin: Unable to create temporary file"
 msgstr "lpadmin: Incapaz de criar ficheiro temporário"
@@ -14462,15 +14459,15 @@ msgstr "Câmara Interna do Cortador de Separação Aberta"
 
 #. TRANSLATORS: Separation Cutter Jam
 msgid "printer-state-reasons.separation-cutter-jam"
-msgstr "Ocorreu um Atolamento no Separador e Cortador"
+msgstr "Cortador de Separação Encravado"
 
 #. TRANSLATORS: Separation Cutter Life Almost Over
 msgid "printer-state-reasons.separation-cutter-life-almost-over"
-msgstr "O Separador Está Quase no Fim da Sua Vida Útil"
+msgstr "Cortador de Separação Quase no Fim de Vida"
 
 #. TRANSLATORS: Separation Cutter Life Over
 msgid "printer-state-reasons.separation-cutter-life-over"
-msgstr "O Separador e Cortador Está no Fim da Sua Vida Útil"
+msgstr "Cortador de Separação no Fim de Vida"
 
 #. TRANSLATORS: Separation Cutter Memory Exhausted
 msgid "printer-state-reasons.separation-cutter-memory-exhausted"
@@ -14506,59 +14503,55 @@ msgstr "Cortador de Separação em Poupança de Energia"
 
 #. TRANSLATORS: Separation Cutter Recoverable Failure
 msgid "printer-state-reasons.separation-cutter-recoverable-failure"
-msgstr "Ocorreu uma Falha no Separador e Cortador que Pode Ser Restaurado"
+msgstr "Falha Recuperável do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Recoverable Storage
 msgid "printer-state-reasons.separation-cutter-recoverable-storage"
-msgstr "O Armazenamento do Separador e Cortador Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Removed
 msgid "printer-state-reasons.separation-cutter-removed"
-msgstr "O Separador do Cortador Foi Removido"
+msgstr "Cortador de Separação Removido"
 
 #. TRANSLATORS: Separation Cutter Resource Added
 msgid "printer-state-reasons.separation-cutter-resource-added"
-msgstr "A Funcionalidade do Separador e Cortador Foi Adicionada"
+msgstr "Funcionalidade do Cortador de Separação Adicionada"
 
 #. TRANSLATORS: Separation Cutter Resource Removed
 msgid "printer-state-reasons.separation-cutter-resource-removed"
-msgstr "A Funcionalidade do Separador do Cortador Foi Removida"
+msgstr "Funcionalidade do Cortador de Separação Removida"
 
 #. TRANSLATORS: Separation Cutter Thermistor Failure
 msgid "printer-state-reasons.separation-cutter-thermistor-failure"
-msgstr "Ocorreu uma Falha no Termistor do Separador e Cortador"
+msgstr "Falha no Termístor do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Timing Failure
 msgid "printer-state-reasons.separation-cutter-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Separador e Cortador"
+msgstr "Falha no Temporizador do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Turned Off
 msgid "printer-state-reasons.separation-cutter-turned-off"
-msgstr "O Separador e Cortador Está Desligado"
+msgstr "O Cortador de Separação foi Desligado"
 
 #. TRANSLATORS: Separation Cutter Turned On
 msgid "printer-state-reasons.separation-cutter-turned-on"
-msgstr "O Separador e Cortador Está Ligado"
+msgstr "O Cortador de Separação foi Ligado"
 
 #. TRANSLATORS: Separation Cutter Under Temperature
 msgid "printer-state-reasons.separation-cutter-under-temperature"
-msgstr "O Separador e Cortador Está com a Temperatura Abaixo do Normal"
+msgstr "Cortador de Separação com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Failure
 msgid "printer-state-reasons.separation-cutter-unrecoverable-failure"
-msgstr ""
-"Ocorreu uma Falha no Armazenamento do Separador e Cortador que Não Pode Ser "
-"Restaurado"
+msgstr "Falha Irrecuperável do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Unrecoverable Storage Error
 msgid "printer-state-reasons.separation-cutter-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Separador e Cortador que Não Pode Ser "
-"Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Cortador de Separação"
 
 #. TRANSLATORS: Separation Cutter Warming Up
 msgid "printer-state-reasons.separation-cutter-warming-up"
-msgstr "O Separador e Cortador Está a Aquecer"
+msgstr "Cortador de Separação a Aquecer"
 
 #. TRANSLATORS: Sheet Rotator Added
 msgid "printer-state-reasons.sheet-rotator-added"
@@ -14570,115 +14563,95 @@ msgstr "Rotador de Folhas Quase Vazio"
 
 #. TRANSLATORS: Sheet Rotator Almost Full
 msgid "printer-state-reasons.sheet-rotator-almost-full"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-almost-full está "
-"quase cheio"
+msgstr "Rotador de Folhas Quase Cheio"
 
 #. TRANSLATORS: Sheet Rotator At Limit
 msgid "printer-state-reasons.sheet-rotator-at-limit"
-msgstr "O Rotador de Folhas Está no Limite"
+msgstr "Rotador de Folhas no Limite"
 
 #. TRANSLATORS: Sheet Rotator Closed
 msgid "printer-state-reasons.sheet-rotator-closed"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-closed está fechado"
+msgstr "Rotador de Folhas Fechado"
 
 #. TRANSLATORS: Sheet Rotator Configuration Change
 msgid "printer-state-reasons.sheet-rotator-configuration-change"
-msgstr ""
-"Alterar as configurações do rotador de folhas printer-state-reasons.sheet-"
-"rotator-configuration-change"
+msgstr "Alterar as Configurações do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Cover Closed
 msgid "printer-state-reasons.sheet-rotator-cover-closed"
-msgstr "O Rotador de Folhas Está Fechado"
+msgstr "Tampa do Rotador de Folhas Fechada"
 
 #. TRANSLATORS: Sheet Rotator Cover Open
 msgid "printer-state-reasons.sheet-rotator-cover-open"
-msgstr "A Tampa do Rotador de Folhas Está Aberta"
+msgstr "Tampa do Rotador de Folhas Aberta"
 
 #. TRANSLATORS: Sheet Rotator Empty
 msgid "printer-state-reasons.sheet-rotator-empty"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-empty está vazio"
+msgstr "Rotador de Folhas Vazio"
 
 #. TRANSLATORS: Sheet Rotator Full
 msgid "printer-state-reasons.sheet-rotator-full"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-full está cheio"
+msgstr "Rotador de Folhas Cheio"
 
 #. TRANSLATORS: Sheet Rotator Interlock Closed
 msgid "printer-state-reasons.sheet-rotator-interlock-closed"
-msgstr ""
-"O intertravamento do rotador de folhas printer-state-reasons.sheet-rotator-"
-"interlock-closed está fechado"
+msgstr "Câmara Interna do Rotador de Folhas Fechada"
 
 #. TRANSLATORS: Sheet Rotator Interlock Open
 msgid "printer-state-reasons.sheet-rotator-interlock-open"
-msgstr ""
-"O intertravamento do rotador de folhas printer-state-reasons.sheet-rotator-"
-"interlock-open está aberto"
+msgstr "Câmara Interna do Rotador de Folhas Aberta"
 
 #. TRANSLATORS: Sheet Rotator Jam
 msgid "printer-state-reasons.sheet-rotator-jam"
-msgstr "Ocorreu um Atolamento no Rotador de Folhas"
+msgstr "Rotador de Folhas Encravado"
 
 #. TRANSLATORS: Sheet Rotator Life Almost Over
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
-msgstr "O Rotador de Folhas Está Quase no Fim da Sua Vida Útil"
+msgstr "Rotador de Folhas Quase no Fim de Vida"
 
 #. TRANSLATORS: Sheet Rotator Life Over
 msgid "printer-state-reasons.sheet-rotator-life-over"
-msgstr "O Rotador de Folhas Está no Fim da Sua Vida Útil"
+msgstr "Rotador de Folhas no Fim de Vida"
 
 #. TRANSLATORS: Sheet Rotator Memory Exhausted
 msgid "printer-state-reasons.sheet-rotator-memory-exhausted"
-msgstr ""
-"A memória do rotator de folhas printer-state-reasons.sheet-rotator-memory-"
-"exhausted foi esgotada"
+msgstr "Memória do Rotador de Folhas Esgotada"
 
 #. TRANSLATORS: Sheet Rotator Missing
 msgid "printer-state-reasons.sheet-rotator-missing"
-msgstr ""
-"O rotator de folhas printer-state-reasons.sheet-rotator-missing não foi "
-"encontrado"
+msgstr "Rotador de Folhas em Falta"
 
 #. TRANSLATORS: Sheet Rotator Motor Failure
 msgid "printer-state-reasons.sheet-rotator-motor-failure"
-msgstr ""
-"Ocorreu uma falha no motor do rotador de folhas printer-state-reasons.sheet-"
-"rotator-motor-failure"
+msgstr "Falha no Motor do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Near Limit
 msgid "printer-state-reasons.sheet-rotator-near-limit"
-msgstr "O Rotador de Folhas Está Próximo do Seu Limite"
+msgstr "Rotador de Folhas Próximo do Limite"
 
 #. TRANSLATORS: Sheet Rotator Offline
 msgid "printer-state-reasons.sheet-rotator-offline"
-msgstr "O Rotator de Folhas Não Está Conectado"
+msgstr "Rotador de Folhas Desligado"
 
 #. TRANSLATORS: Sheet Rotator Opened
 msgid "printer-state-reasons.sheet-rotator-opened"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-opened está aberto"
+msgstr "Rotador de Folhas Aberto"
 
 #. TRANSLATORS: Sheet Rotator Over Temperature
 msgid "printer-state-reasons.sheet-rotator-over-temperature"
-msgstr "O Rotador de Folhas Atingiu uma Temperatura Excessiva"
+msgstr "Rotador de Folhas com Temperatura Excessiva"
 
 #. TRANSLATORS: Sheet Rotator Power Saver
 msgid "printer-state-reasons.sheet-rotator-power-saver"
-msgstr ""
-"O rotador de folhas printer-state-reasons.sheet-rotator-power-saver entrou "
-"no modo de economia de energia"
+msgstr "Rotador de Folhas em Economia de Energia"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Failure
 msgid "printer-state-reasons.sheet-rotator-recoverable-failure"
-msgstr "Ocorreu uma Falha no Rotador de Folhas que Pode Ser Restaurado"
+msgstr "Falha Recuperável do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Storage
 msgid "printer-state-reasons.sheet-rotator-recoverable-storage"
-msgstr "O Armazenamento Rotador de Folhas Pode Ser Restaurado"
+msgstr "Armazenamento Recuperável do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Removed
 msgid "printer-state-reasons.sheet-rotator-removed"
@@ -14686,11 +14659,11 @@ msgstr "Rotador de Folhas Removido"
 
 #. TRANSLATORS: Sheet Rotator Resource Added
 msgid "printer-state-reasons.sheet-rotator-resource-added"
-msgstr "A Funcionalidade do Rotador de Folhas Foi Adicionada"
+msgstr "Funcionalidade do Rotador de Folhas Adicionada"
 
 #. TRANSLATORS: Sheet Rotator Resource Removed
 msgid "printer-state-reasons.sheet-rotator-resource-removed"
-msgstr "A Funcionalidade do Rotador de Folhas Foi Removida"
+msgstr "Funcionalidade do Rotador de Folhas Removida"
 
 #. TRANSLATORS: Sheet Rotator Thermistor Failure
 msgid "printer-state-reasons.sheet-rotator-thermistor-failure"
@@ -14698,19 +14671,19 @@ msgstr "Falha no Termístor do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Timing Failure
 msgid "printer-state-reasons.sheet-rotator-timing-failure"
-msgstr "Ocorreu uma Falha no Temporizador do Rotador de Folhas"
+msgstr "Falha no Temporizador do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Turned Off
 msgid "printer-state-reasons.sheet-rotator-turned-off"
-msgstr "O Rotador de Folhas Está Desligado"
+msgstr "O Rotador de Folhas foi Desligado"
 
 #. TRANSLATORS: Sheet Rotator Turned On
 msgid "printer-state-reasons.sheet-rotator-turned-on"
-msgstr "O Rotador de Folhas Está Ligado"
+msgstr "O Rotador de Folhas foi Ligado"
 
 #. TRANSLATORS: Sheet Rotator Under Temperature
 msgid "printer-state-reasons.sheet-rotator-under-temperature"
-msgstr "O Rotador de Folhas Está com a Temperatura Abaixo do Normal"
+msgstr "Rotador de Folhas com Temperatura Abaixo do Normal"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Failure
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-failure"
@@ -14718,9 +14691,7 @@ msgstr "Falha Irrecuperável do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Storage Error
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-storage-error"
-msgstr ""
-"Ocorreu um Erro no Armazenamento do Rotador de Folhas que Não Pode Ser "
-"Restaurado"
+msgstr "Erro de Armazenamento Irrecuperável do Rotador de Folhas"
 
 #. TRANSLATORS: Sheet Rotator Warming Up
 msgid "printer-state-reasons.sheet-rotator-warming-up"
@@ -15857,10 +15828,10 @@ msgid "save-name"
 msgstr "Salvar Nome"
 
 msgid "scheduler is not running"
-msgstr "Agendador não está em execução"
+msgstr "o agendador não está a correr"
 
 msgid "scheduler is running"
-msgstr "Agendador está em execução"
+msgstr "o agendador está em execução"
 
 #. TRANSLATORS: Separator Sheets
 msgid "separator-sheets"
@@ -16191,7 +16162,7 @@ msgstr "Origem X"
 
 #. TRANSLATORS: Y Accuracy
 msgid "y-accuracy"
-msgstr "Precisão X"
+msgstr "Precisão Y"
 
 #. TRANSLATORS: Y Dimension
 msgid "y-dimension"
