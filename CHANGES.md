@@ -6,7 +6,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 ------------------------------------
 
 - CVE-2026-55453: The backend did not sanitize IPP attribute strings.
-- CVE-2026-55467: The scheduler did not sanitizer fax numbers.
+- CVE-2026-55467: The scheduler did not sanitize fax numbers.
 - CVE-2026-55480: The scheduler did not open temporary PPD files in exclusive
   mode.
 - CVE-2026-61702: The scheduler did not validate the request language value.
