@@ -776,6 +776,27 @@ main(int  argc,			/* I - Number of command-line arguments */
       puts("PASS");
     }
 
+    fputs("ippValidateAttribute(IPP_TAG_TEXTLANG): ", stdout);
+    attr = ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXTLANG,
+                        "job-name", "en-US", "My Job");
+    if (!attr || !ippValidateAttribute(attr))
+    {
+      printf("FAIL (Unable to validate .language subfield)\n");
+      status = 1;
+    }
+    else
+      puts("PASS");
+
+    fputs("ippValidateAttribute(IPP_TAG_TEXTLANG invalid .language): ", stdout);
+    attr = ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXTLANG, "job-name", "en\"\n*cupsFilter:", "My Job");
+    if (!attr || ippValidateAttribute(attr))
+    {
+      puts("FAIL (accepted bad .language subfield)\n");
+      status = 1;
+    }
+    else
+      puts("PASS");
+
     ippDelete(request);
 
 #ifdef DEBUG

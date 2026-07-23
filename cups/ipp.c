@@ -40,6 +40,7 @@ static void		ipp_set_error(ipp_status_t status, const char *format,
 			              ...);
 static _ipp_value_t	*ipp_set_value(ipp_t *ipp, ipp_attribute_t **attr,
 			               int element);
+static int		ipp_validate_language(const char *lang);
 static ssize_t		ipp_write_file(int *fd, ipp_uchar_t *buffer,
 			               size_t length);
 
@@ -4176,6 +4177,12 @@ ippValidateAttribute(
     case IPP_TAG_TEXTLANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_validate_language(attr->values[i].string.language))
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in textWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
+	    return (0);
+	  }
+
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -4231,6 +4238,12 @@ ippValidateAttribute(
     case IPP_TAG_NAMELANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_validate_language(attr->values[i].string.language))
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in nameWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
+	    return (0);
+	  }
+
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -4377,53 +4390,14 @@ ippValidateAttribute(
         break;
 
     case IPP_TAG_LANGUAGE :
-       /*
-        * The following regular expression is derived from the ABNF for
-	* language tags in RFC 4646.  All I can say is that this is the
-	* easiest way to check the values...
-	*/
-
-        if ((i = regcomp(&re,
-			 "^("
-			 "(([a-z]{2,3}(-[a-z][a-z][a-z]){0,3})|[a-z]{4,8})"
-								/* language */
-			 "(-[a-z][a-z][a-z][a-z]){0,1}"		/* script */
-			 "(-([a-z][a-z]|[0-9][0-9][0-9])){0,1}"	/* region */
-			 "(-([a-z]{5,8}|[0-9][0-9][0-9]))*"	/* variant */
-			 "(-[a-wy-z](-[a-z0-9]{2,8})+)*"	/* extension */
-			 "(-x(-[a-z0-9]{1,8})+)*"		/* privateuse */
-			 "|"
-			 "x(-[a-z0-9]{1,8})+"			/* privateuse */
-			 "|"
-			 "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"	/* grandfathered */
-			 ")$",
-			 REG_NOSUB | REG_EXTENDED)) != 0)
-        {
-          char	temp[256];		/* Temporary error string */
-
-          regerror(i, &re, temp, sizeof(temp));
-	  ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("Unable to compile naturalLanguage regular expression: %s."), temp);
-	  return (0);
-        }
-
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (regexec(&re, attr->values[i].string.text, 0, NULL, 0))
+	  if (!ipp_validate_language(attr->values[i].string.text))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
-	    regfree(&re);
-	    return (0);
-	  }
-
-	  if (strlen(attr->values[i].string.text) > (IPP_MAX_LANGUAGE - 1))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text, (int)strlen(attr->values[i].string.text));
-	    regfree(&re);
 	    return (0);
 	  }
 	}
-
-	regfree(&re);
         break;
 
     case IPP_TAG_MIMETYPE :
@@ -6834,6 +6808,51 @@ ipp_set_value(ipp_t           *ipp,	/* IO - IPP message */
     temp->num_values = element + 1;
 
   return (temp->values + element);
+}
+
+
+/*
+ * 'ipp_validate_language()' - Validate a natural language code string.
+ */
+
+static int				/* O - 1 if valid, 0 if invalid */
+ipp_validate_language(
+    const char *lang)			/* I - Language code */
+{
+  int		i, status;		/* Result */
+  regex_t	re;			/* Regular expression */
+
+
+ /*
+  * The following regular expression is derived from the ABNF for
+  * language tags in RFC 4646.  All I can say is that this is the
+  * easiest way to check the values...
+  */
+
+  if (!lang || strlen(lang) > (IPP_MAX_LANGUAGE - 1))
+    return (0);
+
+  if ((i = regcomp(&re,
+		   "^("
+		   "(([a-z]{2,3}(-[a-z][a-z][a-z]){0,3})|[a-z]{4,8})"
+								/* language */
+		   "(-[a-z][a-z][a-z][a-z]){0,1}"		/* script */
+		   "(-([a-z][a-z]|[0-9][0-9][0-9])){0,1}"	/* region */
+		   "(-([a-z]{5,8}|[0-9][0-9][0-9]))*"	/* variant */
+		   "(-[a-wy-z](-[a-z0-9]{2,8})+)*"	/* extension */
+		   "(-x(-[a-z0-9]{1,8})+)*"		/* privateuse */
+		   "|"
+		   "x(-[a-z0-9]{1,8})+"			/* privateuse */
+		   "|"
+		   "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"	/* grandfathered */
+		   ")$",
+		   REG_NOSUB | REG_EXTENDED)) != 0)
+    return (0);
+
+  status = regexec(&re, lang, 0, NULL, 0) == 0;
+  regfree(&re);
+
+  return (status);
 }
 
 
