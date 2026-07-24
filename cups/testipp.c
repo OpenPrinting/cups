@@ -747,7 +747,8 @@ main(int  argc,				// I - Number of command-line arguments
       testEnd(true);
 
     testBegin("ippValidateAttribute(IPP_TAG_TEXTLANG invalid .language)");
-    attr = ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXTLANG, "job-name", "en\"\n*cupsFilter:", "My Job");
+    attr = ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_TEXTLANG,
+                        "job-name", "en\"\n*cupsFilter:", "My Job");
     if (!attr || ippValidateAttribute(attr))
     {
       testEndMessage(false, "accepted bad .language subfield");
