@@ -309,6 +309,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		maxsize,		/* Maximum size */
 		*size;			/* Current size */
   ppd_attr_t	*attr;			/* Current attribute */
+  ppd_choice_t 	*choice;		/* Current choice */
   _ppd_cache_t	*pc;			/* PPD cache */
 
 
@@ -625,6 +626,88 @@ main(int  argc,				/* I - Number of command-line arguments */
     if (!size || strcmp(size->name, "A4"))
     {
       printf("FAIL (%s)\n", size ? size->name : "unknown");
+      status ++;
+    }
+    else
+      puts("PASS");
+
+    ppdMarkDefaults(ppd);
+    fputs("cupsMarkOptions(media=A4, InputSlot=Envelope): ", stdout);
+    num_options = cupsAddOption("media", "A4", 0, &options);
+    num_options = cupsAddOption("InputSlot", "Envelope", num_options, &options);
+    cupsMarkOptions(ppd, num_options, options);
+    cupsFreeOptions(num_options, options);
+
+    choice = ppdFindMarkedChoice(ppd, "InputSlot");
+    if (!choice || strcmp(choice->choice, "Envelope"))
+    {
+      printf("FAIL (%s)\n", choice ? choice->choice : "unknown");
+      status ++;
+    }
+    else
+      puts("PASS");
+
+    ppdMarkDefaults(ppd);
+    fputs("cupsMarkOptions(media=envelope, InputSlot=Tray): ", stdout);
+    num_options = cupsAddOption("media", "envelope", 0, &options);
+    num_options = cupsAddOption("InputSlot", "Tray", num_options, &options);
+    cupsMarkOptions(ppd, num_options, options);
+    cupsFreeOptions(num_options, options);
+
+    choice = ppdFindMarkedChoice(ppd, "InputSlot");
+    if (!choice || strcmp(choice->choice, "Envelope"))
+    {
+      printf("FAIL (%s)\n", choice ? choice->choice : "unknown");
+      status ++;
+    }
+    else
+      puts("PASS");
+
+    ppdMarkDefaults(ppd);
+    fputs("cupsMarkOptions(media=A4, PageSize=Letter): ", stdout);
+    num_options = cupsAddOption("media", "A4", 0, &options);
+    num_options = cupsAddOption("PageSize", "Letter", num_options, &options);
+    cupsMarkOptions(ppd, num_options, options);
+    cupsFreeOptions(num_options, options);
+
+    size = ppdPageSize(ppd, NULL);
+    if (!size || strcmp(size->name, "A4"))
+    {
+      printf("FAIL (%s)\n", size ? size->name : "unknown");
+      status ++;
+    }
+    else
+      puts("PASS");
+
+    ppdMarkDefaults(ppd);
+    fputs("cupsMarkOptions(media=A4, PageSize=bogus): ", stdout);
+    num_options = cupsAddOption("media", "A4", 0, &options);
+    num_options = cupsAddOption("PageSize", "bogus", num_options, &options);
+    cupsMarkOptions(ppd, num_options, options);
+    cupsFreeOptions(num_options, options);
+
+    size = ppdPageSize(ppd, NULL);
+    if (!size || strcmp(size->name, "A4"))
+    {
+      printf("FAIL (%s)\n", size ? size->name : "unknown");
+      status ++;
+    }
+    else
+      puts("PASS");
+
+    ppdMarkDefaults(ppd);
+    fputs("cupsMarkOptions(media=A4,envelope, PageSize=Letter, InputSlot=Tray): ", stdout);
+    num_options = cupsAddOption("media", "A4,envelope", 0, &options);
+    num_options = cupsAddOption("PageSize", "Letter", num_options, &options);
+    num_options = cupsAddOption("InputSlot", "Tray", num_options, &options);
+    cupsMarkOptions(ppd, num_options, options);
+    cupsFreeOptions(num_options, options);
+
+    size   = ppdPageSize(ppd, NULL);
+    choice = ppdFindMarkedChoice(ppd, "InputSlot");
+    if (!size || strcmp(size->name, "A4") || !choice || strcmp(choice->choice, "Envelope"))
+    {
+      printf("FAIL (%s / %s)\n", size ? size->name : "unknown", choice ? choice->choice : "unknown");
       status ++;
     }
     else
