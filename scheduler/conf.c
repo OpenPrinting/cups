@@ -1,7 +1,7 @@
 /*
  * Configuration routines for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -4333,6 +4333,25 @@ set_policy_defaults(cupsd_policy_t *pol)/* I - Policy */
       }
       else
 	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Close-Job defined in policy %s and no suitable template found.", pol->name);
+    }
+
+    if ((op = cupsdFindPolicyOp(pol, IPP_OP_SET_PRINTER_ATTRIBUTES)) == NULL ||
+	op->op == IPP_ANY_OPERATION)
+    {
+      if ((op = cupsdFindPolicyOp(pol, IPP_OP_CUPS_ADD_MODIFY_PRINTER)) != NULL &&
+	  op->op != IPP_ANY_OPERATION)
+      {
+       /*
+	* Add a new limit for Set-Printer-Attribures using the
+	* CUPS-Add-Modify-Printer limit as a template...
+	*/
+
+	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Set-Printer-Attributes defined in policy %s - using CUPS-Add-Modify-Printers's policy.", pol->name);
+
+	cupsdAddPolicyOp(pol, op, IPP_OP_SET_PRINTER_ATTRIBUTES);
+      }
+      else
+	cupsdLogMessage(CUPSD_LOG_WARN, "No limit for Set-Printer-Attributes defined in policy %s and no suitable template found.", pol->name);
     }
 
     if ((op = cupsdFindPolicyOp(pol, CUPS_GET_DOCUMENT)) == NULL ||

@@ -16,6 +16,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Updated a few character tests for signed char platforms (Issue #1623)
 - Added validation of IPP "printer-state-reasons" and
   "printer-mandatory-job-attributes" attributes (Issue #1632)
+- Added missing Set-Printer-Attributes policy to cupsd.conf.
 - Fixed mapping of standard PPD/PWG/legacy media size names to the local PPD
   size name (Issue #1375)
 - Fixed handling of multiple PPD: keywords from filters (Issue #1562,

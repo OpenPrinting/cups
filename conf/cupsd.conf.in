@@ -179,7 +179,7 @@ IdleExitTimeout @EXIT_TIMEOUT@
   </Limit>
 
   # All administration operations require an administrator to authenticate...
-  <Limit CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
+  <Limit Set-Printer-Attributes CUPS-Add-Modify-Printer CUPS-Delete-Printer CUPS-Add-Modify-Class CUPS-Delete-Class CUPS-Set-Default>
     AuthType Default
     Require user @SYSTEM
     Order deny,allow
