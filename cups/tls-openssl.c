@@ -98,7 +98,8 @@ cupsAreCredentialsValidForName(
 
     DEBUG_printf("1cupsAreCredentialsValidForName: certs=%p(num=%d), cert=%p", (void *)certs, sk_X509_num(certs), (void *)cert);
 
-    X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName));
+    if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName)) < 0)
+      cupsCopyString(subjectName, "unknown", sizeof(subjectName));
     DEBUG_printf("1cupsAreCredentialsValidForName: subjectName=\"%s\"", subjectName);
 
     if (!_cups_strcasecmp(common_name, subjectName))
@@ -109,7 +110,8 @@ cupsAreCredentialsValidForName(
 
 #ifdef DEBUG
     char issuerName[256];
-    X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName));
+    if (X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName)) < 0)
+      cupsCopyString(issuerName, "unknown", sizeof(issuerName));
     DEBUG_printf("1cupsAreCredentialsValidForName: issuerName=\"%s\"", issuerName);
 #endif // DEBUG
 
@@ -799,8 +801,10 @@ cupsGetCredentialsInfo(
 
     cert = sk_X509_value(certs, 0);
 
-    X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name));
-    X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuer, sizeof(issuer));
+    if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name)) < 0)
+      cupsCopyString(name, "unknown", sizeof(name));
+    if (X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuer, sizeof(issuer)) < 0)
+      cupsCopyString(issuer, "unknown", sizeof(issuer));
     expiration = openssl_get_date(cert, 1);
 
     switch (X509_get_signature_nid(cert))
@@ -1506,8 +1510,10 @@ httpCopyPeerCredentials(http_t *http)	// I - Connection to server
 
 #ifdef DEBUG
 	char subjectName[256], issuerName[256];
-	X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName));
-	X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName));
+	if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName)) < 0)
+	  cupsCopyString(subjectName, "unknown", sizeof(subjectName));
+	if (X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuerName, sizeof(issuerName)) < 0)
+	  cupsCopyString(issuerName, "unknown", sizeof(issuerName));
 	DEBUG_printf("1httpCopyPeerCredentials: subjectName=\"%s\", issuerName=\"%s\"", subjectName, issuerName);
 
 	STACK_OF(GENERAL_NAME) *names;	// subjectAltName values
