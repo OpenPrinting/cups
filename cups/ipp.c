@@ -3425,7 +3425,7 @@ ippSetStringfv(ipp_t           *ipp,	// I  - IPP message
   }
 
   // Set the formatted string and return...
-  return (ippSetString(ipp, attr, element, buffer));
+  return (ippSetString(ipp, attr, element, _cupsStrAlloc(buffer)));
 }
 
 
