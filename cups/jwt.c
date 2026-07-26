@@ -1,7 +1,7 @@
 //
 // JSON Web Token API implementation for CUPS.
 //
-// Copyright © 2023-2025 by OpenPrinting.
+// Copyright © 2023-2026 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -981,7 +981,7 @@ cupsJWTLoadCredentials(
     cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "dq"), dq);
     cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "qi"), qi);
   }
-  else
+  else if (crv)
   {
     cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "crv"), crv);
     cupsJSONNewString(jwk, cupsJSONNewKey(jwk, /*after*/NULL, "x"), x);
@@ -2182,12 +2182,15 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
         s_len    = (unsigned)BN_num_bytes(s);
         *sigsize = sig_sizes[alg - CUPS_JWA_ES256];
         sig_len  = *sigsize / 2;
-        ret      = true;
 
-        // 0-pad raw coordinates
-        memset(signature, 0, *sigsize);
-        BN_bn2bin(r, signature + sig_len - r_len);
-        BN_bn2bin(s, signature + *sigsize - s_len);
+        if (r_len <= sig_len && s_len <= sig_len)
+        {
+          // 0-pad raw coordinates
+	  memset(signature, 0, *sigsize);
+	  BN_bn2bin(r, signature + sig_len - r_len);
+	  BN_bn2bin(s, signature + *sigsize - s_len);
+	  ret = true;
+	}
 
         // Free the signature
         ECDSA_SIG_free(ec_sig);
@@ -2211,16 +2214,19 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
 	sig_len  = *sigsize / 2;
         gnutls_decode_rs_value(&sig_datum, &r, &s);
 
-        memset(signature, 0, *sigsize);
-	if (r.size < sig_len)
-          memcpy(signature + sig_len - r.size, r.data, r.size);
-	else
-          memcpy(signature, r.data + r.size - sig_len, sig_len);
-	if (s.size < sig_len)
-          memcpy(signature + *sigsize - s.size, s.data, s.size);
-	else
-          memcpy(signature + sig_len, s.data + s.size - sig_len, sig_len);
-        ret = true;
+        if (r.size <= sig_len && s.size <= sig_len)
+	{
+	  memset(signature, 0, *sigsize);
+	  if (r.size < sig_len)
+	    memcpy(signature + sig_len - r.size, r.data, r.size);
+	  else
+	    memcpy(signature, r.data + r.size - sig_len, sig_len);
+	  if (s.size < sig_len)
+	    memcpy(signature + *sigsize - s.size, s.data, s.size);
+	  else
+	    memcpy(signature + sig_len, s.data + s.size - sig_len, sig_len);
+	  ret = true;
+	}
 
 	gnutls_free(r.data);
 	gnutls_free(s.data);
