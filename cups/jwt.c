@@ -2214,19 +2214,17 @@ make_signature(cups_jwt_t    *jwt,	// I  - JWT
 	sig_len  = *sigsize / 2;
         gnutls_decode_rs_value(&sig_datum, &r, &s);
 
-        if (r.size <= sig_len && s.size <= sig_len)
-	{
-	  memset(signature, 0, *sigsize);
-	  if (r.size < sig_len)
-	    memcpy(signature + sig_len - r.size, r.data, r.size);
-	  else
-	    memcpy(signature, r.data + r.size - sig_len, sig_len);
-	  if (s.size < sig_len)
-	    memcpy(signature + *sigsize - s.size, s.data, s.size);
-	  else
-	    memcpy(signature + sig_len, s.data + s.size - sig_len, sig_len);
-	  ret = true;
-	}
+	memset(signature, 0, *sigsize);
+	if (r.size < sig_len)
+	  memcpy(signature + sig_len - r.size, r.data, r.size);
+	else
+	  memcpy(signature, r.data + r.size - sig_len, sig_len);
+	if (s.size < sig_len)
+	  memcpy(signature + *sigsize - s.size, s.data, s.size);
+	else
+	  memcpy(signature + sig_len, s.data + s.size - sig_len, sig_len);
+
+	ret = true;
 
 	gnutls_free(r.data);
 	gnutls_free(s.data);
