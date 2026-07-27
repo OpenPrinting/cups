@@ -3845,12 +3845,6 @@ ippValidateAttribute(
     case IPP_TAG_TEXTLANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in textWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
-	    return (0);
-	  }
-
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -3903,6 +3897,12 @@ ippValidateAttribute(
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
 	    return (0);
 	  }
+
+	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in textWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
+	    return (0);
+	  }
 	}
         break;
 
@@ -3910,12 +3910,6 @@ ippValidateAttribute(
     case IPP_TAG_NAMELANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in nameWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
-	    return (0);
-	  }
-
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -3966,6 +3960,12 @@ ippValidateAttribute(
 	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_NAME - 1))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
+	    return (0);
+	  }
+
+	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in nameWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
 	    return (0);
 	  }
 	}
