@@ -1,0 +1,31 @@
+# ippFile API test file
+
+# DEFINE
+DEFINE width 21000
+DEFINE length 29700
+DEFINE-DEFAULT color white
+
+# GROUP + ATTR + MEMBER
+GROUP operation-attributes-tag
+ATTR charset attributes-charset "utf-8"
+ATTR naturalLanguage attributes-natural-language en
+ATTR name job-name "Test Job"
+ATTR mimeMediaType document-format application/pdf
+ATTR octetString job-password "password"
+ATTR keyword job-password-encryption none
+
+GROUP job-attributes-tag
+ATTR integer copies 42
+ATTR keyword job-hold-until indefinite
+ATTR rangeOfInteger page-ranges 1-4,11-12
+ATTR collection media-col {
+    MEMBER collection media-size {
+        MEMBER integer x-dimension $width
+        MEMBER integer y-dimension $length
+    }
+    MEMBER keyword media-color $color
+}
+ATTR boolean agreement true
+ATTR boolean disagreement false
+
+TEST

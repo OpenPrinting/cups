@@ -17,20 +17,35 @@
 
 
 //
+// Local globals...
+//
+
+static cups_mutex_t	regex_mutex = CUPS_MUTEX_INITIALIZER;
+					// Mutex for regular expressions
+static bool		regex_init = false;
+					// Have regular expressions been initialized?
+static regex_t		lang_regex;	// Regular expression for naturalLanguage
+static regex_t		mime_regex;	// Regular expression for mimeMediaType
+
+
+//
 // Local functions...
 //
 
 static ipp_attribute_t	*ipp_add_attr(ipp_t *ipp, const char *name, ipp_tag_t group_tag, ipp_tag_t value_tag, int num_values);
 static void		ipp_free_values(ipp_attribute_t *attr, int element, int count);
 static char		*ipp_get_code(const char *locale, char *buffer, size_t bufsize) _CUPS_NONNULL(1,2);
+static bool		ipp_is_valid_language(const char *name, const char *lang);
+static bool		ipp_is_valid_mimetype(const char *name, const char *type);
 static char		*ipp_lang_code(const char *locale, char *buffer, size_t bufsize) _CUPS_NONNULL(1,2);
 static size_t		ipp_length(ipp_t *ipp, int collection);
 static ssize_t		ipp_read_file(int *fd, ipp_uchar_t *buffer, size_t length);
 static ssize_t		ipp_read_http(http_t *http, ipp_uchar_t *buffer, size_t length);
 static ipp_state_t	ipp_read_io(void *src, ipp_io_cb_t cb, bool blocking, ipp_t *parent, ipp_t *ipp, int depth);
+static bool		ipp_regex_begin(void);
+static void		ipp_regex_end(void);
 static void		ipp_set_error(ipp_status_t status, const char *format, ...);
 static _ipp_value_t	*ipp_set_value(ipp_t *ipp, ipp_attribute_t **attr, int element);
-static bool		ipp_is_valid_language(const char *lang);
 static ssize_t		ipp_write_file(int *fd, ipp_uchar_t *buffer, size_t length);
 
 
@@ -3657,8 +3672,9 @@ int					// O - `1` if valid, `0` otherwise
 ippValidateAttribute(
     ipp_attribute_t *attr)		// I - Attribute
 {
-  int		i,			// Looping var
-		r;			// regcomp() error code
+  ipp_tag_t	value_tag;		// Masked value tag
+  _ipp_value_t	*value;			// Current value
+  size_t	i;			// Looping var
   char		scheme[64],		// Scheme from URI
 		userpass[256],		// Username/password from URI
 		hostname[256],		// Hostname from URI
@@ -3667,7 +3683,6 @@ ippValidateAttribute(
 		uri_status;		// URI separation status
   const char	*ptr;			// Pointer into string
   ipp_attribute_t *colattr;		// Collection attribute
-  regex_t	re;			// Regular expression
   ipp_uchar_t	*date;			// Current date value
 
 
@@ -3694,48 +3709,50 @@ ippValidateAttribute(
     return (0);
   }
 
-  switch (attr->value_tag & IPP_TAG_CUPS_MASK)
+  value_tag = attr->value_tag & IPP_TAG_CUPS_MASK;
+
+  switch (value_tag)
   {
     case IPP_TAG_INTEGER :
         break;
 
     case IPP_TAG_BOOLEAN :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (attr->values[i].boolean != 0 && attr->values[i].boolean != 1)
+	  if (value->boolean != 0 && value->boolean != 1)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."), attr->name, attr->values[i].boolean);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."), attr->name, value->boolean);
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_ENUM :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (attr->values[i].integer < 1)
+	  if (value->integer < 1)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."), attr->name, attr->values[i].integer);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."), attr->name, value->integer);
             return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_STRING :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (attr->values[i].unknown.length > IPP_MAX_OCTETSTRING)
+	  if (value->unknown.length > IPP_MAX_OCTETSTRING)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."), attr->name, attr->values[i].unknown.length);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."), attr->name, value->unknown.length);
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_DATE :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  date = attr->values[i].date;
+	  date = value->date;
 
           if (date[2] < 1 || date[2] > 12)
 	  {
@@ -3795,43 +3812,43 @@ ippValidateAttribute(
         break;
 
     case IPP_TAG_RESOLUTION :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (attr->values[i].resolution.xres <= 0)
+	  if (value->resolution.xres <= 0)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be positive (RFC 8011 section 5.1.16)."), attr->name, attr->values[i].resolution.xres, attr->values[i].resolution.yres, attr->values[i].resolution.units == IPP_RES_PER_INCH ? "dpi" : attr->values[i].resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - cross feed resolution must be positive (RFC 8011 section 5.1.16)."), attr->name, value->resolution.xres, value->resolution.yres, value->resolution.units == IPP_RES_PER_INCH ? "dpi" : value->resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
 	    return (0);
 	  }
 
-	  if (attr->values[i].resolution.yres <= 0)
+	  if (value->resolution.yres <= 0)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC 8011 section 5.1.16)."), attr->name, attr->values[i].resolution.xres, attr->values[i].resolution.yres, attr->values[i].resolution.units == IPP_RES_PER_INCH ? "dpi" : attr->values[i].resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC 8011 section 5.1.16)."), attr->name, value->resolution.xres, value->resolution.yres, value->resolution.units == IPP_RES_PER_INCH ? "dpi" : value->resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
             return (0);
 	  }
 
-	  if (attr->values[i].resolution.units != IPP_RES_PER_INCH && attr->values[i].resolution.units != IPP_RES_PER_CM)
+	  if (value->resolution.units != IPP_RES_PER_INCH && value->resolution.units != IPP_RES_PER_CM)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section 5.1.16)."), attr->name, attr->values[i].resolution.xres, attr->values[i].resolution.yres, attr->values[i].resolution.units == IPP_RES_PER_INCH ? "dpi" : attr->values[i].resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad resolution value %dx%d%s - bad units value (RFC 8011 section 5.1.16)."), attr->name, value->resolution.xres, value->resolution.yres, value->resolution.units == IPP_RES_PER_INCH ? "dpi" : value->resolution.units == IPP_RES_PER_CM ? "dpcm" : "unknown");
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_RANGE :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (attr->values[i].range.lower > attr->values[i].range.upper)
+	  if (value->range.lower > value->range.upper)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 section 5.1.14)."), attr->name, attr->values[i].range.lower, attr->values[i].range.upper);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad rangeOfInteger value %d-%d - lower greater than upper (RFC 8011 section 5.1.14)."), attr->name, value->range.lower, value->range.upper);
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_BEGIN_COLLECTION :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  for (colattr = attr->values[i].collection->attrs;
+	  for (colattr = value->collection->attrs;
 	       colattr;
 	       colattr = colattr->next)
 	  {
@@ -3843,9 +3860,21 @@ ippValidateAttribute(
 
     case IPP_TAG_TEXT :
     case IPP_TAG_TEXTLANG :
-        for (i = 0; i < attr->num_values; i ++)
+        if (value_tag == IPP_TAG_TEXTLANG)
+        {
+          if (!ipp_regex_begin())
+            return (0);
+        }
+
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
+	  if (value_tag == IPP_TAG_TEXTLANG && !ipp_is_valid_language(attr->name, value->string.language))
+	  {
+	    ipp_regex_end();
+	    return (0);
+	  }
+
+	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
 	    {
@@ -3880,37 +3909,52 @@ ippValidateAttribute(
 
           if (*ptr)
           {
+	    if (value_tag == IPP_TAG_TEXTLANG)
+	      ipp_regex_end();
+
 	    if (*ptr < ' ' || *ptr == 0x7f)
 	    {
-	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section 8.3)."), attr->name, attr->values[i].string.text);
+	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section 8.3)."), attr->name, value->string.text);
 	      return (0);
 	    }
 	    else
 	    {
-	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."), attr->name, attr->values[i].string.text);
+	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."), attr->name, value->string.text);
 	      return (0);
 	    }
           }
 
-	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_TEXT - 1))
+	  if ((ptr - value->string.text) > (IPP_MAX_TEXT - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
-	    return (0);
-	  }
+	    if (value_tag == IPP_TAG_TEXTLANG)
+	      ipp_regex_end();
 
-	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in textWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."), attr->name, value->string.text, (int)(ptr - value->string.text));
 	    return (0);
 	  }
 	}
+
+	if (value_tag == IPP_TAG_TEXTLANG)
+	  ipp_regex_end();
         break;
 
     case IPP_TAG_NAME :
     case IPP_TAG_NAMELANG :
-        for (i = 0; i < attr->num_values; i ++)
+        if (value_tag == IPP_TAG_NAMELANG)
+        {
+          if (!ipp_regex_begin())
+            return (0);
+        }
+
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
+	  if (value_tag == IPP_TAG_NAMELANG && !ipp_is_valid_language(attr->name, value->string.language))
+	  {
+	    ipp_regex_end();
+	    return (0);
+	  }
+
+	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
 	    {
@@ -3945,77 +3989,80 @@ ippValidateAttribute(
 
 	  if (*ptr)
 	  {
+	    if (value_tag == IPP_TAG_NAMELANG)
+	      ipp_regex_end();
+
 	    if (*ptr < ' ' || *ptr == 0x7f)
 	    {
-	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section 8.1)."), attr->name, attr->values[i].string.text);
+	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section 8.1)."), attr->name, value->string.text);
 	      return (0);
 	    }
 	    else
 	    {
-	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."), attr->name, attr->values[i].string.text);
+	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."), attr->name, value->string.text);
 	      return (0);
 	    }
           }
 
-	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_NAME - 1))
+	  if ((ptr - value->string.text) > (IPP_MAX_NAME - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
-	    return (0);
-	  }
+	    if (value_tag == IPP_TAG_NAMELANG)
+	      ipp_regex_end();
 
-	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in nameWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."), attr->name, value->string.text, (int)(ptr - value->string.text));
 	    return (0);
 	  }
 	}
+
+	if (value_tag == IPP_TAG_NAMELANG)
+	  ipp_regex_end();
         break;
 
     case IPP_TAG_KEYWORD :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
+	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
 	    if (!isalnum(*ptr & 255) && *ptr != '-' && *ptr != '.' && *ptr != '_')
 	      break;
 	  }
 
-	  if (*ptr || ptr == attr->values[i].string.text)
+	  if (*ptr || ptr == value->string.text)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section 5.1.4)."), attr->name, attr->values[i].string.text);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section 5.1.4)."), attr->name, value->string.text);
 	    return (0);
 	  }
 
-	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_KEYWORD - 1))
+	  if ((ptr - value->string.text) > (IPP_MAX_KEYWORD - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."), attr->name, value->string.text, (int)(ptr - value->string.text));
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_URI :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, attr->values[i].string.text, scheme, sizeof(scheme), userpass, sizeof(userpass), hostname, sizeof(hostname), &port, resource, sizeof(resource));
+	  uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, value->string.text, scheme, sizeof(scheme), userpass, sizeof(userpass), hostname, sizeof(hostname), &port, resource, sizeof(resource));
 
 	  if (uri_status < HTTP_URI_STATUS_OK)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."), attr->name, attr->values[i].string.text, httpURIStatusString(uri_status));
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."), attr->name, value->string.text, httpURIStatusString(uri_status));
 	    return (0);
 	  }
 
-	  if (strlen(attr->values[i].string.text) > (IPP_MAX_URI - 1))
+	  if (strlen(value->string.text) > (IPP_MAX_URI - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."), attr->name, attr->values[i].string.text, (int)strlen(attr->values[i].string.text));
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."), attr->name, value->string.text, (int)strlen(value->string.text));
 	  }
 	}
         break;
 
     case IPP_TAG_URISCHEME :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  ptr = attr->values[i].string.text;
+	  ptr = value->string.text;
 	  if (islower(*ptr & 255))
 	  {
 	    for (ptr ++; *ptr; ptr ++)
@@ -4025,94 +4072,73 @@ ippValidateAttribute(
 	    }
 	  }
 
-	  if (*ptr || ptr == attr->values[i].string.text)
+	  if (*ptr || ptr == value->string.text)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."), attr->name, attr->values[i].string.text);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."), attr->name, value->string.text);
 	    return (0);
 	  }
 
-	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_URISCHEME - 1))
+	  if ((ptr - value->string.text) > (IPP_MAX_URISCHEME - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."), attr->name, value->string.text, (int)(ptr - value->string.text));
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_CHARSET :
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
+	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
 	    if (!isprint(*ptr & 255) || isupper(*ptr & 255) || isspace(*ptr & 255))
 	      break;
 	  }
 
-	  if (*ptr || ptr == attr->values[i].string.text)
+	  if (*ptr || ptr == value->string.text)
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."), attr->name, attr->values[i].string.text);
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."), attr->name, value->string.text);
 	    return (0);
 	  }
 
-	  if ((ptr - attr->values[i].string.text) > (IPP_MAX_CHARSET - 1))
+	  if ((ptr - value->string.text) > (IPP_MAX_CHARSET - 1))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."), attr->name, attr->values[i].string.text, (int)(ptr - attr->values[i].string.text));
+	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."), attr->name, value->string.text, (int)(ptr - value->string.text));
 	    return (0);
 	  }
 	}
         break;
 
     case IPP_TAG_LANGUAGE :
-        for (i = 0; i < attr->num_values; i ++)
+        if (!ipp_regex_begin())
+          return (0);
+
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (!ipp_is_valid_language(attr->values[i].string.text))
+	  if (!ipp_is_valid_language(attr->name, value->string.text))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
+	    ipp_regex_end();
 	    return (0);
 	  }
 	}
+
+	ipp_regex_end();
         break;
 
     case IPP_TAG_MIMETYPE :
-        // The following regular expression is derived from the ABNF for
-	// MIME media types in RFC 2045 and 4288.  All I can say is that this is
-	// the easiest way to check the values...
-        if ((r = regcomp(&re,
-			 "^"
-			 "[-a-zA-Z0-9!#$&.+^_]{1,127}"		// type-name
-			 "/"
-			 "[-a-zA-Z0-9!#$&.+^_]{1,127}"		// subtype-name
-			 "(;[-a-zA-Z0-9!#$&.+^_]{1,127}="	// argument=
-			 "([-a-zA-Z0-9!#$&.+^_]{1,127}|\"[^\"]*\"))*"
-			 					// value
-			 "$",
-			 REG_NOSUB | REG_EXTENDED)) != 0)
-        {
-          char	temp[256];		// Temporary error string
+        if (!ipp_regex_begin())
+          return (0);
 
-          regerror(r, &re, temp, sizeof(temp));
-	  ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("Unable to compile mimeMediaType regular expression: %s."), temp);
-	  return (0);
-        }
-
-        for (i = 0; i < attr->num_values; i ++)
+        for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
-	  if (regexec(&re, attr->values[i].string.text, 0, NULL, 0))
+	  if (!ipp_is_valid_mimetype(attr->name, value->string.text))
 	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section 5.1.10)."), attr->name, attr->values[i].string.text);
-	    regfree(&re);
-	    return (0);
-	  }
-
-	  if (strlen(attr->values[i].string.text) > (IPP_MAX_MIMETYPE - 1))
-	  {
-	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section 5.1.10)."), attr->name, attr->values[i].string.text, (int)strlen(attr->values[i].string.text));
-	    regfree(&re);
+	    ipp_regex_end();
 	    return (0);
 	  }
 	}
 
-	regfree(&re);
+	ipp_regex_end();
         break;
 
     default :
@@ -5096,6 +5122,54 @@ ipp_get_code(const char *value,		// I - Locale/charset string
 
 
 //
+// 'ipp_is_valid_language()' - Determine whether a language string is valid.
+//
+
+static bool				// O - `true` if valid, `false` if bad
+ipp_is_valid_language(const char *name,	// I - Attribute name
+                      const char *lang)	// I - Language string
+{
+  if (regexec(&lang_regex, lang, 0, NULL, 0))
+  {
+    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), name, lang);
+    return (false);
+  }
+
+  if (strlen(lang) > (IPP_MAX_LANGUAGE - 1))
+  {
+    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad length %d (RFC 8011 section 5.1.9)."), name, lang, (int)strlen(lang));
+    return (false);
+  }
+
+  return (true);
+}
+
+
+//
+// 'ipp_is_valid_mimetype()' - Determine whether a MIME media type string is valid.
+//
+
+static bool				// O - `true` if valid, `false` if bad
+ipp_is_valid_mimetype(const char *name,	// I - Attribute name
+                      const char *type)	// I - mimeMediaType string
+{
+  if (regexec(&mime_regex, type, 0, NULL, 0))
+  {
+    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section 5.1.10)."), name, type);
+    return (false);
+  }
+
+  if (strlen(type) > (IPP_MAX_MIMETYPE - 1))
+  {
+    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section 5.1.10)."), name, type, (int)strlen(type));
+    return (false);
+  }
+
+  return (true);
+}
+
+
+//
 // 'ipp_lang_code()' - Convert a C locale name into an IPP language code.
 //
 // This typically converts strings of the form "ll_CC" and "ll-REGION" to "ll-cc" and
@@ -5975,6 +6049,91 @@ ipp_read_io(void        *src,		// I - Data source
 
 
 //
+// 'ipp_regex_begin()' - Start using validation regular expressions.
+//
+
+static bool				// O - `true` on success, `false` on failure
+ipp_regex_begin(void)
+{
+  int		r;			// regcomp() error code
+
+
+  // Take a lock...
+  cupsMutexLock(&regex_mutex);
+
+  // If the regular expressions have not been initialized, do so now...
+  if (!regex_init)
+  {
+    regex_init = true;
+
+    // The following regular expression is derived from the ABNF for
+    // language tags in RFC 4646.  All I can say is that this is the
+    // easiest way to check the values...
+    if ((r = regcomp(&lang_regex,
+		     "^("
+		     "(([a-z]{2,3}(-[a-z][a-z][a-z]){0,3})|[a-z]{4,8})"
+							// language
+		     "(-[a-z][a-z][a-z][a-z]){0,1}"	// script
+		     "(-([a-z][a-z]|[0-9][0-9][0-9])){0,1}"
+							// region
+		     "(-([a-z]{5,8}|[0-9][0-9][0-9]))*"	// variant
+		     "(-[a-wy-z](-[a-z0-9]{2,8})+)*"	// extension
+		     "(-x(-[a-z0-9]{1,8})+)*"		// privateuse
+		     "|"
+		     "x(-[a-z0-9]{1,8})+"		// privateuse
+		     "|"
+		     "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"// grandfathered
+		     ")$",
+		     REG_NOSUB | REG_EXTENDED)) != 0)
+    {
+      char	temp[256];		// Temporary error string
+
+      regerror(r, &lang_regex, temp, sizeof(temp));
+      ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("Unable to compile naturalLanguage regular expression: %s."), temp);
+      cupsMutexUnlock(&regex_mutex);
+      return (false);
+    }
+
+
+    // The following regular expression is derived from the ABNF for
+    // MIME media types in RFC 2045 and 4288.  All I can say is that this is
+    // the easiest way to check the values...
+    if ((r = regcomp(&mime_regex,
+		     "^"
+		     "[-a-zA-Z0-9!#$&.+^_]{1,127}"	// type-name
+		     "/"
+		     "[-a-zA-Z0-9!#$&.+^_]{1,127}"	// subtype-name
+		     "(;[-a-zA-Z0-9!#$&.+^_]{1,127}="	// argument=
+		     "([-a-zA-Z0-9!#$&.+^_]{1,127}|\"[^\"]*\"))*"
+							// value
+		     "$",
+		     REG_NOSUB | REG_EXTENDED)) != 0)
+    {
+      char	temp[256];		// Temporary error string
+
+      regerror(r, &mime_regex, temp, sizeof(temp));
+      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("Unable to compile mimeMediaType regular expression: %s."), temp);
+      cupsMutexUnlock(&regex_mutex);
+      return (false);
+    }
+  }
+
+  return (true);
+}
+
+
+//
+// 'ipp_regex_end()' - Finish using validation regular expressions.
+//
+
+static void
+ipp_regex_end(void)
+{
+  cupsMutexUnlock(&regex_mutex);
+}
+
+
+//
 // 'ipp_set_error()' - Set a formatted, localized error string.
 //
 
@@ -6097,49 +6256,6 @@ ipp_set_value(ipp_t           *ipp,	// IO - IPP message
     temp->num_values = element + 1;
 
   return (temp->values + element);
-}
-
-
-//
-// 'ipp_is_valid_language()' - Validate a natural language code string.
-//
-
-static bool				// O - true if valid, false if invalid
-ipp_is_valid_language(
-    const char *lang)			// I - Language code
-{
-  int		i, status;		// Result
-  regex_t	re;			// Regular expression
-
-
-  // The following regular expression is derived from the ABNF for
-  // language tags in RFC 4646.  All I can say is that this is the
-  // easiest way to check the values...
-
-  if (!lang || strlen(lang) > (IPP_MAX_LANGUAGE - 1))
-    return (false);
-
-  if ((i = regcomp(&re,
-		   "^("
-		   "(([a-z]{2,3}(-[a-z][a-z][a-z]){0,3})|[a-z]{4,8})"
-								// language
-		   "(-[a-z][a-z][a-z][a-z]){0,1}"		// script
-		   "(-([a-z][a-z]|[0-9][0-9][0-9])){0,1}"	// region
-		   "(-([a-z]{5,8}|[0-9][0-9][0-9]))*"	// variant
-		   "(-[a-wy-z](-[a-z0-9]{2,8})+)*"	// extension
-		   "(-x(-[a-z0-9]{1,8})+)*"		// privateuse
-		   "|"
-		   "x(-[a-z0-9]{1,8})+"			// privateuse
-		   "|"
-		   "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"	// grandfathered
-		   ")$",
-		   REG_NOSUB | REG_EXTENDED)) != 0)
-    return (false);
-
-  status = regexec(&re, lang, 0, NULL, 0);
-  regfree(&re);
-
-  return (status == 0);
 }
 
 
