@@ -30,7 +30,7 @@ static ssize_t		ipp_read_http(http_t *http, ipp_uchar_t *buffer, size_t length);
 static ipp_state_t	ipp_read_io(void *src, ipp_io_cb_t cb, bool blocking, ipp_t *parent, ipp_t *ipp, int depth);
 static void		ipp_set_error(ipp_status_t status, const char *format, ...);
 static _ipp_value_t	*ipp_set_value(ipp_t *ipp, ipp_attribute_t **attr, int element);
-static int		ipp_validate_language(const char *lang);
+static bool		ipp_is_valid_language(const char *lang);
 static ssize_t		ipp_write_file(int *fd, ipp_uchar_t *buffer, size_t length);
 
 
@@ -3845,7 +3845,7 @@ ippValidateAttribute(
     case IPP_TAG_TEXTLANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_validate_language(attr->values[i].string.language))
+	  if (attr->value_tag == IPP_TAG_TEXTLANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in textWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
 	    return (0);
@@ -3910,7 +3910,7 @@ ippValidateAttribute(
     case IPP_TAG_NAMELANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_validate_language(attr->values[i].string.language))
+	  if (attr->value_tag == IPP_TAG_NAMELANG && attr->values[i].string.language && !ipp_is_valid_language(attr->values[i].string.language))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" in nameWithLanguage - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.language);
 	    return (0);
@@ -4065,7 +4065,7 @@ ippValidateAttribute(
     case IPP_TAG_LANGUAGE :
         for (i = 0; i < attr->num_values; i ++)
 	{
-	  if (!ipp_validate_language(attr->values[i].string.text))
+	  if (!ipp_is_valid_language(attr->values[i].string.text))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
 	    return (0);
@@ -6101,11 +6101,11 @@ ipp_set_value(ipp_t           *ipp,	// IO - IPP message
 
 
 //
-// 'ipp_validate_language()' - Validate a natural language code string.
+// 'ipp_is_valid_language()' - Validate a natural language code string.
 //
 
-static int				// O - 1 if valid, 0 if invalid
-ipp_validate_language(
+static bool				// O - true if valid, false if invalid
+ipp_is_valid_language(
     const char *lang)			// I - Language code
 {
   int		i, status;		// Result
@@ -6117,7 +6117,7 @@ ipp_validate_language(
   // easiest way to check the values...
 
   if (!lang || strlen(lang) > (IPP_MAX_LANGUAGE - 1))
-    return (0);
+    return (false);
 
   if ((i = regcomp(&re,
 		   "^("
@@ -6134,12 +6134,12 @@ ipp_validate_language(
 		   "[a-z]{1,3}(-[a-z][0-9]{2,8}){1,2}"	// grandfathered
 		   ")$",
 		   REG_NOSUB | REG_EXTENDED)) != 0)
-    return (0);
+    return (false);
 
-  status = regexec(&re, lang, 0, NULL, 0) == 0;
+  status = regexec(&re, lang, 0, NULL, 0);
   regfree(&re);
 
-  return (status);
+  return (status == 0);
 }
 
 
