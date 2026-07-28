@@ -1929,7 +1929,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
         char	*creds = cupsCopyCredentials(tls_keypath, cn);
 					// PEM-encoded certificate
 
-        have_creds = creds && cupsGetCredentialsExpiration(creds) > time(NULL);
+        have_creds = cupsGetCredentialsExpiration(creds) > time(NULL);
         free(creds);
       }
     }

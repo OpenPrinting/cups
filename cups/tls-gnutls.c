@@ -1847,7 +1847,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
         char	*creds = cupsCopyCredentials(tls_keypath, cn);
 					// PEM-encoded certificate
 
-        have_creds = creds && cupsGetCredentialsExpiration(creds) > time(NULL);
+        have_creds = cupsGetCredentialsExpiration(creds) > time(NULL);
         free(creds);
       }
     }
@@ -2225,6 +2225,12 @@ gnutls_import_certs(
 
 
   DEBUG_printf("3gnutls_import_certs(credentials=\"%s\", num_certs=%p, certs=%p)", credentials, (void *)num_certs, (void *)certs);
+
+  if (!credentials)
+  {
+    *num_certs = 0;
+    return (NULL);
+  }
 
   // Import all certificates from the string...
   datum.data = (void *)credentials;
