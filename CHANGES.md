@@ -37,13 +37,13 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed potential buffer overflow in `cupsCopyDestConflicts` (Issue #1631)
 - Fixed backchannel parsing bug in `commandtops` filter (Issue #1637)
 - Fixed section parsing in the web help indexing code (Issue #1641)
+- Fixed potential buffer overrun in rastertolabel filter (Issue #1644)
+- Fixed potential buffer overrun in rastertohp filter (Issue #1650)
 - Fixed media selection with a mix of PPD and IPP options (Issue #1651)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
 - Fixed potential buffer overrun in `cupsDoAuthentication`.
-- Fixed potential buffer overrun in rastertohp filter (Issue #1650)
-
 
 Changes in CUPS v2.4.19 (2026-04-27)
 ------------------------------------
