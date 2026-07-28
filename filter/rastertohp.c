@@ -29,10 +29,8 @@
  */
 
 unsigned char	*Planes[4],		/* Output buffers */
-		*CompBuffer,		/* Compression buffer */
-		*BitBuffer;		/* Buffer for output bits */
+		*CompBuffer;		/* Compression buffer */
 unsigned 	NumPlanes,		/* Number of color planes */
-		ColorBits,		/* Number of bits per color */
 		Feed;			/* Number of lines to skip */
 cups_bool_t	Duplex;			/* Current duplex mode */
 int		Page,			/* Current page number */
@@ -108,26 +106,13 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
   * Setup printer/job attributes...
   */
 
-  Duplex    = header->Duplex;
-  ColorBits = header->cupsBitsPerColor;
+  Duplex = header->Duplex;
 
   if ((!Duplex || (Page & 1)) && header->MediaPosition)
     printf("\033&l%dH",				/* Set media position */
            header->MediaPosition);
 
-  if (Duplex && ppd && ppd->model_number == 2)
-  {
-   /*
-    * Handle duplexing on new DeskJet printers...
-    */
-
-    printf("\033&l-2H");			/* Load media */
-
-    if (Page & 1)
-      printf("\033&l2S");			/* Set duplex mode */
-  }
-
-  if (!Duplex || (Page & 1) || (ppd && ppd->model_number == 2))
+  if (!Duplex || (Page & 1))
   {
    /*
     * Set the media size...
@@ -198,120 +183,56 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
     * Set other job options...
     */
 
+    int mode = Duplex ? 1 + header->Tumble != 0 : 0;
+						/* Duplex mode */
+
     printf("\033&l%dX", header->NumCopies);	/* Set number copies */
 
-    if (header->cupsMediaType &&
-        (!ppd || ppd->model_number != 2 || header->HWResolution[0] == 600))
+    if (header->cupsMediaType && header->HWResolution[0] == 600)
       printf("\033&l%dM",			/* Set media type */
              header->cupsMediaType);
 
-    if (!ppd || ppd->model_number != 2)
-    {
-      int mode = Duplex ? 1 + header->Tumble != 0 : 0;
-
-      printf("\033&l%dS", mode);		/* Set duplex mode */
-      printf("\033&l0L");			/* Turn off perforation skip */
-    }
+    printf("\033&l%dS", mode);			/* Set duplex mode */
+    printf("\033&l0L");				/* Turn off perforation skip */
   }
-  else if (!ppd || ppd->model_number != 2)
+  else
+  {
     printf("\033&a2G");				/* Set back side */
+  }
 
  /*
   * Set graphics mode...
   */
 
-  if (ppd && ppd->model_number == 2)
+  printf("\033*t%uR", header->HWResolution[0]);	/* Set resolution */
+
+  if (header->cupsColorSpace == CUPS_CSPACE_KCMY)
   {
-   /*
-    * Figure out the number of color planes...
-    */
-
-    if (header->cupsColorSpace == CUPS_CSPACE_KCMY)
-      NumPlanes = 4;
-    else
-      NumPlanes = 1;
-
-   /*
-    * Set the resolution and top-of-form...
-    */
-
-    printf("\033&u%dD", header->HWResolution[0]);
-						/* Resolution */
-    printf("\033&l0e0L");			/* Reset top and don't skip */
-    printf("\033*p0Y\033*p0X");			/* Set top of form */
-
-   /*
-    * Send 26-byte configure image data command with horizontal and
-    * vertical resolutions as well as a color count...
-    */
-
-    printf("\033*g26W");
-    putchar(2);					/* Format 2 */
-    putchar((int)NumPlanes);			/* Output planes */
-
-    putchar((int)(header->HWResolution[0] >> 8));/* Black resolution */
-    putchar((int)header->HWResolution[0]);
-    putchar((int)(header->HWResolution[1] >> 8));
-    putchar((int)header->HWResolution[1]);
-    putchar(0);
-    putchar(1 << ColorBits);			/* # of black levels */
-
-    putchar((int)(header->HWResolution[0] >> 8));/* Cyan resolution */
-    putchar((int)header->HWResolution[0]);
-    putchar((int)(header->HWResolution[1] >> 8));
-    putchar((int)header->HWResolution[1]);
-    putchar(0);
-    putchar(1 << ColorBits);			/* # of cyan levels */
-
-    putchar((int)(header->HWResolution[0] >> 8));/* Magenta resolution */
-    putchar((int)header->HWResolution[0]);
-    putchar((int)(header->HWResolution[1] >> 8));
-    putchar((int)header->HWResolution[1]);
-    putchar(0);
-    putchar(1 << ColorBits);			/* # of magenta levels */
-
-    putchar((int)(header->HWResolution[0] >> 8));/* Yellow resolution */
-    putchar((int)header->HWResolution[0]);
-    putchar((int)(header->HWResolution[1] >> 8));
-    putchar((int)header->HWResolution[1]);
-    putchar(0);
-    putchar(1 << ColorBits);			/* # of yellow levels */
-
-    printf("\033&l0H");				/* Set media position */
+    NumPlanes = 4;
+    printf("\033*r-4U");			/* Set KCMY graphics */
+  }
+  else if (header->cupsColorSpace == CUPS_CSPACE_CMY)
+  {
+    NumPlanes = 3;
+    printf("\033*r-3U");			/* Set CMY graphics */
   }
   else
-  {
-    printf("\033*t%uR", header->HWResolution[0]);
-						/* Set resolution */
+    NumPlanes = 1;				/* Black&white graphics */
 
-    if (header->cupsColorSpace == CUPS_CSPACE_KCMY)
-    {
-      NumPlanes = 4;
-      printf("\033*r-4U");			/* Set KCMY graphics */
-    }
-    else if (header->cupsColorSpace == CUPS_CSPACE_CMY)
-    {
-      NumPlanes = 3;
-      printf("\033*r-3U");			/* Set CMY graphics */
-    }
-    else
-      NumPlanes = 1;				/* Black&white graphics */
+ /*
+  * Set size and position of graphics...
+  */
 
-   /*
-    * Set size and position of graphics...
-    */
+  printf("\033*r%uS", header->cupsWidth);	/* Set width */
+  printf("\033*r%uT", header->cupsHeight);	/* Set height */
 
-    printf("\033*r%uS", header->cupsWidth);	/* Set width */
-    printf("\033*r%uT", header->cupsHeight);	/* Set height */
+  printf("\033&a0H");				/* Set horizontal position */
 
-    printf("\033&a0H");				/* Set horizontal position */
-
-    if (ppd)
-      printf("\033&a%.0fV", 			/* Set vertical position */
-             10.0 * (ppd->sizes[0].length - ppd->sizes[0].top));
-    else
-      printf("\033&a0V");			/* Set top-of-page */
-  }
+  if (ppd)
+    printf("\033&a%.0fV", 			/* Set vertical position */
+	   10.0 * (ppd->sizes[0].length - ppd->sizes[0].top));
+  else
+    printf("\033&a0V");				/* Set top-of-page */
 
   printf("\033*r1A");				/* Start graphics */
 
@@ -333,11 +254,6 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
 
   for (plane = 1; plane < NumPlanes; plane ++)
     Planes[plane] = Planes[0] + plane * header->cupsBytesPerLine / NumPlanes;
-
-  if (ColorBits > 1)
-    BitBuffer = malloc((size_t)ColorBits * (((size_t)header->cupsWidth + 7) / 8));
-  else
-    BitBuffer = NULL;
 
   if (header->cupsCompression)
     CompBuffer = packbits_alloc(header->cupsBytesPerLine);
@@ -379,9 +295,6 @@ EndPage(void)
   */
 
   free(Planes[0]);
-
-  if (BitBuffer)
-    free(BitBuffer);
 
   if (CompBuffer)
     free(CompBuffer);
@@ -495,13 +408,7 @@ void
 OutputLine(cups_page_header2_t *header)	/* I - Page header */
 {
   unsigned	plane,			/* Current plane */
-		bytes,			/* Bytes to write */
-		count;			/* Bytes to convert */
-  unsigned char	bit,			/* Current plane data */
-		bit0,			/* Current low bit data */
-		bit1,			/* Current high bit data */
-		*plane_ptr,		/* Pointer into Planes */
-		*bit_ptr;		/* Pointer into BitBuffer */
+		bytes;			/* Bytes to write */
 
 
  /*
@@ -521,51 +428,7 @@ OutputLine(cups_page_header2_t *header)	/* I - Page header */
   bytes = (header->cupsWidth + 7) / 8;
 
   for (plane = 0; plane < NumPlanes; plane ++)
-    if (ColorBits == 1)
-    {
-     /*
-      * Send bits as-is...
-      */
-
-      CompressData(Planes[plane], bytes, plane < (NumPlanes - 1) ? 'V' : 'W',
-		   header->cupsCompression);
-    }
-    else
-    {
-     /*
-      * Separate low and high bit data into separate buffers.
-      */
-
-      for (count = header->cupsBytesPerLine / NumPlanes,
-               plane_ptr = Planes[plane], bit_ptr = BitBuffer;
-	   count > 0;
-	   count -= 2, plane_ptr += 2, bit_ptr ++)
-      {
-        bit = plane_ptr[0];
-
-        bit0 = (unsigned char)(((bit & 64) << 1) | ((bit & 16) << 2) | ((bit & 4) << 3) | ((bit & 1) << 4));
-        bit1 = (unsigned char)((bit & 128) | ((bit & 32) << 1) | ((bit & 8) << 2) | ((bit & 2) << 3));
-
-        if (count > 1)
-	{
-	  bit = plane_ptr[1];
-
-          bit0 |= (unsigned char)((bit & 1) | ((bit & 4) >> 1) | ((bit & 16) >> 2) | ((bit & 64) >> 3));
-          bit1 |= (unsigned char)(((bit & 2) >> 1) | ((bit & 8) >> 2) | ((bit & 32) >> 3) | ((bit & 128) >> 4));
-	}
-
-        bit_ptr[0]     = bit0;
-	bit_ptr[bytes] = bit1;
-      }
-
-     /*
-      * Send low and high bits...
-      */
-
-      CompressData(BitBuffer, bytes, 'V', header->cupsCompression);
-      CompressData(BitBuffer + bytes, bytes, plane < (NumPlanes - 1) ? 'V' : 'W',
-		   header->cupsCompression);
-    }
+    CompressData(Planes[plane], bytes, plane < (NumPlanes - 1) ? 'V' : 'W', header->cupsCompression);
 
   fflush(stdout);
 }
