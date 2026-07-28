@@ -953,8 +953,8 @@ PCLCompress(unsigned char *line,	/* I - Line to compress */
       * The seed buffer is valid, so compare against it...
       */
 
-      while (*line_ptr == *seed &&
-             line_ptr < line_end)
+      while (line_ptr < line_end &&
+             *line_ptr == *seed)
       {
         line_ptr ++;
         seed ++;
@@ -971,8 +971,8 @@ PCLCompress(unsigned char *line,	/* I - Line to compress */
 
       start = line_ptr;
       count = 0;
-      while (*line_ptr != *seed &&
-             line_ptr < line_end &&
+      while (line_ptr < line_end &&
+             *line_ptr != *seed &&
              count < 8)
       {
         line_ptr ++;
