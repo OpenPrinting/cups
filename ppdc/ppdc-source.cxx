@@ -1,9 +1,9 @@
 //
 // Source class for the CUPS PPD Compiler.
 //
-// Copyright © 2020-2024 by OpenPrinting.
-// Copyright 2007-2018 by Apple Inc.
-// Copyright 2002-2007 by Easy Software Products.
+// Copyright © 2020-2026 by OpenPrinting.
+// Copyright © 2007-2018 by Apple Inc.
+// Copyright © 2002-2007 by Easy Software Products.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -3585,10 +3585,6 @@ ppdcSource::write_file(const char *f)	// I - File to write
 
 	      case HP_DESKJET :
 	          cupsFilePuts(fp, "$HP_DESKJET\n");
-		  break;
-
-	      case HP_DESKJET2 :
-	          cupsFilePuts(fp, "$HP_DESKJET2\n");
 		  break;
 
 	      default :

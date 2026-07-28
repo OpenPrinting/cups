@@ -42,6 +42,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
 - Fixed potential buffer overrun in `cupsDoAuthentication`.
+- Fixed potential buffer overrun in rastertohp filter (Issue #1650)
 
 
 Changes in CUPS v2.4.19 (2026-04-27)
