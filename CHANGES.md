@@ -41,6 +41,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
+- Fixed potential buffer overrun in `cupsDoAuthentication`.
 
 
 Changes in CUPS v2.4.19 (2026-04-27)
