@@ -44,6 +44,7 @@ static void	delete_printer_filters(cupsd_printer_t *p);
 static void	dirty_printer(cupsd_printer_t *p);
 static void	load_ppd(cupsd_printer_t *p);
 static ipp_t	*new_media_col(pwg_size_t *size);
+static bool	printer_in_use_by_client(cupsd_printer_t *p);
 static void	write_xml_string(cups_file_t *fp, const char *s);
 
 
@@ -835,7 +836,7 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->temporary &&
+    if (p->temporary && !printer_in_use_by_client(p) &&
 	(force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
       cupsdDeletePrinter(p, 0);
   }
@@ -5615,6 +5616,26 @@ new_media_col(pwg_size_t *size)		/* I - media-size/margin values */
   ippAddInteger(media_col, IPP_TAG_PRINTER, IPP_TAG_INTEGER, "media-top-margin", size->top);
 
   return (media_col);
+}
+
+
+/*
+ * 'printer_in_use_by_client()' - Determine whether a printer is currently in use by a background thread.
+ */
+
+static bool				/* O - true if in use, false otherwise */
+printer_in_use_by_client(
+    cupsd_printer_t *p)			/* I - Printer */
+{
+  cupsd_client_t *con;			/* Current client */
+
+  for (con = (cupsd_client_t *)cupsArrayFirst(Clients); con; con = (cupsd_client_t *)cupsArrayNext(Clients))
+  {
+    if (con->bg_pending && con->bg_printer == p)
+      return (true);
+  }
+
+  return (false);
 }
 
 
