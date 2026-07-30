@@ -1,7 +1,7 @@
 /*
  * PPD code emission routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -19,6 +19,13 @@
 #else
 #  include <unistd.h>
 #endif /* _WIN32 || __EMX__ */
+
+
+/*
+ * Limits...
+ */
+
+#define MAX_CUSTOM_DIGITS 9		/* Maximum number of digits/characters for a custom number */
 
 
 /*
@@ -691,7 +698,8 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         DEBUG_puts("2ppdEmitString: Custom size set!");
 
         bufsize += 37;			/* %%BeginFeature: *CustomPageSize True\n */
-        bufsize += 50;			/* Five 9-digit numbers + newline */
+        bufsize += 5 * (MAX_CUSTOM_DIGITS + 1);
+					/* Five 9-digit numbers + newline */
       }
       else if (!_cups_strcasecmp(choices[i]->choice, "Custom") &&
                (coption = ppdFindCustomOption(ppd,
@@ -716,7 +724,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	    case PPD_CUSTOM_POINTS :
 	    case PPD_CUSTOM_REAL :
 	    case PPD_CUSTOM_INT :
-	        bufsize += 10;
+	        bufsize += MAX_CUSTOM_DIGITS + 1/*newline*/;
 	        break;
 
 	    case PPD_CUSTOM_PASSCODE :
@@ -778,7 +786,6 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	char	*cptr;			/* Pointer into code */
 	int	pnum;			/* Parameter number */
 
-
         for (cptr = choices[i]->code; *cptr && bufptr < bufend;)
 	{
 	  if (*cptr == '\\')
@@ -812,9 +819,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  case PPD_CUSTOM_INVCURVE :
 		  case PPD_CUSTOM_POINTS :
 		  case PPD_CUSTOM_REAL :
-		      bufptr = _cupsStrFormatd(bufptr, bufend,
-					       cparam->current.custom_real,
-					       loc);
+		      bufptr = _cupsStrFormatd(bufptr, bufptr + MAX_CUSTOM_DIGITS, cparam->current.custom_real, loc);
 		      break;
 
 		  case PPD_CUSTOM_INT :
@@ -970,7 +975,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 
         for (pos = 0; pos < 5; pos ++)
 	{
-	  bufptr    = _cupsStrFormatd(bufptr, bufend, values[pos], loc);
+	  bufptr    = _cupsStrFormatd(bufptr, bufptr + MAX_CUSTOM_DIGITS, values[pos], loc);
 	  *bufptr++ = '\n';
         }
 
