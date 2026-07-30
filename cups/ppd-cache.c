@@ -5665,7 +5665,7 @@ ppd_put_strings(cups_file_t *fp,	/* I - PPD file */
     {
       // Add the first line of localized text...
       cupsFilePrintf(fp, "*%s.%s %s/", lang->language, ppd_option, ppd_choice);
-      while (*text && *text != '\n')
+      while (*text && (*text & 255) >= ' ')
       {
         // Escape ":" and "<"...
         if (*text == ':' || *text == '<')
