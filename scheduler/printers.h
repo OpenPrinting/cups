@@ -48,6 +48,7 @@ struct cupsd_printer_s
   cupsd_policy_t *op_policy_ptr;	/* Pointer to operation policy */
   int		shared;			/* Shared? */
   int		temporary;		/* Temporary queue? */
+  int		use;			/* Use count */
   int		accepting;		/* Accepting jobs? */
   int		holding_new_jobs;	/* Holding new jobs for printing? */
   int		in_implicit_class;	/* In an implicit class? */
