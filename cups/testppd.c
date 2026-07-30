@@ -300,6 +300,7 @@ main(int  argc,				/* I - Number of command-line arguments */
   int		status;			/* Status of tests (0 = success, 1 = fail) */
   int		conflicts;		/* Number of conflicts */
   char		*s;			/* String */
+  size_t	slen;			/* Length of string */
   char		buffer[8192];		/* String buffer */
   const char	*text,			/* Localized text */
 		*val;			/* Option value */
@@ -447,6 +448,28 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       if (s)
 	puts(s);
+    }
+
+    if (s)
+      free(s);
+
+    fputs("ppdEmitString (out-of-range custom size): ", stdout);
+    ppdMarkOption(ppd, "StringOption", "None");
+    ppdMarkOption(ppd, "PageSize",
+                  "Custom.340282346638528859811704183484516925440"
+		  "x340282346638528859811704183484516925440");
+
+    if ((s = ppdEmitString(ppd, PPD_ORDER_ANY, 0.0)) != NULL &&
+        (slen = strlen(s)) >= 22 &&
+	!strcmp(s + slen - 22, "} stopped cleartomark\n"))
+      puts("PASS");
+    else
+    {
+      status ++;
+      puts("FAIL (truncated)");
+
+      if (s)
+        puts(s);
     }
 
     if (s)

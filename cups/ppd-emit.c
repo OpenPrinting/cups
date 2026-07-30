@@ -667,7 +667,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	    case PPD_CUSTOM_POINTS :
 	    case PPD_CUSTOM_REAL :
 	    case PPD_CUSTOM_INT :
-	        bufsize += 10;
+	        bufsize += 54;		/* %.12f of a float + newline */
 	        break;
 
 	    case PPD_CUSTOM_PASSCODE :
@@ -691,7 +691,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         DEBUG_puts("2ppdEmitString: Custom size set!");
 
         bufsize += 37;			/* %%BeginFeature: *CustomPageSize True\n */
-        bufsize += 50;			/* Five 9-digit numbers + newline */
+        bufsize += 270;			/* Five %.12f numbers + newline */
       }
       else if (!_cups_strcasecmp(choices[i]->choice, "Custom") &&
                (coption = ppdFindCustomOption(ppd,
@@ -716,7 +716,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	    case PPD_CUSTOM_POINTS :
 	    case PPD_CUSTOM_REAL :
 	    case PPD_CUSTOM_INT :
-	        bufsize += 10;
+	        bufsize += 54;		/* %.12f of a float + newline */
 	        break;
 
 	    case PPD_CUSTOM_PASSCODE :
