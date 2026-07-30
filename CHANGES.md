@@ -40,6 +40,7 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed potential buffer overrun in rastertolabel filter (Issue #1644)
 - Fixed potential buffer overrun in rastertohp filter (Issue #1650)
 - Fixed media selection with a mix of PPD and IPP options (Issue #1651)
+- Fixed limiting of PPD custom number output for large numbers (Issue #1656)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
