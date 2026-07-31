@@ -2638,6 +2638,9 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
       con->bg_pending = 1;
       con->bg_printer = printer;
+      cupsRWLockWrite(&printer->lock);
+      printer->use ++;
+      cupsRWUnlock(&printer->lock);
 
       cupsThreadCreate((cups_thread_func_t)create_local_bg_thread, con);
       return;
@@ -5471,6 +5474,11 @@ create_local_bg_thread(
 
   con->bg_pending = 0;
 
+  cupsRWLockWrite(&printer->lock);
+  if (printer->use > 0)
+    printer->use  --;
+  cupsRWUnlock(&printer->lock);
+
   return (NULL);
 }
 
@@ -5683,6 +5691,9 @@ create_local_printer(
 
   con->bg_pending = 1;
   con->bg_printer = printer;
+  cupsRWLockWrite(&printer->lock);
+  printer->use  ++;
+  cupsRWUnlock(&printer->lock);
 
   cupsThreadCreate((cups_thread_func_t)create_local_bg_thread, con);
 
