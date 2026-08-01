@@ -297,7 +297,15 @@ StartPage(
   for (plane = 1; plane < NumPlanes; plane ++)
     Planes[plane] = Planes[0] + plane * header->cupsBytesPerLine / NumPlanes;
 
-  if (header->cupsCompression || DotBytes)
+  if (DotBytes)
+  {
+    if ((CompBuffer = calloc(2, header->cupsWidth + 1)) == NULL)
+    {
+      fputs("ERROR: Unable to allocate memory\n", stderr);
+      exit(1);
+    }
+  }
+  else if (header->cupsCompression)
   {
     if ((CompBuffer = packbits_alloc(header->cupsBytesPerLine)) == NULL)
     {
