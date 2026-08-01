@@ -255,8 +255,10 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
   for (plane = 1; plane < NumPlanes; plane ++)
     Planes[plane] = Planes[0] + plane * header->cupsBytesPerLine / NumPlanes;
 
-  if (header->cupsCompression)
+  if (header->cupsCompression == 2)
     CompBuffer = packbits_alloc(header->cupsBytesPerLine);
+  else if (header->cupsCompression)
+    CompBuffer = malloc(header->cupsBytesPerLine * 2 + 2);
   else
     CompBuffer = NULL;
 }
