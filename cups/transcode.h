@@ -12,6 +12,7 @@
 #ifndef _CUPS_TRANSCODE_H_
 #  define _CUPS_TRANSCODE_H_
 #  include "language.h"
+#  include <sys/types.h>
 #  ifdef __cplusplus
 extern "C" {
 #  endif // __cplusplus
