@@ -1,7 +1,7 @@
 //
 // Transcoding definitions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2011 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -29,12 +29,12 @@ extern "C" {
 //
 
 typedef unsigned char  cups_utf8_t;	// UTF-8 Unicode/ISO-10646 unit
-typedef unsigned long  cups_utf32_t;	// UTF-32 Unicode/ISO-10646 unit
-typedef unsigned short cups_ucs2_t;	// UCS-2 Unicode/ISO-10646 unit
-typedef unsigned long  cups_ucs4_t;	// UCS-4 Unicode/ISO-10646 unit
+typedef uint32_t       cups_utf32_t;	// UTF-32 Unicode/ISO-10646 unit
+typedef uint16_t       cups_ucs2_t;	// UCS-2 Unicode/ISO-10646 unit
+typedef uint32_t       cups_ucs4_t;	// UCS-4 Unicode/ISO-10646 unit
 typedef unsigned char  cups_sbcs_t;	// SBCS Legacy 8-bit unit
-typedef unsigned short cups_dbcs_t;	// DBCS Legacy 16-bit unit
-typedef unsigned long  cups_vbcs_t;	// VBCS Legacy 32-bit unit
+typedef uint16_t       cups_dbcs_t;	// DBCS Legacy 16-bit unit
+typedef uint32_t       cups_vbcs_t;	// VBCS Legacy 32-bit unit
 					// EUC uses 8, 16, 24, 32-bit
 
 
