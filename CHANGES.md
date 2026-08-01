@@ -10,6 +10,8 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - CVE-2026-55480: The scheduler did not open temporary PPD files in exclusive
   mode.
 - CVE-2026-61702: The scheduler did not validate the request language value.
+- CVE-2026-NNNNN: The `cupsUTF32toUTF8` function incorrectly treated UTF-32
+  values as 64-bit.
 - Increased the size of the SNMP supply name buffer used by the network backends
   (Issue #1604)
 - The USB backend now clears a halt on USB errors (Issue #1606)
