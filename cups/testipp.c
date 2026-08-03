@@ -680,6 +680,8 @@ main(int  argc,			/* I - Number of command-line arguments */
     else
       puts("PASS");
 
+    ippDelete(request);
+
    /*
     * Read the mixed data and confirm we converted everything to rangeOfInteger
     * values...

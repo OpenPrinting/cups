@@ -386,7 +386,12 @@ main(void)
   * Delete the arrays...
   */
 
+  for (text = (char *)cupsArrayFirst(array); text; text = (char *)cupsArrayNext(array))
+    free(text);
   cupsArrayDelete(array);
+
+  for (text = (char *)cupsArrayFirst(dup_array); text; text = (char *)cupsArrayNext(dup_array))
+    free(text);
   cupsArrayDelete(dup_array);
 
  /*

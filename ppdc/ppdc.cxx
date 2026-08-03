@@ -70,7 +70,7 @@ main(int  argc,				// I - Number of command-line arguments
   src             = new ppdcSource();
   use_model_name  = 0;
   verbose         = 0;
-  filenames       = cupsArrayNew((cups_array_func_t)_cups_strcasecmp, NULL);
+  filenames       = cupsArrayNew3((cups_array_func_t)_cups_strcasecmp, NULL, 0, 0, 0, (cups_afree_func_t)free);
 
   for (i = 1; i < argc; i ++)
     if (argv[i][0] == '-')
@@ -408,6 +408,11 @@ main(int  argc,				// I - Number of command-line arguments
   // Message catalog...
   if (catalog)
     catalog->release();
+
+  if (locales)
+    locales->release();
+
+  cupsArrayDelete(filenames);
 
   // Return with no errors.
   return (0);

@@ -112,6 +112,8 @@ main(int  argc,				/* I - Number of command-line args */
       else
       {
 	printf("%s: unknown\n", argv[i]);
+	if (ppd)
+	  ppdClose(ppd);
 	if (mime)
 	  mimeDelete(mime);
 	return (1);
@@ -185,6 +187,11 @@ main(int  argc,				/* I - Number of command-line args */
 
     type_dir(mime, "../doc");
   }
+
+  if (ppd)
+    ppdClose(ppd);
+  if (mime)
+    mimeDelete(mime);
 
   return (0);
 }

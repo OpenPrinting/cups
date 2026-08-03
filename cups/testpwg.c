@@ -333,6 +333,7 @@ main(int  argc,				/* I - Number of command-line args */
   if (!dupmedia)
     puts("PASS");
 
+  ppdClose(ppd);
 
   return (status);
 }

@@ -475,6 +475,8 @@ main(int  argc,				/* I - Number of command-line arguments */
     else
       puts("PASS");
 
+    cupsFreeOptions(num_options, options);
+
     fputs("ppdConflicts(): ", stdout);
     ppdMarkOption(ppd, "InputSlot", "Envelope");
 
