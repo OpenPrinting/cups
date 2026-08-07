@@ -768,6 +768,9 @@ jpeg_to_ps(const char    *filename,	/* I - Filename */
     puts("grestore showpage");
   }
 
+  if (fd > 0)
+    close(fd);
+
   dsc_trailer(0);
 
   return (0);
