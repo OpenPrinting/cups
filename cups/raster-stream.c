@@ -1728,11 +1728,8 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
 {
   int		ret = 1;		// Return value
   unsigned	bytesPerLine;		// Expected bytes per line
+  unsigned  expectedColors;   // Expected number of colors
 
-
-  if (r->sync == CUPS_RASTER_SYNCv1 || r->sync == CUPS_RASTER_REVSYNCv1 ||
-      r->header.cupsNumColors == 0)
-  {
     // Set the "cupsNumColors" field according to the colorspace...
     switch (r->header.cupsColorSpace)
     {
@@ -1742,7 +1739,7 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
       case CUPS_CSPACE_GOLD :
       case CUPS_CSPACE_SILVER :
       case CUPS_CSPACE_SW :
-          r->header.cupsNumColors = 1;
+          expectedColors = 1;
 	  break;
 
       case CUPS_CSPACE_RGB :
@@ -1767,7 +1764,7 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
       case CUPS_CSPACE_ICCD :
       case CUPS_CSPACE_ICCE :
       case CUPS_CSPACE_ICCF :
-          r->header.cupsNumColors = 3;
+          expectedColors = 3;
 	  break;
 
       case CUPS_CSPACE_RGBA :
@@ -1777,14 +1774,14 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
       case CUPS_CSPACE_KCMY :
       case CUPS_CSPACE_GMCK :
       case CUPS_CSPACE_GMCS :
-          r->header.cupsNumColors = 4;
+          expectedColors = 4;
 	  break;
 
       case CUPS_CSPACE_KCMYcm :
           if (r->header.cupsBitsPerPixel < 8)
-            r->header.cupsNumColors = 6;
+            expectedColors = 6;
 	  else
-            r->header.cupsNumColors = 4;
+            expectedColors = 4;
 	  break;
 
       case CUPS_CSPACE_DEVICE1 :
@@ -1802,7 +1799,7 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
       case CUPS_CSPACE_DEVICED :
       case CUPS_CSPACE_DEVICEE :
       case CUPS_CSPACE_DEVICEF :
-          r->header.cupsNumColors = r->header.cupsColorSpace - CUPS_CSPACE_DEVICE1 + 1;
+          expectedColors = r->header.cupsColorSpace - CUPS_CSPACE_DEVICE1 + 1;
 	  break;
 
       default :
@@ -1813,6 +1810,21 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
           ret                     = 0;
           break;
     }
+
+  /*
+  * Verify or set cupsNumColors...
+  */
+
+  if (r->sync == CUPS_RASTER_SYNCv1 || r->sync == CUPS_RASTER_REVSYNCv1 ||
+     r->header.cupsNumColors == 0)
+  {
+    r->header.cupsNumColors = expectedColors;
+  }
+  else if (r->header.cupsNumColors != expectedColors)
+  {
+    _cupsRasterAddError("Invalid number of colors %u for color space %u.",
+                        r->header.cupsNumColors, r->header.cupsColorSpace);
+    return (0);
   }
 
   // Set the number of bytes per pixel/color...
