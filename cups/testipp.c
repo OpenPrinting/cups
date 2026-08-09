@@ -893,6 +893,34 @@ main(int  argc,				// I - Number of command-line arguments
       testEnd(true);
     }
 
+    // Oversized values consisting only of UTF-8 continuation bytes must be
+    // truncated to a boundary without stepping below the format buffer...
+    testBegin("ippAddStringf(oversized continuation bytes)");
+    {
+      char	overlong[2 * IPP_MAX_NAME];
+      const char *str;			// Resulting value
+
+      memset(overlong, 0x80, sizeof(overlong) - 1);
+      overlong[sizeof(overlong) - 1] = '\0';
+
+      attr = ippAddStringf(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "overlong-attr", /*lang*/NULL, "%s", overlong);
+
+      if (!attr)
+      {
+        testEndMessage(false, "Unable to create name attribute");
+        status = 1;
+      }
+      else if ((str = ippGetString(attr, 0, NULL)) == NULL || strlen(str) >= IPP_MAX_NAME)
+      {
+        testEndMessage(false, "value not truncated (%d bytes)", str ? (int)strlen(str) : -1);
+        status = 1;
+      }
+      else
+      {
+        testEnd(true);
+      }
+    }
+
     ippDelete(request);
 
 #ifdef DEBUG

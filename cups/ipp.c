@@ -1092,7 +1092,8 @@ ippAddStringfv(ipp_t      *ipp,		// I - IPP message
           bufptr --;
       }
 
-      bufptr --;
+      if (bufptr > buffer)
+        bufptr --;
     }
 
     *bufptr = '\0';
@@ -3434,7 +3435,8 @@ ippSetStringfv(ipp_t           *ipp,	// I  - IPP message
           bufptr --;
       }
 
-      bufptr --;
+      if (bufptr > buffer)
+        bufptr --;
     }
 
     *bufptr = '\0';
