@@ -2606,10 +2606,11 @@ win32_utf8cpy(char        *dst,		// I - Destination string
 	      size_t      dstsize)	// I - Size of destination string
 {
   int	ch;				// Current character
+  char	*dstend = dst + dstsize - 5;	// End of destination string
 
 
   // Loop until we run out of characters or buffer space...
-  while (*src && dstsize > 4)
+  while (*src && dst <= dstend)
   {
     // Get the current character...
     ch = *src++;
