@@ -424,10 +424,11 @@ OutputLine(cups_page_header2_t *header)	/* I - Page header */
   }
 
  /*
-  * Write bitmap data as needed...
+  * Write bitmap data as needed. For planar (KCMY/CMY) input each color
+  * plane is cupsBytesPerLine / NumPlanes bytes wide.
   */
 
-  bytes = (header->cupsWidth + 7) / 8;
+  bytes = header->cupsBytesPerLine / NumPlanes;
 
   for (plane = 0; plane < NumPlanes; plane ++)
     CompressData(Planes[plane], bytes, plane < (NumPlanes - 1) ? 'V' : 'W', header->cupsCompression);
