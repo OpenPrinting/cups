@@ -45,6 +45,8 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed potential access of deleted IPP Everywhere printer (Issue #1655)
 - Fixed limiting of PPD custom number output for large numbers (Issue #1656)
 - Fixed a potential output length bug in the rastertohp driver (Issue #1658)
+- Fixed a potential buffer underflow buf in the `ippAdd/SetStringf(v)` functions
+  (Issue #1664)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
