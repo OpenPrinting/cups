@@ -1973,10 +1973,10 @@ do_setup(pstops_doc_t *doc,		/* I - Document information */
   * Write the page and label prologs...
   */
 
-  if (doc->number_up == 2 || doc->number_up == 6)
+  if (doc->number_up == 2 || doc->number_up == 6 || doc->number_up == 8)
   {
    /*
-    * For 2- and 6-up output, rotate the labels to match the orientation
+    * For 2-, 6-, and 8-up output, rotate the labels to match the orientation
     * of the pages...
     */
 
@@ -2079,6 +2079,7 @@ end_nup(pstops_doc_t *doc,		/* I - Document information */
 
     case 2 :
     case 6 :
+    case 8 :
 	if (is_last_page(number) && doc->use_ESPshowpage)
 	{
 	  if (Orientation & 1)
@@ -2431,6 +2432,7 @@ set_pstops_options(
       case 2 :
       case 4 :
       case 6 :
+      case 8 :
       case 9 :
       case 16 :
           doc->number_up = intval;
@@ -3004,6 +3006,99 @@ start_nup(pstops_doc_t *doc,		/* I - Document information */
           doc_printf(doc, "%.1f %.1f translate %.3f %.3f scale\n",
                      tx + w * x, ty + l * y, w / bboxw, l / bboxl);
 
+        }
+        break;
+
+    case 8 :
+        if (Orientation & 1)
+	{
+	  if (doc->number_up_layout & PSTOPS_LAYOUT_VERTICAL)
+	  {
+	    x = pos / 4;
+	    y = pos & 3;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
+	      x = 1 - x;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEY)
+	      y = 3 - y;
+	  }
+	  else
+	  {
+	    x = pos & 1;
+	    y = pos / 2;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
+	      x = 1 - x;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEY)
+	      y = 3 - y;
+	  }
+
+          w = pagel * 0.5;
+          l = w * bboxl / bboxw;
+
+          if (l > (pagew * 0.25))
+          {
+            l = pagew * 0.25;
+            w = l * bboxw / bboxl;
+          }
+
+          tx = 0.5 * (pagel - 2 * w);
+          ty = 0.5 * (pagew - 4 * l);
+
+          if (doc->normal_landscape)
+            doc_printf(doc, "0 %.1f translate -90 rotate\n", pagel);
+	  else
+	    doc_printf(doc, "%.1f 0 translate 90 rotate\n", pagew);
+
+          doc_printf(doc, "%.1f %.1f translate %.3f %.3f scale\n",
+                     tx + x * w, ty + y * l, l / bboxl, w / bboxw);
+        }
+	else
+	{
+	  if (doc->number_up_layout & PSTOPS_LAYOUT_VERTICAL)
+	  {
+	    x = pos / 2;
+	    y = pos & 1;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
+	      x = 3 - x;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEY)
+	      y = 1 - y;
+	  }
+	  else
+	  {
+	    x = pos & 3;
+	    y = pos / 4;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEX)
+	      x = 3 - x;
+
+            if (doc->number_up_layout & PSTOPS_LAYOUT_NEGATEY)
+	      y = 1 - y;
+	  }
+
+          l = pagew * 0.5;
+          w = l * bboxw / bboxl;
+
+          if (w > (pagel * 0.25))
+          {
+            w = pagel * 0.25;
+            l = w * bboxl / bboxw;
+          }
+
+	  tx = 0.5 * (pagel - 4 * w);
+	  ty = 0.5 * (pagew - 2 * l);
+
+          if (doc->normal_landscape)
+	    doc_printf(doc, "%.1f 0 translate 90 rotate\n", pagew);
+	  else
+            doc_printf(doc, "0 %.1f translate -90 rotate\n", pagel);
+
+          doc_printf(doc, "%.1f %.1f translate %.3f %.3f scale\n",
+                     tx + w * x, ty + l * y, w / bboxw, l / bboxl);
         }
         break;
 

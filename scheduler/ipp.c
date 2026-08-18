@@ -1349,6 +1349,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
         attr->values[0].integer != 2 &&
         attr->values[0].integer != 4 &&
         attr->values[0].integer != 6 &&
+        attr->values[0].integer != 8 &&
         attr->values[0].integer != 9 &&
         attr->values[0].integer != 16)
     {

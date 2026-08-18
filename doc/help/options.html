@@ -456,13 +456,14 @@ can make the output page numbering not match the document page numbers.</p>
 
 <P>The <CODE>-o number-up=value</CODE> option selects N-Up
 printing. N-Up printing places multiple document pages on a
-single printed page. CUPS supports 1, 2, 4, 6, 9, and 16-Up
+single printed page. CUPS supports 1, 2, 4, 6, 8, 9, and 16-Up
 formats; the default format is 1-Up:</P>
 
 <PRE CLASS="command">
 lp -o number-up=1 filename
 lp -o number-up=2 filename
 lp -o number-up=4 filename
+lpr -o number-up=8 filename
 lpr -o number-up=16 filename
 </PRE>
 

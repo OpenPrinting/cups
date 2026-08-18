@@ -36,8 +36,8 @@ echo ""
 
 echo "LPR Options Test"
 echo ""
-echo "    lpr -P Test1 -o number-up=4 -o job-sheets=standard,none testfile.pdf"
-$runcups $VALGRIND ../berkeley/lpr -P Test1 -o number-up=4 -o job-sheets=standard,none ../examples/testfile.pdf 2>&1
+echo "    lpr -P Test1 -o number-up=8 -o job-sheets=standard,none testfile.pdf"
+$runcups $VALGRIND ../berkeley/lpr -P Test1 -o number-up=8 -o job-sheets=standard,none ../examples/testfile.pdf 2>&1
 if test $? != 0; then
 	echo "    FAILED"
 	exit 1
