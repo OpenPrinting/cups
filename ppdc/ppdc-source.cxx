@@ -3483,8 +3483,8 @@ ppdcSource::write_file(const char *f)	// I - File to write
   for (d = (ppdcDriver *)drivers->first(); d; d = (ppdcDriver *)drivers->next())
   {
     // Start the driver...
-    cupsFilePrintf(fp, "\n// %s %s\n", d->manufacturer->value,
-                   d->model_name->value);
+    cupsFilePrintf(fp, "\n// %s %s\n", d->manufacturer ? d->manufacturer->value : "None",
+                   d->model_name ? d->model_name->value : "None");
     cupsFilePuts(fp, "{\n");
 
     // Write the copyright strings...
@@ -3496,7 +3496,7 @@ ppdcSource::write_file(const char *f)	// I - File to write
     // Write other strings and values...
     if (d->manufacturer && d->manufacturer->value)
       quotef(fp, "  Manufacturer \"%s\"\n", d->manufacturer->value);
-    if (d->model_name->value)
+    if (d->model_name && d->model_name->value)
       quotef(fp, "  ModelName \"%s\"\n", d->model_name->value);
     if (d->file_name && d->file_name->value)
       quotef(fp, "  FileName \"%s\"\n", d->file_name->value);
