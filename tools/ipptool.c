@@ -1127,7 +1127,7 @@ copy_hex_string(char          *buffer,	// I - String buffer
   else
   {
     // No, copy as a string...
-    if ((size_t)datalen > bufsize)
+    if ((size_t)datalen >= bufsize)
       datalen = (int)bufsize - 1;
 
     memcpy(buffer, data, (size_t)datalen);
