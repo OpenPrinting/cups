@@ -1060,6 +1060,17 @@ _ppdOpen(
 	goto error;
       }
 
+      if (!strcmp(coption->keyword, "PageSize") &&
+          (((!strcmp(name, "Width") || !strcmp(name, "Height") ||
+             !strcmp(name, "WidthOffset") || !strcmp(name, "HeightOffset")) &&
+            cparam->type != PPD_CUSTOM_POINTS) ||
+           (!strcmp(name, "Orientation") && cparam->type != PPD_CUSTOM_INT)))
+      {
+        pg->ppd_status = PPD_BAD_CUSTOM_PARAM;
+
+	goto error;
+      }
+
      /*
       * Now special-case for CustomPageSize...
       */
