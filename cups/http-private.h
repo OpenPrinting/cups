@@ -1,7 +1,7 @@
 //
 // Private HTTP definitions for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -236,6 +236,7 @@ struct _http_s				// HTTP connection structure
 					/* Read buffer */
   char  		qop[HTTP_MAX_VALUE];
 					/* Quality of Protection (qop) value from WWW-Authenticate */
+  char			*set_cookie;	/* Set-Cookie value(s) */
 };
 #  endif /* !_HTTP_NO_PRIVATE */
 
