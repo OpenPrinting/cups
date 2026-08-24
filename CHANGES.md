@@ -101,6 +101,8 @@ v2.5b1 - YYYY-MM-DD
   operation as an administrative operation.
 - Updated CUPS to rely on the dateTime variants of various IPP attributes to
   avoid Y2038 issues (Issue #1592)
+- Updated the PPD loader to reject invalid `CustomPageSize` parameters
+  (Issue #1665)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
