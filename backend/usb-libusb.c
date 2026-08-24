@@ -1084,6 +1084,7 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
 {
   int		err;			/* libusb error */
   size_t	length;			/* Length of device ID */
+  char		*ptr;			/* Pointer into device ID */
 
 
   if ((err = libusb_control_transfer(printer->handle, LIBUSB_REQUEST_TYPE_CLASS | LIBUSB_ENDPOINT_IN | LIBUSB_RECIPIENT_INTERFACE, 0, printer->conf, (printer->iface << 8) | printer->altset, (unsigned char *)buffer, bufsize, 5000)) < 0)
@@ -1135,6 +1136,22 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
 
   memmove(buffer, buffer + 2, length);
   buffer[length] = '\0';
+
+  /*
+  * Clean up the device ID - collapse whitespace to single spaces and reject
+  * any string containing other control characters (matches the sanitization
+  * already applied in backend/ieee1284.c:backendGetDeviceID()). The device ID
+  * is later written to stderr where embedded newlines would otherwise be
+  * interpreted by cupsd as separate STATE:/ATTR:/PPD: directive lines.
+  */
+  for (ptr = buffer; *ptr; ptr ++)
+    if (_cups_isspace(*ptr))
+      *ptr = ' ';
+    else if ((*ptr & 255) < ' ' || *ptr == 127)
+    {
+      *buffer = '\0';
+      return (-1);
+    }
 
   return (0);
 }
