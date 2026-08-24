@@ -12,6 +12,7 @@
 #include "json-private.h"
 #include <assert.h>
 #ifdef HAVE_OPENSSL
+#  include <openssl/crypto.h>
 #  include <openssl/ecdsa.h>
 #  include <openssl/evp.h>
 #  include <openssl/rsa.h>
@@ -437,8 +438,14 @@ cupsJWTHasValidSignature(
 
 	DEBUG_printf("1cupsJWTHasValidSignature: calc sig(%u) = %02X%02X%02X%02X...%02X%02X%02X%02X", (unsigned)sigsize, signature[0], signature[1], signature[2], signature[3], signature[sigsize - 4], signature[sigsize - 3], signature[sigsize - 2], signature[sigsize - 1]);
 
-	// Compare and return the result...
-	ret = jwt->sigsize == sigsize && !memcmp(jwt->signature, signature, sigsize);
+	// Compare and return the result using a constant-time comparison so the
+	// HMAC value cannot be recovered a byte at a time via a timing side
+	// channel...
+#ifdef HAVE_OPENSSL
+	ret = jwt->sigsize == sigsize && !CRYPTO_memcmp(jwt->signature, signature, sigsize);
+#else // HAVE_GNUTLS
+	ret = jwt->sigsize == sigsize && !gnutls_memcmp(jwt->signature, signature, sigsize);
+#endif // HAVE_OPENSSL
 	break;
 
     case CUPS_JWA_RS256 :
