@@ -2,8 +2,8 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-Changes in CUPS v2.4.20 (YYYY-MM-DD)
-------------------------------------
+v2.4.20 - YYYY-MM-DD
+--------------------
 
 - CVE-2026-55453: The backend did not sanitize IPP attribute strings.
 - CVE-2026-55467: The scheduler did not sanitize fax numbers.
@@ -53,21 +53,21 @@ Changes in CUPS v2.4.20 (YYYY-MM-DD)
 - Fixed potential buffer overrun in `cupsDoAuthentication`.
 
 
-Changes in CUPS v2.4.19 (2026-04-27)
-------------------------------------
+v2.4.19 - 2026-04-27
+--------------------
 
 - Fixed a regression in shared printing from non-local accounts (Issue #1557,
   related to CVE-2026-27447)
 
 
-Changes in CUPS v2.4.18 (2026-04-22)
-------------------------------------
+v2.4.18 - 2026-04-22
+--------------------
 
 - Fixed cupsd crash if user does not exist (Issue #1555, related to CVE-2026-27447)
 
 
-Changes in CUPS v2.4.17 (2026-04-17)
-------------------------------------
+v2.4.17 - 2026-04-17
+--------------------
 
 - CVE-2026-27447: The scheduler treated local user and group names as case-
   insensitive.
@@ -113,8 +113,8 @@ Changes in CUPS v2.4.17 (2026-04-17)
 - Fixed `httpPeek` edge case on compressed streams
 
 
-Changes in CUPS v2.4.16 (2025-12-04)
-------------------------------------
+v2.4.16 - 2025-12-04
+--------------------
 
 - `cupsUTF8ToCharset` didn't validate 2-byte UTF-8 sequences, potentially
   reading past the end of the source string (Issue #1438)
@@ -123,8 +123,8 @@ Changes in CUPS v2.4.16 (2025-12-04)
 - Fixed stopping scheduler on unknown directive in configuration (Issue #1443)
 
 
-Changes in CUPS v2.4.15 (2025-11-27)
-------------------------------------
+v2.4.15 - 2025-11-27
+--------------------
 
 - Fix various cupsd issues which cause local DoS (CVE-2025-61915)
 - Fix unresponsive cupsd process caused by slow client (CVE-2025-58436)
@@ -133,14 +133,14 @@ Changes in CUPS v2.4.15 (2025-11-27)
 - Fixed error recovery when scanning for PPDs in `cups-driverd` (Issue #1416)
 
 
-Changes in CUPS v2.4.14 (2025-09-11)
-------------------------------------
+v2.4.14 - 2025-09-11
+--------------------
 
 - Fixed installation of localized index.html and templates (Issue #1362)
 
 
-Changes in CUPS v2.4.13 (2025-09-11)
-------------------------------------
+v2.4.13 - 2025-09-11
+--------------------
 
 - Blocked authentication using alternate methods in cupsd (CVE-2025-58060)
 - Fixed extension tag handling in `ipp_read_io()` in libcups (CVE-2025-58364)
@@ -167,8 +167,8 @@ Changes in CUPS v2.4.13 (2025-09-11)
 - Fixed memory leak in _cupsConvertOptions (Issue #1354)
 
 
-Changes in CUPS v2.4.12 (2025-04-08)
-------------------------------------
+v2.4.12 - 2025-04-08
+--------------------
 
 - GnuTLS follows system crypto policies now (Issue #1105)
 - Added `NoSystem` SSLOptions value (Issue #1130)
@@ -200,8 +200,8 @@ Changes in CUPS v2.4.12 (2025-04-08)
 - Fixed DNS-SD discovery with `ippfind` (Issue #1211)
 
 
-Changes in CUPS v2.4.11 (2024-09-30)
-------------------------------------
+v2.4.11 - 2024-09-30
+--------------------
 
 - Updated the maximum file descriptor limit for `cupsd` to 64k-1 (Issue #989)
 - Fixed `lpoptions -d` with a discovered but not added printer (Issue #833)
@@ -216,15 +216,15 @@ Changes in CUPS v2.4.11 (2024-09-30)
 - Fixed IPP Everywhere printer setup (Issue #1033)
 
 
-Changes in CUPS v2.4.10 (2024-06-18)
-------------------------------------
+v2.4.10 - 2024-06-18
+--------------------
 
 - Fixed error handling when reading a mixed `1setOf` attribute.
 - Fixed scheduler start if there is only domain socket to listen on (Issue #985)
 
 
-Changes in CUPS v2.4.9 (2024-06-11)
------------------------------------
+v2.4.9 - 2024-06-11
+-------------------
 
 - Fixed domain socket handling (CVE-2024-35235)
 - Fixed creating of `cupsUrfSupported` PPD keyword (Issue #952)
@@ -239,8 +239,8 @@ Changes in CUPS v2.4.9 (2024-06-11)
 - Fixed showing search query in web ui help page. (Issue #977)
 
 
-Changes in CUPS v2.4.8 (2024-04-26)
------------------------------------
+v2.4.8 - 2024-04-26
+-------------------
 
 - Added warning if the device has to be asked for 'all,media-col-database'
   separately (Issue #829)
@@ -283,8 +283,8 @@ Changes in CUPS v2.4.8 (2024-04-26)
   fields.
 
 
-Changes in CUPS v2.4.7 (2023-09-20)
------------------------------------
+v2.4.7 - 2023-09-20
+-------------------
 
 - CVE-2023-4504 - Fixed Heap-based buffer overflow when reading Postscript
   in PPD files
@@ -300,8 +300,8 @@ Changes in CUPS v2.4.7 (2023-09-20)
 - Fixed Oki 407 freeze when printing larger jobs (Issue #877)
 
 
-Changes in CUPS v2.4.6 (2023-06-22)
------------------------------------
+v2.4.6 - 2023-06-22
+-------------------
 
 - CVE-2023-34241: Fixed use-after-free when logging warnings in case of failures
   in `cupsdAcceptClient()`.
@@ -309,21 +309,21 @@ Changes in CUPS v2.4.6 (2023-06-22)
 - Fixed printing multiple files on specific printers (Issue #643)
 
 
-Changes in CUPS v2.4.5 (2023-06-13)
------------------------------------
+v2.4.5 - 2023-06-13
+-------------------
 
 - Fixed corruption of locally saved certificates (Issue #724)
 
 
-Changes in CUPS v2.4.4 (2023-06-06)
------------------------------------
+v2.4.4 - 2023-06-06
+-------------------
 
 - Fixed segfault in `cupsGetNamedDest()` when trying to get default printer, but
   the default printer is not set (Issue #719)
 
 
-Changes in CUPS v2.4.3 (2023-06-01)
------------------------------------
+v2.4.3 - 2023-06-01
+-------------------
 
 - CVE-2023-32360: Fixed default policy for CUPS-Get-Document operation
 - CVE-2023-32324: Fixed possible heap buffer overflow in `_cups_strlcpy()`.
@@ -369,8 +369,8 @@ Changes in CUPS v2.4.3 (2023-06-01)
 - Write defaults into /etc/cups/lpoptions if we're root (Issue #456)
 
 
-Changes in CUPS v2.4.2 (2022-05-26)
------------------------------------
+v2.4.2 - 2022-05-26
+-------------------
 
 - Fixed certificate strings comparison for Local authorization (CVE-2022-26691)
 - The `cupsFileOpen` function no longer opens files for append in read-write
@@ -405,8 +405,8 @@ Changes in CUPS v2.4.2 (2022-05-26)
   interface.
 
 
-Changes in CUPS v2.4.1 (2022-01-27)
------------------------------------
+v2.4.1 - 2022-01-27
+-------------------
 
 - The default color mode now is now configurable and defaults to the printer's
   reported default mode (Issue #277)
@@ -421,8 +421,8 @@ Changes in CUPS v2.4.1 (2022-01-27)
 - Removed `purge-jobs` legacy code from CGI scripts and templates (Issue #325)
 
 
-Changes in CUPS v2.4.0 (2021-11-29)
------------------------------------
+v2.4.0 - 2021-11-29
+-------------------
 
 - Added configure option --with-idle-exit-timeout (Issue #294)
 - Added --with-systemd-timeoutstartsec configure option (Issue #298)
@@ -432,16 +432,16 @@ Changes in CUPS v2.4.0 (2021-11-29)
 - Fixed and improved German translations (Issue #296, Issue #297)
 
 
-Changes in CUPS v2.4rc1 (2021-11-12)
-------------------------------------
+v2.4rc1 - 2021-11-12
+--------------------
 
 - Added warning and debug messages when loading printers
  if the queue is raw or with driver (Issue #286)
 - Compilation now uses -fstack-protector-strong if available (Issue #285)
 
 
-Changes in CUPS v2.4b1 (2021-10-27)
------------------------------------
+v2.4b1 - 2021-10-27
+-------------------
 
 - Added support for CUPS running in a Snapcraft snap.
 - Added basic OAuth 2.0 client support (Issue #100)
