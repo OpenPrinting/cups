@@ -7,18 +7,18 @@ TMPDIR="${TMPDIR:=/tmp}"
 
 # Make sure we are running in the right directory...
 if test ! -f scripts/makesrcdist; then
-        echo "Run this script from the top-level CUPS source directory, e.g.:"
-        echo ""
-        echo "    scripts/makesrcdist $*"
-        echo ""
-        exit 1
+    echo "Run this script from the top-level CUPS source directory, e.g.:"
+    echo ""
+    echo "    scripts/makesrcdist $*"
+    echo ""
+    exit 1
 fi
 
 # See if we have local changes (other than this script...)
 if (git status | grep -v makesrcdist | grep -v makerpm | grep -q modified:); then
-        echo Local changes remain:
-        git status | grep -v makesrcdist | grep modified:
-        exit 1
+    echo Local changes remain:
+    git status | grep -v makesrcdist | grep modified:
+    exit 1
 fi
 
 # Prep for snapshot or version release...
@@ -43,46 +43,46 @@ else
 
     # Check that version number has been updated everywhere...
     status=0
-      temp=`grep AC_INIT configure.ac | awk -F, '{print $2}' | sed -e '1,$s/^\[//' -e '1,$s/\]$//'`
-      if test "$temp" != $version; then
-	  echo "Still need to update version to $version in configure.ac (saw $temp)"
-	  status=1
-      fi
+    temp=`grep AC_INIT configure.ac | awk -F, '{print $2}' | sed -e '1,$s/^\[//' -e '1,$s/\]$//'`
+    if test "$temp" != $version; then
+	echo "Still need to update version to $version in configure.ac (saw $temp)"
+	status=1
+    fi
 
-      temp=`grep CUPS_VERSION cups/cups.h | grep -v CUPS_VERSION_ | awk '{print $4}'`
-      if test "$temp" != $cupsversion; then
-	  echo "Still need to update CUPS_VERSION to $cupsversion in cups/cups.h (saw $temp)"
-	  status=1
-      fi
+    temp=`grep CUPS_VERSION cups/cups.h | grep -v CUPS_VERSION_ | awk '{print $4}'`
+    if test "$temp" != $cupsversion; then
+	echo "Still need to update CUPS_VERSION to $cupsversion in cups/cups.h (saw $temp)"
+	status=1
+    fi
 
-      temp=`grep CUPS_VERSION_PATCH cups/cups.h | awk '{print $4}'`
-      if test "$temp" != $cupsversionpatch; then
-	  echo "Still need to update CUPS_VERSION_PATCH to $cupsversionpatch in cups/cups.h (saw $temp)"
-	  status=1
-      fi
+    temp=`grep CUPS_VERSION_PATCH cups/cups.h | awk '{print $4}'`
+    if test "$temp" != $cupsversionpatch; then
+	echo "Still need to update CUPS_VERSION_PATCH to $cupsversionpatch in cups/cups.h (saw $temp)"
+	status=1
+    fi
 
-      temp=`head -1 README.md | awk '{print $3}'`
-      if test "$temp" != "v$version"; then
-	  echo "Still need to update version to v$version in README.md (saw $temp)"
-	  status=1
-      fi
+    temp=`head -1 README.md | awk '{print $3}'`
+    if test "$temp" != "v$version"; then
+	echo "Still need to update version to v$version in README.md (saw $temp)"
+	status=1
+    fi
 
-      if test $(head -5 CHANGES.md | tail -1 | awk '{print $1}') != "v$version"; then
-	  echo "Still need to update CHANGES.md version number."
-	  status=1
-      fi
-      if test $(head -5 CHANGES.md | tail -1 | awk '{print $3}') = "YYYY-MM-DD"; then
-	  echo "Still need to update CHANGES.md release date."
-	  status=1
-      fi
+    if test $(head -5 CHANGES.md | tail -1 | awk '{print $1}') != "v$version"; then
+	echo "Still need to update CHANGES.md version number."
+	status=1
+    fi
+    if test $(head -5 CHANGES.md | tail -1 | awk '{print $3}') = "YYYY-MM-DD"; then
+	echo "Still need to update CHANGES.md release date."
+	status=1
+    fi
 
-      if test $status = 1; then
-	  exit 1
-      fi
+    if test $status = 1; then
+	exit 1
+    fi
 
-      echo Creating tag for release...
-      git tag -m "Tag $version" v$version
-      git push origin v$version
+    echo Creating tag for release...
+    git tag -m "Tag $version" v$version
+    git push origin v$version
 fi
 
 fileurl=`echo $fileurl | sed -e '1,$s/\\//\\\\\\//g'`
@@ -96,9 +96,9 @@ git archive --format tar HEAD | (cd $TMPDIR/cups-$version; tar xf -)
 echo Preparing files...
 cd $TMPDIR/cups-$version
 sed -e '1,$s/@CUPS_VERSION@/'$version'/' \
-	-e '1,$s/^Source:.*/Source: '$fileurl'/' \
-	<packaging/cups.spec.in \
-	>packaging/cups.spec
+    -e '1,$s/^Source:.*/Source: '$fileurl'/' \
+    <packaging/cups.spec.in \
+    >packaging/cups.spec
 rm -rf .gitignore
 cd ..
 
@@ -107,16 +107,16 @@ tar cf $file cups-$version
 
 echo Compressing...
 if (which zopfli >/dev/null); then
-	zopfli $file
-	rm -f $file
+    zopfli $file
+    rm -f $file
 else
-	gzip -v9 $file
+    gzip -v9 $file
 fi
 
 if test $SIGNFILES = yes; then
-	echo Signing...
-	test -f $file.gz.sig && rm -f $file.gz.sig
-	gpg --detach-sign $file.gz
+    echo Signing...
+    test -f $file.gz.sig && rm -f $file.gz.sig
+    gpg --detach-sign $file.gz
 fi
 
 echo Removing temporary files...
