@@ -1,11 +1,12 @@
 /*
  * Quota routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2011 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2011 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 /*
@@ -42,7 +43,7 @@ cupsdFindQuota(
     return (NULL);
 
   strlcpy(match.username, username, sizeof(match.username));
-  if ((ptr = strchr(match.username, '@')) != NULL)
+  if (StripUserDomain && (ptr = strchr(match.username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 
   if ((q = (cupsd_quota_t *)cupsArrayFind(p->quotas, &match)) != NULL)
@@ -134,7 +135,7 @@ cupsdUpdateQuota(
     */
 
     if (_cups_strcasecmp(job->dest, p->name) != 0 ||
-        _cups_strcasecmp(job->username, q->username) != 0)
+        strcmp(job->username, q->username) != 0)
       continue;
 
    /*
@@ -205,7 +206,7 @@ add_quota(cupsd_printer_t *p,		/* I - Printer */
     return (NULL);
 
   strlcpy(q->username, username, sizeof(q->username));
-  if ((ptr = strchr(q->username, '@')) != NULL)
+  if (StripUserDomain && (ptr = strchr(q->username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 
   cupsArrayAdd(p->quotas, q);
@@ -222,5 +223,5 @@ static int				/* O - Result of comparison */
 compare_quotas(const cupsd_quota_t *q1,	/* I - First quota record */
                const cupsd_quota_t *q2)	/* I - Second quota record */
 {
-  return (_cups_strcasecmp(q1->username, q2->username));
+  return (strcmp(q1->username, q2->username));
 }

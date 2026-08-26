@@ -1,7 +1,7 @@
 /*
  * Main header file for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -70,7 +70,7 @@ extern const char *cups_hstrerror(int);
  */
 
 #define MAX_ENV			100	/* Maximum number of environment strings */
-#define MAX_USERPASS		33	/* Maximum size of username/password */
+#define MAX_USERPASS		256	/* Maximum size of username/password */
 #define MAX_FILTERS		20	/* Maximum number of filters */
 #define MAX_SYSTEM_GROUPS	32	/* Maximum number of system groups */
 

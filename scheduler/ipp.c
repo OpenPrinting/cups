@@ -3696,6 +3696,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
   char		username[33],		/* Username */
 		*name;			/* Current user name */
   cupsd_quota_t	*q;			/* Quota data */
+  struct passwd	*pw;			/* User password data */
 #ifdef HAVE_MBR_UID_TO_UUID
  /*
   * Use Apple membership APIs which require that all names represent
@@ -3707,12 +3708,6 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
   uuid_t	grp_uuid;		/* UUID for ACL group name entry */
   int		mbr_err;		/* Error from membership function */
   int		is_member;		/* Is this user a member? */
-#else
- /*
-  * Use standard POSIX APIs for checking users and groups...
-  */
-
-  struct passwd	*pw;			/* User password data */
 #endif /* HAVE_MBR_UID_TO_UUID */
 
 
@@ -3769,6 +3764,22 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
 
   if (cupsArrayCount(p->users))
   {
+   /*
+    * Get UID and GID of requesting user...
+    */
+
+    if ((pw = getpwnam(username)) == NULL)
+    {
+     /*
+      * Unknown user...
+      */
+
+      cupsdLogClient(con, CUPSD_LOG_DEBUG2, "check_quotas: Lookup failed for user \"%s\".", username);
+      cupsdLogClient(con, CUPSD_LOG_INFO, "Denying user \"%s\" access to printer \"%s\" (unknown user).", username, p->name);
+      return (0);
+    }
+    endpwent();
+
 #ifdef HAVE_MBR_UID_TO_UUID
    /*
     * Get UUID for job requesting user...
@@ -3789,18 +3800,12 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
 		      username, p->name);
       return (0);
     }
-#else
-   /*
-    * Get UID and GID of requesting user...
-    */
-
-    pw = getpwnam(username);
-    endpwent();
 #endif /* HAVE_MBR_UID_TO_UUID */
 
     for (name = (char *)cupsArrayFirst(p->users);
          name;
 	 name = (char *)cupsArrayNext(p->users))
+    {
       if (name[0] == '@')
       {
        /*
@@ -3880,9 +3885,10 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
 	  break;
       }
 #else
-      else if (!_cups_strcasecmp(username, name))
+      else if (!strcmp(pw->pw_name, name))
 	break;
 #endif /* HAVE_MBR_UID_TO_UUID */
+    }
 
     if ((name != NULL) == p->deny_users)
     {

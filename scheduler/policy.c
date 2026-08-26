@@ -1,7 +1,7 @@
 /*
  * Policy routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2011, 2014 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
@@ -264,7 +264,8 @@ cupsdGetPrivateAttrs(
   char		*name;			/* Current name in access list */
   cups_array_t	*access_ptr,		/* Access array */
 		*attrs_ptr;		/* Attributes array */
-  const char	*username;		/* Username associated with request */
+  char		username[MAX_USERPASS],	/* Username associated with request */
+		*ptr;			/* Pointer into username */
   ipp_attribute_t *attr;		/* Attribute from request */
   struct passwd	*pw;			/* User info */
 
@@ -329,12 +330,14 @@ cupsdGetPrivateAttrs(
   */
 
   if (con->username[0])
-    username = con->username;
-  else if ((attr = ippFindAttribute(con->request, "requesting-user-name",
-                                    IPP_TAG_NAME)) != NULL)
-    username = attr->values[0].string.text;
+    strlcpy(username, con->username, sizeof(username));
+  else if ((attr = ippFindAttribute(con->request, "requesting-user-name", IPP_TAG_NAME)) != NULL)
+    strlcpy(username, attr->values[0].string.text, sizeof(username));
   else
-    username = "anonymous";
+    strlcpy(username, "anonymous", sizeof(username));
+
+  if (StripUserDomain && (ptr = strchr(username, '@')) != NULL)
+    *ptr = '\0';			/* Strip @domain/@KDC */
 
   if (username[0])
   {
@@ -342,7 +345,9 @@ cupsdGetPrivateAttrs(
     endpwent();
   }
   else
+  {
     pw = NULL;
+  }
 
 #ifdef DEBUG
   cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: username=\"%s\"",
@@ -387,12 +392,11 @@ cupsdGetPrivateAttrs(
 	  if (cupsdCheckGroup(username, pw, acl))
 	    break;
 	}
-	else if (!_cups_strcasecmp(username, acl))
+	else if (pw && !strcmp(pw->pw_name, acl))
 	  break;
       }
     }
-    else if (owner && !_cups_strcasecmp(name, "@OWNER") &&
-             !_cups_strcasecmp(username, owner))
+    else if (owner && !_cups_strcasecmp(name, "@OWNER") && pw && !strcmp(pw->pw_name, owner))
     {
 #ifdef DEBUG
       cupsdLogMessage(CUPSD_LOG_DEBUG2,
@@ -428,7 +432,7 @@ cupsdGetPrivateAttrs(
 	return (NULL);
       }
     }
-    else if (!_cups_strcasecmp(username, name))
+    else if (pw && !strcmp(pw->pw_name, name))
     {
 #ifdef DEBUG
       cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: Returning NULL.");

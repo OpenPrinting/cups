@@ -1,7 +1,7 @@
 /*
  * Client definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -30,7 +30,7 @@ struct cupsd_client_s
   off_t			bytes;		/* Bytes transferred for this request */
   int			is_browser;	/* Is the client a web browser? */
   int			type;		/* AuthType for username */
-  char			username[HTTP_MAX_VALUE],
+  char			username[MAX_USERPASS],
 					/* Username from Authorization: line */
 			password[HTTP_MAX_VALUE],
 					/* Password from Authorization: line */
