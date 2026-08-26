@@ -1,15 +1,12 @@
 /*
  * Quota routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2007-2011 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2011 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "cupsd.h"
@@ -20,9 +17,9 @@
  */
 
 static cupsd_quota_t	*add_quota(cupsd_printer_t *p, const char *username);
-static int	compare_quotas(const cupsd_quota_t *q1,
-                           const cupsd_quota_t *q2,
-                           void *data);
+static int		compare_quotas(const cupsd_quota_t *q1, const cupsd_quota_t *q2, void *data);
+static int		compare_users(const char *a, const char *b);
+
 
 /*
  * 'cupsdFindQuota()' - Find a quota record.
@@ -42,7 +39,7 @@ cupsdFindQuota(
     return (NULL);
 
   cupsCopyString(match.username, username, sizeof(match.username));
-  if ((ptr = strchr(match.username, '@')) != NULL)
+  if (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && StripUserDomain && (ptr = strchr(match.username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 
   if ((q = (cupsd_quota_t *)cupsArrayFind(p->quotas, &match)) != NULL)
@@ -133,8 +130,7 @@ cupsdUpdateQuota(
     * We only care about the current printer/class and user...
     */
 
-    if (_cups_strcasecmp(job->dest, p->name) != 0 ||
-        _cups_strcasecmp(job->username, q->username) != 0)
+    if (_cups_strcasecmp(job->dest, p->name) != 0 || compare_users(job->username, q->username))
       continue;
 
    /*
@@ -205,7 +201,7 @@ add_quota(cupsd_printer_t *p,		/* I - Printer */
     return (NULL);
 
   cupsCopyString(q->username, username, sizeof(q->username));
-  if ((ptr = strchr(q->username, '@')) != NULL)
+  if (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && StripUserDomain && (ptr = strchr(q->username, '@')) != NULL)
     *ptr = '\0';			/* Strip @domain/@KDC */
 
   cupsArrayAdd(p->quotas, q);
@@ -221,8 +217,24 @@ add_quota(cupsd_printer_t *p,		/* I - Printer */
 static int                              /* O - Result of comparison */
 compare_quotas(const cupsd_quota_t *q1, /* I - First quota record */
                const cupsd_quota_t *q2, /* I - Second quota record */
-               void *data)              /* Unused */
+               void *data)              /* I - Unused */
 {
   (void)data;
-  return (_cups_strcasecmp(q1->username, q2->username));
+
+  return (compare_users(q1->username, q2->username));
+}
+
+
+/*
+ * 'compare_users()' - Compare two usernames...
+ */
+
+static int                              /* O - Result of comparison */
+compare_users(const char *a,		/* I - First username */
+              const char *b)		/* I - Second username */
+{
+  if (cupsdDefaultAuthType() == CUPSD_AUTH_BEARER)
+    return (_cups_strcasecmp(a, b));
+  else
+    return (strcmp(a, b));
 }

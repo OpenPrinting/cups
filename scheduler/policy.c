@@ -1,16 +1,12 @@
 /*
  * Policy routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2011, 2014 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cupsd.h"
@@ -264,7 +260,8 @@ cupsdGetPrivateAttrs(
   char		*name;			/* Current name in access list */
   cups_array_t	*access_ptr,		/* Access array */
 		*attrs_ptr;		/* Attributes array */
-  const char	*username;		/* Username associated with request */
+  char		username[128],		/* Username associated with request */
+		*ptr;			/* Pointer into username */
   ipp_attribute_t *attr;		/* Attribute from request */
   struct passwd	*pw;			/* User info */
 
@@ -329,12 +326,14 @@ cupsdGetPrivateAttrs(
   */
 
   if (con->username[0])
-    username = con->username;
-  else if ((attr = ippFindAttribute(con->request, "requesting-user-name",
-                                    IPP_TAG_NAME)) != NULL)
-    username = attr->values[0].string.text;
+    cupsCopyString(username, con->username, sizeof(username));
+  else if ((attr = ippFindAttribute(con->request, "requesting-user-name", IPP_TAG_NAME)) != NULL)
+    cupsCopyString(username, attr->values[0].string.text, sizeof(username));
   else
-    username = "anonymous";
+    cupsCopyString(username, "anonymous", sizeof(username));
+
+  if (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && StripUserDomain && (ptr = strchr(username, '@')) != NULL)
+    *ptr = '\0';			/* Strip @domain/@KDC */
 
   if (username[0])
   {
@@ -342,25 +341,16 @@ cupsdGetPrivateAttrs(
     endpwent();
   }
   else
-    pw = NULL;
-
-#ifdef DEBUG
-  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: username=\"%s\"",
-                  username);
-#endif /* DEBUG */
-
- /*
-  * Otherwise check the user against the access list...
-  */
-
-  for (name = (char *)cupsArrayFirst(access_ptr);
-       name;
-       name = (char *)cupsArrayNext(access_ptr))
   {
+    pw = NULL;
+  }
+
 #ifdef DEBUG
-    cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: name=%s", name);
+  cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: username=\"%s\"", username);
 #endif /* DEBUG */
 
+  for (name = (char *)cupsArrayFirst(access_ptr); name; name = (char *)cupsArrayNext(access_ptr))
+  {
     if (printer && !_cups_strcasecmp(name, "@ACL"))
     {
       char	*acl;			/* Current ACL user/group */
@@ -387,12 +377,12 @@ cupsdGetPrivateAttrs(
 	  if (cupsdCheckGroup(username, pw, acl))
 	    break;
 	}
-	else if (!_cups_strcasecmp(username, acl))
+	else if ((cupsdDefaultAuthType() == CUPSD_AUTH_BEARER && !_cups_strcasecmp(username, acl)) || (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && pw && !strcmp(pw->pw_name, acl)))
 	  break;
       }
     }
     else if (owner && !_cups_strcasecmp(name, "@OWNER") &&
-             !_cups_strcasecmp(username, owner))
+             ((cupsdDefaultAuthType() == CUPSD_AUTH_BEARER && !_cups_strcasecmp(username, owner)) || (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && pw && !strcmp(pw->pw_name, owner))))
     {
 #ifdef DEBUG
       cupsdLogMessage(CUPSD_LOG_DEBUG2,
@@ -428,7 +418,7 @@ cupsdGetPrivateAttrs(
 	return (NULL);
       }
     }
-    else if (!_cups_strcasecmp(username, name))
+    else if ((cupsdDefaultAuthType() == CUPSD_AUTH_BEARER && !_cups_strcasecmp(username, name)) || (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && pw && !strcmp(pw->pw_name, name)))
     {
 #ifdef DEBUG
       cupsdLogMessage(CUPSD_LOG_DEBUG2, "cupsdGetPrivateAttrs: Returning NULL.");

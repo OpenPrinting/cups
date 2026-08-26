@@ -1,7 +1,7 @@
 /*
  * Printer definitions for the CUPS scheduler.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright @ 2007-2017 by Apple Inc.
  * Copyright @ 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -18,7 +18,7 @@
 
 typedef struct
 {
-  char		username[33];		/* User data */
+  char		username[128];		/* User data */
   time_t	next_update;		/* Next update time */
   int		page_count,		/* Count of pages */
 		k_count;		/* Count of kilobytes */
