@@ -66,7 +66,7 @@ extern const char *cups_hstrerror(int);
  */
 
 #define MAX_ENV			100	/* Maximum number of environment strings */
-#define MAX_USERPASS		33	/* Maximum size of username/password */
+#define MAX_USERPASS		256	/* Maximum size of username/password */
 #define MAX_FILTERS		20	/* Maximum number of filters */
 #define MAX_SYSTEM_GROUPS	32	/* Maximum number of system groups */
 

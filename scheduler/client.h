@@ -30,7 +30,7 @@ struct cupsd_client_s
   off_t			bytes;		/* Bytes transferred for this request */
   int			is_browser;	/* Is the client a web browser? */
   int			type;		/* AuthType for username */
-  char			username[HTTP_MAX_VALUE],
+  char			username[MAX_USERPASS],
 					/* Username from Authorization: line */
 			password[HTTP_MAX_VALUE],
 					/* Password from Authorization: line */

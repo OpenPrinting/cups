@@ -3594,7 +3594,7 @@ static int				/* O - 1 if OK, 0 if forbidden,
 check_quotas(cupsd_client_t  *con,	/* I - Client connection */
              cupsd_printer_t *p)	/* I - Printer or class */
 {
-  char		username[33],		/* Username */
+  char		username[MAX_USERPASS],	/* Username */
 		*name;			/* Current user name */
   cupsd_quota_t	*q;			/* Quota data */
   struct passwd	*pw;			/* User password data */

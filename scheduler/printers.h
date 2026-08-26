@@ -18,7 +18,7 @@
 
 typedef struct
 {
-  char		username[128];		/* User data */
+  char		username[MAX_USERPASS];	/* User data */
   time_t	next_update;		/* Next update time */
   int		page_count,		/* Count of pages */
 		k_count;		/* Count of kilobytes */
