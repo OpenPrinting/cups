@@ -190,7 +190,7 @@ cgiGetCheckbox(const char *name)	/* I - Name of form field */
 {
   _cgi_var_t	*var = cgi_find_variable(name);
 					/* Found variable */
-  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+  const char	*value = (var && var->nvalues > 0) ? var->values[var->nvalues - 1] : NULL;
   int		ret;			/* Return value */
 
 
@@ -267,7 +267,7 @@ cgiGetTextfield(const char *name)	/* I - Name of form field */
 {
   _cgi_var_t	*var = cgi_find_variable(name);
 					/* Found variable */
-  const char	*value = var ? var->values[var->nvalues - 1] : NULL;
+  const char	*value = (var && var->nvalues > 0) ? var->values[var->nvalues - 1] : NULL;
 
 
   if (value && strchr(value, '\"') != NULL)
@@ -313,7 +313,7 @@ cgiGetVariable(const char *name)	/* I - Name of variable */
 
   var = cgi_find_variable(name);
 
-  return ((var == NULL) ? NULL : strdup(var->values[var->nvalues - 1]));
+  return ((var == NULL || var->nvalues < 1) ? NULL : strdup(var->values[var->nvalues - 1]));
 }
 
 
