@@ -108,5 +108,13 @@
           ];
         };
       });
+
+      checks.x86_64-linux.address-scope =
+        let
+          pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in
+        pkgs.testers.runNixOSTest (import ./nixos-test.nix {
+          cups = self.packages.x86_64-linux.default;
+        });
     };
 }
