@@ -1,3 +1,6 @@
+result
+result-*
+.direnv
 *.a
 *.bck
 /cgi-bin/*.cgi
