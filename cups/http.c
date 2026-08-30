@@ -630,7 +630,31 @@ httpConnectURI(const char *uri,		// I - Service to connect to
                int        *cancel,	// I - Pointer to "cancel" variable or `NULL` for none
                bool       require_ca)	// I - `true` to require a CA-signed X.509 certificate
 {
+  return (_httpConnectURI(uri, host, hsize, port, resource, rsize, blocking, msec, cancel, require_ca, 0));
+}
+
+
+//
+// '_httpConnectURI()' - Connect to a service URI with an optional DNS-SD
+//                       interface index.
+//
+
+http_t *				// O - New HTTP connection
+_httpConnectURI(
+    const char *uri,			// I - Service to connect to
+    char       *host,			// I - Host name buffer (`NULL` for don't care)
+    size_t     hsize,			// I - Size of host name buffer
+    int        *port,			// O - Port number (`NULL` for don't care)
+    char       *resource,		// I - Resource path buffer (`NULL` for don't care)
+    size_t     rsize,			// I - Size of resource path buffer
+    bool       blocking,		// I - `true` for blocking connection, `false` for non-blocking
+    int        msec,			// I - Connection timeout in milliseconds, `0` means don't connect
+    int        *cancel,			// I - Pointer to "cancel" variable or `NULL` for none
+    bool       require_ca,		// I - `true` to require a CA-signed X.509 certificate
+    uint32_t   if_index)		// I - DNS-SD interface index or 0
+{
   http_t	*http;			// New HTTP connection
+  http_addrlist_t *addrlist = NULL;	// Service addresses
   char		scheme[32],		// URI scheme
 		userpass[32],		// URI username:password
 		lhost[256],		// URI host (local copy)
@@ -681,12 +705,34 @@ httpConnectURI(const char *uri,		// I - Service to connect to
 
   DEBUG_printf("1httpConnectURI: scheme=\"%s\", host=\"%s\", port=%d, resource=\"%s\"", scheme, host, *port, resource);
 
+  if (if_index)
+  {
+    char portstr[16];
+
+    snprintf(portstr, sizeof(portstr), "%d", *port);
+
+    if ((addrlist = httpAddrGetList(host, AF_UNSPEC, portstr)) != NULL)
+    {
+#ifdef AF_INET6
+      http_addrlist_t *addr;		// Current address
+
+      for (addr = addrlist; addr; addr = addr->next)
+      {
+	if (addr->addr.addr.sa_family == AF_INET6 && IN6_IS_ADDR_LINKLOCAL(&addr->addr.ipv6.sin6_addr))
+	  addr->addr.ipv6.sin6_scope_id = if_index;
+      }
+#endif // AF_INET6
+    }
+  }
+
   if (!strcmp(scheme, "https") || !strcmp(scheme, "ipps") || *port == 443)
     encryption = HTTP_ENCRYPTION_ALWAYS;
   else
     encryption = HTTP_ENCRYPTION_IF_REQUESTED;
 
-  http = httpConnect2(host, *port, /*addrlist*/NULL, AF_UNSPEC, encryption, blocking, msec, cancel);
+  http = httpConnect2(host, *port, addrlist, AF_UNSPEC, encryption, blocking, msec, cancel);
+
+  httpAddrFreeList(addrlist);
 
   if (httpIsEncrypted(http))
   {

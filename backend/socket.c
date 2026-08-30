@@ -65,6 +65,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   int		contimeout;		/* Connection timeout */
   int		waiteof;		/* Wait for end-of-file? */
   int		port;			/* Port number */
+  uint32_t	if_index;		/* DNS-SD interface index */
   int		delay;			/* Delay for retries... */
   int		device_fd;		/* AppSocket */
   int		error;			/* Error code (if any) */
@@ -143,7 +144,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
   * Extract the hostname and port number from the URI...
   */
 
-  while ((device_uri = cupsBackendDeviceURI(argv)) == NULL)
+  while ((device_uri = _cupsBackendDeviceURI(argv, &if_index)) == NULL)
   {
     _cupsLangPrintFilter(stderr, "INFO", _("Unable to locate printer."));
     sleep(10);
@@ -251,7 +252,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
 
   start_time = time(NULL);
 
-  addrlist = backendLookup(hostname, port, NULL);
+  addrlist = backendLookup(hostname, port, NULL, if_index);
 
  /*
   * See if the printer supports SNMP...

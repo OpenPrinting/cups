@@ -48,6 +48,7 @@ typedef struct _cups_monitor_s		/**** Monitoring data ****/
 			*hostname,	/* Hostname */
 			*user,		/* Username */
 			*resource;	/* Resource path */
+  http_addrlist_t	*addrlist;	/* Printer addresses */
   int			port,		/* Port number */
 			version,	/* IPP version */
 			job_id,		/* Job ID for submitted job */
@@ -223,6 +224,7 @@ main(int  argc,				/* I - Number of command-line args */
 		*supported;		/* get-printer-attributes response */
   time_t	start_time;		/* Time of first connect */
   int		contimeout;		/* Connection timeout */
+  uint32_t	if_index;		/* DNS-SD interface index */
   int		delay,			/* Delay for retries */
 		prev_delay;		/* Previous delay */
   const char	*compression;		/* Compression mode */
@@ -319,7 +321,7 @@ main(int  argc,				/* I - Number of command-line args */
   * Get the device URI...
   */
 
-  while ((device_uri = cupsBackendDeviceURI(argv)) == NULL)
+  while ((device_uri = _cupsBackendDeviceURI(argv, &if_index)) == NULL)
   {
     _cupsLangPrintFilter(stderr, "INFO", _("Unable to locate printer."));
     sleep(10);
@@ -657,7 +659,7 @@ main(int  argc,				/* I - Number of command-line args */
 
   start_time = time(NULL);
 
-  addrlist = backendLookup(hostname, port, &job_canceled);
+  addrlist = backendLookup(hostname, port, &job_canceled, if_index);
 
   http = httpConnect2(hostname, port, addrlist, AF_UNSPEC, cupsEncryption(), 1,
                       0, NULL);
@@ -1444,6 +1446,7 @@ main(int  argc,				/* I - Number of command-line args */
   monitor.hostname      = hostname;
   monitor.user          = username;
   monitor.resource      = resource;
+  monitor.addrlist      = addrlist;
   monitor.port          = port;
   monitor.version       = version;
   monitor.job_id        = 0;
@@ -2542,7 +2545,7 @@ monitor_printer(
   * Make a copy of the printer connection...
   */
 
-  http = httpConnect2(monitor->hostname, monitor->port, NULL, AF_UNSPEC,
+  http = httpConnect2(monitor->hostname, monitor->port, monitor->addrlist, AF_UNSPEC,
                       monitor->encryption, 1, 0, NULL);
   httpSetTimeout(http, 30.0, timeout_cb, NULL);
   if (device_username[0])

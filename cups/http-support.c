@@ -25,6 +25,7 @@ typedef struct _http_uribuf_s		// URI buffer
   http_resolve_t	options;	// Options passed to httpResolveURI
   const char		*resource;	// Resource from URI
   const char		*uuid;		// UUID from URI
+  uint32_t		if_index;	// Interface index
 } _http_uribuf_t;
 
 
@@ -1598,6 +1599,20 @@ httpResolveURI(
     http_resolve_cb_t cb,		// I - Continue callback function
     void              *cb_data)		// I - Context pointer for callback
 {
+  return (_httpResolveURI(uri, resolved_uri, resolved_size, options, cb, cb_data, NULL));
+}
+
+
+const char *
+_httpResolveURI(
+    const char        *uri,
+    char              *resolved_uri,
+    size_t            resolved_size,
+    http_resolve_t    options,
+    http_resolve_cb_t cb,
+    void              *cb_data,
+    uint32_t          *if_index)
+{
   char			scheme[32],	// URI components...
 			userpass[256],
 			hostname[1024],
@@ -1609,6 +1624,9 @@ httpResolveURI(
 
 
   DEBUG_printf("httpResolveURI(uri=\"%s\", resolved_uri=%p, resolved_size=" CUPS_LLFMT ", options=0x%x, cb=%p, cb_data=%p)", uri, (void *)resolved_uri, CUPS_LLCAST resolved_size, options, (void *)cb, cb_data);
+
+  if (if_index)
+    *if_index = 0;
 
   // Get the device URI...
 #ifdef DEBUG
@@ -1628,7 +1646,8 @@ httpResolveURI(
     time_t		domain_time,	// Domain lookup time, if any
 			end_time;	// End time for resolve
     cups_dnssd_t	*dnssd;		// DNS-SD context
-    uint32_t		if_index;	// Interface index
+    uint32_t		resolve_if_index;
+					// Interface index for resolve
     char		name[256],	// Service instance name
 			regtype[256],	// Registration type
 			domain[256],	// Domain name
@@ -1658,19 +1677,20 @@ httpResolveURI(
     uribuf.options  = options;
     uribuf.resource = resource;
     uribuf.uuid     = uuid;
+    uribuf.if_index = 0;
 
     DEBUG_printf("2httpResolveURI: Resolving name=\"%s\", regtype=\"%s\",  domain=\"%s\"\n", name, regtype, domain);
 
     uri = NULL;
 
     if (!strcmp(scheme, "ippusb"))
-      if_index = CUPS_DNSSD_IF_INDEX_LOCAL;
+      resolve_if_index = CUPS_DNSSD_IF_INDEX_LOCAL;
     else
-      if_index = CUPS_DNSSD_IF_INDEX_ANY;
+      resolve_if_index = CUPS_DNSSD_IF_INDEX_ANY;
 
     dnssd = cupsDNSSDNew(NULL, NULL);
 
-    if (!cupsDNSSDResolveNew(dnssd, if_index, name, regtype, "local.", http_resolve_cb, &uribuf))
+    if (!cupsDNSSDResolveNew(dnssd, resolve_if_index, name, regtype, "local.", http_resolve_cb, &uribuf))
     {
       cupsDNSSDDelete(dnssd);
       return (NULL);
@@ -1684,7 +1704,7 @@ httpResolveURI(
       // Start the domain resolve as needed...
       if (time(NULL) >= domain_time && _cups_strcasecmp(domain, "local."))
       {
-	cupsDNSSDResolveNew(dnssd, if_index, name, regtype, domain, http_resolve_cb, &uribuf);
+	cupsDNSSDResolveNew(dnssd, resolve_if_index, name, regtype, domain, http_resolve_cb, &uribuf);
 	domain_time = end_time;
       }
 
@@ -1696,6 +1716,9 @@ httpResolveURI(
     }
 
     cupsDNSSDDelete(dnssd);
+
+    if (if_index)
+      *if_index = uribuf.if_index;
 
     // Save the results of the resolve...
     uri = *resolved_uri ? resolved_uri : NULL;
@@ -1953,6 +1976,8 @@ http_resolve_cb(
       httpAddrFreeList(addrlist);
     }
   }
+
+  uribuf->if_index = if_index;
 
   // Assemble the final URI...
   if ((!strcmp(scheme, "ipp") || !strcmp(scheme, "ipps")) && !strcmp(uribuf->resource, "/cups"))

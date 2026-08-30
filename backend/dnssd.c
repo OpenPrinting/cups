@@ -304,13 +304,15 @@ exec_backend(char **argv)		// I - Command-line arguments
 		*cups_serverbin;	// Location of programs
   char		scheme[1024],		// Scheme from URI
 		*ptr,			// Pointer into scheme
-		filename[1024];		// Backend filename
+		filename[1024],		// Backend filename
+		if_index_str[32];	// Interface index string
+  uint32_t	if_index;		// DNS-SD interface index
 
 
   // Resolve the device URI...
   JobCanceled = -1;
 
-  while ((resolved_uri = cupsBackendDeviceURI(argv)) == NULL)
+  while ((resolved_uri = _cupsBackendDeviceURI(argv, &if_index)) == NULL)
   {
     _cupsLangPrintFilter(stderr, "INFO", _("Unable to locate printer."));
     sleep(10);
@@ -341,6 +343,8 @@ exec_backend(char **argv)		// I - Command-line arguments
   */
 
   setenv("DEVICE_URI", resolved_uri, 1);
+  snprintf(if_index_str, sizeof(if_index_str), "%u", (unsigned)if_index);
+  setenv("CUPS_DNSSD_IF_INDEX", if_index_str, 1);
 
   argv[0] = (char *)resolved_uri;
 

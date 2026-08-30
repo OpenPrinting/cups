@@ -34,13 +34,26 @@ static void	quote_string(const char *s);
 const char *				/* O - Device URI or @code NULL@ */
 cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
 {
+  return (_cupsBackendDeviceURI(argv, NULL));
+}
+
+
+const char *
+_cupsBackendDeviceURI(char     **argv,
+                      uint32_t *if_index)
+{
   const char	*device_uri,		/* Device URI */
-		*auth_info_required;	/* AUTH_INFO_REQUIRED env var */
+		*auth_info_required,	/* AUTH_INFO_REQUIRED env var */
+		*value,
+		*resolved_uri;
   _cups_globals_t *cg = _cupsGlobals();	/* Global info */
   http_resolve_t options;		/* Resolve options */
   ppd_file_t	*ppd;			/* PPD file */
   ppd_attr_t	*ppdattr;		/* PPD attribute */
 
+
+  if (if_index)
+    *if_index = 0;
 
   if ((device_uri = getenv("DEVICE_URI")) == NULL)
   {
@@ -64,7 +77,12 @@ cupsBackendDeviceURI(char **argv)	/* I - Command-line arguments */
     ppdClose(ppd);
   }
 
-  return (httpResolveURI(device_uri, cg->resolved_uri, sizeof(cg->resolved_uri), options, NULL, NULL));
+  resolved_uri = _httpResolveURI(device_uri, cg->resolved_uri, sizeof(cg->resolved_uri), options, NULL, NULL, if_index);
+
+  if (resolved_uri && if_index && !*if_index && (value = getenv("CUPS_DNSSD_IF_INDEX")) != NULL)
+    *if_index = (uint32_t)strtoul(value, NULL, 10);
+
+  return (resolved_uri);
 }
 
 

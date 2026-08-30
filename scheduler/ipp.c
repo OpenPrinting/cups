@@ -5205,6 +5205,7 @@ create_local_bg_thread(
   ipp_attribute_t *attr;		/* Attribute in response */
   ipp_status_t	status;			/* Status code */
   cupsd_eventmask_t event;		/* Event (CUPSD_EVENT_PRINTER_ADDED or CUPSD_EVENT_PRINTER_MODIFIED) */
+  uint32_t	if_index = 0;		/* DNS-SD interface index */
   static const char * const pattrs[] =	/* Printer attributes we need */
   {
     "all",
@@ -5226,7 +5227,7 @@ create_local_bg_thread(
   {
     cupsdLogPrinter(printer, CUPSD_LOG_DEBUG2, "Resolving mDNS URI \"%s\".", device_uri);
 
-    if (!httpResolveURI(device_uri, uri, sizeof(uri), HTTP_RESOLVE_DEFAULT, NULL, NULL))
+    if (!_httpResolveURI(device_uri, uri, sizeof(uri), HTTP_RESOLVE_DEFAULT, NULL, NULL, &if_index))
     {
       cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "Couldn't resolve mDNS URI \"%s\".", printer->device_uri);
 
@@ -5240,14 +5241,18 @@ create_local_bg_thread(
       goto finish_response;
     }
 
-    cupsRWLockWrite(&printer->lock);
-    cupsdSetString(&printer->device_uri, uri);
-    cupsRWUnlock(&printer->lock);
+    if (!if_index)
+    {
+      // Don't cache an interface-scoped URI...
+      cupsRWLockWrite(&printer->lock);
+      cupsdSetString(&printer->device_uri, uri);
+      cupsRWUnlock(&printer->lock);
+    }
 
     cupsCopyString(device_uri, uri, sizeof(device_uri));
   }
 
-  if ((http = httpConnectURI(device_uri, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/false)) == NULL)
+  if ((http = _httpConnectURI(device_uri, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/false, if_index)) == NULL)
   {
     cupsdLogPrinter(printer, CUPSD_LOG_ERROR, "Unable to connect to '%s': %s", device_uri, cupsGetErrorString());
 

@@ -48,7 +48,8 @@ backendCheckSideChannel(
 http_addrlist_t	*			/* O - List of addresses or NULL */
 backendLookup(const char *hostname,	/* I - Hostname */
               int        port,		/* I - Port number */
-	      int        *cancel)	/* I - Variable to watch for job cancel */
+	      int        *cancel,	/* I - Variable to watch for job cancel */
+	      uint32_t   if_index)	/* I - Interface index or 0 */
 {
   char			portname[32],	/* Port number as string */
 			addrname[256];	/* Address as string */
@@ -90,7 +91,13 @@ backendLookup(const char *hostname,	/* I - Hostname */
   */
 
   for (current = addrlist; current; current = current->next)
+  {
+#ifdef AF_INET6
+    if (if_index && current->addr.addr.sa_family == AF_INET6 && IN6_IS_ADDR_LINKLOCAL(&current->addr.ipv6.sin6_addr))
+      current->addr.ipv6.sin6_scope_id = if_index;
+#endif /* AF_INET6 */
     fprintf(stderr, "DEBUG: %s=%s\n", hostname, httpAddrString(&current->addr, addrname, sizeof(addrname)));
+  }
 
  /*
   * Return...

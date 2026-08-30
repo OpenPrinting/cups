@@ -5,6 +5,7 @@ _cupsArrayFree
 _cupsArrayStrcasecmp
 _cupsArrayStrcmp
 _cupsArrayStrdup
+_cupsBackendDeviceURI
 _cupsBufferGet
 _cupsBufferRelease
 _cupsCharmapFlush
@@ -67,10 +68,12 @@ _cups_strcpy
 _cups_strcpy
 _cups_strncasecmp
 _httpCreateCredentials
+_httpConnectURI
 _httpDecodeURI
 _httpDisconnect
 _httpEncodeURI
 _httpFreeCredentials
+_httpResolveURI
 _httpSetDigestAuthString
 _httpStatusString
 _httpTLSInitialize

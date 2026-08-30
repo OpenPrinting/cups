@@ -269,6 +269,7 @@ extern void		_cupsAppleSetDefaultPrinter(CFStringRef name) _CUPS_PRIVATE;
 extern void		_cupsAppleSetUseLastPrinter(int uselast) _CUPS_PRIVATE;
 #  endif // __APPLE__
 
+extern const char	*_cupsBackendDeviceURI(char **argv, uint32_t *if_index) _CUPS_PRIVATE;
 extern char		*_cupsBufferGet(size_t size) _CUPS_PRIVATE;
 extern void		_cupsBufferRelease(char *b) _CUPS_PRIVATE;
 

@@ -252,10 +252,12 @@ extern const char	*_cups_hstrerror(int error) _CUPS_PRIVATE;
 #  endif /* !HAVE_HSTRERROR */
 
 extern _http_tls_credentials_t *_httpCreateCredentials(const char *credentials, const char *key) _CUPS_PRIVATE;
+extern http_t		*_httpConnectURI(const char *uri, char *host, size_t hsize, int *port, char *resource, size_t rsize, bool blocking, int msec, int *cancel, bool require_ca, uint32_t if_index) _CUPS_PRIVATE;
 extern char		*_httpDecodeURI(char *dst, const char *src, size_t dstsize) _CUPS_PRIVATE;
 extern void		_httpDisconnect(http_t *http) _CUPS_PRIVATE;
 extern char		*_httpEncodeURI(char *dst, const char *src, size_t dstsize) _CUPS_PRIVATE;
 extern void		_httpFreeCredentials(_http_tls_credentials_t *hcreds) _CUPS_PRIVATE;
+extern const char	*_httpResolveURI(const char *uri, char *resolved_uri, size_t resolved_size, http_resolve_t options, http_resolve_cb_t cb, void *cb_data, uint32_t *if_index) _CUPS_PRIVATE;
 extern int		_httpSetDigestAuthString(http_t *http, const char *nonce, const char *method, const char *resource) _CUPS_PRIVATE;
 extern const char	*_httpStatusString(cups_lang_t *lang, http_status_t status) _CUPS_PRIVATE;
 extern void		_httpTLSInitialize(void) _CUPS_PRIVATE;
