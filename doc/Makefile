@@ -1,7 +1,7 @@
 #
 # Documentation makefile for CUPS.
 #
-# Copyright © 2020-2025 by OpenPrinting.
+# Copyright © 2020-2026 by OpenPrinting.
 #
 # Licensed under Apache License v2.0.  See the file "LICENSE" for more
 # information.
@@ -26,6 +26,7 @@ HELPIMAGES	=	\
 			images/cups-command-chain.png \
 			images/cups-postscript-chain.png \
 			images/cups-raster-chain.png \
+			images/generic.png \
 			images/raster.png \
 			images/raster-organization.png \
 			images/sample-image.png \

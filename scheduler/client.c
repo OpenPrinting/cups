@@ -2879,31 +2879,7 @@ get_file(cupsd_client_t *con,		/* I  - Client connection */
       return (NULL);
     }
 
-    if (p->type & CUPS_PTYPE_CLASS)
-    {
-      int i;				/* Looping var */
-
-      for (i = 0; i < p->num_printers; i ++)
-      {
-	if (!(p->printers[i]->type & CUPS_PTYPE_CLASS))
-	{
-	  snprintf(filename, len, "%s/images/%s.png", CacheDir, p->printers[i]->name);
-	  if (!access(filename, 0))
-	  {
-	    p = p->printers[i];
-	    break;
-	  }
-	}
-      }
-
-      if (i >= p->num_printers)
-	p = NULL;
-    }
-    else
-      snprintf(filename, len, "%s/images/%s.png", CacheDir, p->name);
-
-    if (access(filename, F_OK) < 0)
-      snprintf(filename, len, "%s/images/generic.png", DocumentRoot);
+    snprintf(filename, len, "%s/images/generic.png", DocumentRoot);
 
     perm_check = 0;
   }

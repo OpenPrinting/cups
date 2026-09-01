@@ -11,9 +11,6 @@
 
 #include "cupsd.h"
 #include <cups/dir.h>
-#ifdef HAVE_APPLICATIONSERVICES_H
-#  include <ApplicationServices/ApplicationServices.h>
-#endif /* HAVE_APPLICATIONSERVICES_H */
 #ifdef HAVE_SYS_MOUNT_H
 #  include <sys/mount.h>
 #endif /* HAVE_SYS_MOUNT_H */
@@ -732,9 +729,6 @@ cupsdDeletePrinter(
     snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd", ServerRoot, p->name);
     unlink(filename);
     snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd.O", ServerRoot, p->name);
-    unlink(filename);
-
-    snprintf(filename, sizeof(filename), "%s/%s.png", CacheDir, p->name);
     unlink(filename);
 
     snprintf(filename, sizeof(filename), "%s/%s.data", CacheDir, p->name);
@@ -5364,133 +5358,6 @@ load_ppd(cupsd_printer_t *p)		/* I - Printer */
 
     if (ppdFindAttr(ppd, "APRemoteQueueID", NULL))
       p->type |= CUPS_PTYPE_REMOTE;
-
-#ifdef HAVE_APPLICATIONSERVICES_H
-   /*
-    * Convert the file referenced in APPrinterIconPath to a 128x128 PNG
-    * and save it as cacheDir/printername.png
-    */
-
-    if ((ppd_attr = ppdFindAttr(ppd, "APPrinterIconPath", NULL)) != NULL &&
-        ppd_attr->value &&
-	!_cupsFileCheck(ppd_attr->value, _CUPS_FILE_CHECK_FILE, !RunUser,
-	                cupsdLogFCMessage, p))
-    {
-      CGImageRef	imageRef = NULL;/* Current icon image */
-      CGImageRef	biggestIconRef = NULL;
-					/* Biggest icon image */
-      CGImageRef	closestTo128IconRef = NULL;
-					/* Icon image closest to and >= 128 */
-      CGImageSourceRef	sourceRef;	/* The file's image source */
-      char		outPath[HTTP_MAX_URI];
-					/* The path to the PNG file */
-      CFURLRef		outUrl;		/* The URL made from the outPath */
-      CFURLRef		icnsFileUrl;	/* The URL of the original ICNS icon file */
-      CGImageDestinationRef destRef;	/* The image destination to write */
-      size_t		bytesPerRow;	/* The bytes per row used for resizing */
-      CGContextRef	context;	/* The CG context used for resizing */
-
-      snprintf(outPath, sizeof(outPath), "%s/%s.png", CacheDir, p->name);
-      outUrl      = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, (UInt8 *)outPath, (CFIndex)strlen(outPath), FALSE);
-      icnsFileUrl = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, (UInt8 *)ppd_attr->value, (CFIndex)strlen(ppd_attr->value), FALSE);
-      if (outUrl && icnsFileUrl)
-      {
-        sourceRef = CGImageSourceCreateWithURL(icnsFileUrl, NULL);
-        if (sourceRef)
-        {
-          size_t index;
-          const size_t count = CGImageSourceGetCount(sourceRef);
-          for (index = 0; index < count; index ++)
-          {
-            imageRef = CGImageSourceCreateImageAtIndex(sourceRef, index, NULL);
-	    if (!imageRef)
-	      continue;
-
-            if (CGImageGetWidth(imageRef) == CGImageGetHeight(imageRef))
-            {
-             /*
-              * Loop through remembering the icon closest to 128 but >= 128
-              * and then remember the largest icon.
-              */
-
-              if (CGImageGetWidth(imageRef) >= 128 &&
-		  (!closestTo128IconRef ||
-		   CGImageGetWidth(imageRef) <
-		       CGImageGetWidth(closestTo128IconRef)))
-              {
-                CGImageRelease(closestTo128IconRef);
-                CGImageRetain(imageRef);
-                closestTo128IconRef = imageRef;
-              }
-
-              if (!biggestIconRef ||
-		  CGImageGetWidth(imageRef) > CGImageGetWidth(biggestIconRef))
-              {
-                CGImageRelease(biggestIconRef);
-                CGImageRetain(imageRef);
-                biggestIconRef = imageRef;
-              }
-	    }
-
-	    CGImageRelease(imageRef);
-          }
-
-          if (biggestIconRef)
-          {
-           /*
-            * If biggestIconRef is NULL, we found no icons. Otherwise we first
-            * want the closest to 128, but if none are larger than 128, we want
-            * the largest icon available.
-            */
-
-            imageRef = closestTo128IconRef ? closestTo128IconRef :
-                                             biggestIconRef;
-            CGImageRetain(imageRef);
-            CGImageRelease(biggestIconRef);
-            if (closestTo128IconRef)
-	      CGImageRelease(closestTo128IconRef);
-            destRef = CGImageDestinationCreateWithURL(outUrl, kUTTypePNG, 1,
-                                                      NULL);
-            if (destRef)
-            {
-              if (CGImageGetWidth(imageRef) != 128)
-              {
-                bytesPerRow = CGImageGetBytesPerRow(imageRef) /
-                              CGImageGetWidth(imageRef) * 128;
-                context     = CGBitmapContextCreate(NULL, 128, 128,
-						    CGImageGetBitsPerComponent(imageRef),
-						    bytesPerRow,
-						    CGImageGetColorSpace(imageRef),
-						    kCGImageAlphaPremultipliedFirst);
-                if (context)
-                {
-                  CGContextDrawImage(context, CGRectMake(0, 0, 128, 128),
-				     imageRef);
-                  CGImageRelease(imageRef);
-                  imageRef = CGBitmapContextCreateImage(context);
-                  CGContextRelease(context);
-                }
-              }
-
-              CGImageDestinationAddImage(destRef, imageRef, NULL);
-              CGImageDestinationFinalize(destRef);
-              CFRelease(destRef);
-            }
-
-            CGImageRelease(imageRef);
-          }
-
-          CFRelease(sourceRef);
-        }
-      }
-
-      if (outUrl)
-        CFRelease(outUrl);
-
-      if (icnsFileUrl)
-        CFRelease(icnsFileUrl);
-    }
-#endif /* HAVE_APPLICATIONSERVICES_H */
 
    /*
     * Map PPD defaults to IPP "-default" attributes...

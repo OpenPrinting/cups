@@ -4893,7 +4893,7 @@ copy_printer_attrs(
 
   if (!ra || cupsArrayFind(ra, "printer-icons"))
   {
-    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, "/icons/%s.png", printer->name);
+    httpAssembleURIf(HTTP_URI_CODING_ALL, uri, sizeof(uri), is_encrypted ? "https" : "http", NULL, con->clientname, con->clientport, "/icons/%s", printer->name);
     ippAddString(con->response, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-icons", NULL, uri);
   }
 
@@ -6232,9 +6232,6 @@ delete_printer(cupsd_client_t  *con,	/* I - Client connection */
   unlink(filename);
   snprintf(filename, sizeof(filename), "%s/ppd/%s.ppd.O", ServerRoot,
            printer->name);
-  unlink(filename);
-
-  snprintf(filename, sizeof(filename), "%s/%s.png", CacheDir, printer->name);
   unlink(filename);
 
   snprintf(filename, sizeof(filename), "%s/%s.data", CacheDir, printer->name);
