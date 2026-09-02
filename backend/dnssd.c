@@ -1,7 +1,7 @@
 //
 // DNS-SD discovery backend for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2008-2018 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -252,8 +252,6 @@ browse_callback(
     const char          *regtype,	// I - Service type
     const char          *domain)	// I - Domain
 {
-  fprintf(stderr, "DEBUG2: browse_callback(browser=%p, data=%p, flags=%x, if_index==%u, name=\"%s\", regtype=\"%s\", domain=\"%s\")\n", (void *)browser, data, flags, if_index, name, regtype, domain);
-
   // Only process "add" data...
   if (!(flags & CUPS_DNSSD_FLAGS_ADD))
     return;
@@ -489,8 +487,6 @@ query_callback(
 		device_id[2048];	// 1284 device ID
 
 
-  fprintf(stderr, "DEBUG2: query_callback(query=%p, device=%p, flags=%x, if_index=%u, fullname=\"%s\", rrtype=%u, qdata=%p, qlen=%u)\n", (void *)query, (void *)device, flags, if_index, fullname, rrtype, qdata, qlen);
-
   // Only process "add" data...
   if (!(flags & CUPS_DNSSD_FLAGS_ADD))
     return;
@@ -526,12 +522,9 @@ query_callback(
       if (data < datanext)
 	memcpy(value, data, (size_t)(datanext - data));
       value[datanext - data] = '\0';
-
-      fprintf(stderr, "DEBUG2: query_callback: \"%s=%s\".\n", key, value);
     }
     else
     {
-      fprintf(stderr, "DEBUG2: query_callback: \"%s\" with no value.\n", key);
       continue;
     }
 
