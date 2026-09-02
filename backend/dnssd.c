@@ -1,7 +1,7 @@
 /*
  * DNS-SD discovery backend for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2008-2018 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -552,12 +552,6 @@ browse_callback(
     const char          *replyDomain,	/* I - Service domain */
     void                *context)	/* I - Devices array */
 {
-  fprintf(stderr, "DEBUG2: browse_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%u, errorCode=%d, serviceName=\"%s\", "
-		  "regtype=\"%s\", replyDomain=\"%s\", context=%p)\n",
-          sdRef, flags, interfaceIndex, errorCode,
-	  serviceName, regtype, replyDomain, context);
-
  /*
   * Only process "add" data...
   */
@@ -590,12 +584,6 @@ browse_local_callback(
 {
   cups_device_t	*device;		/* Device */
 
-
-  fprintf(stderr, "DEBUG2: browse_local_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%u, errorCode=%d, serviceName=\"%s\", "
-		  "regtype=\"%s\", replyDomain=\"%s\", context=%p)\n",
-          sdRef, flags, interfaceIndex, errorCode,
-	  serviceName, regtype, replyDomain, context);
 
  /*
   * Only process "add" data...
@@ -1009,12 +997,6 @@ query_callback(
 
 
 #  ifdef HAVE_MDNSRESPONDER
-  fprintf(stderr, "DEBUG2: query_callback(sdRef=%p, flags=%x, "
-                  "interfaceIndex=%u, errorCode=%d, fullName=\"%s\", "
-		  "rrtype=%u, rrclass=%u, rdlen=%u, rdata=%p, ttl=%u, "
-		  "context=%p)\n",
-          sdRef, flags, interfaceIndex, errorCode, fullName, rrtype, rrclass, rdlen, rdata, ttl, context);
-
  /*
   * Only process "add" data...
   */
@@ -1023,11 +1005,6 @@ query_callback(
     return;
 
 #  else
-  fprintf(stderr, "DEBUG2: query_callback(browser=%p, interfaceIndex=%u, "
-                  "protocol=%d, event=%d, fullName=\"%s\", rrclass=%u, "
-		  "rrtype=%u, rdata=%p, rdlen=%u, flags=%x, context=%p)\n",
-          browser, interfaceIndex, protocol, event, fullName, rrclass, rrtype, rdata, (unsigned)rdlen, flags, context);
-
  /*
   * Only process "add" data...
   */
@@ -1081,14 +1058,9 @@ query_callback(
       if (data < datanext)
 	memcpy(value, data, (size_t)(datanext - data));
       value[datanext - data] = '\0';
-
-      fprintf(stderr, "DEBUG2: query_callback: \"%s=%s\".\n",
-	      key, value);
     }
     else
     {
-      fprintf(stderr, "DEBUG2: query_callback: \"%s\" with no value.\n",
-	      key);
       continue;
     }
 
