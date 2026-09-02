@@ -50,6 +50,7 @@ v2.4.20 - YYYY-MM-DD
 - Fixed a potential output length bug in the rastertohp driver (Issue #1658)
 - Fixed a potential buffer underflow buf in the `ippAdd/SetStringf(v)` functions
   (Issue #1664)
+- Fixed D-Bus notification policy definition (Issue #1691)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.
