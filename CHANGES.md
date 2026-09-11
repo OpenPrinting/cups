@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 v2.4.20 - YYYY-MM-DD
 --------------------
 
+- Web interface session IDs now use operating-system cryptographic randomness
+  and are not issued if random data cannot be obtained (CVE-2018-4700 follow-up).
 - CVE-2026-55453: The backend did not sanitize IPP attribute strings.
 - CVE-2026-55467: The scheduler did not sanitize fax numbers.
 - CVE-2026-55480: The scheduler did not open temporary PPD files in exclusive
