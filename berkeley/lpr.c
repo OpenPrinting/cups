@@ -438,7 +438,7 @@ usage(void)
   _cupsLangPuts(stdout, _("-o option[=value]       Specify a printer-specific option"));
   _cupsLangPuts(stdout, _("-o job-sheets=standard  Print a banner page with the job"));
   _cupsLangPuts(stdout, _("-o media=size           Specify the media size to use"));
-  _cupsLangPuts(stdout, _("-o number-up=N          Specify that input pages should be printed N-up (1, 2, 4, 6, 9, and 16 are supported)"));
+  _cupsLangPuts(stdout, _("-o number-up=N          Specify that input pages should be printed N-up (1, 2, 4, 6, 8, 9, and 16 are supported)"));
   _cupsLangPuts(stdout, _("-o orientation-requested=N\n"
                           "                        Specify portrait (3) or landscape (4) orientation"));
   _cupsLangPuts(stdout, _("-o print-quality=N      Specify the print quality - draft (3), normal (4), or best (5)"));

@@ -326,4 +326,5 @@
 
 	# What attributes do we expect?
 	EXPECT media-col-default
+	EXPECT number-up-supported WITH-VALUE 8
 }
