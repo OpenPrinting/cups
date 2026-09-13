@@ -1,7 +1,7 @@
 /*
  * "mailto" notifier for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2005 by Easy Software Products.
  *
@@ -34,10 +34,11 @@ char	mailtoSendmail[1024];		/* Sendmail program to use */
  * Local functions...
  */
 
-void		email_message(const char *to, const char *subject, const char *text);
-int		load_configuration(void);
-cups_file_t	*pipe_sendmail(const char *to);
-void		print_attributes(ipp_t *ipp, int indent);
+static char	*copy_validate_address(const char *name, const char *uri, char *buffer, size_t bufsize);
+static void	email_message(const char *to, const char *subject, const char *text);
+static int	load_configuration(void);
+static cups_file_t *pipe_sendmail(void);
+static void	print_attributes(ipp_t *ipp, int indent);
 
 
 /*
@@ -48,10 +49,10 @@ int					/* O - Exit status */
 main(int  argc,				/* I - Number of command-line arguments */
      char *argv[])			/* I - Command-line arguments */
 {
-  int		i;			/* Looping var */
   ipp_t		*msg;			/* Event message from scheduler */
   ipp_state_t	state;			/* IPP event state */
-  char		*subject,		/* Subject for notification message */
+  char		to_address[1024],	/* Recipient address */
+		*subject,		/* Subject for notification message */
 		*text;			/* Text for notification message */
   cups_lang_t	*lang;			/* Language info */
   char		temp[1024];		/* Temporary string */
@@ -83,15 +84,8 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (1);
   }
 
-  if (strncmp(argv[1], "mailto:", 7))
-  {
-    fprintf(stderr, "ERROR: Bad recipient \"%s\"!\n", argv[1]);
+  if (!copy_validate_address("notify-recipient-uri", argv[1], to_address, sizeof(to_address)))
     return (1);
-  }
-
-  fprintf(stderr, "DEBUG: argc=%d\n", argc);
-  for (i = 0; i < argc; i ++)
-    fprintf(stderr, "DEBUG: argv[%d]=\"%s\"\n", i, argv[i]);
 
  /*
   * Load configuration data...
@@ -104,17 +98,14 @@ main(int  argc,				/* I - Number of command-line arguments */
     return (1);
 
  /*
-  * Get the reply-to address...
+  * Get the reply-to address, if any...
   */
 
   templen = sizeof(temp);
   httpDecode64_2(temp, &templen, argv[2]);
 
-  if (!strncmp(temp, "mailto:", 7))
-    cupsCopyString(mailtoReplyTo, temp + 7, sizeof(mailtoReplyTo));
-  else if (temp[0])
-    fprintf(stderr, "WARNING: Bad notify-user-data value (%d bytes) ignored!\n",
-            templen);
+  if (temp[0])
+    copy_validate_address("notify-user-data", temp, mailtoReplyTo, sizeof(mailtoReplyTo));
 
  /*
   * Loop forever until we run out of events...
@@ -159,7 +150,9 @@ main(int  argc,				/* I - Number of command-line arguments */
     fprintf(stderr, "DEBUG: text=\"%s\"\n", text);
 
     if (subject && text)
-      email_message(argv[1] + 7, subject, text);
+    {
+      email_message(to_address, subject, text);
+    }
     else
     {
       fputs("ERROR: Missing attributes in event notification!\n", stderr);
@@ -182,10 +175,126 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
 /*
+ * 'copy_validate_address()' - Copy and validate a mailto: URI.
+ */
+
+static char *				/* O - Email address or `NULL` on error */
+copy_validate_address(
+    const char *name,			/* I - Attribute name */
+    const char *uri,			/* I - "mailto:" URI */
+    char       *buffer,			/* I - Buffer for email address */
+    size_t     bufsize)			/* I - Size of buffer */
+{
+  char		scheme[256],		/* Scheme from URI */
+		userpass[256],		/* Username:password from URI */
+		host[256],		/* Host from URI */
+		*bufptr;		/* Pointer into buffer */
+  int		port;			/* Port number from URI */
+  http_uri_status_t uri_status;		/* URI status code */
+  bool		saw_at;			/* Saw an @ separator for domain name */
+
+
+ /*
+  * Separate the components of the URI and reject if this is not a "mailto:"
+  * URI...
+  */
+
+  if ((uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, uri, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, buffer, bufsize)) < HTTP_URI_STATUS_OK)
+  {
+    *buffer = '\0';
+
+    fprintf(stderr, "ERROR: Bad '%s' value: %s\n", name, httpURIStatusString(uri_status));
+    return (NULL);
+  }
+
+  if (strcmp(scheme, "mailto"))
+  {
+    *buffer = '\0';
+
+    fprintf(stderr, "ERROR: Unsupported '%s' URI scheme.\n", name);
+    return (NULL);
+  }
+  else if (userpass[0] || host[0] || port)
+  {
+    *buffer = '\0';
+
+    fprintf(stderr, "ERROR: Unsupported '%s' user/host/port.\n", name);
+    return (NULL);
+  }
+
+ /*
+  * Strip options and additional addresses...
+  */
+
+  if ((bufptr = strchr(buffer, '?')) != NULL)
+    *bufptr = '\0';
+
+  if ((bufptr = strchr(buffer, ',')) != NULL)
+  {
+    *buffer = '\0';
+
+    fprintf(stderr, "ERROR: Multiple addresses are not supported in '%s'.\n", name);
+    return (NULL);
+  }
+
+ /*
+  * Validate the address...
+  */
+
+  for (bufptr = buffer, saw_at = false; *bufptr; bufptr ++)
+  {
+    if (*bufptr == '@')
+    {
+     /*
+      * Start of domain name...
+      */
+
+      if (saw_at)
+        goto bad_address;
+
+      saw_at = true;
+    }
+    else if (*bufptr == '.' && (bufptr == buffer || bufptr[-1] == '.' || bufptr[-1] == '@'))
+    {
+     /*
+      * dot-atom-text doesn't allow consecutive periods...
+      */
+
+      goto bad_address;
+    }
+    else if (!strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                     "0123456789!#$%&\'*+-/=?^_`{|}~", *bufptr))
+    {
+     /*
+      * Not an allowed address character...
+      */
+
+      goto bad_address;
+    }
+  }
+
+  if (!saw_at || bufptr == buffer)
+    goto bad_address;
+
+  return (buffer);
+
+ /*
+  * If we get here the email address didn't validate...
+  */
+
+  bad_address:
+
+  *buffer = '\0';
+  fprintf(stderr, "ERROR: Bad '%s' email address.\n", name);
+  return (NULL);
+}
+
+
+/*
  * 'email_message()' - Email a notification message.
  */
 
-void
+static void
 email_message(const char *to,		/* I - Recipient of message */
               const char *subject,	/* I - Subject of message */
 	      const char *text)		/* I - Text of message */
@@ -205,7 +314,7 @@ email_message(const char *to,		/* I - Recipient of message */
     * Use the sendmail command...
     */
 
-    fp = pipe_sendmail(to);
+    fp = pipe_sendmail();
 
     if (!fp)
       return;
@@ -220,7 +329,6 @@ email_message(const char *to,		/* I - Recipient of message */
 
     char	hostbuf[1024];		/* Local hostname */
 
-
     if (strchr(mailtoSMTPServer, ':'))
     {
       fp = cupsFileOpen(mailtoSMTPServer, "s");
@@ -228,7 +336,6 @@ email_message(const char *to,		/* I - Recipient of message */
     else
     {
       char	spec[1024];		/* Host:service spec */
-
 
       snprintf(spec, sizeof(spec), "%s:smtp", mailtoSMTPServer);
       fp = cupsFileOpen(spec, "s");
@@ -376,7 +483,7 @@ email_message(const char *to,		/* I - Recipient of message */
  * 'load_configuration()' - Load the mailto.conf file.
  */
 
-int					/* I - 1 on success, 0 on failure */
+static int				/* I - 1 on success, 0 on failure */
 load_configuration(void)
 {
   cups_file_t	*fp;			/* mailto.conf file */
@@ -399,7 +506,7 @@ load_configuration(void)
     snprintf(mailtoFrom, sizeof(mailtoFrom), "root@%s",
              httpGetHostname(NULL, line, sizeof(line)));
 
-  cupsCopyString(mailtoSendmail, "/usr/sbin/sendmail", sizeof(mailtoSendmail));
+  cupsCopyString(mailtoSendmail, "/usr/sbin/sendmail -t", sizeof(mailtoSendmail));
 
   mailtoSMTPServer[0] = '\0';
 
@@ -476,8 +583,8 @@ load_configuration(void)
  * 'pipe_sendmail()' - Open a pipe to sendmail...
  */
 
-cups_file_t *				/* O - CUPS file */
-pipe_sendmail(const char *to)		/* I - To: address */
+static cups_file_t *			/* O - CUPS file */
+pipe_sendmail(void)
 {
   cups_file_t	*fp;			/* CUPS file */
   int		pid;			/* Process ID */
@@ -518,8 +625,7 @@ pipe_sendmail(const char *to)		/* I - To: address */
     }
   }
 
-  argv[argc ++] = (char *)to;
-  argv[argc]    = NULL;
+  argv[argc] = NULL;
 
  /*
   * Create the pipe...
@@ -592,7 +698,7 @@ pipe_sendmail(const char *to)		/* I - To: address */
  * 'print_attributes()' - Print the attributes in a request...
  */
 
-void
+static void
 print_attributes(ipp_t *ipp,		/* I - IPP request */
                  int   indent)		/* I - Indentation */
 {
