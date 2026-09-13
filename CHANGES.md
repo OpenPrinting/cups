@@ -5,15 +5,17 @@ CHANGES - OpenPrinting CUPS
 v2.4.20 - YYYY-MM-DD
 --------------------
 
-- CVE-2026-55453: The backend did not sanitize IPP attribute strings.
-- CVE-2026-55467: The scheduler did not sanitize fax numbers.
-- CVE-2026-55480: The scheduler did not open temporary PPD files in exclusive
-  mode.
-- CVE-2026-61702: The scheduler did not validate the request language value.
-- CVE-2026-87875: The `cupsUTF32toUTF8` function incorrectly treated UTF-32
-  values as 64-bit.
-- CVE-2026-87876: Quota and policy operations did not treat usernames as case-
-  sensitive.
+- SECURITY-5.7: The scheduler did not open temporary PPD files in exclusive
+  mode (CVE-2026-55480)
+- SECURITY-5.3: The scheduler did not validate the request language value
+  (CVE-2026-61702)
+- SECURITY-4.3: The `cupsUTF32toUTF8` function incorrectly treated UTF-32
+  values as 64-bit (CVE-2026-87875)
+- SECURITY-3.3: The backend did not sanitize IPP attribute strings
+  (CVE-2026-55453)
+- SECURITY-3.0: Quota and policy operations did not treat usernames as case-
+  sensitive (CVE-2026-87876)
+- SECURITY-2.5: The scheduler did not sanitize fax numbers (CVE-2026-55467)
 - SECURITY-2.5: The 'mailto' notifier did not sanitize the recipient address
   provided to the sendmail command (GHSA-r4wf-366f-f6g3)
 - Increased the size of the SNMP supply name buffer used by the network backends
@@ -70,7 +72,8 @@ v2.4.19 - 2026-04-27
 v2.4.18 - 2026-04-22
 --------------------
 
-- Fixed cupsd crash if user does not exist (Issue #1555, related to CVE-2026-27447)
+- Fixed cupsd crash if user does not exist (Issue #1555, related to
+  CVE-2026-27447)
 
 
 v2.4.17 - 2026-04-17
