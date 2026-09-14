@@ -855,17 +855,18 @@ alloc_data(void)
     exit(1);
   }
 
-  data->parent       = ippFileNew(/*parent*/NULL, /*attr_cb*/NULL, (ipp_ferror_cb_t)error_cb, data);
-  data->output       = IPPTOOL_OUTPUT_LIST;
-  data->outfile      = cupsFileStdout();
-  data->family       = AF_UNSPEC;
-  data->def_transfer = IPPTOOL_TRANSFER_AUTO;
-  data->def_version  = 20;
-  data->errors       = cupsArrayNew3(NULL, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
-  data->pass         = true;
-  data->prev_pass    = true;
-  data->request_id   = (cupsGetRand() % 1000) * 137;
-  data->show_header  = true;
+  data->parent         = ippFileNew(/*parent*/NULL, /*attr_cb*/NULL, (ipp_ferror_cb_t)error_cb, data);
+  data->output         = IPPTOOL_OUTPUT_LIST;
+  data->outfile        = cupsFileStdout();
+  data->family         = AF_UNSPEC;
+  data->def_transfer   = IPPTOOL_TRANSFER_AUTO;
+  data->def_version    = 20;
+  data->errors         = cupsArrayNew3(NULL, NULL, NULL, 0, _cupsArrayStrdup, _cupsArrayFree);
+  data->pass           = true;
+  data->prev_pass      = true;
+  data->request_id     = (cupsGetRand() % 1000) * 137 + 1;
+  data->show_header    = true;
+  data->monitor_thread = CUPS_THREAD_INVALID;
 
   ippFileSetVar(data->parent, "date-start", iso_date(ippTimeToDate(time(NULL))));
 
@@ -1350,7 +1351,7 @@ do_monitor_printer_state(
 	if (expect->define_no_match)
 	{
 	  ippFileSetVar(data->parent, expect->define_no_match, "1");
-	  data->monitor_done = 1;
+	  data->monitor_done = true;
 	}
 	break;
       }
@@ -1363,7 +1364,7 @@ do_monitor_printer_state(
 	if (expect->define_no_match)
 	{
 	  ippFileSetVar(data->parent, expect->define_no_match, "1");
-	  data->monitor_done = 1;
+	  data->monitor_done = true;
 	}
 	break;
       }
@@ -1373,7 +1374,7 @@ do_monitor_printer_state(
 	if (expect->define_no_match)
 	{
 	  ippFileSetVar(data->parent, expect->define_no_match, "1");
-	  data->monitor_done = 1;
+	  data->monitor_done = true;
 	}
 	break;
       }
@@ -1384,7 +1385,7 @@ do_monitor_printer_state(
       if (found && expect->define_match)
       {
 	ippFileSetVar(data->parent, expect->define_match, "1");
-	data->monitor_done = 1;
+	data->monitor_done = true;
       }
 
       if (found && expect->define_value)
@@ -1428,12 +1429,12 @@ do_monitor_printer_state(
 	}
 
 	ippFileSetVar(data->parent, expect->define_value, buffer);
-	data->monitor_done = 1;
+	data->monitor_done = true;
       }
     }
 
     if (i == 0)
-      data->monitor_done = 1;		// All tests passed
+      data->monitor_done = true;	// All tests passed
 
     ippDelete(response);
     response = NULL;
@@ -2474,9 +2475,9 @@ do_test(ipp_file_t     *f,		// I - IPP data file
 
   skip_error:
 
-  if (data->monitor_thread)
+  if (data->monitor_thread != CUPS_THREAD_INVALID)
   {
-    data->monitor_done = 1;
+    data->monitor_done = true;
     cupsThreadWait(data->monitor_thread);
   }
 
@@ -4892,12 +4893,12 @@ print_json_string(
 
 static ipp_attribute_t *		// O - Next attribute
 print_line(
-    ipptool_test_t *data,		// I - Test data
-    ipp_t            *ipp,		// I - Response message
-    ipp_attribute_t  *attr,		// I - First attribute for line
-    int              num_displayed,	// I - Number of attributes to display
-    char             **displayed,	// I - Attributes to display
-    int              *widths)		// I - Column widths
+    ipptool_test_t  *data,		// I - Test data
+    ipp_t           *ipp,		// I - Response message
+    ipp_attribute_t *attr,		// I - First attribute for line
+    int             num_displayed,	// I - Number of attributes to display
+    char            **displayed,	// I - Attributes to display
+    int             *widths)		// I - Column widths
 {
   int		i;			// Looping var
   int		maxlength;		// Max length of all columns
@@ -4987,7 +4988,7 @@ print_line(
 //
 
 static void
-print_xml_header(ipptool_test_t *data)// I - Test data
+print_xml_header(ipptool_test_t *data)	// I - Test data
 {
   if (!data->xml_header)
   {
@@ -5103,8 +5104,8 @@ print_xml_string(cups_file_t *outfile,	// I - Test data
 static void
 print_xml_trailer(
     ipptool_test_t *data,		// I - Test data
-    int              success,		// I - 1 on success, 0 on failure
-    const char       *message)		// I - Error message or NULL
+    int            success,		// I - 1 on success, 0 on failure
+    const char     *message)		// I - Error message or NULL
 {
   if (data->xml_header)
   {
@@ -6365,14 +6366,15 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
         char		filename[1024];	// Mapped filename
 
         memcpy(&inc_data, data, sizeof(inc_data));
-        inc_data.test_count  = 0;
-        inc_data.pass_count  = 0;
-        inc_data.fail_count  = 0;
-        inc_data.skip_count  = 0;
-        inc_data.http        = NULL;
-	inc_data.pass        = true;
-	inc_data.prev_pass   = true;
-	inc_data.show_header = true;
+        inc_data.monitor_thread = CUPS_THREAD_INVALID;
+        inc_data.test_count     = 0;
+        inc_data.pass_count     = 0;
+        inc_data.fail_count     = 0;
+        inc_data.skip_count     = 0;
+        inc_data.http           = NULL;
+	inc_data.pass           = true;
+	inc_data.prev_pass      = true;
+	inc_data.show_header    = true;
 
         inc_pass = do_tests(get_filename(ippFileGetFilename(f), filename, temp, sizeof(filename)), &inc_data);
 
@@ -6407,14 +6409,15 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
         char		filename[1024];	// Mapped filename
 
         memcpy(&inc_data, data, sizeof(inc_data));
-        inc_data.test_count  = 0;
-        inc_data.pass_count  = 0;
-        inc_data.fail_count  = 0;
-        inc_data.skip_count  = 0;
-        inc_data.http        = NULL;
-	inc_data.pass        = true;
-	inc_data.prev_pass   = true;
-	inc_data.show_header = true;
+        inc_data.monitor_thread = CUPS_THREAD_INVALID;
+        inc_data.test_count     = 0;
+        inc_data.pass_count     = 0;
+        inc_data.fail_count     = 0;
+        inc_data.skip_count     = 0;
+        inc_data.http           = NULL;
+	inc_data.pass           = true;
+	inc_data.prev_pass      = true;
+	inc_data.show_header    = true;
 
         inc_pass = do_tests(get_filename(ippFileGetFilename(f), filename, temp, sizeof(filename)), &inc_data);
 
@@ -6449,14 +6452,15 @@ token_cb(ipp_file_t     *f,		// I - IPP file data
         char		filename[1024];	// Mapped filename
 
         memcpy(&inc_data, data, sizeof(inc_data));
-        inc_data.test_count  = 0;
-        inc_data.pass_count  = 0;
-        inc_data.fail_count  = 0;
-        inc_data.skip_count  = 0;
-        inc_data.http        = NULL;
-	inc_data.pass        = true;
-	inc_data.prev_pass   = true;
-	inc_data.show_header = true;
+        inc_data.monitor_thread = CUPS_THREAD_INVALID;
+        inc_data.test_count     = 0;
+        inc_data.pass_count     = 0;
+        inc_data.fail_count     = 0;
+        inc_data.skip_count     = 0;
+        inc_data.http           = NULL;
+	inc_data.pass           = true;
+	inc_data.prev_pass      = true;
+	inc_data.show_header    = true;
 
         inc_pass = do_tests(get_filename(ippFileGetFilename(f), filename, temp, sizeof(filename)), &inc_data);
 
