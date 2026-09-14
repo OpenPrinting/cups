@@ -1,7 +1,7 @@
 //
 // OAuth API implementation for CUPS.
 //
-// Copyright © 2024-2025 by OpenPrinting.
+// Copyright © 2024-2026 by OpenPrinting.
 // Copyright © 2017-2024 by Michael R Sweet
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -33,8 +33,11 @@ extern char **environ;			// @private@
 // ========
 //
 // The CUPS OAuth implementation follows the IEEE-ISTO Printer Working Group's
-// IPP OAuth Extensions v1.0 (OAUTH) specification (pending publication), which
-// in turn depends on a boatload of IETF RFCs and the OpenID Connect
+// PWG 5100.23-2025: IPP OAuth Extensions v1.0 (OAUTH) specification:
+//
+//   https://ftp.pwg.org/pub/pwg/candidates/cs-ippoauth10-20251017-5100.23.pdf
+//
+// which in turn depends on a boatload of IETF RFCs and the OpenID Connect
 // specifications.  In short, the IPP specification handles how to combine IPP
 // (which is layered on top of HTTP) with OAuth and works to "consolidate" the
 // different requirements of IETF OAuth 2.x and OpenID Connect so that we are as
@@ -67,7 +70,7 @@ extern char **environ;			// @private@
 // the target user.  The code is setup to facilitate replacement with another
 // storage "backend" (like the Keychain API on macOS), and adding conditional
 // platform support code for this is planned.  This sort of issue is generally
-// mitigated by access tokens having a limited life...
+// mitigated by access tokens having a limited life.
 //
 //
 // Notes
@@ -1352,25 +1355,53 @@ cupsOAuthGetTokens(
   {
     // Validate the JWT
     cups_json_t	*jwks;			// JWT key set
-    bool	valid;			// Valid id_token?
-    const char	*at_hash;		// at_hash claim value
+    bool	valid_aud,		// Valid audience?
+		valid_token;		// Valid id_token?
+    char	*client_id;		// Client ID
+    const char	*iss,			// "iss" (issuer) claim
+		*issuer,		// "issuer" metadata
+		*aud,			// "aud" (audience) claim
+		*at_hash;		// "at_hash" claim
+    double	exp;			// "exp" claim
 
     jwt    = cupsJWTImportString(id_value, CUPS_JWS_FORMAT_COMPACT);
     jnonce = cupsJWTGetClaimString(jwt, "nonce");
     nonce  = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*try_sysconfig*/false);
 
-    // Check nonce
-    if (!jwt || (jnonce && nonce && strcmp(jnonce, nonce)))
+    // We need a JWT...
+    if (!jwt)
+      goto done;
+
+    // Validate nonce
+    if (nonce && (!jnonce || strcmp(jnonce, nonce)))
       goto done;
 
     // Validate id_token against the Authorization Server's JWKS
     if ((jwks = cupsOAuthGetJWKS(auth_uri, metadata)) == NULL)
       goto done;
 
-    valid = cupsJWTHasValidSignature(jwt, jwks);
-    DEBUG_printf("1cupsOAuthGetTokens: valid=%s", valid ? "true" : "false");
+    valid_token = cupsJWTHasValidSignature(jwt, jwks);
+    DEBUG_printf("1cupsOAuthGetTokens: valid_token=%s", valid_token ? "true" : "false");
     cupsJSONDelete(jwks);
-    if (!valid)
+    if (!valid_token)
+      goto done;
+
+    // Validate issuer
+    iss    = cupsJWTGetClaimString(jwt, CUPS_JWT_ISS);
+    issuer = cupsJSONGetString(cupsJSONFind(metadata, "issuer"));
+    if (!iss || !issuer || strcmp(iss, issuer))
+      goto done;
+
+    // Validate audience
+    client_id = cupsOAuthCopyClientId(auth_uri, redirect_uri);
+    aud       = cupsJWTGetClaimString(jwt, CUPS_JWT_AUD);
+    valid_aud = aud && client_id && !strcmp(aud, client_id);
+    free(client_id);
+    if (!valid_aud)
+      goto done;
+
+    // Validate expiration
+    if ((exp = cupsJWTGetClaimNumber(jwt, CUPS_JWT_EXP)) <= 0.0 || (time_t)exp < time(NULL))
       goto done;
 
     // Validate the at_hash claim string against access_token value
