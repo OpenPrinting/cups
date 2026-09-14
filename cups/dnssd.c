@@ -848,7 +848,7 @@ cupsDNSSDNew(
   }
 
   // Start the background monitoring thread...
-  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))mdns_monitor, dnssd)) == 0)
+  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))mdns_monitor, dnssd)) == CUPS_THREAD_INVALID)
   {
     report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
     cupsDNSSDDelete(dnssd);
@@ -898,7 +898,7 @@ cupsDNSSDNew(
 
   DEBUG_printf("2cupsDNSSDNew: dnssd->client=%p", (void *)dnssd->client);
 
-  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))avahi_monitor, dnssd)) == 0)
+  if ((dnssd->monitor = cupsThreadCreate((void *(*)(void *))avahi_monitor, dnssd)) == CUPS_THREAD_INVALID)
   {
     report_error(dnssd, "Unable to create DNS-SD thread: %s", strerror(errno));
     cupsDNSSDDelete(dnssd);
