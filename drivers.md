@@ -135,4 +135,4 @@ or (in the case of Gutenprint) under development:
 [hplip-printer-app]: https://github.com/OpenPrinting/hplip-printer-app
 [LPrint]: https://github.com/michaelrsweet/lprint
 [PAPPL]: https://www.msweet.org/pappl/
-[ps-printer-app]: https://github.com/openprinting/ps-printer-ps
+[ps-printer-app]: https://github.com/openprinting/ps-printer-app
