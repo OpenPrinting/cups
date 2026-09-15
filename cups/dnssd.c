@@ -749,12 +749,17 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
 #elif _WIN32
 
 #else // HAVE_AVAHI
-  avahi_domain_browser_free(dnssd->dbrowser);
+  if (dnssd->dbrowser)
+    avahi_domain_browser_free(dnssd->dbrowser);
 
-  cupsThreadCancel(dnssd->monitor);
-  cupsThreadWait(dnssd->monitor);
+  if (dnssd->monitor != CUPS_THREAD_INVALID)
+  {
+    cupsThreadCancel(dnssd->monitor);
+    cupsThreadWait(dnssd->monitor);
+  }
 
-  avahi_simple_poll_free(dnssd->poll);
+  if (dnssd->poll)
+    avahi_simple_poll_free(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
   cupsRWDestroy(&dnssd->rwlock);
@@ -890,7 +895,6 @@ cupsDNSSDNew(
   {
     // Unable to create the client...
     report_error(dnssd, "Unable to initialize DNS-SD: %s", avahi_strerror(error));
-    avahi_simple_poll_free(dnssd->poll);
     cupsDNSSDDelete(dnssd);
     DEBUG_puts("2cupsDNSSDNew: Unable to create Avahi client - returning NULL.");
     return (NULL);
