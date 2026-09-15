@@ -24,24 +24,26 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5b1\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-09-16 14:42+0000\n"
+"Last-Translator: Олег <osn298@gmail.com>\n"
+"Language-Team: Belarusian <https://hosted.weblate.org/projects/cups/cups/be/>"
+"\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: systemv/lpstat.c:1902 systemv/lpstat.c:2021
 msgid "\t\t(all)"
-msgstr ""
+msgstr "\t\t(усе)"
 
 #: systemv/lpstat.c:1905 systemv/lpstat.c:1908 systemv/lpstat.c:2024
 #: systemv/lpstat.c:2027
 msgid "\t\t(none)"
-msgstr ""
+msgstr "\t\t(няма)"
 
 #: berkeley/lpc.c:442
 #, c-format
@@ -49,9 +51,9 @@ msgid "\t%d entries"
 msgstr ""
 
 #: systemv/lpstat.c:816 systemv/lpstat.c:832
-#, c-format
+#, c-format, fuzzy
 msgid "\t%s"
-msgstr ""
+msgstr "\t%s"
 
 #: systemv/lpstat.c:1883 systemv/lpstat.c:2002
 msgid "\tAfter fault: continue"
