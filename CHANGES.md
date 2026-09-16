@@ -9,6 +9,8 @@ v2.4.20 - YYYY-MM-DD
   mode (CVE-2026-55480)
 - SECURITY-5.3: The scheduler did not validate the request language value
   (CVE-2026-61702)
+- SECURITY-4.6: Attribute names were not validated as proper keyword values
+  (GHSA-w9hj-hq9p-m7f6)
 - SECURITY-4.3: The `cupsUTF32toUTF8` function incorrectly treated UTF-32
   values as 64-bit (CVE-2026-87875)
 - SECURITY-3.3: The backend did not sanitize IPP attribute strings
