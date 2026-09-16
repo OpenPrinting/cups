@@ -933,7 +933,7 @@ cupsGetCredentialsTrust(
       }
     }
 
-    if (trust == HTTP_TRUST_OK)
+    if (trust == HTTP_TRUST_OK && *tcreds)
     {
       // Verify the full certificate chain...
       X509_STORE_CTX	*ctx = X509_STORE_CTX_new();
@@ -2562,6 +2562,7 @@ openssl_load_x509(
 
 
   // Range check input...
+  DEBUG_printf("4openssl_load_x509(credentials=\"%s\")", credentials);
   if (!credentials || !*credentials)
     return (NULL);
 

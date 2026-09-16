@@ -190,7 +190,6 @@ main(int  argc,				// I - Number of command-line arguments
   {
     if (!cupsGetCredentialsInfo(creds, creds_str, sizeof(creds_str)))
       cupsCopyString(creds_str, "Unable to convert X.509 credential to string.", sizeof(creds_str));
-    free(creds);
   }
 
   trust = cupsGetCredentialsTrust(/*path*/NULL, server, creds, /*require_ca*/false);
@@ -202,6 +201,8 @@ main(int  argc,				// I - Number of command-line arguments
   else
     printf("%s: %s (%s)\n", server, trusts[trust], httpGetSecurity(http, security, sizeof(security)));
   printf("    %s\n", creds_str);
+
+  free(creds);
 
   if (verbose)
   {
