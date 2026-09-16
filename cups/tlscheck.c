@@ -39,6 +39,7 @@ main(int  argc,				// I - Number of command-line arguments
 		host[256],		// Hostname
 		userpass[256],		// Username/password
 		resource[256];		// Resource path
+  http_trust_t	trust;			// Trust evaluation
   int		af = AF_UNSPEC,		// Address family
 		tls_options = _HTTP_TLS_NONE,
 					// TLS options
@@ -63,6 +64,15 @@ main(int  argc,				// I - Number of command-line arguments
     "sides-supported",
     "uri-authentication-supported",
     "uri-security-supported"
+  };
+  static const char * const trusts[] =	// Trust values
+  {
+    "OK",
+    "INVALID",
+    "CHANGED",
+    "EXPIRED",
+    "RENEWED",
+    "UNKNOWN"
   };
 
 
@@ -183,7 +193,14 @@ main(int  argc,				// I - Number of command-line arguments
     free(creds);
   }
 
-  printf("%s: OK (%s)\n", server, httpGetSecurity(http, security, sizeof(security)));
+  trust = cupsGetCredentialsTrust(/*path*/NULL, server, creds, /*require_ca*/false);
+
+  if (trust == HTTP_TRUST_INVALID)
+    printf("%s: INVALID(%s) (%s)\n", server, cupsGetErrorString(), httpGetSecurity(http, security, sizeof(security)));
+  else if (cupsGetCredentialsTrust(/*path*/NULL, server, creds, /*require_ca*/true) == HTTP_TRUST_OK)
+    printf("%s: OK(CA) (%s)\n", server, httpGetSecurity(http, security, sizeof(security)));
+  else
+    printf("%s: %s (%s)\n", server, trusts[trust], httpGetSecurity(http, security, sizeof(security)));
   printf("    %s\n", creds_str);
 
   if (verbose)
