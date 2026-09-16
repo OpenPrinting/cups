@@ -708,14 +708,9 @@ main(int  argc,				// I - Number of command-line arguments
     // Attribute validation tests...
     testBegin("ippValidateAttribute(integer w/invalid name)");
     attr = ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "bad attr name", 0);
-    if (!attr)
+    if (attr)
     {
-      testEndMessage(false, "Unable to create integer attribute");
-      status = 1;
-    }
-    else if (ippValidateAttribute(attr))
-    {
-      testEndMessage(false, "accepted bad name");
+      testEndMessage(false, "Able to create integer attribute with bad name");
       status = 1;
     }
     else
