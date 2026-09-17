@@ -1971,15 +1971,42 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     cupsConcatString(priority_string, ":!AES-128-CBC:!AES-256-CBC:!CAMELLIA-128-CBC:!CAMELLIA-256-CBC:!3DES-CBC", sizeof(priority_string));
 
 #ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
-  gnutls_priority_set_direct(http->tls, priority_string, NULL);
+  status = gnutls_priority_set_direct(http->tls, priority_string, NULL);
+  if (status == GNUTLS_E_INVALID_REQUEST && !(tls_options & _HTTP_TLS_NO_SYSTEM))
+  {
+    // Named priorities are not configured on every system.  Retry with NORMAL
+    // while retaining the requested protocol and cipher restrictions.
+    status = gnutls_priority_set_direct(http->tls, priority_string + 8, NULL);
+  }
 
 #else
   gnutls_priority_t priority;		// Priority
 
-  gnutls_priority_init(&priority, priority_string, NULL);
-  gnutls_priority_set(http->tls, priority);
-  gnutls_priority_deinit(priority);
+  status = gnutls_priority_init(&priority, priority_string, NULL);
+  if (status == GNUTLS_E_INVALID_REQUEST && !(tls_options & _HTTP_TLS_NO_SYSTEM))
+    status = gnutls_priority_init(&priority, priority_string + 8, NULL);
+
+  if (!status)
+  {
+    status = gnutls_priority_set(http->tls, priority);
+    gnutls_priority_deinit(priority);
+  }
 #endif // HAVE_GNUTLS_PRIORITY_SET_DIRECT
+
+  if (status)
+  {
+    http->error  = EIO;
+    http->status = HTTP_STATUS_ERROR;
+
+    DEBUG_printf("4_httpTLSStart: Unable to set TLS priorities: %s", gnutls_strerror(status));
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, gnutls_strerror(status), 0);
+
+    gnutls_deinit(http->tls);
+    _httpFreeCredentials(credentials);
+    http->tls = NULL;
+
+    return (false);
+  }
 
   gnutls_transport_set_ptr(http->tls, (gnutls_transport_ptr_t)http);
   gnutls_transport_set_pull_function(http->tls, gnutls_http_read);
