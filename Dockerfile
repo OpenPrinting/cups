@@ -4,6 +4,7 @@ FROM ubuntu:latest AS builder
 
 WORKDIR /root/cups
 
+RUN apt-get update && apt-get install -y apt-transport-https
 RUN apt-get update -y && apt-get upgrade --fix-missing -y \
     && apt-get install -y --no-install-recommends \
         autoconf \
@@ -32,6 +33,7 @@ RUN ./configure \
 
 FROM ubuntu:latest AS runtime
 
+RUN apt-get update && apt-get install -y apt-transport-https
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
         avahi-daemon \
