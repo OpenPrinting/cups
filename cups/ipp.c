@@ -6124,6 +6124,14 @@ ipp_read_io(void       *src,		/* I - Data source */
 	  }
 
           n = (buffer[0] << 8) | buffer[1];
+
+	  if (n >= IPP_BUF_SIZE)
+	  {
+	    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP name larger than 32767 bytes."), true);
+	    DEBUG_printf(("1ipp_read_io: bad name length %d.", n));
+	    goto rollback;
+	  }
+
           DEBUG_printf(("2ipp_read_io: name length=%d", n));
 
           if (n && parent)
