@@ -1714,8 +1714,7 @@ cupsdLoadJob(cupsd_job_t *job)		/* I - Job */
     goto error;
   }
 
-  if ((job->state = ippFindAttribute(job->attrs, "job-state",
-                                     IPP_TAG_ENUM)) == NULL)
+  if ((job->state = ippFindAttribute(job->attrs, "job-state", IPP_TAG_ENUM)) == NULL || job->state->values[0].integer < IPP_JSTATE_PENDING || job->state->values[0].integer > IPP_JSTATE_COMPLETED)
   {
     cupsdLogJob(job, CUPSD_LOG_ERROR,
 		"Missing or bad job-state attribute in control file.");
@@ -4012,8 +4011,11 @@ get_options(cupsd_job_t *job,		/* I - Job */
           !strcmp(attr->name, "job-k-octets") ||
           !strcmp(attr->name, "job-media-sheets") ||
           !strcmp(attr->name, "job-media-sheets-completed") ||
+          !strcmp(attr->name, "job-originating-user-name") ||
+          !strcmp(attr->name, "job-originating-user-uri") ||
           !strcmp(attr->name, "job-state") ||
-          !strcmp(attr->name, "job-state-reasons"))
+          !strcmp(attr->name, "job-state-reasons") ||
+	  !strcmp(attr->name, "job-uuid"))
 	continue;
 
       if (!strncmp(attr->name, "job-", 4) &&
@@ -4025,7 +4027,6 @@ get_options(cupsd_job_t *job,		/* I - Job */
           strcmp(attr->name, "job-originating-host-name") &&
           strcmp(attr->name, "job-password") &&
           strcmp(attr->name, "job-password-encryption") &&
-          strcmp(attr->name, "job-uuid") &&
           !(job->printer->type & CUPS_PRINTER_REMOTE))
 	continue;
 

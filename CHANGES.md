@@ -7,6 +7,8 @@ v2.4.20 - YYYY-MM-DD
 
 - SECURITY-5.7: The scheduler did not open temporary PPD files in exclusive
   mode (CVE-2026-55480)
+- SECURITY-5.5: The scheduler did not remove all job status attributes from a
+  job creation request (GHSA-7j85-5r23-xhvh)
 - SECURITY-5.3: The scheduler did not validate the request language value
   (CVE-2026-61702)
 - SECURITY-4.6: Attribute names were not validated as proper keyword values

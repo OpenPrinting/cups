@@ -1,7 +1,7 @@
 /*
  * Log file routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -667,7 +667,7 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
 			  PWG_Event"=JobStateChanged",
 			  PWG_ServiceURI"=%s", printer ? printer->uri : "",
 			  PWG_JobID"=%d", job->id,
-			  PWG_JobState"=%s", job->state_value < IPP_JSTATE_PENDING ? "" : job_states[job->state_value - IPP_JSTATE_PENDING],
+			  PWG_JobState"=%s", job->state_value < IPP_JSTATE_PENDING || job->state_value > IPP_JSTATE_COMPLETED ? "" : job_states[job->state_value - IPP_JSTATE_PENDING],
 			  PWG_JobImpressionsCompleted"=%d", ippGetInteger(job->impressions, 0),
 			  NULL);
 	else

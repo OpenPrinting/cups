@@ -1176,6 +1176,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     "date-time-at-completed",
     "date-time-at-creation",
     "date-time-at-processing",
+    "errors-count",
     "job-detailed-status-messages",
     "job-document-access-errors",
     "job-id",
@@ -1189,12 +1190,14 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     "job-state-message",
     "job-state-reasons",
     "job-uri",
+    "job-uuid",
     "number-of-documents",
     "number-of-intervening-jobs",
     "output-device-assigned",
     "time-at-completed",
     "time-at-creation",
-    "time-at-processing"
+    "time-at-processing",
+    "warnings-count",
   };
 
 
@@ -1267,7 +1270,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
   for (i = 0; i < (int)(sizeof(readonly) / sizeof(readonly[0])); i ++)
   {
-    if ((attr = ippFindAttribute(con->request, readonly[i], IPP_TAG_ZERO)) != NULL)
+    while ((attr = ippFindAttribute(con->request, readonly[i], IPP_TAG_ZERO)) != NULL)
     {
       ippDeleteAttribute(con->request, attr);
 
