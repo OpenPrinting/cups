@@ -257,7 +257,7 @@ cupsOAuthCopyClientId(
   char	*client_id;			// Client ID value
 
 
-  if ((client_id = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, /*try_sysconfig*/true)) == NULL && !strncmp(auth_uri, _CUPS_CONNECTOR_OAUTH_URI, _CUPS_CONNECTOR_OAUTH_URILEN))
+  if ((client_id = oauth_load_value(auth_uri, redirect_uri ? redirect_uri : CUPS_OAUTH_REDIRECT_URI, _CUPS_OTYPE_CLIENT_ID, /*try_sysconfig*/true)) == NULL && !strncmp(auth_uri, _CUPS_CONNECTOR_OAUTH_URI, _CUPS_CONNECTOR_OAUTH_URILEN))
   {
     // Use the default CUPS Universal Print connector client ID with MS Entrada ID...
     client_id = strdup(_CUPS_CONNECTOR_CLIENT_ID);
@@ -880,7 +880,7 @@ cupsOAuthGetDeviceGrant(
   }
 
   // Get the client_id value...
-  if ((client_id = cupsOAuthCopyClientId(auth_uri, NULL)) == NULL)
+  if ((client_id = cupsOAuthCopyClientId(auth_uri, CUPS_OAUTH_REDIRECT_URI)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("The client ID is not configured for this server."), true);
     return (NULL);
@@ -907,13 +907,21 @@ cupsOAuthGetDeviceGrant(
   if ((request = cupsFormEncode(/*url*/NULL, num_form, form)) != NULL)
   {
     // Send the device authorization grant request...
+    DEBUG_printf("cupsOAuthGetDeviceGrant: About to send \"%s\" to endpoint \"%s\".", request, device_ep);
+
     if ((grant = oauth_do_post(device_ep, "application/x-www-form-urlencoded", request)) != NULL)
     {
       // Make sure we have any optional values in the returned JSON...
       const char *user_code = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_USER_CODE));
-      const char *verification_url = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI));
+      const char *verification_uri = cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI));
 
-      if (!cupsJSONFind(grant, CUPS_ODEVGRANT_DEVICE_CODE) || !cupsJSONFind(grant, CUPS_ODEVGRANT_EXPIRES_IN) || !user_code || !verification_url)
+      DEBUG_puts("cupsOAuthGetDeviceGrant: Got JSON response:");
+      DEBUG_printf("cupsOAuthGetDeviceGrant: device_code=\"%s\"", cupsJSONGetString(cupsJSONFind(grant, CUPS_ODEVGRANT_DEVICE_CODE)));
+      DEBUG_printf("cupsOAuthGetDeviceGrant: expires_in=%g", cupsJSONGetNumber(cupsJSONFind(grant, CUPS_ODEVGRANT_EXPIRES_IN)));
+      DEBUG_printf("cupsOAuthGetDeviceGrant: user_code=\"%s\"", user_code);
+      DEBUG_printf("cupsOAuthGetDeviceGrant: verification_uri=\"%s\"", verification_uri);
+
+      if (!cupsJSONFind(grant, CUPS_ODEVGRANT_DEVICE_CODE) || !cupsJSONFind(grant, CUPS_ODEVGRANT_EXPIRES_IN) || !user_code || !verification_uri)
       {
         // Missing required bits, treat this as an error...
         _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
@@ -929,20 +937,26 @@ cupsOAuthGetDeviceGrant(
         // Add complete verification URL based on base URL
         if (!cupsJSONFind(grant, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE))
         {
-          char *complete_url;		// Complete verification URL
+          char *complete_uri;		// Complete verification URL
 
           cupsFreeOptions(num_form, form);
           form     = NULL;
           num_form = cupsAddOption("user_code", user_code, 0, &form);
 
-          if ((complete_url = cupsFormEncode(verification_url, num_form, form)) != NULL)
+          if ((complete_uri = cupsFormEncode(verification_uri, num_form, form)) != NULL)
           {
-            cupsJSONNewString(grant, cupsJSONNewKey(grant, /*after*/NULL, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE), complete_url);
-            free(complete_url);
+            cupsJSONNewString(grant, cupsJSONNewKey(grant, /*after*/NULL, CUPS_ODEVGRANT_VERIFICATION_URI_COMPLETE), complete_uri);
+            free(complete_uri);
           }
         }
       }
     }
+#ifdef DEBUG
+    else
+    {
+      DEBUG_puts("cupsOAuthGetDeviceGrant: Device grant request failed.");
+    }
+#endif // DEBUG
   }
 
   // Free allocated stuff and return the device authorization grant, if any...
@@ -1052,8 +1066,8 @@ cupsOAuthGetMetadata(
   size_t	i;			// Looping var
   static const char * const paths[] =	// Metadata paths
   {
-    ".well-known/oauth-authorization-server",
-    ".well-known/openid-configuration"
+    ".well-known/openid-configuration",
+    ".well-known/oauth-authorization-server"
   };
 
 
@@ -1303,7 +1317,7 @@ cupsOAuthGetTokens(
     free(value);
   }
 
-  if ((value = oauth_load_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, /*try_sysconfig*/true)) != NULL)
+  if ((value = oauth_load_value(auth_uri, redirect_uri ? redirect_uri : CUPS_OAUTH_REDIRECT_URI, _CUPS_OTYPE_CLIENT_SECRET, /*try_sysconfig*/true)) != NULL)
   {
     DEBUG_printf("1cupsOAuthGetTokens: client_secret=\"%s\"", value);
     num_form = cupsAddOption("client_secret", value, num_form, &form);
@@ -1866,6 +1880,8 @@ oauth_copy_scopes(
     cups_json_t	*current;		// Current value
     const char	*scope;			// Scope string
 
+    DEBUG_printf("oauth_copy_scopes: Have %u scopes_supported values.", (unsigned)cupsJSONGetCount(values));
+
     // Figure out the total length...
     for (i = 0, count = cupsJSONGetCount(values); i < count; i ++)
     {
@@ -1876,9 +1892,17 @@ oauth_copy_scopes(
         // Only copy common scopes...
         scope = cupsJSONGetString(current);
 
+        DEBUG_printf("oauth_copy_scopes: scopes_supported[%u]=\"%s\"", (unsigned)i, scope);
+
         if (!strcmp(scope, "email") || !strcmp(scope, "profile") || !strcmp(scope, "openid"))
           length += strlen(scope) + 1;
       }
+#ifdef DEBUG
+      else
+      {
+        DEBUG_printf("oauth_copy_scopes: scopes_supported[%u]=%d", (unsigned)i, cupsJSONGetType(current));
+      }
+#endif // DEBUG
     }
 
     if (length > 0 && (scopes = malloc(length)) != NULL)
@@ -1908,6 +1932,12 @@ oauth_copy_scopes(
       }
     }
   }
+#ifdef DEBUG
+  else
+  {
+    DEBUG_puts("oauth_copy_scopes: No scopes_supported values.");
+  }
+#endif // DEBUG
 
   return (scopes);
 }
@@ -1980,7 +2010,23 @@ oauth_do_post(const char *ep,		// I - Endpoint URI
 
   DEBUG_printf("4oauth_do_post: Got status %d.", status);
 
-  response  = oauth_copy_response(http);
+  if ((response = oauth_copy_response(http)) != NULL)
+  {
+    // Google OIDC bug: the name is "verification_uri" (URI) and not
+    // "verification_url" (URL)!  I agree that this is an ugly hack of a fix
+    // but this is better than having all users of device grants lookup two
+    // different names...
+    char *verification_url = strstr(response, "\"verification_url\":");
+
+    DEBUG_printf("4oauth_do_post: verification_url=\"%s\"", verification_url);
+
+    if (verification_url)
+    {
+      verification_url[16] = 'i';
+      DEBUG_printf("4oauth_do_post: AFTER verification_url=\"%s\"", verification_url);
+    }
+  }
+
   resp_json = cupsJSONImportString(response);
 
   free(response);
@@ -2145,7 +2191,11 @@ oauth_make_path(
     // common files as needed...
     snprintf(buffer, bufsize, "%s/oauth", cg->sysconfig);
 
+#if _WIN32
     if (!_cupsDirCreate(buffer, 0711))
+#else
+    if (!getuid() && !_cupsDirCreate(buffer, 0711))
+#endif // _WIN32
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
       *buffer = '\0';
