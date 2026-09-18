@@ -1142,7 +1142,9 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 	mime_type_t     *filetype)	/* I - First print file type, if any */
 {
   http_status_t	status;			/* Policy status */
+  ipp_t		*job_attrs;		/* New job attributes */
   ipp_attribute_t *attr,		/* Current attribute */
+		*job_attr,		/* New job attribute */
 		*auth_info;		/* auth-info attribute */
   const char	*mandatory;		/* Current mandatory job attribute */
   const char	*val;			/* Default option value */
@@ -1152,35 +1154,54 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   char		job_uri[HTTP_MAX_URI];	/* Job URI */
   int		kbytes;			/* Size of print file */
   int		i;			/* Looping var */
-  int		lowerpagerange;		/* Page range bound */
+  const char	*name;			/* Current attribute name */
+  size_t	namelen;		/* Length of current attribute name */
+  ipp_tag_t	value_tag;		/* Current syntax */
+  int		count;			/* Number of values */
   int		exact;			/* Did we have an exact match? */
-  ipp_attribute_t *media_col,		/* media-col attribute */
-		*media_margin;		/* media-*-margin attribute */
+  ipp_attribute_t *media_margin;	/* media-*-margin attribute */
   ipp_t		*unsup_col;		/* media-col in unsupported response */
   static const char * const readonly[] =/* List of read-only attributes */
-  {
+  {					/* (these also match NAME-xxx) */
+    "attributes-charset",
+    "attributes-natural-language",
+    "client-info",
     "date-time-at-completed",
     "date-time-at-creation",
     "date-time-at-processing",
+    "document-format",
+    "errors-count",
     "job-detailed-status-messages",
     "job-document-access-errors",
     "job-id",
-    "job-impressions-completed",
-    "job-k-octets-completed",
-    "job-media-sheets-completed",
-    "job-pages-completed",
+    "job-impressions",
+    "job-k-octets",
+    "job-media-sheets",
+    "job-more-info",
+    "job-originating-user-name",
+    "job-originating-user-uri",
+    "job-pages",
     "job-printer-up-time",
     "job-printer-uri",
+    "job-processing-time",
+    "job-release-action",
+    "job-resource-ids",
     "job-state",
-    "job-state-message",
-    "job-state-reasons",
+    "job-storage",
     "job-uri",
+    "job-uuid",
     "number-of-documents",
     "number-of-intervening-jobs",
-    "output-device-assigned",
+    "original-requesting-user-name",
+    "output-device-job-state",
+    "parent-job-id",
+    "parent-job-uuid",
+    "requesting-user-name",
+    "requesting-user-uri",
     "time-at-completed",
     "time-at-creation",
-    "time-at-processing"
+    "time-at-processing",
+    "warnings-count",
   };
 
 
@@ -1241,24 +1262,445 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   }
 
  /*
-  * Validate job template attributes; for now just document-format,
-  * copies, job-sheets, number-up, page-ranges, mandatory attributes, and
-  * media...
+  * Validate job creation attributes...
   */
 
-  for (i = 0; i < (int)(sizeof(readonly) / sizeof(readonly[0])); i ++)
+  job_attrs = ippNew();
+
+  if ((priority = cupsGetIntegerOption("job-priority", printer->num_options, printer->options)) <= 0)
+    priority = 50;
+
+  for (attr = ippGetFirstAttribute(con->request); attr; attr = ippGetNextAttribute(con->request))
   {
-    if ((attr = ippFindAttribute(con->request, readonly[i], IPP_TAG_ZERO)) != NULL)
+    if ((name = ippGetName(attr)) == NULL)
+      continue;
+
+   /*
+    * Strictly validate attribute values for job submission...
+    */
+
+    if (!ippValidateAttribute(attr))
     {
-      ippDeleteAttribute(con->request, attr);
+      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad '%s' value."), name);
+      ippAddOutOfBand(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_UNSUPPORTED_VALUE, name);
+      ippDelete(job_attrs);
+      return (NULL);
+    }
 
-      if (StrictConformance)
-      {
-	send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("The '%s' Job Status attribute cannot be supplied in a job creation request."), readonly[i]);
-	return (NULL);
-      }
+    namelen   = strlen(name);
+    value_tag = ippGetValueTag(attr);
+    count     = ippGetCount(attr);
 
-      cupsdLogClient(con, CUPSD_LOG_INFO, "Unexpected '%s' Job Status attribute in a job creation request.", readonly[i]);
+    switch (ippGetGroupTag(attr))
+    {
+      case IPP_TAG_OPERATION :
+         /*
+          * Check for operation attributes that get copied to job attributes...
+          */
+
+          if (!strcmp(name, "attributes-charset") || !strcmp(name, "attributes-natural-language"))
+          {
+           /*
+            * We copy the character set and natural language as operation
+            * attributes to the new job object attributes.  This is used for
+            * localization of job messages, banner pages, etc.
+            */
+
+            ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+          }
+          else if (!strcmp(name, "client-info"))
+          {
+            if (value_tag == IPP_TAG_BEGIN_COLLECTION)
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "job-impressions") || !strcmp(name, "job-media-sheets") || !strcmp(name, "job-pages"))
+	  {
+	    if (value_tag == IPP_TAG_INTEGER && count == 1)
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "job-impressions-col") || !strcmp(name, "job-media-sheets-col") || !strcmp(name, "job-pages-col"))
+	  {
+	    if (value_tag == IPP_TAG_BEGIN_COLLECTION && count == 1)
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "job-name"))
+	  {
+	    if ((value_tag == IPP_TAG_NAME || value_tag == IPP_TAG_NAMELANG) && count == 1)
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "job-originating-host-name"))
+	  {
+	   /*
+	    * Request contains a job-originating-host-name attribute; validate it...
+	    */
+
+	    if (value_tag == IPP_TAG_NAME && count == 1 && !strcmp(con->http->hostname, "localhost"))
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "job-password"))
+	  {
+	    if (value_tag == IPP_TAG_STRING && count == 1)
+	    {
+	      job_attr = ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_JOB);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "requesting-user-name"))
+	  {
+	    if ((value_tag == IPP_TAG_NAME || value_tag == IPP_TAG_NAMELANG) && count == 1)
+	    {
+	      if (!con->realname[0] && !con->username[0])
+	        ippAddString(job_attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-user-name", NULL, attr->values[0].string.text);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+	  else if (!strcmp(name, "requesting-user-uri"))
+	  {
+	    if (value_tag == IPP_TAG_URI && count == 1)
+	    {
+	      if (!con->email[0])
+	        ippAddString(job_attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-user-uri", NULL, attr->values[0].string.text);
+	    }
+	    else
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	    }
+	  }
+          break;
+
+      case IPP_TAG_JOB :
+         /*
+          * Check for read-only Job Status attributes that should not be
+          * submitted in a Job Creation request...
+          */
+
+          if ((namelen > 7 && !strcmp(name + namelen - 7, "-actual")) ||
+              (namelen > 9 && !strcmp(name + namelen - 9, "-assigned")) ||
+              (namelen > 9 && !strcmp(name + namelen - 9, "-detected")) ||
+              (namelen > 9 && !strcmp(name + namelen - 9, "-supplied")))
+          {
+	   /*
+	    * Found a group of read-only attributes...
+	    */
+
+	    if (StrictConformance)
+	    {
+	      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("The '%s' Job Status attribute cannot be supplied in a job creation request."), name);
+	      ippDelete(job_attrs);
+	      return (NULL);
+	    }
+
+	    cupsdLogClient(con, CUPSD_LOG_INFO, "Unexpected '%s' Job Status attribute in a job creation request.", name);
+	    break;
+          }
+          else
+          {
+	   /*
+	    * Look up specific named attributes...
+	    */
+
+	    for (i = 0; i < (int)(sizeof(readonly) / sizeof(readonly[0])); i ++)
+	    {
+	      size_t rolen = strlen(readonly[i]);
+					// Length of read-only name
+
+	      if (!strcmp(name, readonly[i]) || (namelen > rolen && !strncmp(name, readonly[i], rolen) && name[rolen] == '-'))
+	      {
+		// Found a read-only attribute
+		if (StrictConformance)
+		{
+		  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("The '%s' Job Status attribute cannot be supplied in a job creation request."), name);
+		  ippDelete(job_attrs);
+		  return (NULL);
+		}
+
+		cupsdLogClient(con, CUPSD_LOG_INFO, "Unexpected '%s' Job Status attribute in a job creation request.", name);
+		break;
+	      }
+	    }
+
+	    if (i < (int)(sizeof(readonly) / sizeof(readonly[0])))
+	      break;
+	  }
+
+	  if (!strcmp(name, "copies"))
+	  {
+	    if (value_tag != IPP_TAG_INTEGER || count != 1 || attr->values[0].integer < 1 || attr->values[0].integer > MaxCopies)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+	  else if (!strcmp(name, "finishings"))
+	  {
+	    if (value_tag != IPP_TAG_ENUM)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	    else if ((job_attr = ippFindAttribute(job_attrs, "finishings-col", IPP_TAG_ZERO)) != NULL)
+	    {
+	      send_ipp_status(con, IPP_STATUS_ERROR_CONFLICTING, _("Cannot specify both 'finishings' and 'finishings-col'."));
+	      job_attr = ippCopyAttribute(con->response, job_attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      ippDelete(job_attrs);
+	      return (NULL);
+	    }
+	  }
+	  else if (!strcmp(name, "finishings-col"))
+	  {
+	    if (value_tag != IPP_TAG_BEGIN_COLLECTION)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	    else if ((job_attr = ippFindAttribute(job_attrs, "finishings", IPP_TAG_ZERO)) != NULL)
+	    {
+	      send_ipp_status(con, IPP_STATUS_ERROR_CONFLICTING, _("Cannot specify both 'finishings' and 'finishings-col'."));
+	      job_attr = ippCopyAttribute(con->response, job_attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      ippDelete(job_attrs);
+	      return (NULL);
+	    }
+	  }
+	  else if (!strcmp(name, "job-priority"))
+	  {
+	    if (value_tag != IPP_TAG_INTEGER || count != 1 || attr->values[0].integer < 1 || attr->values[0].integer > 100)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+
+	    priority = attr->values[0].integer;
+	    break;
+	  }
+	  else if (!strcmp(name, "job-sheets"))
+	  {
+	    if ((value_tag != IPP_TAG_KEYWORD && value_tag != IPP_TAG_NAME) || count > 2)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+
+	    for (i = 0; i < count; i ++)
+	    {
+	      if (strcmp(attr->values[i].string.text, "none") && !cupsdFindBanner(attr->values[i].string.text))
+	      {
+		send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+		job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+		ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+		break;
+	      }
+	    }
+
+	    if (i < count)
+	      break;
+	  }
+	  else if (!strcmp(name, "media"))
+	  {
+	    if ((value_tag != IPP_TAG_NAME && value_tag != IPP_TAG_NAMELANG && value_tag != IPP_TAG_KEYWORD) || count != 1 || !_ppdCacheGetPageSize(printer->pc, con->request, NULL, &exact))
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	    else if ((job_attr = ippFindAttribute(job_attrs, "media-col", IPP_TAG_ZERO)) != NULL)
+	    {
+	      send_ipp_status(con, IPP_STATUS_ERROR_CONFLICTING, _("Cannot specify both 'media' and 'media-col'."));
+	      job_attr = ippCopyAttribute(con->response, job_attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      ippDelete(job_attrs);
+	      return (NULL);
+	    }
+	  }
+	  else if ((!strcmp(name, "media-col") && ippFindAttribute(job_attrs, "media", IPP_TAG_ZERO)))
+	  {
+	    if (value_tag != IPP_TAG_BEGIN_COLLECTION || count != 1 || !_ppdCacheGetPageSize(printer->pc, con->request, NULL, &exact))
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	    else if ((job_attr = ippFindAttribute(job_attrs, "media", IPP_TAG_ZERO)) != NULL)
+	    {
+	      send_ipp_status(con, IPP_STATUS_ERROR_CONFLICTING, _("Cannot specify both 'media' and 'media-col'."));
+	      job_attr = ippCopyAttribute(con->response, job_attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      ippDelete(job_attrs);
+	      return (NULL);
+	    }
+	    else if (!exact)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported margins."));
+
+	      unsup_col = ippNew();
+	      if ((media_margin = ippFindAttribute(attr->values[0].collection, "media-bottom-margin", IPP_TAG_INTEGER)) != NULL)
+		ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER, "media-bottom-margin", media_margin->values[0].integer);
+
+	      if ((media_margin = ippFindAttribute(attr->values[0].collection, "media-left-margin", IPP_TAG_INTEGER)) != NULL)
+		ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER, "media-left-margin", media_margin->values[0].integer);
+
+	      if ((media_margin = ippFindAttribute(attr->values[0].collection, "media-right-margin", IPP_TAG_INTEGER)) != NULL)
+		ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER, "media-right-margin", media_margin->values[0].integer);
+
+	      if ((media_margin = ippFindAttribute(attr->values[0].collection, "media-top-margin", IPP_TAG_INTEGER)) != NULL)
+		ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER, "media-top-margin", media_margin->values[0].integer);
+
+	      ippAddCollection(con->response, IPP_TAG_UNSUPPORTED_GROUP, "media-col", unsup_col);
+	      ippDelete(unsup_col);
+	    }
+	  }
+	  else if (!strcmp(name, "number-up"))
+	  {
+	    if (value_tag != IPP_TAG_INTEGER || (attr->values[0].integer != 1 && attr->values[0].integer != 2 && attr->values[0].integer != 4 && attr->values[0].integer != 6 && attr->values[0].integer != 9 && attr->values[0].integer != 16))
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+	  else if (!strcmp(name, "page-ranges"))
+	  {
+	    if (value_tag != IPP_TAG_RANGE)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+	  else if (!strcmp(name, "print-quality"))
+	  {
+	    if (value_tag != IPP_TAG_ENUM || count != 1 || attr->values[0].integer < IPP_QUALITY_DRAFT || attr->values[0].integer > IPP_QUALITY_HIGH)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+	  else if (!strcmp(name, "print-color-mode") || !strcmp(name, "print-content-optimize") || !strcmp(name, "print-scaling"))
+	  {
+	    if (value_tag != IPP_TAG_KEYWORD || count != 1)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+	  else if (!strcmp(name, "printer-resolution"))
+	  {
+	    if (value_tag != IPP_TAG_RESOLUTION || count != 1)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	  }
+
+	 /*
+	  * If we get this far we can copy the attribute to job_attrs...
+	  */
+
+	  ippCopyAttribute(job_attrs, attr, /*quickcopy*/0);
+	  break;
+
+      case IPP_TAG_SUBSCRIPTION :
+         /*
+          * Ignore subscription attributes for now, we'll validate those later...
+          */
+
+          break;
+
+      default :
+         /*
+          * Any other group is an error...
+          */
+
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("%s attributes cannot be supplied in a job creation request."), ippTagString(ippGetGroupTag(attr)));
+	  ippDelete(job_attrs);
+	  return (NULL);
     }
   }
 
@@ -1288,140 +1730,14 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     char	mimetype[MIME_MAX_SUPER + MIME_MAX_TYPE + 2];
 					/* MIME media type string */
 
+    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
 
-    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super,
-             filetype->type);
+    send_ipp_status(con, IPP_STATUS_ERROR_DOCUMENT_FORMAT_NOT_SUPPORTED, _("Unsupported format \"%s\"."), mimetype);
+    ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE, "document-format", NULL, mimetype);
 
-    send_ipp_status(con, IPP_STATUS_ERROR_DOCUMENT_FORMAT_NOT_SUPPORTED,
-                    _("Unsupported format \"%s\"."), mimetype);
-
-    ippAddString(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_MIMETYPE,
-                 "document-format", NULL, mimetype);
+    ippDelete(job_attrs);
 
     return (NULL);
-  }
-
-  if ((attr = ippFindAttribute(con->request, "copies",
-                               IPP_TAG_INTEGER)) != NULL)
-  {
-    if (attr->values[0].integer < 1 || attr->values[0].integer > MaxCopies)
-    {
-      send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Bad copies value %d."),
-                      attr->values[0].integer);
-      ippAddInteger(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_INTEGER,
-	            "copies", attr->values[0].integer);
-      return (NULL);
-    }
-  }
-
-  if ((attr = ippFindAttribute(con->request, "job-sheets",
-                               IPP_TAG_ZERO)) != NULL)
-  {
-    if (attr->value_tag != IPP_TAG_KEYWORD &&
-        attr->value_tag != IPP_TAG_NAME)
-    {
-      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad job-sheets value type."));
-      return (NULL);
-    }
-
-    if (attr->num_values > 2)
-    {
-      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
-                      _("Too many job-sheets values (%d > 2)."),
-		      attr->num_values);
-      return (NULL);
-    }
-
-    for (i = 0; i < attr->num_values; i ++)
-      if (strcmp(attr->values[i].string.text, "none") &&
-          !cupsdFindBanner(attr->values[i].string.text))
-      {
-	send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad job-sheets value \"%s\"."),
-			attr->values[i].string.text);
-	return (NULL);
-      }
-  }
-
-  if ((attr = ippFindAttribute(con->request, "number-up",
-                               IPP_TAG_INTEGER)) != NULL)
-  {
-    if (attr->values[0].integer != 1 &&
-        attr->values[0].integer != 2 &&
-        attr->values[0].integer != 4 &&
-        attr->values[0].integer != 6 &&
-        attr->values[0].integer != 9 &&
-        attr->values[0].integer != 16)
-    {
-      send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Bad number-up value %d."),
-                      attr->values[0].integer);
-      ippAddInteger(con->response, IPP_TAG_UNSUPPORTED_GROUP, IPP_TAG_INTEGER,
-	            "number-up", attr->values[0].integer);
-      return (NULL);
-    }
-  }
-
-  if ((attr = ippFindAttribute(con->request, "page-ranges",
-                               IPP_TAG_RANGE)) != NULL)
-  {
-    for (i = 0, lowerpagerange = 1; i < attr->num_values; i ++)
-    {
-      if (attr->values[i].range.lower < lowerpagerange ||
-	  attr->values[i].range.lower > attr->values[i].range.upper)
-      {
-	send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
-	                _("Bad page-ranges values %d-%d."),
-	                attr->values[i].range.lower,
-			attr->values[i].range.upper);
-	return (NULL);
-      }
-
-      lowerpagerange = attr->values[i].range.upper + 1;
-    }
-  }
-
- /*
-  * Do media selection as needed...
-  */
-
-  if (!ippFindAttribute(con->request, "PageRegion", IPP_TAG_ZERO) &&
-      !ippFindAttribute(con->request, "PageSize", IPP_TAG_ZERO) &&
-      _ppdCacheGetPageSize(printer->pc, con->request, NULL, &exact))
-  {
-    if (!exact &&
-        (media_col = ippFindAttribute(con->request, "media-col",
-	                              IPP_TAG_BEGIN_COLLECTION)) != NULL)
-    {
-      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported margins."));
-
-      unsup_col = ippNew();
-      if ((media_margin = ippFindAttribute(media_col->values[0].collection,
-                                           "media-bottom-margin",
-					   IPP_TAG_INTEGER)) != NULL)
-        ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER,
-	              "media-bottom-margin", media_margin->values[0].integer);
-
-      if ((media_margin = ippFindAttribute(media_col->values[0].collection,
-                                           "media-left-margin",
-					   IPP_TAG_INTEGER)) != NULL)
-        ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER,
-	              "media-left-margin", media_margin->values[0].integer);
-
-      if ((media_margin = ippFindAttribute(media_col->values[0].collection,
-                                           "media-right-margin",
-					   IPP_TAG_INTEGER)) != NULL)
-        ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER,
-	              "media-right-margin", media_margin->values[0].integer);
-
-      if ((media_margin = ippFindAttribute(media_col->values[0].collection,
-                                           "media-top-margin",
-					   IPP_TAG_INTEGER)) != NULL)
-        ippAddInteger(unsup_col, IPP_TAG_ZERO, IPP_TAG_INTEGER,
-	              "media-top-margin", media_margin->values[0].integer);
-
-      ippAddCollection(con->response, IPP_TAG_UNSUPPORTED_GROUP, "media-col",
-                       unsup_col);
-      ippDelete(unsup_col);
-    }
   }
 
  /*
@@ -1434,17 +1750,20 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   if (MaxJobs && cupsArrayCount(Jobs) >= MaxJobs)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Too many active jobs."));
+    ippDelete(job_attrs);
     return (NULL);
   }
 
   if ((i = check_quotas(con, printer)) < 0)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Quota limit reached."));
+    ippDelete(job_attrs);
     return (NULL);
   }
   else if (i == 0)
   {
     send_ipp_status(con, IPP_STATUS_ERROR_NOT_AUTHORIZED, _("Not allowed to print."));
+    ippDelete(job_attrs);
     return (NULL);
   }
 
@@ -1452,62 +1771,14 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   * Create the job and set things up...
   */
 
-  if ((attr = ippFindAttribute(con->request, "job-priority",
-                               IPP_TAG_INTEGER)) != NULL)
-    priority = attr->values[0].integer;
-  else
-  {
-    if ((val = cupsGetOption("job-priority", printer->num_options,
-                             printer->options)) != NULL)
-      priority = atoi(val);
-    else
-      priority = 50;
+  ippAddInteger(job_attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-priority", priority);
 
-    ippAddInteger(con->request, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-priority",
-                  priority);
-  }
-
-  if ((attr = ippFindAttribute(con->request, "job-name", IPP_TAG_ZERO)) == NULL)
-    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
-  else if ((attr->value_tag != IPP_TAG_NAME &&
-            attr->value_tag != IPP_TAG_NAMELANG) ||
-           attr->num_values != 1)
-  {
-    send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES,
-                    _("Bad job-name value: Wrong type or count."));
-    if ((attr = ippCopyAttribute(con->response, attr, 0)) != NULL)
-      attr->group_tag = IPP_TAG_UNSUPPORTED_GROUP;
-
-    if (StrictConformance)
-      return (NULL);
-
-    /* Don't use invalid attribute */
-    ippDeleteAttribute(con->request, attr);
-
-    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
-  }
-  else if (!ippValidateAttribute(attr))
-  {
-    send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Bad job-name value: %s"),
-                    cupsGetErrorString());
-
-    if ((attr = ippCopyAttribute(con->response, attr, 0)) != NULL)
-      attr->group_tag = IPP_TAG_UNSUPPORTED_GROUP;
-
-    if (StrictConformance)
-      return (NULL);
-
-    /* Don't use invalid attribute */
-    ippDeleteAttribute(con->request, attr);
-
-    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
-  }
+  if (!ippFindAttribute(job_attrs, "job-name", IPP_TAG_ZERO))
+    ippAddString(job_attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-name", NULL, "Untitled");
 
   if ((job = cupsdAddJob(priority, printer->name)) == NULL)
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_INTERNAL,
-                    _("Unable to add job for destination \"%s\"."),
-		    printer->name);
+    send_ipp_status(con, IPP_STATUS_ERROR_INTERNAL, _("Unable to add job for destination \"%s\"."), printer->name);
     return (NULL);
   }
 
@@ -1516,109 +1787,58 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
     if (ippGetBoolean(attr, 0))
       job->print_as_raster = 1;
   }
-  else
+  else if (cupsGetOption("print-as-raster", printer->num_options, printer->options) != NULL)
   {
-    if (cupsGetOption("print-as-raster", printer->num_options,
-		      printer->options) != NULL)
-      job->print_as_raster = 1;
+    job->print_as_raster = 1;
   }
 
-  attr = ippFindAttribute(con->request, "requesting-user-name", IPP_TAG_NAME);
-
-  job->dtype   = printer->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
-  job->attrs   = con->request;
-  job->dirty   = 1;
-  con->request = ippNewRequest(job->attrs->request.op_status);
+  job->dtype = printer->type & (CUPS_PTYPE_CLASS | CUPS_PTYPE_REMOTE);
+  job->attrs = job_attrs;
+  job->dirty = 1;
 
   cupsdMarkDirty(CUPSD_DIRTY_JOBS);
 
   add_job_uuid(job);
   apply_printer_defaults(printer, job);
 
+  attr = ippFindAttribute(job->attrs, "job-originating-user-name", IPP_TAG_NAME);
+
   if (con->realname[0])
-  {
     cupsdSetString(&job->username, con->realname);
-
-    if (attr)
-      ippSetString(job->attrs, &attr, 0, con->realname);
-  }
   else if (con->username[0])
-  {
     cupsdSetString(&job->username, con->username);
-
-    if (attr)
-      ippSetString(job->attrs, &attr, 0, con->username);
-  }
   else if (attr)
-  {
-    cupsdLogClient(con, CUPSD_LOG_DEBUG2, "add_job: requesting-user-name=\"%s\"", attr->values[0].string.text);
-
     cupsdSetString(&job->username, attr->values[0].string.text);
-  }
   else
     cupsdSetString(&job->username, "anonymous");
 
   if (!attr)
-  {
     ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-user-name", NULL, job->username);
-  }
-  else
-  {
-    ippSetGroupTag(job->attrs, &attr, IPP_TAG_JOB);
-    ippSetName(job->attrs, &attr, "job-originating-user-name");
-  }
 
-  if (con->email[0])
-    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "mailto:%s", con->email);
-  else
-    ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "urn:sub:%s", con->username);
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "add_job: job-originating-user-name='%s'", job->username);
+
+  if (!ippFindAttribute(job->attrs, "job-originating-user-uri", IPP_TAG_URI))
+  {
+    if (con->email[0])
+      ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "mailto:%s", con->email);
+    else
+      ippAddStringf(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-originating-user-uri", NULL, "urn:sub:%s", con->username);
+  }
 
   if (con->username[0] || auth_info)
-  {
     save_auth_info(con, job, auth_info);
 
-   /*
-    * Remove the auth-info attribute from the attribute data...
-    */
-
-    if (auth_info)
-      ippDeleteAttribute(job->attrs, auth_info);
-  }
-
-  if ((attr = ippFindAttribute(con->request, "job-name", IPP_TAG_NAME)) != NULL)
+  if ((attr = ippFindAttribute(job->attrs, "job-name", IPP_TAG_NAME)) != NULL)
     cupsdSetString(&(job->name), attr->values[0].string.text);
 
-  if ((attr = ippFindAttribute(job->attrs, "job-originating-host-name",
-                               IPP_TAG_ZERO)) != NULL)
+  if (!ippFindAttribute(job->attrs, "job-originating-host-name", IPP_TAG_ZERO))
   {
    /*
-    * Request contains a job-originating-host-name attribute; validate it...
+    * No job-originating-host-name attribute, so use the hostname from the
+    * connection...
     */
 
-    if (attr->value_tag != IPP_TAG_NAME ||
-        attr->num_values != 1 ||
-        strcmp(con->http->hostname, "localhost"))
-    {
-     /*
-      * Can't override the value if we aren't connected via localhost.
-      * Also, we can only have 1 value and it must be a name value.
-      */
-
-      ippDeleteAttribute(job->attrs, attr);
-      ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-host-name", NULL, con->http->hostname);
-    }
-    else
-      ippSetGroupTag(job->attrs, &attr, IPP_TAG_JOB);
-  }
-  else
-  {
-   /*
-    * No job-originating-host-name attribute, so use the hostname from
-    * the connection...
-    */
-
-    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME,
-        	 "job-originating-host-name", NULL, con->http->hostname);
+    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "job-originating-host-name", NULL, con->http->hostname);
   }
 
   ippAddOutOfBand(job->attrs, IPP_TAG_JOB, IPP_TAG_NOVALUE, "date-time-at-completed");
@@ -1633,33 +1853,20 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   */
 
   ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-id", job->id);
-  job->state = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_ENUM,
-                             "job-state", IPP_JSTATE_STOPPED);
+  job->state       = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_ENUM, "job-state", IPP_JSTATE_STOPPED);
   job->state_value = (ipp_jstate_t)job->state->values[0].integer;
-  job->reasons = ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_KEYWORD,
-                              "job-state-reasons", NULL, "job-incoming");
+  job->reasons     = ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_KEYWORD, "job-state-reasons", NULL, "job-incoming");
   job->impressions = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-impressions-completed", 0);
-  job->sheets = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER,
-                              "job-media-sheets-completed", 0);
-  ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-printer-uri", NULL,
-               printer->uri);
+  job->sheets      = ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-media-sheets-completed", 0);
+  ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_URI, "job-printer-uri", NULL, printer->uri);
+  ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-k-octets", 0);
 
-  if ((attr = ippFindAttribute(job->attrs, "job-k-octets", IPP_TAG_INTEGER)) != NULL)
-    attr->values[0].integer = 0;
-  else
-    ippAddInteger(job->attrs, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-k-octets", 0);
-
-  if ((attr = ippFindAttribute(job->attrs, "job-hold-until",
-                               IPP_TAG_KEYWORD)) == NULL)
-    attr = ippFindAttribute(job->attrs, "job-hold-until", IPP_TAG_NAME);
-  if (!attr)
+  if ((attr = ippFindAttribute(job->attrs, "job-hold-until", IPP_TAG_ZERO)) == NULL || (attr->value_tag != IPP_TAG_KEYWORD && attr->value_tag != IPP_TAG_NAME))
   {
-    if ((val = cupsGetOption("job-hold-until", printer->num_options,
-                             printer->options)) == NULL)
+    if ((val = cupsGetOption("job-hold-until", printer->num_options, printer->options)) == NULL)
       val = "no-hold";
 
-    attr = ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_KEYWORD,
-                        "job-hold-until", NULL, val);
+    attr = ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_KEYWORD, "job-hold-until", NULL, val);
   }
 
   if (printer->holding_new_jobs)
@@ -1691,7 +1898,7 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
     ippSetString(job->attrs, &job->reasons, 0, "job-hold-until-specified");
   }
-  else if (job->attrs->request.op_status == IPP_OP_CREATE_JOB)
+  else if (con->request->request.op_status == IPP_OP_CREATE_JOB)
   {
     job->hold_until               = time(NULL) + MultipleOperationTimeout;
     job->state->values[0].integer = IPP_JSTATE_HELD;
@@ -1815,20 +2022,11 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   ippAddString(con->response, IPP_TAG_JOB, IPP_TAG_TEXT, "job-state-message", NULL, "");
   ippAddString(con->response, IPP_TAG_JOB, IPP_TAG_KEYWORD, "job-state-reasons", NULL, job->reasons->values[0].string.text);
 
-  con->response->request.op_status = IPP_STATUS_OK;
-
  /*
   * Add any job subscriptions...
   */
 
   add_job_subscriptions(con, job);
-
- /*
-  * Set all but the first two attributes to the job attributes group...
-  */
-
-  for (attr = job->attrs->attrs->next->next; attr; attr = attr->next)
-    attr->group_tag = IPP_TAG_JOB;
 
  /*
   * Fire the "job created" event...
@@ -1854,9 +2052,7 @@ add_job_subscriptions(
     cupsd_job_t    *job)		/* I - Newly created job */
 {
   int			i;		/* Looping var */
-  ipp_attribute_t	*prev,		/* Previous attribute */
-			*next,		/* Next attribute */
-			*attr;		/* Current attribute */
+  ipp_attribute_t	*attr;		/* Current attribute */
   cupsd_subscription_t	*sub;		/* Subscription object */
   const char		*recipient,	/* notify-recipient-uri */
 			*pullmethod;	/* notify-pull-method */
@@ -1870,9 +2066,11 @@ add_job_subscriptions(
   * none...
   */
 
-  for (attr = job->attrs->attrs; attr; attr = attr->next)
+  for (attr = ippGetFirstAttribute(con->request); attr; attr = ippGetNextAttribute(con->request))
+  {
     if (attr->group_tag == IPP_TAG_SUBSCRIPTION)
       break;
+  }
 
   if (!attr)
     return;
@@ -2054,38 +2252,6 @@ add_job_subscriptions(
   }
 
   cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
-
- /*
-  * Remove all of the subscription attributes from the job request...
-  *
-  * TODO: Optimize this since subscription groups have to come at the
-  * end of the request...
-  */
-
-  for (attr = job->attrs->attrs, prev = NULL; attr; attr = next)
-  {
-    next = attr->next;
-
-    if (attr->group_tag == IPP_TAG_SUBSCRIPTION ||
-        attr->group_tag == IPP_TAG_ZERO)
-    {
-     /*
-      * Free and remove this attribute...
-      */
-
-      ippDeleteAttribute(NULL, attr);
-
-      if (prev)
-        prev->next = next;
-      else
-        job->attrs->attrs = next;
-    }
-    else
-      prev = attr;
-  }
-
-  job->attrs->last    = prev;
-  job->attrs->current = prev;
 }
 
 
@@ -8642,8 +8808,6 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   */
 
   doc_name = ippFindAttribute(con->request, "document-name", IPP_TAG_NAME);
-  if (doc_name)
-    ippSetName(con->request, &doc_name, "document-name-supplied");
 
   if ((format = ippFindAttribute(con->request, "document-format",
                                  IPP_TAG_MIMETYPE)) != NULL)
@@ -8660,8 +8824,6 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
 		      format->values[0].string.text);
       return;
     }
-
-    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-supplied", NULL, ippGetString(format, 0, NULL));
   }
   else if ((default_format = cupsGetOption("document-format",
                                            printer->num_options,
@@ -8708,9 +8870,6 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
       filetype = mimeType(MimeDatabase, super, type);
 
     cupsdLogClient(con, CUPSD_LOG_INFO, "Request file type is %s/%s.", filetype->super, filetype->type);
-
-    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
-    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
@@ -8732,7 +8891,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     if (format)
       ippSetString(con->request, &format, 0, mimetype);
     else
-      ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_MIMETYPE,
+      ippAddString(con->request, IPP_TAG_OPERATION, IPP_TAG_MIMETYPE,
 	           "document-format", NULL, mimetype);
   }
   else if (!filetype)
@@ -9878,8 +10037,6 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
 	              format->values[0].string.text);
       return;
     }
-
-    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-supplied", NULL, ippGetString(format, 0, NULL));
   }
   else if ((default_format = cupsGetOption("document-format",
                                            printer->num_options,
@@ -9930,9 +10087,6 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     if (filetype)
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "Request file type is %s/%s.",
 		  filetype->super, filetype->type);
-
-    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
-    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
@@ -9989,9 +10143,6 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
 
   if (add_file(con, job, filetype, compression))
     return;
-
-  if ((attr = ippFindAttribute(con->request, "document-name", IPP_TAG_NAME)) != NULL)
-    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_NAME, "document-name-supplied", NULL, ippGetString(attr, 0, NULL));
 
   if (stat(con->filename, &fileinfo))
     kbytes = 0;

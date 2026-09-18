@@ -1100,8 +1100,8 @@ fi
 
 # Error log messages
 count=`$GREP '^E ' $BASE/log/error_log | $GREP -v 'Unknown default SystemGroup' | wc -l | awk '{print $1}'`
-if test $count != 33; then
-	echo "FAIL: $count error messages, expected 33."
+if test $count != 32; then
+	echo "FAIL: $count error messages, expected 32."
 	$GREP '^E ' $BASE/log/error_log
 	echo "    <p>FAIL: $count error messages, expected 33.</p>" >>$strfile
 	echo "    <pre>" >>$strfile

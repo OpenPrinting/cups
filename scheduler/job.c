@@ -4031,8 +4031,11 @@ get_options(cupsd_job_t *job,		/* I - Job */
           !strcmp(attr->name, "job-k-octets") ||
           !strcmp(attr->name, "job-media-sheets") ||
           !strcmp(attr->name, "job-media-sheets-completed") ||
+          !strcmp(attr->name, "job-originating-user-name") ||
+          !strcmp(attr->name, "job-originating-user-uri") ||
           !strcmp(attr->name, "job-state") ||
-          !strcmp(attr->name, "job-state-reasons"))
+          !strcmp(attr->name, "job-state-reasons") ||
+	  !strcmp(attr->name, "job-uuid"))
 	continue;
 
       if (!strncmp(attr->name, "job-", 4) &&

@@ -27,7 +27,8 @@
 	FILE ../examples/testfile.ps
 
 	# What statuses are OK?
-	STATUS client-error-bad-request
+	STATUS successful-ok
+	STATUS successful-ok-ignored-or-substituted-attributes
 }
 {
 	# The name of the test...
