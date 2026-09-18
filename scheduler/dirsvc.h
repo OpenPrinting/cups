@@ -36,8 +36,11 @@ VAR char		*DNSSDHostName	VALUE(NULL);
 					/* Hostname */
 VAR int			DNSSDHostNameConfigured VALUE(0);
 					/* Was the DNSSDHostName value configured in cupsd.conf? */
-VAR char		*DNSSDSubTypes VALUE(NULL);
+VAR char		*DNSSDSubTypes VALUE(NULL).
 					/* Bonjour registration subtypes */
+			*DNSSDServiceName
+					VALUE(NULL);
+					/* DNSSD service name */
 VAR cups_array_t	*DNSSDAlias	VALUE(NULL);
 					/* List of dynamic ServerAlias's */
 VAR int			DNSSDPort	VALUE(0);
