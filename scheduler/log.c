@@ -669,7 +669,7 @@ cupsdLogJob(cupsd_job_t *job,		/* I - Job */
 			  PWG_Event"=JobStateChanged",
 			  PWG_ServiceURI"=%s", printer ? printer->uri : "",
 			  PWG_JobID"=%d", job->id,
-			  PWG_JobState"=%s", job->state_value < IPP_JSTATE_PENDING ? "" : job_states[job->state_value - IPP_JSTATE_PENDING],
+			  PWG_JobState"=%s", job->state_value < IPP_JSTATE_PENDING || job->state_value > IPP_JSTATE_COMPLETED ? "" : job_states[job->state_value - IPP_JSTATE_PENDING],
 			  PWG_JobImpressionsCompleted"=%d", ippGetInteger(job->impressions, 0),
 			  NULL);
 	else
