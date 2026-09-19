@@ -1927,10 +1927,26 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     return (false);
   }
 
-  if (tls_options & _HTTP_TLS_NO_SYSTEM)
-    priority_string[0] = '\0';
-  else
-    cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+  priority_string[0] = '\0';
+
+  if (!(tls_options & _HTTP_TLS_NO_SYSTEM))
+  {
+    // Named system priorities are not configured on every system; only use
+    // them when available so the options below are not discarded...
+#ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
+    if (!gnutls_priority_set_direct(http->tls, "@SYSTEM", NULL))
+      cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+
+#else
+    gnutls_priority_t system_priority;	// System priority
+
+    if (!gnutls_priority_init(&system_priority, "@SYSTEM", NULL))
+    {
+      gnutls_priority_deinit(system_priority);
+      cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+    }
+#endif // HAVE_GNUTLS_PRIORITY_SET_DIRECT
+  }
 
   cupsConcatString(priority_string, "NORMAL", sizeof(priority_string));
 
@@ -1972,20 +1988,11 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 
 #ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
   status = gnutls_priority_set_direct(http->tls, priority_string, NULL);
-  if (status == GNUTLS_E_INVALID_REQUEST && !(tls_options & _HTTP_TLS_NO_SYSTEM))
-  {
-    // Named priorities are not configured on every system.  Retry with NORMAL
-    // while retaining the requested protocol and cipher restrictions.
-    status = gnutls_priority_set_direct(http->tls, priority_string + 8, NULL);
-  }
 
 #else
   gnutls_priority_t priority;		// Priority
 
   status = gnutls_priority_init(&priority, priority_string, NULL);
-  if (status == GNUTLS_E_INVALID_REQUEST && !(tls_options & _HTTP_TLS_NO_SYSTEM))
-    status = gnutls_priority_init(&priority, priority_string + 8, NULL);
-
   if (!status)
   {
     status = gnutls_priority_set(http->tls, priority);
