@@ -183,7 +183,7 @@ StartPage(ppd_file_t         *ppd,	/* I - PPD file */
     * Set other job options...
     */
 
-    int mode = Duplex ? 1 + header->Tumble != 0 : 0;
+    int mode = Duplex ? 1 + (header->Tumble != 0) : 0;
 						/* Duplex mode */
 
     printf("\033&l%dX", header->NumCopies);	/* Set number copies */
