@@ -1531,6 +1531,32 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 	      return (NULL);
 	    }
 	  }
+	  else if (!strcmp(name, "job-hold-until"))
+	  {
+	    if ((value_tag != IPP_TAG_KEYWORD && value_tag != IPP_TAG_NAME) || count != 1)
+	    {
+	      send_ipp_status(con, IPP_STATUS_OK_IGNORED_OR_SUBSTITUTED, _("Unsupported '%s' value."), name);
+	      job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+	      ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+	      break;
+	    }
+	    else if (isdigit(attr->values[0].string.text[0] & 255))
+	    {
+	     /*
+	      * Validate hold time...
+	      */
+
+	      int hour, minute, second = 0;
+
+              if (sscanf(attr->values[0].string.text, "%d:%d:%d", &hour, &minute, &second) < 2 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 60)
+              {
+		send_ipp_status(con, IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES, _("Bad '%s' value."), name);
+		job_attr = ippCopyAttribute(con->response, attr, /*quickcopy*/0);
+		ippSetGroupTag(job_attrs, &job_attr, IPP_TAG_UNSUPPORTED_GROUP);
+		break;
+              }
+	    }
+	  }
 	  else if (!strcmp(name, "job-priority"))
 	  {
 	    if (value_tag != IPP_TAG_INTEGER || count != 1 || attr->values[0].integer < 1 || attr->values[0].integer > 100)
