@@ -2464,7 +2464,10 @@ cupsdSetJobHoldUntil(cupsd_job_t *job,	/* I - Job */
                           (17 - curdate.tm_hour)) * 60 + 59 -
 			   curdate.tm_min) * 60 + 60 - curdate.tm_sec;
   }
-  else if (sscanf(when, "%d:%d:%d", &hour, &minute, &second) >= 2)
+  else if (sscanf(when, "%2d:%2d:%2d", &hour, &minute, &second) >= 2 &&
+           (hour >= 0 && hour < 24) && 
+           (minute >= 0 && minute <= 59) &&
+           (second >= 0 && second <= 59))
   {
    /*
     * Hold to specified GMT time (HH:MM or HH:MM:SS)...
