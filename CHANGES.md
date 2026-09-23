@@ -26,6 +26,7 @@ v2.4.20 - YYYY-MM-DD
   (Issue #1604)
 - The USB backend now clears a halt on USB errors (Issue #1606)
 - Updated a few character tests for signed char platforms (Issue #1623)
+- Updated dateTime parsing in IPP files (Issue #1710)
 - Now explicitly limit IPP attribute names to 255 bytes (Issue #1694)
 - Added validation of IPP "printer-state-reasons" and
   "printer-mandatory-job-attributes" attributes (Issue #1632)

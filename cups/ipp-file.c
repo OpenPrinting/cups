@@ -1,7 +1,7 @@
 /*
  * IPP data file parsing functions.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -595,7 +595,7 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
             */
 
             time_t	curtime;	/* Current time in seconds */
-            int		period = 0,	/* Current period value */
+            long	period = 0,	/* Current period value */
 			saw_T = 0;	/* Saw time separator */
 
             curtime = time(NULL);
@@ -606,7 +606,7 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
               {
                 period = (int)strtol(valueptr, &valueptr, 10);
 
-                if (!valueptr || period < 0)
+                if (!valueptr || period < 0 || period > 999999999)
                 {
 		  report_error(f, v, user_data, "Bad dateTime value \"%s\" on line %d of \"%s\".", value, f->linenum, f->filename);
 		  return (0);
@@ -656,7 +656,7 @@ parse_value(_ipp_file_t      *f,	/* I  - IPP data file */
 
 	    return (ippSetDate(ipp, attr, element, ippTimeToDate(curtime)));
           }
-          else if (sscanf(value, "%d-%d-%dT%d:%d:%d%d", &year, &month, &day, &hour, &minute, &second, &utc_offset) < 6)
+          else if (sscanf(value, "%d-%d-%dT%d:%d:%d%d", &year, &month, &day, &hour, &minute, &second, &utc_offset) < 6 || year < 0 || year > 65535 || month < 1 || month > 12 || day < 1 || day > 31 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 60 || utc_offset < -2359 || utc_offset > 2359)
           {
            /*
             * Date/time value did not parse...
