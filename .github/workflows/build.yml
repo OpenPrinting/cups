@@ -55,18 +55,16 @@ jobs:
     - name: Update build environment
       run: sudo apt-get update --fix-missing -y
     - name: Install prerequisites
-      run: sudo apt-get install -y avahi-daemon libavahi-client-dev libgnutls28-dev libpam-dev libusb-1.0-0-dev zlib1g-dev
+      run: sudo apt-get install -y avahi-daemon libavahi-client-dev libgnutls28-dev python3 openssl libpam-dev libusb-1.0-0-dev zlib1g-dev
     - name: Configure CUPS
       env:
         CC: /usr/bin/gcc
         CXX: /usr/bin/g++
-      run: ./configure --enable-debug --enable-maintainer --with-tls=gnutls
+      run: ./configure --enable-debug --enable-maintainer --with-tls=gnutls --enable-test-deps
     - name: Build CUPS
       run: make
     - name: Test CUPS
       run: make test
-    - name: Test GnuTLS SSLOptions
-      run: python3 test/testssloptions.py
     - name: Upload Test Results
       uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}

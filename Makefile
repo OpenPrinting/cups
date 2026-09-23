@@ -238,11 +238,20 @@ testserver:	all unittests
 	cd test; ./run-stp-tests.sh $(TESTOPTIONS)
 
 
-check test:	all unittests
+check test:	all unittests testssloptions
 	cd cups; make test
 	cd scheduler; make test
 	echo Running CUPS test suite...
 	cd test; ./run-stp-tests.sh 1 0 n n
+
+.PHONY: testssloptions
+testssloptions: all
+	@if test "$(SSL_OPTIONS_TEST)" = yes; then \
+	    CC="$(CC)" OPENSSL="$(TEST_OPENSSL)" "$(TEST_PYTHON)" test/testssloptions.py; \
+	else \
+	    echo "SKIP GnuTLS SSLOptions tests (backend or optional dependencies unavailable)"; \
+	fi
+
 
 debugcheck debugtest:	all unittests
 	echo Running CUPS test suite with debug printfs...

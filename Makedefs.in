@@ -265,3 +265,8 @@ USBQUIRKS	=	@USBQUIRKS@
 .cxx.o:
 	echo Compiling $<...
 	$(CXX) $(ARCHFLAGS) $(OPTIM) $(ALL_CXXFLAGS) -c -o $@ $<
+
+# Optional GnuTLS test dependencies.
+TEST_PYTHON = @TEST_PYTHON@
+TEST_OPENSSL = @TEST_OPENSSL@
+SSL_OPTIONS_TEST = @SSL_OPTIONS_TEST@
