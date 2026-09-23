@@ -1,7 +1,7 @@
 /*
  * CGI support library definitions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -101,9 +101,7 @@ extern void		cgiSetCookie(const char *name, const char *value,
 				     time_t expires, int secure);
 extern ipp_attribute_t	*cgiSetIPPObjectVars(ipp_attribute_t *obj,
 			                     const char *prefix, int element);
-extern int		cgiSetIPPVars(ipp_t *response, const char *filter_name,
-			              const char *filter_value,
-			              const char *prefix, int parent_el);
+extern int		cgiSetIPPVars(ipp_t *response, const char *prefix, int parent_el);
 extern void		cgiSetServerVersion(void);
 extern void		cgiSetSize(const char *name, int size);
 extern void		cgiSetVariable(const char *name, const char *value);

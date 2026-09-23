@@ -1,7 +1,7 @@
 /*
  * Class status CGI for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -488,7 +488,7 @@ show_class(http_t     *http,		/* I - Connection to server */
     * single-queue request...
     */
 
-    cgiSetIPPVars(response, NULL, NULL, NULL, 0);
+    cgiSetIPPVars(response, NULL, 0);
 
     if (pclass && (attr = ippFindAttribute(response, "printer-state",
                                             IPP_TAG_ENUM)) != NULL &&

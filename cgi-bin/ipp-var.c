@@ -656,7 +656,7 @@ cgiPrintCommand(http_t     *http,	/* I - Connection to server */
 		    "requested-attributes", 2, NULL, job_attrs);
 
       if ((response = cupsDoRequest(http, request, "/")) != NULL)
-	cgiSetIPPVars(response, NULL, NULL, NULL, 0);
+	cgiSetIPPVars(response, NULL, 0);
 
       attr = ippFindAttribute(response, "job-state", IPP_TAG_ENUM);
       if (!attr || attr->values[0].integer >= IPP_JSTATE_STOPPED ||
@@ -773,7 +773,7 @@ cgiPrintTestPage(http_t     *http,	/* I - Connection to server */
   if ((response = cupsDoFileRequest(http, request, resource,
                                     filename)) != NULL)
   {
-    cgiSetIPPVars(response, NULL, NULL, NULL, 0);
+    cgiSetIPPVars(response, NULL, 0);
 
     ippDelete(response);
   }
@@ -1243,8 +1243,7 @@ cgiSetIPPObjectVars(
 
         case IPP_TAG_BEGIN_COLLECTION :
 	    snprintf(value, sizeof(value), "%s%d", name, i + 1);
-            cgiSetIPPVars(attr->values[i].collection, NULL, NULL, value,
-	                  element);
+            cgiSetIPPVars(attr->values[i].collection, value, element);
             break;
 
         default :
@@ -1274,21 +1273,14 @@ cgiSetIPPObjectVars(
 
 int					/* O - Maximum number of elements */
 cgiSetIPPVars(ipp_t      *response,	/* I - Response data to be copied... */
-              const char *filter_name,	/* I - Filter name */
-	      const char *filter_value,	/* I - Filter value */
 	      const char *prefix,	/* I - Prefix for name or NULL */
 	      int        parent_el)	/* I - Parent element number */
 {
   int			element;	/* Element in CGI array */
-  ipp_attribute_t	*attr,		/* Attribute in response... */
-			*filter;	/* Filtering attribute */
+  ipp_attribute_t	*attr;		/* Attribute in response... */
 
 
-  fprintf(stderr, "DEBUG2: cgiSetIPPVars(response=%p, filter_name=\"%s\", "
-                  "filter_value=\"%s\", prefix=\"%s\", parent_el=%d)\n",
-          (void *)response, filter_name ? filter_name : "(null)",
-	  filter_value ? filter_value : "(null)",
-	  prefix ? prefix : "(null)", parent_el);
+  fprintf(stderr, "DEBUG2: cgiSetIPPVars(response=%p, prefix=\"%s\", parent_el=%d)\n", (void *)response, prefix ? prefix : "(null)", parent_el);
 
  /*
   * Set common CGI template variables...
@@ -1318,30 +1310,6 @@ cgiSetIPPVars(ipp_t      *response,	/* I - Response data to be copied... */
 
     if (!attr)
       break;
-
-    if (filter_name)
-    {
-      for (filter = attr;
-           filter != NULL && filter->group_tag != IPP_TAG_ZERO;
-           filter = filter->next)
-        if (filter->name && !strcmp(filter->name, filter_name) &&
-	    (filter->value_tag == IPP_TAG_STRING ||
-	     (filter->value_tag >= IPP_TAG_TEXTLANG &&
-	      filter->value_tag <= IPP_TAG_MIMETYPE)) &&
-	    filter->values[0].string.text != NULL &&
-	    !_cups_strcasecmp(filter->values[0].string.text, filter_value))
-	  break;
-
-      if (!filter)
-        return (element + 1);
-
-      if (filter->group_tag == IPP_TAG_ZERO)
-      {
-        attr = filter;
-	element --;
-	continue;
-      }
-    }
 
     attr = cgiSetIPPObjectVars(attr, prefix, element);
   }

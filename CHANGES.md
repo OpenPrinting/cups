@@ -106,6 +106,7 @@ v2.5b1 - YYYY-MM-DD
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Removed printer-specific icon support on macOS for security reasons.
+- Removed unused filter code in CGI programs (Issue #1706)
 - Fixed use-after-free in `cupsdAcceptClient()` when we log warning during error
   handling (fixes CVE-2023-34241)
 - Fixed hanging of `lpstat` on Solaris (Issue #156)

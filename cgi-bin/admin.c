@@ -948,10 +948,10 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
         fprintf(stderr, "ERROR: Unable to create temporary file: %s\n",
                 strerror(errno));
       }
-      else 
+      else
       {
         close(fd); // Close the temp fd since cupsGetFile will reopen it
-        
+
         if (cupsGetFile(http, uri, filename) != HTTP_STATUS_OK)
         {
           fprintf(stderr, "ERROR: Unable to get PPD file %s: %s\n",
@@ -1020,7 +1020,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
       * Got the list of PPDs, see if the user has selected a make...
       */
 
-      if (cgiSetIPPVars(response, NULL, NULL, NULL, 0) == 0 && !modify)
+      if (cgiSetIPPVars(response, NULL, 0) == 0 && !modify)
       {
        /*
         * No PPD files with this make, try again with all makes...
@@ -1037,7 +1037,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
                      "requested-attributes", NULL, "ppd-make");
 
 	if ((response = cupsDoRequest(http, request, "/")) != NULL)
-          cgiSetIPPVars(response, NULL, NULL, NULL, 0);
+          cgiSetIPPVars(response, NULL, 0);
 
         cgiStartHTML(title);
 	cgiCopyTemplateLang("choose-make.tmpl");
@@ -2333,7 +2333,7 @@ do_set_allowed_users(http_t *http)	/* I - HTTP connection */
 
     if ((response = cupsDoRequest(http, request, "/")) != NULL)
     {
-      cgiSetIPPVars(response, NULL, NULL, NULL, 0);
+      cgiSetIPPVars(response, NULL, 0);
 
       ippDelete(response);
     }
