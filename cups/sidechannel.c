@@ -273,7 +273,8 @@ cupsSideChannelSNMPGet(
 {
   cups_sc_status_t	status;		/* Status of command */
   cups_sc_command_t	rcommand;	/* Response command */
-  char			*real_data;	/* Real data buffer for response */
+  char			*real_data,	/* Real data buffer for response */
+			*real_oidend;	/* End of returned OID string */
   int			real_datalen,	/* Real length of data buffer */
 			real_oidlen;	/* Length of returned OID string */
 
@@ -319,7 +320,13 @@ cupsSideChannelSNMPGet(
     * Parse the response of the form "oid\0value"...
     */
 
-    real_oidlen  = (int)strlen(real_data) + 1;
+    if ((real_oidend = memchr(real_data, '\0', (size_t)real_datalen)) == NULL)
+    {
+      _cupsBufferRelease(real_data);
+      return (CUPS_SC_STATUS_BAD_MESSAGE);
+    }
+
+    real_oidlen  = (int)(real_oidend - real_data) + 1;
     real_datalen -= real_oidlen;
 
     if ((real_datalen + 1) > *datalen)
@@ -377,7 +384,8 @@ cupsSideChannelSNMPWalk(
 {
   cups_sc_status_t	status;		/* Status of command */
   cups_sc_command_t	rcommand;	/* Response command */
-  char			*real_data;	/* Real data buffer for response */
+  char			*real_data,	/* Real data buffer for response */
+			*real_oidend;	/* End of returned OID string */
   int			real_datalen;	/* Real length of data buffer */
   size_t		real_oidlen,	/* Length of returned OID string */
 			oidlen;		/* Length of first OID */
@@ -438,8 +446,16 @@ cupsSideChannelSNMPWalk(
       * Parse the response of the form "oid\0value"...
       */
 
-      if (strncmp(real_data, oid, oidlen) || real_data[oidlen] != '.' ||
-          !strcmp(real_data, last_oid))
+      if ((real_oidend = memchr(real_data, '\0', (size_t)real_datalen)) == NULL)
+      {
+	_cupsBufferRelease(real_data);
+        return (CUPS_SC_STATUS_BAD_MESSAGE);
+      }
+
+      real_oidlen = (size_t)(real_oidend - real_data) + 1;
+
+      if (real_oidlen <= oidlen || strncmp(real_data, oid, oidlen) ||
+          real_data[oidlen] != '.' || !strcmp(real_data, last_oid))
       {
        /*
         * Done with this set of OIDs...
@@ -449,10 +465,6 @@ cupsSideChannelSNMPWalk(
         return (CUPS_SC_STATUS_OK);
       }
 
-      if ((size_t)real_datalen < sizeof(real_data))
-        real_data[real_datalen] = '\0';
-
-      real_oidlen  = strlen(real_data) + 1;
       real_datalen -= (int)real_oidlen;
 
      /*
