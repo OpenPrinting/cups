@@ -10,7 +10,7 @@
 //
 
 #include "cups-private.h"
-
+#include <limits.h>
 
 //
 // Private structures...
@@ -1680,28 +1680,28 @@ parse_value(ipp_file_t      *file,	// I  - IPP data file
 		}
               }
 
-              if (*valueptr == 'Y')
+              if (*valueptr == 'Y' && period <= INT_MAX / (365 * 86400))
               {
-                curtime += 365 * 86400 * period;
+                curtime += (time_t)365 * 86400 * period;
                 period  = 0;
               }
-              else if (*valueptr == 'M')
+              else if (*valueptr == 'M' && period <= (saw_T ? INT_MAX / 60 : INT_MAX / (30 * 86400)))
               {
                 if (saw_T)
-                  curtime += 60 * period;
+                  curtime += (time_t)60 * period;
                 else
-                  curtime += 30 * 86400 * period;
+                  curtime += (time_t)30 * 86400 * period;
 
                 period = 0;
               }
-              else if (*valueptr == 'D')
+              else if (*valueptr == 'D' && period <= INT_MAX / 86400)
               {
-                curtime += 86400 * period;
+                curtime += (time_t)86400 * period;
                 period  = 0;
               }
-              else if (*valueptr == 'H')
+              else if (*valueptr == 'H' && period <= INT_MAX / 3600)
               {
-                curtime += 3600 * period;
+                curtime += (time_t)3600 * period;
                 period  = 0;
               }
               else if (*valueptr == 'S')
