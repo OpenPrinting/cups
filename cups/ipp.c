@@ -3962,7 +3962,11 @@ ippTimeToDate(time_t t)			/* I - Time in seconds */
   *    10       UTC minutes (0 to 59)
   */
 
-  gmtime_r(&t, &unixdate);
+  if (!gmtime_r(&t, &unixdate))
+  {
+    memset(&unixdate, 0, sizeof(unixdate));
+    unixdate.tm_mday = 1;
+  }
   unixdate.tm_year += 1900;
 
   date[0]  = (ipp_uchar_t)(unixdate.tm_year >> 8);
