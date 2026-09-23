@@ -1,7 +1,7 @@
 //
 // DNS-SD API definitions for CUPS.
 //
-// Copyright © 2022-2024 by OpenPrinting.
+// Copyright © 2022-2026 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -94,6 +94,7 @@ extern char		*cupsDNSSDCopyHostName(cups_dnssd_t *dnssd, char *buffer, size_t bu
 extern void		cupsDNSSDDelete(cups_dnssd_t *dnssd) _CUPS_PUBLIC;
 extern size_t		cupsDNSSDGetConfigChanges(cups_dnssd_t *dnssd) _CUPS_PUBLIC;
 extern cups_dnssd_t	*cupsDNSSDNew(cups_dnssd_error_cb_t error_cb, void *cb_data) _CUPS_PUBLIC;
+extern bool		cupsDNSSDSetHostName(cups_dnssd_t *dnssd, const char *hostname) _CUPS_PUBLIC;
 
 extern void		cupsDNSSDBrowseDelete(cups_dnssd_browse_t *browser) _CUPS_PUBLIC;
 extern cups_dnssd_t	*cupsDNSSDBrowseGetContext(cups_dnssd_browse_t *browser) _CUPS_PUBLIC;

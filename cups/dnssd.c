@@ -1938,6 +1938,57 @@ cupsDNSSDServiceSetLocation(
 
 
 //
+// 'cupsDNSSDSetHostName()' - Set the mDNS hostname of the system.
+//
+// This function sets the mDNS hostname of the system.
+//
+// @since CUPS v2.5@
+//
+
+bool					// O - `true` on success, `false` on error
+cupsDNSSDSetHostName(
+    cups_dnssd_t *dnssd,		// I - DNS-SD context
+    const char   *hostname)		// I - mDNS hostname
+{
+  bool	ret = false;			// Return value
+  char	hostbase[256],			// Base hostname
+	*hostptr;			// Pointer into hostname
+
+
+  // Range check input...
+  if (!dnssd || !hostname)
+    return (false);
+
+  // Get the base hostname without domain...
+  cupsCopyString(hostbase, hostname, sizeof(hostbase));
+  if ((hostptr = strchr(hostbase, '.')) != NULL)
+    *hostptr = '\0';
+
+#ifdef HAVE_MDNSRESPONDER
+  if (sethostname(hostbase, strlen(hostbase)))
+    report_error(dnssd, "Unable to set hostname to '%s': %s", hostbase, strerror(errno));
+  else
+    ret = true;
+
+#elif _WIN32
+  if (!SetComputerNameA(hostbase))
+    report_error(dnssd, "Unable to set hostname to '%s': %d", hostbase, GetLastError());
+
+#else
+  int error = avahi_client_set_host_name(dnssd, hostbase);
+					// Result of setting mDNS hostname
+
+  if (error != 0)
+    report_error(dnssd, "Unable to set hostname to '%s': %s", hostbase, avahi_strerror(error));
+  elee
+    ret = true;
+#endif // HAVE_MDNSRESPONDER
+
+  return (ret);
+}
+
+
+//
 // 'delete_browse()' - Delete a browse request.
 //
 
