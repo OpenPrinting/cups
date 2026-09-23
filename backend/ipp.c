@@ -2281,7 +2281,9 @@ main(int  argc,				/* I - Number of command-line args */
     fputs("JOBSTATE: account-authorization-failed\n", stderr);
 
   // job_canceled can be -1 which should not be treated as CUPS_BACKEND_OK
-  if (job_canceled > 0)
+  if (ipp_status == IPP_STATUS_ERROR_DOCUMENT_FORMAT_ERROR || ipp_status == IPP_STATUS_ERROR_DOCUMENT_UNPRINTABLE)
+    return (CUPS_BACKEND_RETRY_CURRENT);
+  else if (job_canceled > 0)
     return (CUPS_BACKEND_OK);
   else if (ipp_status == IPP_STATUS_ERROR_NOT_AUTHORIZED || ipp_status == IPP_STATUS_ERROR_FORBIDDEN || ipp_status == IPP_STATUS_ERROR_CUPS_AUTHENTICATION_CANCELED)
     return (CUPS_BACKEND_AUTH_REQUIRED);
@@ -2311,8 +2313,6 @@ main(int  argc,				/* I - Number of command-line args */
 
     return (CUPS_BACKEND_CANCEL);
   }
-  else if (ipp_status > IPP_STATUS_OK_CONFLICTING && ipp_status != IPP_STATUS_ERROR_JOB_CANCELED)
-    return (CUPS_BACKEND_RETRY_CURRENT);
   else
     return (CUPS_BACKEND_OK);
 }
