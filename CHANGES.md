@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS
 v2.5b1 - YYYY-MM-DD
 -------------------
 
+- Fixed ignored GnuTLS `SSLOptions` when no system priority is configured
+  (Issue #1677).
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
