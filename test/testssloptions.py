@@ -4,7 +4,7 @@
 # Copyright (c) 2026 by OpenPrinting.
 # Licensed under Apache License v2.0. See LICENSE for details.
 #
-# Run after building with --with-tls=gnutls: make testssloptions
+# Run after building with --with-tls=gnutls: python3 test/testssloptions.py
 # Requires a C compiler, Python 3 with TLS 1.3 support, and the openssl command.
 # All certificates, configuration, and connections are local to this test.
 

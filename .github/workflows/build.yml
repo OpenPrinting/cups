@@ -60,11 +60,13 @@ jobs:
       env:
         CC: /usr/bin/gcc
         CXX: /usr/bin/g++
-      run: ./configure --enable-debug --enable-maintainer --with-tls=gnutls --enable-test-deps
+      run: ./configure --enable-debug --enable-maintainer --with-tls=gnutls
     - name: Build CUPS
       run: make
     - name: Test CUPS
       run: make test
+    - name: Test GnuTLS SSLOptions
+      run: python3 test/testssloptions.py
     - name: Upload Test Results
       uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
