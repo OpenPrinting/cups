@@ -2417,7 +2417,8 @@ add_printer(cupsd_client_t  *con,	/* I - Client connection */
 
   set_device_uri = 0;
 
-  if ((attr = ippFindAttribute(con->request, "ColorModel", IPP_TAG_NAME)) != NULL)
+  if (!ippFindAttribute(con->request, "print-color-mode-default", IPP_TAG_ZERO) &&
+      (attr = ippFindAttribute(con->request, "ColorModel", IPP_TAG_NAME)) != NULL)
   {
     const char * keyword = NULL;
 
