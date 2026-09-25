@@ -7597,6 +7597,11 @@ show_supplies(
       {
         level = atoi(val);      // New level
 
+        if (level < 0)
+          level = 0;
+        else if (level > 100)
+          level = 100;
+
         snprintf(supply_text, sizeof(supply_text), printer_supply[i], level);
         if (supply)
           ippSetOctetString(printer->attrs, &supply, ippGetCount(supply), supply_text, strlen(supply_text));
@@ -7640,6 +7645,11 @@ show_supplies(
       level = atoi(supply_ptr + 6);
     else
       level = 50;
+
+    if (level < 0)
+      level = 0;
+    else if (level > 100)
+      level = 100;
 
     if (printer->web_forms)
       html_printf(client, "<tr><th>%s:</th><td><input name=\"supply%u\" size=\"3\" value=\"%d\"></td>", ippGetString(supply_desc, i, NULL), (unsigned)i, level);
