@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
 "POT-Creation-Date: 2026-06-25 14:51-0400\n"
-"PO-Revision-Date: 2026-01-18 11:01+0000\n"
-"Last-Translator: Zdenek Crhonek <zcrhonek@gmail.com>\n"
+"PO-Revision-Date: 2026-09-25 11:16+0000\n"
+"Last-Translator: Jindřich Šesták <khronos@seznam.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/cups/cups/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.2\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 msgid "\t\t(all)"
 msgstr "\t\t(všechno)"
@@ -64,11 +64,11 @@ msgid "\tDefault pitch:"
 msgstr ""
 
 msgid "\tDefault port settings:"
-msgstr ""
+msgstr "\tVýchozí nastavení portu:"
 
 #, c-format
 msgid "\tDescription: %s"
-msgstr ""
+msgstr "\tPopis: %s"
 
 msgid "\tForm mounted:"
 msgstr ""
@@ -78,98 +78,100 @@ msgstr ""
 
 #, c-format
 msgid "\tInterface: %s.ppd"
-msgstr ""
+msgstr "\tRozhraní: %s.ppd"
 
 #, c-format
 msgid "\tInterface: %s/ppd/%s.ppd"
-msgstr ""
+msgstr "\tRozhraní: %s/ppd/%s.ppd"
 
 #, c-format
 msgid "\tLocation: %s"
-msgstr ""
+msgstr "\tUmístění: %s"
 
 msgid "\tOn fault: no alert"
-msgstr ""
+msgstr "\tPři poruše: bez upozornění"
 
 msgid "\tPrinter types: unknown"
 msgstr ""
 
 #, c-format
 msgid "\tStatus: %s"
-msgstr ""
+msgstr "\tStav: %s"
 
 msgid "\tUsers allowed:"
-msgstr ""
+msgstr "\tPovolení uživatelé:"
 
 msgid "\tUsers denied:"
-msgstr ""
+msgstr "\tOdmítnutí uživatelé:"
 
 msgid "\tdaemon present"
 msgstr ""
 
 msgid "\tno entries"
-msgstr ""
+msgstr "\tžádné záznamy"
 
 #, c-format
 msgid "\tprinter is on device '%s' speed -1"
-msgstr ""
+msgstr "\ttiskárna je na zařízení ‚%s‘, rychlost -1"
 
 msgid "\tprinting is disabled"
-msgstr ""
+msgstr "\ttisk je zakázán"
 
 msgid "\tprinting is enabled"
-msgstr ""
+msgstr "\ttisk je povolen"
 
 #, c-format
 msgid "\tqueued for %s"
 msgstr ""
 
 msgid "\tqueuing is disabled"
-msgstr ""
+msgstr "\třazení do fronty je zakázáno"
 
 msgid "\tqueuing is enabled"
-msgstr ""
+msgstr "\třazení do fronty je povoleno"
 
 msgid "\treason unknown"
-msgstr ""
+msgstr "\tdůvod neznámý"
 
 msgid ""
 "\n"
 "    DETAILED CONFORMANCE TEST RESULTS"
 msgstr ""
+"\n"
+"    PODROBNÉ VÝSLEDKY TESTOVÁNÍ SHODY"
 
 msgid "                REF: Page 15, section 3.1."
-msgstr ""
+msgstr "                ODKAZ: Strana 15, oddíl 3.1."
 
 msgid "                REF: Page 15, section 3.2."
-msgstr ""
+msgstr "                ODKAZ: Strana 15, oddíl 3.2."
 
 msgid "                REF: Page 19, section 3.3."
-msgstr ""
+msgstr "                ODKAZ: Strana 19, oddíl 3.3."
 
 msgid "                REF: Page 20, section 3.4."
-msgstr ""
+msgstr "                ODKAZ: Strana 20, oddíl 3.4."
 
 msgid "                REF: Page 27, section 3.5."
-msgstr ""
+msgstr "                ODKAZ: Strana 27, oddíl 3.5."
 
 msgid "                REF: Page 42, section 5.2."
-msgstr ""
+msgstr "                ODKAZ: Strana 42, oddíl 5.2."
 
 msgid "                REF: Pages 16-17, section 3.2."
-msgstr ""
+msgstr "                ODKAZ: Strany 16-17, oddíl 3.2."
 
 msgid "                REF: Pages 42-45, section 5.2."
-msgstr ""
+msgstr "                ODKAZ: Strany 42-45, oddíl 5.2."
 
 msgid "                REF: Pages 45-46, section 5.2."
-msgstr ""
+msgstr "                ODKAZ: Strany 45-46, oddíl 5.2."
 
 msgid "                REF: Pages 48-49, section 5.2."
-msgstr ""
+msgstr "                ODKAZ: Strany 48-49, oddíl 5.2."
 
 msgid "                REF: Pages 52-54, section 5.2."
-msgstr ""
+msgstr "                ODKAZ: Strany 52-54, oddíl 5.2."
 
 #, c-format
 msgid "        %-39.39s %.0f bytes"
@@ -177,62 +179,64 @@ msgstr ""
 
 #, c-format
 msgid "        PASS    Default%s"
-msgstr ""
+msgstr "        ÚSPĚCH    Výchozí%s"
 
 msgid "        PASS    DefaultImageableArea"
-msgstr ""
+msgstr "        ÚSPĚCH    DefaultImageableArea"
 
 msgid "        PASS    DefaultPaperDimension"
-msgstr ""
+msgstr "        ÚSPĚCH    DefaultPaperDimension"
 
 msgid "        PASS    FileVersion"
-msgstr ""
+msgstr "        ÚSPĚCH    FileVersion"
 
 msgid "        PASS    FormatVersion"
-msgstr ""
+msgstr "        ÚSPĚCH    FormatVersion"
 
 msgid "        PASS    LanguageEncoding"
-msgstr ""
+msgstr "        ÚSPĚCH    LanguageEncoding"
 
 msgid "        PASS    LanguageVersion"
-msgstr ""
+msgstr "        ÚSPĚCH    LanguageVersion"
 
 msgid "        PASS    Manufacturer"
-msgstr ""
+msgstr "        ÚSPĚCH    Manufacturer"
 
 msgid "        PASS    ModelName"
-msgstr ""
+msgstr "        ÚSPĚCH    ModelName"
 
 msgid "        PASS    NickName"
-msgstr ""
+msgstr "        ÚSPĚCH    NickName"
 
 msgid "        PASS    PCFileName"
-msgstr ""
+msgstr "        ÚSPĚCH    PCFileName"
 
 msgid "        PASS    PSVersion"
-msgstr ""
+msgstr "        ÚSPĚCH    PSVersion"
 
 msgid "        PASS    PageRegion"
-msgstr ""
+msgstr "        ÚSPĚCH    PageRegion"
 
 msgid "        PASS    PageSize"
-msgstr ""
+msgstr "        ÚSPĚCH    PageSize"
 
 msgid "        PASS    Product"
-msgstr ""
+msgstr "        ÚSPĚCH    Product"
 
 msgid "        PASS    ShortNickName"
-msgstr ""
+msgstr "        ÚSPĚCH    ShortNickName"
 
 #, c-format
 msgid "        WARN    %s has no corresponding options."
-msgstr ""
+msgstr "        VAROVÁNÍ    %s nemá žádné odpovídající možnosti."
 
 #, c-format
 msgid ""
 "        WARN    %s shares a common prefix with %s\n"
 "                REF: Page 15, section 3.2."
 msgstr ""
+"        VAROVÁNÍ    %s sdílí společnou předponu s %s\n"
+"                ODKAZ: Strana 15, oddíl 3.2."
 
 #, c-format
 msgid ""
@@ -676,107 +680,122 @@ msgid "    NO ERRORS FOUND"
 msgstr ""
 
 msgid "  --cr                    End lines with CR (Mac OS 9)."
-msgstr ""
+msgstr "  --cr                    Pro ukončení řádků použít CR (Mac OS 9)."
 
 msgid "  --crlf                  End lines with CR + LF (Windows)."
-msgstr ""
+msgstr "  --crlf                  Pro ukončení řádků použít CR + LF (Windows)."
 
 msgid "  --lf                    End lines with LF (UNIX/Linux/macOS)."
 msgstr ""
+"  --lf                    Pro ukončení řádků použít LF (UNIX/Linux/macOS)."
 
 msgid "  --list-all              List all filters with the MIME media types."
-msgstr ""
+msgstr "  --list-all              Vypsat všechny filtry s typy médií MIME."
 
 msgid "  --list-filters          List filters that will be used."
-msgstr ""
+msgstr "  --list-filters          Vypsat filtry, které budou použity."
 
 msgid "  -D                      Remove the input file when finished."
-msgstr ""
+msgstr "  -D                      Po dokončení odstranit vstupní soubor."
 
 msgid "  -D name=value           Set named variable to value."
-msgstr ""
+msgstr "  -D název=hodnota        Nastavit hodnotu pojmenované proměnné."
 
 msgid "  -I include-dir          Add include directory to search path."
 msgstr ""
+"  -I složka               Přidat složku do cesty pro hledání vkládaných "
+"souborů."
 
 msgid "  -P FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -P NAZEV_SOUBORU.ppd    Nastavit PPD soubor."
 
 msgid "  -U USERNAME             Specify username."
-msgstr ""
+msgstr "  -U UŽIVATELSKE_JMENO    Nastavit uživatelské jméno."
 
 msgid "  -c catalog.po           Load the specified message catalog."
-msgstr ""
+msgstr "  -c katalog.po           Načíst zadaný katalog zpráv."
 
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
+"  -c cups-files.conf      Nastavit soubor cups-files.conf, který má být "
+"použit."
 
 msgid "  -d PRINTER              Use the named printer."
-msgstr ""
+msgstr "  -d TISKÁRNA             Použít zadanou pojmenovanou tiskárnu."
 
 msgid "  -d output-dir           Specify the output directory."
-msgstr ""
+msgstr "  -d složka               Nastavit výstupní složku."
 
 msgid "  -e                      Use every filter from the PPD file."
-msgstr ""
+msgstr "  -e                      Použít všechny filtry z PPD souboru."
 
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
 msgstr ""
+"  -i MIME/TYP             Nastavit vstupní MIME typ (jinak rozpoznán "
+"automaticky)."
 
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
+"  -j JOB-ID[,N]           Vybrat soubor N ze zadané úlohy (výchozí je soubor "
+"1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr ""
+"  -l jazyk[,jazyk,...]    Nastavit výstupní jazyk(y) (místní nastavení)."
 
 msgid "  -m                      Use the ModelName value as the filename."
-msgstr ""
+msgstr "  -m                      Použít pro název souboru hodnotu ModelName."
 
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
+"  -m MIME/TYP             Nastavit výstupní MIME typ (jinak použit "
+"application/pdf)."
 
 msgid "  -n COPIES               Set number of copies."
-msgstr ""
+msgstr "  -n KOPIE                Nastavit počet kopií."
 
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr ""
+msgstr "  -o NÁZEV=HODNOTA        Nastavit možnost(i)."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
 msgstr ""
+"  -o nazev_souboru.drv    Nastavit informační soubor ovladače (jinak "
+"ppdi.drv)."
 
 msgid "  -o filename.ppd[.gz]    Set output file (otherwise stdout)."
-msgstr ""
+msgstr "  -o nazev_souboru.ppd[.gz]    Nastavit výstupní soubor (jinak stdout)."
 
 msgid "  -p FILENAME.ppd         Set PPD file."
-msgstr ""
+msgstr "  -p NAZEV_SOUBORU.ppd    Nastavit PPD soubor."
 
 msgid "  -t                      Test PPDs instead of generating them."
 msgstr ""
+"  -t                      Otestovat PPD soubory místo jejich vygenerování."
 
 msgid "  -t TITLE                Set title."
-msgstr ""
+msgstr "  -t NÁZEV                Nastavit název."
 
 msgid "  -u                      Remove the PPD file when finished."
-msgstr ""
+msgstr "  -u                      Po dokončení odstranit PPD soubor."
 
 msgid "  -v                      Be verbose."
-msgstr ""
+msgstr "  -v                      Použít podrobný výstup."
 
 msgid "  -z                      Compress PPD files using GNU zip."
-msgstr ""
+msgstr "  -z                      Komprimovat PPD soubory pomocí GNU zip."
 
 msgid " FAIL"
-msgstr ""
+msgstr " SELHÁNÍ"
 
 msgid " PASS"
-msgstr ""
+msgstr " ÚSPĚCH"
 
 msgid "! expression            Unary NOT of expression"
-msgstr ""
+msgstr "! výraz                   Logická negace výrazu"
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - %s (RFC 8011 section 5.1.6)."
@@ -1430,81 +1449,97 @@ msgid "%s: Warning - mode option ignored."
 msgstr ""
 
 msgid "( expressions )         Group expressions"
-msgstr ""
+msgstr "( výrazy )         Seskupit výrazy"
 
 msgid "-                       Cancel all jobs"
-msgstr ""
+msgstr "-                       Zrušit všechny úlohy"
 
 msgid "-# num-copies           Specify the number of copies to print"
-msgstr ""
+msgstr "-# počet                  Nastavit počet kopií k tisku"
 
 msgid "--[no-]debug-logging    Turn debug logging on/off"
 msgstr ""
+"--[no-]debug-logging    Zapnout / vypnout protokolování ladicích informací"
 
 msgid "--[no-]remote-admin     Turn remote administration on/off"
-msgstr ""
+msgstr "--[no-]remote-admin     Zapnout / vypnout vzdálenou správu"
 
 msgid "--[no-]remote-any       Allow/prevent access from the Internet"
-msgstr ""
+msgstr "--[no-]remote-any       Povolit / zakázat přístup z Internetu"
 
 msgid "--[no-]share-printers   Turn printer sharing on/off"
-msgstr ""
+msgstr "--[no-]share-printers   Zapnout / vypnout sdílení tiskárny"
 
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr ""
+"--[no-]user-cancel-any  Povolit / zakázat uživatelům zrušit libovolnou úlohu"
 
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
+"--bearer-token TOKEN\n"
+"                          Nastavit OAuth token nositele pro ověření"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
 "                        Set the TLS client certificate name"
 msgstr ""
+"--client-name NÁZEV\n"
+"                          Nastavit název certifikátu TLS klienta"
 
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
+"--device-id id_zařízení   Zobrazit modely odpovídající zadanému ID zařízení "
+"IEEE 1284"
 
 msgid "--domain regex          Match domain to regular expression"
-msgstr ""
+msgstr "--domain regex          Porovnat doménu se zadaným regulárním výrazem"
 
 msgid ""
 "--exclude-schemes scheme-list\n"
 "                        Exclude the specified URI schemes"
 msgstr ""
+"--exclude-schemes schéma[,...]\n"
+"                        Vyloučit zadaná schémata URI"
 
 msgid ""
 "--exec utility [argument ...] ;\n"
 "                        Execute program if true"
 msgstr ""
+"--exec nástroj [argument ...] ;\n"
+"                        Spustí zadaný program pokud je výsledek pravdivý"
 
 msgid "--false                 Always false"
-msgstr ""
+msgstr "--false                 Vždy vrátit logické false"
 
 msgid "--help                         Show this help"
-msgstr ""
+msgstr "--help                         Zobrazit tuto nápovědu"
 
 msgid "--help                  Show program help"
-msgstr ""
+msgstr "--help                  Zobrazit nápovědu programu"
 
 msgid "--help                  Show this help"
-msgstr ""
+msgstr "--help                  Zobrazit tuto nápovědu"
 
 msgid "--hold                  Hold new jobs"
-msgstr ""
+msgstr "--hold                  Pozastavit nové úlohy"
 
 msgid "--host regex            Match hostname to regular expression"
 msgstr ""
+"--host regex            Porovnat název hostitele se zadaným regulárním "
+"výrazem"
 
 msgid ""
 "--include-schemes scheme-list\n"
 "                        Include only the specified URI schemes"
 msgstr ""
+"--include-schemes schéma[,...]\n"
+"                        Zahrnout pouze zadaná schémata URI"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr ""
+msgstr "--ippserver název_souboru   Produce ippserver attribute file"
 
 msgid "--language locale       Show models matching the given locale"
 msgstr ""
@@ -2277,7 +2312,7 @@ msgid "1"
 msgstr "1"
 
 msgid "1 inch/sec."
-msgstr "1 palec/sek."
+msgstr "1 palec/s"
 
 msgid "1.25x0.25\""
 msgstr "1.25x0.25\""
@@ -2286,7 +2321,7 @@ msgid "1.25x2.25\""
 msgstr "1.25x2.25\""
 
 msgid "1.5 inch/sec."
-msgstr "1.5 palce/sek."
+msgstr "1.5 palce/s"
 
 msgid "1.50x0.25\""
 msgstr "1.50x0.25\""
@@ -2304,7 +2339,7 @@ msgid "10"
 msgstr "10"
 
 msgid "10 inches/sec."
-msgstr "10 palců/sek."
+msgstr "10 palců/s"
 
 msgid "10 x 11"
 msgstr ""
@@ -2319,7 +2354,7 @@ msgid "100"
 msgstr "100"
 
 msgid "100 mm/sec."
-msgstr "100 mm/sek."
+msgstr "100 mm/s"
 
 msgid "105"
 msgstr "105"
@@ -2328,7 +2363,7 @@ msgid "11"
 msgstr "11"
 
 msgid "11 inches/sec."
-msgstr "11 palců/sek."
+msgstr "11 palců/s"
 
 msgid "110"
 msgstr "110"
@@ -2340,7 +2375,7 @@ msgid "12"
 msgstr "12"
 
 msgid "12 inches/sec."
-msgstr "12 palců/sek."
+msgstr "12 palců/s"
 
 msgid "12 x 11"
 msgstr ""
@@ -2349,7 +2384,7 @@ msgid "120"
 msgstr "120"
 
 msgid "120 mm/sec."
-msgstr "120 mm/sek."
+msgstr "120 mm/s"
 
 msgid "120x60dpi"
 msgstr "120x60 dpi"
@@ -2370,13 +2405,13 @@ msgid "15"
 msgstr "15"
 
 msgid "15 mm/sec."
-msgstr "15 mm/sek."
+msgstr "15 mm/s"
 
 msgid "15 x 11"
 msgstr ""
 
 msgid "150 mm/sec."
-msgstr "150 mm/sek."
+msgstr "150 mm/s"
 
 msgid "150dpi"
 msgstr "150 dpi"
@@ -2400,7 +2435,7 @@ msgid "2"
 msgstr "2"
 
 msgid "2 inches/sec."
-msgstr "2 palce/sek."
+msgstr "2 palce/s"
 
 msgid "2-Sided Printing"
 msgstr "oboustranný tisk"
@@ -2445,7 +2480,7 @@ msgid "2.38x5.50\""
 msgstr "2.38x5.50\""
 
 msgid "2.5 inches/sec."
-msgstr "2.5 palce/sek."
+msgstr "2.5 palce/s"
 
 msgid "2.50x1.00\""
 msgstr "2.50x1.00\""
@@ -2463,10 +2498,10 @@ msgid "20"
 msgstr "20"
 
 msgid "20 mm/sec."
-msgstr "20 mm/sek."
+msgstr "20 mm/s"
 
 msgid "200 mm/sec."
-msgstr "200 mm/sek."
+msgstr "200 mm/s"
 
 msgid "203dpi"
 msgstr "203 dpi"
@@ -2493,7 +2528,7 @@ msgid "25"
 msgstr "25"
 
 msgid "250 mm/sec."
-msgstr "250 mm/sek."
+msgstr "250 mm/s"
 
 msgid "26"
 msgstr "26"
@@ -2511,7 +2546,7 @@ msgid "3"
 msgstr "3"
 
 msgid "3 inches/sec."
-msgstr "3 palce/sek."
+msgstr "3 palce/s"
 
 msgid "3 x 5"
 msgstr ""
@@ -2559,7 +2594,7 @@ msgid "3.5 x 5"
 msgstr ""
 
 msgid "3.5\" Disk"
-msgstr "3.5\" Disk"
+msgstr "3.5\" disk"
 
 msgid "3.50x1.00\""
 msgstr "3.50x1.00\""
@@ -2568,10 +2603,10 @@ msgid "30"
 msgstr "30"
 
 msgid "30 mm/sec."
-msgstr "30 mm/sek."
+msgstr "30 mm/s"
 
 msgid "300 mm/sec."
-msgstr "300 mm/sek."
+msgstr "300 mm/s"
 
 msgid "300dpi"
 msgstr "300 dpi"
@@ -2592,7 +2627,7 @@ msgid "4"
 msgstr "4"
 
 msgid "4 inches/sec."
-msgstr "4 palce/sek."
+msgstr "4 palce/s"
 
 msgid "4.00x1.00\""
 msgstr "4.00x1.00\""
@@ -2628,7 +2663,7 @@ msgid "40"
 msgstr "40"
 
 msgid "40 mm/sec."
-msgstr "40 mm/sek."
+msgstr "40 mm/s"
 
 msgid "45"
 msgstr "45"
@@ -2637,7 +2672,7 @@ msgid "5"
 msgstr "5"
 
 msgid "5 inches/sec."
-msgstr "5 palců/sek."
+msgstr "5 palců/s"
 
 msgid "5 x 7"
 msgstr ""
@@ -2652,7 +2687,7 @@ msgid "6"
 msgstr "6"
 
 msgid "6 inches/sec."
-msgstr "6 palců/sek."
+msgstr "6 palců/s"
 
 msgid "6.00x1.00\""
 msgstr "6.00x1.00\""
@@ -2682,7 +2717,7 @@ msgid "60"
 msgstr "60"
 
 msgid "60 mm/sec."
-msgstr "60 mm/sek."
+msgstr "60 mm/s"
 
 msgid "600dpi"
 msgstr "600 dpi"
@@ -2700,7 +2735,7 @@ msgid "7"
 msgstr "7"
 
 msgid "7 inches/sec."
-msgstr "7 palců/sek."
+msgstr "7 palců/s"
 
 msgid "7 x 9"
 msgstr ""
@@ -2715,7 +2750,7 @@ msgid "8"
 msgstr "8"
 
 msgid "8 inches/sec."
-msgstr "8 palců/sek."
+msgstr "8 palců/s"
 
 msgid "8 x 10"
 msgstr ""
@@ -2748,7 +2783,7 @@ msgid "80"
 msgstr "80"
 
 msgid "80 mm/sec."
-msgstr "80 mm/sek."
+msgstr "80 mm/s"
 
 msgid "80x50mm"
 msgstr ""
@@ -2760,7 +2795,7 @@ msgid "9"
 msgstr "9"
 
 msgid "9 inches/sec."
-msgstr "9 palců/sek."
+msgstr "9 palců/s"
 
 msgid "9 x 11"
 msgstr ""
@@ -4275,7 +4310,7 @@ msgid "No request sent."
 msgstr ""
 
 msgid "No request-id"
-msgstr "Žádný ID požadavek"
+msgstr "Žádné ID požadavku"
 
 msgid "No stored credentials, not valid for name."
 msgstr ""
@@ -4801,7 +4836,7 @@ msgstr ""
 
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
-msgstr "Tiskárna-URI \"%s\" obsahuje neplatné znaky."
+msgstr "URI tiskárny \"%s\" obsahuje neplatné znaky."
 
 msgid "The printer-uri attribute is required."
 msgstr ""
@@ -15276,7 +15311,7 @@ msgid "request id is %s-%d (%d file(s))"
 msgstr ""
 
 msgid "request-id uses indefinite length"
-msgstr "ID požadavku má neomezenou délku"
+msgstr "ID požadavku používá neurčitou délku"
 
 #. TRANSLATORS: Requested Attributes
 msgid "requested-attributes"
