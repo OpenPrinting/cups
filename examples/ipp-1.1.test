@@ -843,6 +843,48 @@ DEFINE IPP_URI_SCHEME "/^ipps?://.+$$/"
 }
 
 
+# Test Print-Job operation with optional job-hold-until job template attribute
+#
+# Optional by: RFC 8011 section 5.2.2
+#
+# Needed to hold the job to ensure the next test - cancel-job - passes. On some quicker
+# machines the job can finish quicker than we are able to cancel it, which does not fail
+# the IPP test because the STATUS is expected, but the count of the caught errors differs.
+{
+	SKIP-IF-NOT-DEFINED OPTIONAL_HOLD_JOB
+
+	NAME "RFC 8011 section 5.2.2: Print-Job Operation with optional job-hold-until job template attribute"
+	OPERATION Print-Job
+	GROUP operation-attributes-tag
+	ATTR charset attributes-charset utf-8
+	ATTR naturalLanguage attributes-natural-language en
+	ATTR uri printer-uri $uri
+	ATTR name requesting-user-name $user
+	ATTR name job-name $filename
+	ATTR boolean ipp-attribute-fidelity false
+	ATTR name document-name $filename
+	ATTR keyword compression none
+	ATTR keyword job-hold-until indefinite
+	ATTR mimeMediaType document-format $filetype
+	FILE $filename
+
+	STATUS successful-ok
+	STATUS client-error-document-format-not-supported
+	STATUS server-error-job-canceled
+	STATUS server-error-busy REPEAT-MATCH REPEAT-LIMIT 30
+
+	EXPECT job-uri OF-TYPE uri COUNT 1 IN-GROUP job-attributes-tag WITH-VALUE "$IPP_URI_SCHEME"
+	EXPECT job-id OF-TYPE integer COUNT 1 IN-GROUP job-attributes-tag
+	       WITH-VALUE >0
+	EXPECT job-state OF-TYPE unknown|enum COUNT 1 IN-GROUP job-attributes-tag
+	       WITH-VALUE 3,4,5,6,7,8,9
+	EXPECT job-state-reasons OF-TYPE keyword IN-GROUP job-attributes-tag
+	EXPECT ?job-state-message OF-TYPE text IN-GROUP job-attributes-tag
+	EXPECT ?number-of-intervening-jobs OF-TYPE integer
+	       IN-GROUP job-attributes-tag WITH-VALUE >-1
+}
+
+
 # Test Cancel-Job operation
 #
 # Required by: RFC 8011 section 4.3.3
