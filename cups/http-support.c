@@ -1,7 +1,7 @@
 //
 // HTTP support routines for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting
+// Copyright © 2020-2026 by OpenPrinting
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -737,7 +737,11 @@ httpGetDateString2(time_t t,		// I - Time in seconds
   struct tm	tdate;			// UNIX date/time data
 
 
-  gmtime_r(&t, &tdate);
+  if (!gmtime_r(&t, &tdate))
+  {
+    memset(&tdate, 0, sizeof(tdate));
+    tdate.tm_mday = 1;
+  }
 
   snprintf(s, (size_t)slen, "%s, %02d %s %d %02d:%02d:%02d GMT", http_days[tdate.tm_wday], tdate.tm_mday, http_months[tdate.tm_mon], tdate.tm_year + 1900, tdate.tm_hour, tdate.tm_min, tdate.tm_sec);
 
