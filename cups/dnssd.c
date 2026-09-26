@@ -1980,7 +1980,7 @@ cupsDNSSDSetHostName(
 
   if (error != 0)
     report_error(dnssd, "Unable to set hostname to '%s': %s", hostbase, avahi_strerror(error));
-  elee
+  else
     ret = true;
 #endif // HAVE_MDNSRESPONDER
 
