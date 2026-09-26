@@ -1334,11 +1334,15 @@ asn1_get_oid(
 
   if (*buffer >= bufend)
   {
+    *oid = -1;
+
     return (0);
   }
   else if (length > (unsigned)(bufend - *buffer))
   {
+    *oid    = -1;
     *buffer = bufend;
+
     return (0);
   }
 
