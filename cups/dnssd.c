@@ -1975,12 +1975,12 @@ cupsDNSSDSetHostName(
     report_error(dnssd, "Unable to set hostname to '%s': %d", hostbase, GetLastError());
 
 #else
-  int error = avahi_client_set_host_name(dnssd, hostbase);
+  int error = avahi_client_set_host_name(dnssd->client, hostbase);
 					// Result of setting mDNS hostname
 
   if (error != 0)
     report_error(dnssd, "Unable to set hostname to '%s': %s", hostbase, avahi_strerror(error));
-  elee
+  else
     ret = true;
 #endif // HAVE_MDNSRESPONDER
 
