@@ -662,6 +662,25 @@ cupsdDeletePrinter(
                   (void *)p, p->name, update);
 
  /*
+  * Don't free the printer while a background thread still holds a
+  * reference (create_local_bg_thread() generating the PPD); flag it and
+  * let cupsdDeleteTemporaryPrinters() reap it once the thread is done.
+  */
+
+  cupsRWLockWrite(&p->lock);
+  if (p->use > 0)
+  {
+    p->pending_delete = 1;
+    cupsRWUnlock(&p->lock);
+
+    cupsdLogMessage(CUPSD_LOG_DEBUG,
+                    "Deferring deletion of printer \"%s\" (use=%d) until "
+                    "background thread finishes.", p->name, p->use);
+    return (0);
+  }
+  cupsRWUnlock(&p->lock);
+
+ /*
   * Save the current position in the Printers array...
   */
 
@@ -829,8 +848,10 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->temporary && p->use == 0 &&
-	(force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
+    if (p->use == 0 &&
+	(p->pending_delete ||
+	 (p->temporary &&
+	  (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))))
       cupsdDeletePrinter(p, 0);
   }
 }
