@@ -49,6 +49,7 @@ struct cupsd_printer_s
   int		shared;			/* Shared? */
   int		temporary;		/* Temporary queue? */
   int		use;			/* Use count */
+  int		pending_delete;		/* Deletion deferred while use > 0? */
   int		accepting;		/* Accepting jobs? */
   int		holding_new_jobs;	/* Holding new jobs for printing? */
   int		in_implicit_class;	/* In an implicit class? */
