@@ -258,8 +258,11 @@ cupsDNSSDAssembleFullName(
 #elif _WIN32
   char		*fullptr,		// Pointer into full name
 		*fullend;		// End of full name
+  size_t	tdlen;			// Length of type and domain
 
-  for (fullptr = fullname, fullend = fullname + fullsize - 1; *name; name ++)
+
+  // Copy and escape the service instance name...
+  for (fullptr = fullname, fullend = fullname + fullsize - 1; *name && fullptr < fullend; name ++)
   {
     if (*name == ' ' || *name == '\\' || (*name & 0x80))
     {
@@ -275,6 +278,17 @@ cupsDNSSDAssembleFullName(
     }
   }
 
+  // See if we copied the whole name
+  if (*name)
+    return (false);
+
+  // See if we can fit the service type and domain name...
+  tdlen = 2 + strlen(type) + (domain ? strlen(domain) : /*strlen(local)*/5);
+
+  if ((size_t)(fullend - fullptr) < tdlen)
+    return (false);
+
+  // Append the service type and domain...
   snprintf(fullptr, fullend - fullptr + 1, ".%s.%s", type, domain ? domain : "local");
 
   return (true);
