@@ -60,8 +60,8 @@ v2.4.20 - YYYY-MM-DD
 - Fixed a potential output length bug in the rastertohp driver (Issue #1658)
 - Fixed a potential buffer underflow buf in the `ippAdd/SetStringf(v)` functions
   (Issue #1664)
+- Fixed handling of TLS system priorities (Issue #1677)
 - Fixed D-Bus notification policy definition (Issue #1691)
-- Fixed handling of TLS system priorities (Issue #1701)
 - Fixed raster fallback for IPP Everywhere printers (Issue #1703)
 - Fixed potential SNMP OID side-channel overflow (Issue #1719)
 - Fixed potential scheduler printer use-after-free bug (Issue #1722)
