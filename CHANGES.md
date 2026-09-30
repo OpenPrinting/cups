@@ -103,6 +103,9 @@ v2.5b1 - YYYY-MM-DD
   avoid Y2038 issues (Issue #1592)
 - Updated the PPD loader to reject invalid `CustomPageSize` parameters
   (Issue #1665)
+- Updated the scheduler to use the initial HTTP state/method to find the best
+  matching policy so that over eager code analysis tools do not report a false
+  positive problem (Issue #1729)
 - Deprecated the "page-border" Job Template attribute (Issue #1020)
 - Removed the `cups-config` utility (use `pkg-config` instead)
 - Removed printer-specific icon support on macOS for security reasons.

@@ -330,7 +330,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
   * authentication to expect...
   */
 
-  con->best = cupsdFindBest(con->uri, httpGetState(con->http));
+  con->best = cupsdFindBest(con->uri, con->operation);
   con->type = CUPSD_AUTH_NONE;
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "con->uri=\"%s\", con->best=%p(%s)", con->uri, (void *)con->best, con->best ? con->best->location : "");
