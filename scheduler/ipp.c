@@ -5408,7 +5408,8 @@ create_local_bg_thread(
   * Try connecting to the printer...
   */
 
-  cupsRWLockRead(&printer->lock);
+  cupsRWLockWrite(&printer->lock);
+  printer->use ++;
   cupsCopyString(device_uri, printer->device_uri, sizeof(device_uri));
   cupsRWUnlock(&printer->lock);
 
@@ -5424,6 +5425,7 @@ create_local_bg_thread(
 
       /* Force printer to timeout and be deleted */
       cupsRWLockWrite(&printer->lock);
+      printer->use --;
       printer->state_time = 0;
       printer->temporary = 1;
       cupsRWUnlock(&printer->lock);
@@ -5445,6 +5447,7 @@ create_local_bg_thread(
 
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
+    printer->use --;
     printer->state_time = 0;
     printer->temporary = 1;
     cupsRWUnlock(&printer->lock);
@@ -5530,6 +5533,7 @@ create_local_bg_thread(
 
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
+    printer->use --;
     printer->state_time = 0;
     printer->temporary = 1;
     cupsRWUnlock(&printer->lock);
@@ -5543,6 +5547,7 @@ create_local_bg_thread(
   {
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
+    printer->use --;
     printer->state_time = 0;
     printer->temporary = 1;
     cupsRWUnlock(&printer->lock);
@@ -5582,6 +5587,7 @@ create_local_bg_thread(
 
       /* Force printer to timeout and be deleted */
       cupsRWLockWrite(&printer->lock);
+      printer->use --;
       printer->state_time = 0;
       printer->temporary = 1;
       cupsRWUnlock(&printer->lock);
@@ -5608,6 +5614,7 @@ create_local_bg_thread(
 
       /* Force printer to timeout and be deleted */
       cupsRWLockWrite(&printer->lock);
+      printer->use --;
       printer->state_time = 0;
       printer->temporary = 1;
       cupsRWUnlock(&printer->lock);
@@ -5629,6 +5636,7 @@ create_local_bg_thread(
       cupsRWLockWrite(&printer->lock);
 
       printer->config_time = time(NULL);
+      printer->use --;
 
       if (printer->temporary)
       {
@@ -5651,6 +5659,7 @@ create_local_bg_thread(
 
     /* Force printer to timeout and be deleted */
     cupsRWLockWrite(&printer->lock);
+    printer->use --;
     printer->state_time = 0;
     printer->temporary = 1;
     cupsRWUnlock(&printer->lock);

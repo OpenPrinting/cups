@@ -91,6 +91,7 @@ cupsdAddPrinter(const char *name)	/* I - Name of printer */
   p->state_time  = time(NULL);
   p->accepting   = 0;
   p->shared      = DefaultShared;
+  p->use         = 1;
 
   cupsRWLockWrite(&MimeLock);
 
@@ -662,6 +663,22 @@ cupsdDeletePrinter(
                   (void *)p, p->name, update);
 
  /*
+  * See if all users of this printer are completely done...
+  */
+
+  cupsRWLockWrite(&p->lock);
+
+  if (p->use > 0)
+    p->use --;
+
+  i = p->use;
+
+  cupsRWUnlock(&p->lock);
+
+  if (i > 0)
+    return (0);
+
+ /*
   * Save the current position in the Printers array...
   */
 
@@ -829,8 +846,7 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->temporary && p->use == 0 &&
-	(force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
+    if (p->use == 0 && (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
       cupsdDeletePrinter(p, 0);
   }
 }
