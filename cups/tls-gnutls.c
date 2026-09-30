@@ -1927,10 +1927,26 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     return (false);
   }
 
-  if (tls_options & _HTTP_TLS_NO_SYSTEM)
-    priority_string[0] = '\0';
-  else
-    cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+  priority_string[0] = '\0';
+
+  if (!(tls_options & _HTTP_TLS_NO_SYSTEM))
+  {
+    // Named system priorities are not configured on every system; only use
+    // them when available so the options below are not discarded...
+#ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
+    if (!gnutls_priority_set_direct(http->tls, "@SYSTEM", NULL))
+      cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+
+#else
+    gnutls_priority_t system_priority;	// System priority
+
+    if (!gnutls_priority_init(&system_priority, "@SYSTEM", NULL))
+    {
+      gnutls_priority_deinit(system_priority);
+      cupsCopyString(priority_string, "@SYSTEM,", sizeof(priority_string));
+    }
+#endif // HAVE_GNUTLS_PRIORITY_SET_DIRECT
+  }
 
   cupsConcatString(priority_string, "NORMAL", sizeof(priority_string));
 
@@ -1971,15 +1987,33 @@ _httpTLSStart(http_t *http)		// I - Connection to server
     cupsConcatString(priority_string, ":!AES-128-CBC:!AES-256-CBC:!CAMELLIA-128-CBC:!CAMELLIA-256-CBC:!3DES-CBC", sizeof(priority_string));
 
 #ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
-  gnutls_priority_set_direct(http->tls, priority_string, NULL);
+  status = gnutls_priority_set_direct(http->tls, priority_string, NULL);
 
 #else
   gnutls_priority_t priority;		// Priority
 
-  gnutls_priority_init(&priority, priority_string, NULL);
-  gnutls_priority_set(http->tls, priority);
-  gnutls_priority_deinit(priority);
+  status = gnutls_priority_init(&priority, priority_string, NULL);
+  if (!status)
+  {
+    status = gnutls_priority_set(http->tls, priority);
+    gnutls_priority_deinit(priority);
+  }
 #endif // HAVE_GNUTLS_PRIORITY_SET_DIRECT
+
+  if (status)
+  {
+    http->error  = EIO;
+    http->status = HTTP_STATUS_ERROR;
+
+    DEBUG_printf("4_httpTLSStart: Unable to set TLS priorities: %s", gnutls_strerror(status));
+    _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, gnutls_strerror(status), 0);
+
+    gnutls_deinit(http->tls);
+    _httpFreeCredentials(credentials);
+    http->tls = NULL;
+
+    return (false);
+  }
 
   gnutls_transport_set_ptr(http->tls, (gnutls_transport_ptr_t)http);
   gnutls_transport_set_pull_function(http->tls, gnutls_http_read);
