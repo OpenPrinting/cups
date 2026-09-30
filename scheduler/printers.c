@@ -846,7 +846,7 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->use == 0 && (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING)))
+    if (p->use == 0 || (p->use == 1 && p->temporary && (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING))))
       cupsdDeletePrinter(p, 0);
   }
 }
