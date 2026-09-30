@@ -62,6 +62,7 @@ v2.4.20 - YYYY-MM-DD
   (Issue #1664)
 - Fixed D-Bus notification policy definition (Issue #1691)
 - Fixed raster fallback for IPP Everywhere printers (Issue #1703)
+- Fixed potential SNMP OID side-channel overflow (Issue #1719)
 - Fixed several issues reported by Coverity
 - Fixed case-sensitive PPD keyword comparisons when filtering keyword updates
   from filters.

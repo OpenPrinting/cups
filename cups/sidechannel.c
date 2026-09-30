@@ -1,7 +1,7 @@
 /*
  * Side-channel API code for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2006 by Easy Software Products.
  *
@@ -348,16 +348,17 @@ cupsSideChannelSNMPGet(
     * Parse the response of the form "oid\0value"...
     */
 
-    real_oidlen  = (int)strlen(real_data) + 1;
-    real_datalen -= real_oidlen;
-
-    if ((real_datalen + 1) > *datalen)
+    real_oidlen = (int)strlen(real_data) + 1;
+    if (real_oidlen > real_datalen || (real_datalen - real_oidlen + 1) > *datalen)
     {
       _cupsBufferRelease(real_data);
       return (CUPS_SC_STATUS_TOO_BIG);
     }
 
-    memcpy(data, real_data + real_oidlen, (size_t)real_datalen);
+    real_datalen -= real_oidlen;
+
+    if (real_datalen > 0)
+      memcpy(data, real_data + real_oidlen, (size_t)real_datalen);
     data[real_datalen] = '\0';
 
     *datalen = real_datalen;
@@ -482,14 +483,15 @@ cupsSideChannelSNMPWalk(
       if ((size_t)real_datalen < sizeof(real_data))
         real_data[real_datalen] = '\0';
 
-      real_oidlen  = strlen(real_data) + 1;
-      real_datalen -= (int)real_oidlen;
+      real_oidlen = strlen(real_data) + 1;
+      if (real_oidlen <= real_datalen)
+      {
+       /*
+	* Call the callback with the OID and data...
+	*/
 
-     /*
-      * Call the callback with the OID and data...
-      */
-
-      (*cb)(real_data, real_data + real_oidlen, real_datalen, context);
+	(*cb)(real_data, real_data + real_oidlen, real_datalen - real_oidlen, context);
+      }
 
      /*
       * Update the current OID...
