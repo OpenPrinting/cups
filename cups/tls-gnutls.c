@@ -1515,7 +1515,23 @@ _httpTLSStart(http_t *http)		/* I - Connection to server */
   }
 
   if (!(tls_options & _HTTP_TLS_NO_SYSTEM))
-    strlcpy(priority_string, "@SYSTEM,", sizeof(priority_string));
+  {
+    // Named system priorities are not configured on every system; only use
+    // them when available so the options below are not discarded...
+#ifdef HAVE_GNUTLS_PRIORITY_SET_DIRECT
+    if (!gnutls_priority_set_direct(http->tls, "@SYSTEM", NULL))
+      strlcpy(priority_string, "@SYSTEM,", sizeof(priority_string));
+
+#else
+    gnutls_priority_t system_priority;	// System priority
+
+    if (!gnutls_priority_init(&system_priority, "@SYSTEM", NULL))
+    {
+      gnutls_priority_deinit(system_priority);
+      strlcpy(priority_string, "@SYSTEM,", sizeof(priority_string));
+    }
+#endif // HAVE_GNUTLS_PRIORITY_SET_DIRECT
+  }
 
   strlcat(priority_string, "NORMAL", sizeof(priority_string));
 
