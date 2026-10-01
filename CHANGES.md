@@ -19,6 +19,8 @@ v2.4.20 - YYYY-MM-DD
   (GHSA-qqm8-4q5h-jg55)
 - SECURITY-3.3: The backend did not sanitize IPP attribute strings
   (CVE-2026-55453)
+- SECURITY-3.3: The scheduler did not filter out group separators from job
+  submissions (GHSA-wjc4-qhjr-5m5x)
 - SECURITY-3.0: Quota and policy operations did not treat usernames as case-
   sensitive (CVE-2026-87876)
 - SECURITY-2.5: The scheduler did not sanitize fax numbers (CVE-2026-55467)

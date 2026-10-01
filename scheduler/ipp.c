@@ -2127,7 +2127,7 @@ add_job_subscriptions(
   {
     next = attr->next;
 
-    if (attr->group_tag == IPP_TAG_SUBSCRIPTION ||
+    if (!attr->name || attr->group_tag == IPP_TAG_SUBSCRIPTION ||
         attr->group_tag == IPP_TAG_ZERO)
     {
      /*
