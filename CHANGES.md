@@ -23,6 +23,8 @@ v2.4.20 - YYYY-MM-DD
   submissions (GHSA-wjc4-qhjr-5m5x)
 - SECURITY-3.0: Quota and policy operations did not treat usernames as case-
   sensitive (CVE-2026-87876)
+- SECURITY-3.0: The scheduler's startup permission checks were vulnerable to
+  TOU attacks (GHSA-gj33-wxpv-6fgg)
 - SECURITY-2.5: The scheduler did not sanitize fax numbers (CVE-2026-55467)
 - SECURITY-2.5: The 'mailto' notifier did not sanitize the recipient address
   provided to the sendmail command (GHSA-r4wf-366f-f6g3)
