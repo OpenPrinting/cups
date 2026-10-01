@@ -328,12 +328,24 @@ cupsdCheckJobs(void)
       * Check whether the printer is still holding new jobs...
       */
 
-      printer = cupsdFindDest(job->dest);
+      if ((printer = cupsdFindDest(job->dest)) == NULL)
+      {
+       /*
+        * Whoa, the printer and/or class for this destination went away;
+	* cancel the job...
+	*/
 
-      if (printer->holding_new_jobs)
+        cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_PURGE, "Job aborted because the destination printer/class has gone away.");
         continue;
-
-      ippSetString(job->attrs, &job->reasons, 0, "none");
+      }
+      else if (printer->holding_new_jobs)
+      {
+        continue;
+      }
+      else
+      {
+        ippSetString(job->attrs, &job->reasons, 0, "none");
+      }
     }
 
    /*

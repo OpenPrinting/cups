@@ -15,6 +15,8 @@ v2.4.20 - YYYY-MM-DD
   (GHSA-w9hj-hq9p-m7f6)
 - SECURITY-4.3: The `cupsUTF32toUTF8` function incorrectly treated UTF-32
   values as 64-bit (CVE-2026-87875)
+- SECURITY-4.1: Held jobs for temporary print queues could crash the scheduler
+  (GHSA-qqm8-4q5h-jg55)
 - SECURITY-3.3: The backend did not sanitize IPP attribute strings
   (CVE-2026-55453)
 - SECURITY-3.0: Quota and policy operations did not treat usernames as case-
