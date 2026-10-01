@@ -231,6 +231,7 @@ cupsdCheckPermissions(
     int        is_dir,			/* I - 1 = directory, 0 = file */
     int        create_dir)		/* I - 1 = create directory, -1 = create w/o logging, 0 = not */
 {
+  int		fd;			/* File descriptor */
   int		dir_created = 0;	/* Did we create a directory? */
   char		pathname[1024];		/* File name with prefix */
   struct stat	fileinfo;		/* Stat buffer */
@@ -251,7 +252,23 @@ cupsdCheckPermissions(
   * See if we can stat the file/directory...
   */
 
-  if (lstat(filename, &fileinfo))
+#ifdef O_SYMLINK
+  fd = open(filename, is_dir ? (O_DIRECTORY | O_SYMLINK | O_RDONLY) : (O_SYMLINK | O_RDONLY));
+
+#else
+  if ((fd = open(filename, is_dir ? (O_DIRECTORY | O_NOFOLLOW | O_RDONLY) : (O_NOFOLLOW | O_RDONLY))) < 0)
+  {
+#  ifdef O_PATH
+   /*
+    * Try opening the path itself...
+    */
+
+    fd = open(filename, O_PATH);
+#  endif /* O_PATH */
+  }
+#endif /* O_SYMLINK */
+
+  if (fd < 0)
   {
     if (errno == ENOENT && create_dir)
     {
@@ -275,11 +292,21 @@ cupsdCheckPermissions(
         return (-1);
       }
 
-      dir_created      = 1;
-      fileinfo.st_mode = mode | S_IFDIR;
+      dir_created = 1;
+
+      if ((fd = open(filename, O_DIRECTORY | O_NOFOLLOW | O_RDONLY)) < 0)
+        return (-1);
     }
     else
+    {
       return (create_dir ? -1 : 1);
+    }
+  }
+
+  if (fstat(fd, &fileinfo))
+  {
+    close(fd);
+    return (-1);
   }
 
   if ((is_symlink = S_ISLNK(fileinfo.st_mode)) != 0)
@@ -288,6 +315,7 @@ cupsdCheckPermissions(
     {
       cupsdLogMessage(CUPSD_LOG_ERROR, "\"%s\" is a bad symlink - %s",
                       filename, strerror(errno));
+      close(fd);
       return (-1);
     }
   }
@@ -299,6 +327,7 @@ cupsdCheckPermissions(
   if (!dir_created && !is_dir && !S_ISREG(fileinfo.st_mode))
   {
     cupsdLogMessage(CUPSD_LOG_ERROR, "\"%s\" is not a regular file.", filename);
+    close(fd);
     return (-1);
   }
 
@@ -313,6 +342,7 @@ cupsdCheckPermissions(
       syslog(LOG_ERR, "\"%s\" is not a directory.", filename);
 #endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
 
+    close(fd);
     return (-1);
   }
 
@@ -321,7 +351,10 @@ cupsdCheckPermissions(
   */
 
   if (is_symlink)
+  {
+    close(fd);
     return (0);
+  }
 
  /*
   * Fix owner, group, and mode as needed...
@@ -333,7 +366,7 @@ cupsdCheckPermissions(
       cupsdLogMessage(CUPSD_LOG_DEBUG, "Repairing ownership of \"%s\"",
                       filename);
 
-    if (chown(filename, user, group) && !getuid())
+    if (fchown(fd, user, group) && !getuid())
     {
       if (create_dir >= 0)
 	cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -346,6 +379,7 @@ cupsdCheckPermissions(
 	syslog(LOG_ERR, "Unable to change ownership of \"%s\" - %s", filename, strerror(errno));
 #endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
 
+      close(fd);
       return (1);
     }
   }
@@ -356,7 +390,7 @@ cupsdCheckPermissions(
       cupsdLogMessage(CUPSD_LOG_DEBUG, "Repairing access permissions of \"%s\"",
 		      filename);
 
-    if (chmod(filename, mode))
+    if (fchmod(fd, mode))
     {
       if (create_dir >= 0)
 	cupsdLogMessage(CUPSD_LOG_ERROR,
@@ -369,6 +403,7 @@ cupsdCheckPermissions(
 	syslog(LOG_ERR, "Unable to change permissions of \"%s\" - %s", filename, strerror(errno));
 #endif /* HAVE_SYSTEMD_SD_JOURNAL_H */
 
+      close(fd);
       return (1);
     }
   }
@@ -377,6 +412,7 @@ cupsdCheckPermissions(
   * Everything is OK...
   */
 
+  close(fd);
   return (0);
 }
 
