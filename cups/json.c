@@ -955,13 +955,64 @@ cupsJSONImportString(const char *s)	// I - JSON string
             {
               s ++;
               ch <<= 4;
-              if (isdigit(*s))
+              if (isdigit(*s & 255))
+              {
                 ch |= *s - '0';
-              else
+              }
+              else if (isxdigit(*s & 255))
+              {
                 ch |= tolower(*s) - 'a' + 10;
+              }
+              else
+              {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+              }
             }
 
-            // Convert 16-bit Unicode character to UTF-8...
+            if (ch >= 0xd800 && ch <= 0xdbff)
+            {
+              // Handle UTF-16 surrogate pairs because of course you'd want to
+              // embed plane N Unicode characters in 12 bytes instead of 4...
+              int	lch;		// "Lower" surrogate
+
+              if (strncmp(s, "\\u", 2) || !isxdigit(s[2] & 255) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255) || !isxdigit(s[5] & 255))
+              {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+              }
+
+              // Grab the second escaped Unicode character...
+              for (s ++, lch = 0, digit = 0; digit < 4; digit ++)
+              {
+                // Already know we have "\uXXXX"...
+                s ++;
+                lch <<= 4;
+                if (isdigit(*s))
+                  lch |= *s - '0';
+		else
+		  lch |= tolower(*s) - 'a' + 10;
+              }
+
+	      // Make sure the second escape character is the surrogate...
+	      if (lch < 0xdc00 || lch > 0xdfff)
+	      {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+	      }
+
+	      // Combine to form a single 20-bit Unicode character...
+	      ch = 0x10000 | ((ch - 0xd800) << 10) | (lch - 0xdc00);
+	    }
+
+	    // Validate the Unicode character...
+	    if (ch == 0 || (ch >= 0xd800 && ch <= 0xdfff) || ch == 0xfeff)
+	    {
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+	      goto error;
+	    }
+
+            // Convert Unicode character to UTF-8...
             if (ch < 0x80)
             {
               // ASCII
@@ -973,10 +1024,18 @@ cupsJSONImportString(const char *s)	// I - JSON string
               *ptr++ = (char)(0xc0 | (ch >> 6));
               *ptr++ = (char)(0x80 | (ch & 0x3f));
             }
-            else
+            else if (ch < 0x10000)
             {
               // 3-byte UTF-8
               *ptr++ = (char)(0xe0 | (ch >> 12));
+              *ptr++ = (char)(0x80 | ((ch >> 6) & 0x3f));
+              *ptr++ = (char)(0x80 | (ch & 0x3f));
+            }
+            else
+            {
+              // 4-byte UTF-8
+              *ptr++ = (char)(0xf0 | (ch >> 18));
+              *ptr++ = (char)(0x80 | ((ch >> 12) & 0x3f));
               *ptr++ = (char)(0x80 | ((ch >> 6) & 0x3f));
               *ptr++ = (char)(0x80 | (ch & 0x3f));
             }
