@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-02 12:38-0400\n"
 "PO-Revision-Date: 2025-06-25 16:06+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://hosted.weblate.org/projects/cups/cups/ka/>\n"
@@ -1185,6 +1185,10 @@ msgstr "%s (საზღვრების გარეშე, %s, %s)"
 #, c-format
 msgid "%s accepting requests since %s"
 msgstr "%s იღებს მიერთებების თარიღიდან %s"
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
 
 #, c-format
 msgid "%s cannot be changed."
@@ -3306,10 +3310,6 @@ msgstr "ფუნქციისთვის მითითებული ა�
 msgid "Bad certificate."
 msgstr "ცუდი სერტიფიკატი."
 
-#, c-format
-msgid "Bad copies value %d."
-msgstr "ასლების არასწორი მნიშვნელობა %d."
-
 msgid "Bad custom parameter"
 msgstr "არასწორი მომხმარებლის პარამეტრი"
 
@@ -3338,22 +3338,8 @@ msgstr "არასწორი ფაილის სახელის ბუ
 msgid "Bad hostname/address in URI"
 msgstr "არასწორი ჰოსტის სახელი/მისამართი URI-ში"
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr "არასწორი job-name-ის მნიშვნელობა: %s"
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr "არასწორი job-name-ის მნიშვნელობა: არასწორი ტიპი ან რაოდენობა."
-
 msgid "Bad job-priority value."
 msgstr "არასწორი job-priority-ის მნიშვნელობა."
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr "არასწორი job-sheets-ის მნიშვნელობა: %s."
-
-msgid "Bad job-sheets value type."
-msgstr "არასწორი job-sheets-ის მნიშვნელობის ტიპი."
 
 msgid "Bad job-state value."
 msgstr "არასწორი job-state-ის მნიშვნელობა."
@@ -3380,14 +3366,6 @@ msgstr ""
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "არასწორი notify-user-data \"%s\"."
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "არასწორი number-up value %d."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "არასწორი page-ranges-ის მნიშვნელობები %d-%d."
 
 msgid "Bad port number in URI"
 msgstr "არასწორი პორტის ნომერი URI-ში"
@@ -3461,6 +3439,12 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr "დაშორებული რიგებისთვის printer-is-shared ატრიბუტის შეცვლა შეუძლებელია."
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
 msgstr ""
 
 msgid ""
@@ -3542,7 +3526,7 @@ msgstr ""
 msgid "Credentials are unknown/new."
 msgstr "ავტორიზაციის დეტალები უცნობია/ახალია."
 
-msgid "Credentials do not validate against site CA certificate."
+msgid "Credentials do not validate against CA certificates."
 msgstr ""
 
 msgid "Credentials have been renewed."
@@ -5134,10 +5118,6 @@ msgid "Too many active jobs."
 msgstr "მეტისმეტად ბევრი აქტიური დავალება."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr "მეტისმეტად ბევრი job-sheets-ის მნიშვნელობა (%d > 2)."
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "მეტისმეტად ბევრი printer-state-reasons-ის მნიშვნელობა (%d > %d)."
 
@@ -5568,6 +5548,10 @@ msgstr "უცნობი ვერსიის პარამეტრის 
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
+msgid "Unsupported '%s' value."
 msgstr ""
 
 #, c-format
@@ -16069,8 +16053,38 @@ msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
 "~/.cups/lpoptions ფაილი ასახელებს ნაგულისხმევ სამიზნეს, რომელიც არ არსებობს."
 
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "ასლების არასწორი მნიშვნელობა %d."
+
+#, c-format
+#~ msgid "Bad job-name value: %s"
+#~ msgstr "არასწორი job-name-ის მნიშვნელობა: %s"
+
+#~ msgid "Bad job-name value: Wrong type or count."
+#~ msgstr "არასწორი job-name-ის მნიშვნელობა: არასწორი ტიპი ან რაოდენობა."
+
+#, c-format
+#~ msgid "Bad job-sheets value \"%s\"."
+#~ msgstr "არასწორი job-sheets-ის მნიშვნელობა: %s."
+
+#~ msgid "Bad job-sheets value type."
+#~ msgstr "არასწორი job-sheets-ის მნიშვნელობის ტიპი."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "არასწორი number-up value %d."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "არასწორი page-ranges-ის მნიშვნელობები %d-%d."
+
 #~ msgid "Commands:"
 #~ msgstr "ბრძანებები:"
+
+#, c-format
+#~ msgid "Too many job-sheets values (%d > 2)."
+#~ msgstr "მეტისმეტად ბევრი job-sheets-ის მნიშვნელობა (%d > 2)."
 
 #, c-format
 #~ msgid "Unsupported character set \"%s\"."

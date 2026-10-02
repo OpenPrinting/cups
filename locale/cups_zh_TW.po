@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-02 12:38-0400\n"
 "PO-Revision-Date: 2026-06-10 00:00+0800\n"
 "Last-Translator: Jack Adam <jackadam1981@hotmail.com>\n"
 "Language-Team: Chinese (Traditional)\n"
@@ -992,6 +992,10 @@ msgstr ""
 
 #, c-format
 msgid "%s accepting requests since %s"
+msgstr ""
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
 msgstr ""
 
 #, c-format
@@ -3026,10 +3030,6 @@ msgstr ""
 msgid "Bad certificate."
 msgstr ""
 
-#, c-format
-msgid "Bad copies value %d."
-msgstr ""
-
 msgid "Bad custom parameter"
 msgstr ""
 
@@ -3058,21 +3058,7 @@ msgstr ""
 msgid "Bad hostname/address in URI"
 msgstr ""
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr ""
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr ""
-
 msgid "Bad job-priority value."
-msgstr ""
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr ""
-
-msgid "Bad job-sheets value type."
 msgstr ""
 
 msgid "Bad job-state value."
@@ -3099,14 +3085,6 @@ msgstr ""
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
-msgstr ""
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr ""
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
 msgstr ""
 
 msgid "Bad port number in URI"
@@ -3181,6 +3159,12 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
 msgstr ""
 
 msgid ""
@@ -3262,7 +3246,7 @@ msgstr ""
 msgid "Credentials are unknown/new."
 msgstr ""
 
-msgid "Credentials do not validate against site CA certificate."
+msgid "Credentials do not validate against CA certificates."
 msgstr ""
 
 msgid "Credentials have been renewed."
@@ -4830,10 +4814,6 @@ msgid "Too many active jobs."
 msgstr ""
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr ""
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr ""
 
@@ -5263,6 +5243,10 @@ msgstr ""
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
+msgid "Unsupported '%s' value."
 msgstr ""
 
 #, c-format

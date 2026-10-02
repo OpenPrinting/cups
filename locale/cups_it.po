@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-02 12:38-0400\n"
 "PO-Revision-Date: 2026-08-17 13:51+0000\n"
 "Last-Translator: Pierfrancesco Passerini <p.passerini@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/cups/cups/it/>\n"
@@ -1184,6 +1184,10 @@ msgstr "%s (Senza bordi, %s, %s)"
 #, c-format
 msgid "%s accepting requests since %s"
 msgstr "%s sta accettando richieste da %s"
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
 
 #, c-format
 msgid "%s cannot be changed."
@@ -3399,10 +3403,6 @@ msgstr "Argomenti per la funzione non validi"
 msgid "Bad certificate."
 msgstr "Certificato non valido."
 
-#, c-format
-msgid "Bad copies value %d."
-msgstr "Il valore %d delle copie non è valido."
-
 msgid "Bad custom parameter"
 msgstr "Il parametro personalizzato non è valido"
 
@@ -3432,22 +3432,8 @@ msgstr "Il buffer del file non è valido"
 msgid "Bad hostname/address in URI"
 msgstr "Nome host o indirizzo nell'URI non validi"
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr "Il valore di job-name non è valido: %s"
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr "Il valore di job-name non è valido: tipo o conteggio errato."
-
 msgid "Bad job-priority value."
 msgstr "Il valore di job-priority non è valido."
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr "Il valore di job-sheets \"%s\" non è valido."
-
-msgid "Bad job-sheets value type."
-msgstr "Il tipo di valore di job-sheets non è valido."
 
 msgid "Bad job-state value."
 msgstr "Il valore di job-state non è valido."
@@ -3475,14 +3461,6 @@ msgstr "URI \"notify-recipient-uri\" non valido \"%s\"."
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "Valore non valido per notify-user-data \"%s\"."
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "Il valore di number-up %d non è valido."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "Il valore di page-ranges %d-%d non è valido."
 
 msgid "Bad port number in URI"
 msgstr "Porta nell'URI non valida"
@@ -3559,6 +3537,12 @@ msgstr "Impossibile cambiare la proprietà printer-is-shared per code remote."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Impossibile condividere, con Kerberos, una stampante remota."
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
+msgstr ""
 
 msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
@@ -3644,8 +3628,8 @@ msgstr "Le credenziali non sono firmate dalla CA."
 msgid "Credentials are unknown/new."
 msgstr "Le credenziali sono sconosciute/nuove."
 
-msgid "Credentials do not validate against site CA certificate."
-msgstr "Credenziali non validate rispetto al certificato CA del sito."
+msgid "Credentials do not validate against CA certificates."
+msgstr ""
 
 msgid "Credentials have been renewed."
 msgstr "Le credenziali sono state rinnovate."
@@ -5261,10 +5245,6 @@ msgid "Too many active jobs."
 msgstr "Troppe stampe attive."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr "Troppi valori di job-sheets (%d > 2)."
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Troppi valori di printer-state-reasons (%d > %d)."
 
@@ -5697,6 +5677,10 @@ msgstr "Valore sconosciuto dell'opzione versione: \"%s\"."
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
 msgstr "Valore per \"attributes-charset\" non supportato \"%s\"."
+
+#, c-format
+msgid "Unsupported '%s' value."
+msgstr ""
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
@@ -8784,8 +8768,8 @@ msgid ""
 "Applications instead."
 msgstr ""
 "lpadmin: i driver della stampante sono deprecati e cesseranno di funzionare "
-"in una futura versione di CUPS. Utilizzare invece i driver \"IPP "
-"Everywhere\" (\"-m everywhere\") oppure le \"Printer Applications\"."
+"in una futura versione di CUPS. Utilizzare invece i driver \"IPP Everywhere"
+"\" (\"-m everywhere\") oppure le \"Printer Applications\"."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr ""
@@ -16305,6 +16289,39 @@ msgstr ""
 #, c-format
 #~ msgid "Attribute \"%s\" has empty value."
 #~ msgstr "L'attributo \"%s\" ha valore vuoto."
+
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "Il valore %d delle copie non è valido."
+
+#, c-format
+#~ msgid "Bad job-name value: %s"
+#~ msgstr "Il valore di job-name non è valido: %s"
+
+#~ msgid "Bad job-name value: Wrong type or count."
+#~ msgstr "Il valore di job-name non è valido: tipo o conteggio errato."
+
+#, c-format
+#~ msgid "Bad job-sheets value \"%s\"."
+#~ msgstr "Il valore di job-sheets \"%s\" non è valido."
+
+#~ msgid "Bad job-sheets value type."
+#~ msgstr "Il tipo di valore di job-sheets non è valido."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "Il valore di number-up %d non è valido."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "Il valore di page-ranges %d-%d non è valido."
+
+#~ msgid "Credentials do not validate against site CA certificate."
+#~ msgstr "Credenziali non validate rispetto al certificato CA del sito."
+
+#, c-format
+#~ msgid "Too many job-sheets values (%d > 2)."
+#~ msgstr "Troppi valori di job-sheets (%d > 2)."
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Impossibile riallocare il valore dell'attributo IPP."

@@ -22,11 +22,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-02 12:38-0400\n"
 "PO-Revision-Date: 2026-07-16 08:51+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/>"
-"\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/cups/cups/pt/"
+">\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -444,7 +444,8 @@ msgstr ""
 
 #, c-format
 msgid "      %s  Missing choice *%s %s in UIConstraints \"*%s %s *%s %s\"."
-msgstr "      %s  Falta a escolha de *%s %s em UIConstraints \"*%s %s *%s %s\"."
+msgstr ""
+"      %s  Falta a escolha de *%s %s em UIConstraints \"*%s %s *%s %s\"."
 
 #, c-format
 msgid "      %s  Missing choice *%s %s in cupsUIConstraints %s: \"%s\""
@@ -843,7 +844,8 @@ msgid "  -U USERNAME             Specify username."
 msgstr "  -U NOME-DE-UTILIZADOR             Especifica o nome do utilizador."
 
 msgid "  -c catalog.po           Load the specified message catalog."
-msgstr "  -c catálogo.po          Carrega o catálogo de mensagens especificado."
+msgstr ""
+"  -c catálogo.po          Carrega o catálogo de mensagens especificado."
 
 msgid "  -c cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
@@ -904,7 +906,8 @@ msgid "  -p FILENAME.ppd         Set PPD file."
 msgstr "  -p NOME-FICHEIRO.ppd         Define o ficheiro PPD."
 
 msgid "  -t                      Test PPDs instead of generating them."
-msgstr "  -t                      Testa os ficheiros PPDs ao invés de os gerar."
+msgstr ""
+"  -t                      Testa os ficheiros PPDs ao invés de os gerar."
 
 msgid "  -t TITLE                Set title."
 msgstr "  -t TITULO                Define o título."
@@ -916,7 +919,8 @@ msgid "  -v                      Be verbose."
 msgstr "  -v                      Fica detalhado."
 
 msgid "  -z                      Compress PPD files using GNU zip."
-msgstr "  -z                     Compacta os ficheiros PPD usando o zip do GNU."
+msgstr ""
+"  -z                     Compacta os ficheiros PPD usando o zip do GNU."
 
 msgid " FAIL"
 msgstr " FALHA"
@@ -1005,7 +1009,8 @@ msgstr "\"%s\": dateTime errado nos segundos %u (RFC 8011 secção 5.1.15)."
 
 #, c-format
 msgid "\"%s\": Bad enum value %d - out of range (RFC 8011 section 5.1.5)."
-msgstr "\"%s\": valor enum errado %d - fora de alcance (RFC 8011 secção 5.1.5)."
+msgstr ""
+"\"%s\": valor enum errado %d - fora de alcance (RFC 8011 secção 5.1.5)."
 
 #, c-format
 msgid ""
@@ -1190,6 +1195,10 @@ msgstr "%s (Sem borda, %s, %s)"
 #, c-format
 msgid "%s accepting requests since %s"
 msgstr "O %s a aceitar as pedidos desde %s"
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
 
 #, c-format
 msgid "%s cannot be changed."
@@ -1515,7 +1524,8 @@ msgstr "%s: Falta a versão para \"-V\"."
 
 #, c-format
 msgid "%s: Need job ID (\"-i jobid\") before \"-H restart\"."
-msgstr "%s: É necessário o ID de tarefa (\"-i jobid\") antes de \"-H restart\"."
+msgstr ""
+"%s: É necessário o ID de tarefa (\"-i jobid\") antes de \"-H restart\"."
 
 #, c-format
 msgid "%s: No filter to convert from %s/%s to %s/%s."
@@ -1724,7 +1734,8 @@ msgstr ""
 "                        Inclui apenas os esquemas de URI especificados"
 
 msgid "--ippserver filename    Produce ippserver attribute file"
-msgstr "--ippserver nome-ficheiro     Produz ficheiro de atributos de ippserver"
+msgstr ""
+"--ippserver nome-ficheiro     Produz ficheiro de atributos de ippserver"
 
 msgid "--language locale       Show models matching the given locale"
 msgstr ""
@@ -1792,7 +1803,8 @@ msgstr ""
 "saída"
 
 msgid "--release               Release previously held jobs"
-msgstr "--release               Liberta trabalhos que foram retidos previamente"
+msgstr ""
+"--release               Liberta trabalhos que foram retidos previamente"
 
 msgid "--remote                True if service is remote"
 msgstr "--remote                Verdadeiro se o serviço for remoto"
@@ -2048,7 +2060,8 @@ msgstr ""
 "-L localização                Especifica a localização textual da impressora"
 
 msgid "-M manufacturer         Set manufacturer name (default=Test)"
-msgstr "-M fabricante           Define o nome do fabricante (predefinição=Test)"
+msgstr ""
+"-M fabricante           Define o nome do fabricante (predefinição=Test)"
 
 msgid "-N name                 Match service name to literal name value"
 msgstr ""
@@ -2096,7 +2109,8 @@ msgstr ""
 "assinatura de certificado."
 
 msgid "-R name-default         Remove the default value for the named option"
-msgstr "-R name-default         Remove o valor predefinido para a opção nomeada"
+msgstr ""
+"-R name-default         Remove o valor predefinido para a opção nomeada"
 
 msgid "-R root-directory       Set alternate root"
 msgstr "-R diretório-raiz       Define um diretório raiz alternativo"
@@ -2121,7 +2135,8 @@ msgid "-T title                Specify the job title"
 msgstr "-T título               Especifica o título da tarefa"
 
 msgid "-U ORGANIZATIONAL-UNIT         Set organizational unit name."
-msgstr "-U UNIDADE-ORGANIZADORA        Define o nome da unidade de organização."
+msgstr ""
+"-U UNIDADE-ORGANIZADORA        Define o nome da unidade de organização."
 
 msgid "-U username             Specify the username to use for authentication"
 msgstr ""
@@ -2147,8 +2162,8 @@ msgid ""
 "translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
-"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}"
-"\n"
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
+"translations}\n"
 "                          Emite avisos em vez de mensagens de erros"
 
 msgid "-X                      Produce XML plist instead of plain text"
@@ -2607,7 +2622,8 @@ msgid "-vv                     Be very verbose"
 msgstr "-vv                     Fica muito mais detalhado"
 
 msgid "-x                      Purge jobs rather than just canceling"
-msgstr "-x                      Purga os trabalhos em vez de apenas os cancelar"
+msgstr ""
+"-x                      Purga os trabalhos em vez de apenas os cancelar"
 
 msgid "-x destination          Remove default options for destination"
 msgstr "-x destino              Remove as opções predefinidas do destino"
@@ -3383,10 +3399,6 @@ msgstr "Argumentos para função errados"
 msgid "Bad certificate."
 msgstr "Certificado errado."
 
-#, c-format
-msgid "Bad copies value %d."
-msgstr "Valor de cópias errado %d."
-
 msgid "Bad custom parameter"
 msgstr "Parâmetro personalizado errado"
 
@@ -3415,22 +3427,8 @@ msgstr "Buffer de nome de ficheiro errado"
 msgid "Bad hostname/address in URI"
 msgstr "Nome da máquina/endereço em URI errado"
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr "Valor de job-name errado: %s"
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr "Valor de job-name errado: Tipo de contagem errado."
-
 msgid "Bad job-priority value."
 msgstr "Valor de prioridade de tarefa errado."
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr "Valor de job-sheets errado \"%s\"."
-
-msgid "Bad job-sheets value type."
-msgstr "Tipo de valor de job-sheets errado."
 
 msgid "Bad job-state value."
 msgstr "Valor de estado de tarefa errado."
@@ -3457,14 +3455,6 @@ msgstr "URI de notify-recipient-uri errado \"%s\"."
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "notify-user-data errado \"%s\"."
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "Valor de number-up errado %d."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "Valores de page-ranges errados %d-%d."
 
 msgid "Bad port number in URI"
 msgstr "Número de porto em URI errado"
@@ -3541,6 +3531,12 @@ msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Não pode partilhar uma impressora de acesso remoto pelo Kerberos."
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
+msgstr ""
 
 msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
@@ -3626,8 +3622,8 @@ msgstr "As credenciais não são assinadas por CA."
 msgid "Credentials are unknown/new."
 msgstr "As credenciais são desconhecidas/novas."
 
-msgid "Credentials do not validate against site CA certificate."
-msgstr "As credenciais não são válidas para o certificado CA do site."
+msgid "Credentials do not validate against CA certificates."
+msgstr ""
 
 msgid "Credentials have been renewed."
 msgstr "As credenciais foram renovadas."
@@ -5244,10 +5240,6 @@ msgid "Too many active jobs."
 msgstr "Demasiados trabalhos ativos."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr "Demasiados valores no job-sheets (%d > 2)."
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Demasiados valores no printer-state-reasons (%d > %d)."
 
@@ -5682,6 +5674,10 @@ msgid "Unsupported \"attributes-charset\" value '%s'."
 msgstr "Valor de \"attributes-charset\" não suportado '%s'."
 
 #, c-format
+msgid "Unsupported '%s' value."
+msgstr ""
+
+#, c-format
 msgid "Unsupported 'compression' value \"%s\"."
 msgstr "O valor \"%s\" de 'compression' não é suportado."
 
@@ -5728,7 +5724,8 @@ msgstr ""
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr "O valor %s de borda de página não é suportado, a usar page-border=none."
+msgstr ""
+"O valor %s de borda de página não é suportado, a usar page-border=none."
 
 msgid "Unsupported raster data."
 msgstr "Os dados de rastreio não são suportados."
@@ -5775,8 +5772,8 @@ msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Utilização: cupstestppd [opções] nome-ficheiro1.ppd[.gz] [... nome-"
-"ficheiroN.ppd[.gz]]\n"
+"Utilização: cupstestppd [opções] nome-ficheiro1.ppd[.gz] [... nome-ficheiroN."
+"ppd[.gz]]\n"
 "     program | cupstestppd [opções] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
@@ -5933,7 +5930,8 @@ msgstr "Não pode aceder a esta página."
 
 #, c-format
 msgid "You must access this page using the URL https://%s:%d%s."
-msgstr "Tem que aceder a esta página utilizando o endereço URL https://%s:%d%s."
+msgstr ""
+"Tem que aceder a esta página utilizando o endereço URL https://%s:%d%s."
 
 msgid "Your account does not have the necessary privileges."
 msgstr "A sua conta não possui os privilégios necessários."
@@ -7780,7 +7778,8 @@ msgstr ""
 "autorização"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
-msgstr "get-device-grant [RECURSO]    Autoriza acesso através de um dispositivo"
+msgstr ""
+"get-device-grant [RECURSO]    Autoriza acesso através de um dispositivo"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
@@ -7922,8 +7921,8 @@ msgid ""
 "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
 "and \"-X\"."
 msgstr ""
-"ipptool: \"-i\" e \"-n\" são incompatíveis com \"--ippserver\", \"-P\" e \"-"
-"X\"."
+"ipptool: \"-i\" e \"-n\" são incompatíveis com \"--ippserver\", \"-P\" e \"-X"
+"\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr "ipptool: \"-i\" e \"-n\" são incompatíveis com \"-P\" e \"-X\"."
@@ -8843,7 +8842,8 @@ msgid "lpinfo: Expected make and model after \"--make-and-model\"."
 msgstr "lpinfo: Esperado a marca e o modelo após \"--make-and-model\"."
 
 msgid "lpinfo: Expected product string after \"--product\"."
-msgstr "lpinfo: Esperada sequência de caracteres do produto após \"--product\"."
+msgstr ""
+"lpinfo: Esperada sequência de caracteres do produto após \"--product\"."
 
 msgid "lpinfo: Expected scheme list after \"--exclude-schemes\"."
 msgstr "lpinfo: Esperado a lista de esquemas após \"--exclude-schemes\"."
@@ -11992,7 +11992,8 @@ msgstr "ppdc: Esperado tipo de opção na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
-msgstr "ppdc: Esperado campo de sobreposição após Resolution na linha %d de %s."
+msgstr ""
+"ppdc: Esperado campo de sobreposição após Resolution na linha %d de %s."
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
@@ -16222,8 +16223,41 @@ msgstr "Ficheiro ~/.cups/lpoptions declara destino predefinido que não existe."
 #~ msgid "Attribute \"%s\" has empty value."
 #~ msgstr "O atributo \"%s\" tem uma valor vazio."
 
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "Valor de cópias errado %d."
+
+#, c-format
+#~ msgid "Bad job-name value: %s"
+#~ msgstr "Valor de job-name errado: %s"
+
+#~ msgid "Bad job-name value: Wrong type or count."
+#~ msgstr "Valor de job-name errado: Tipo de contagem errado."
+
+#, c-format
+#~ msgid "Bad job-sheets value \"%s\"."
+#~ msgstr "Valor de job-sheets errado \"%s\"."
+
+#~ msgid "Bad job-sheets value type."
+#~ msgstr "Tipo de valor de job-sheets errado."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "Valor de number-up errado %d."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "Valores de page-ranges errados %d-%d."
+
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
+
+#~ msgid "Credentials do not validate against site CA certificate."
+#~ msgstr "As credenciais não são válidas para o certificado CA do site."
+
+#, c-format
+#~ msgid "Too many job-sheets values (%d > 2)."
+#~ msgstr "Demasiados valores no job-sheets (%d > 2)."
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Não foi possível realocar o valor do atributo do IPP."
