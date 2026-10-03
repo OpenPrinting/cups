@@ -351,7 +351,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
   authorization = httpGetField(con->http, HTTP_FIELD_AUTHORIZATION);
 
-  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cookie=\"%s\"", httpGetCookie(con->http));
+  cupsdLogClient(con, CUPSD_LOG_DEBUG2, "Has-Cookie=%s", httpGetCookie(con->http) ? "yes" : "no");
 
   bearer[0] = '\0';
 
