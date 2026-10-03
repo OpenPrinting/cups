@@ -353,6 +353,8 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
 
   cupsdLogClient(con, CUPSD_LOG_DEBUG2, "cookie=\"%s\"", httpGetCookie(con->http));
 
+  bearer[0] = '\0';
+
   if (!*authorization && httpGetCookieValue(con->http, "CUPS_BEARER", bearer, sizeof(bearer)) && bearer[0])
     authorization = "Bearer COOKIE";
 
@@ -746,7 +748,15 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
       authorization ++;
 
     if (!strcmp(authorization, "COOKIE"))
-      authorization = bearer;		// Use the cookie value for authorization
+    {
+      if (!bearer[0])
+      {
+        cupsdLogClient(con, CUPSD_LOG_ERROR, "No bearer token cookie.");
+        return;
+      }
+
+      authorization = bearer;         // Use the cookie value for authorization
+    }
 
     // Decode and validate the JWT...
     if ((jwt = cupsOAuthGetUserId(OAuthServer, OAuthMetadata, authorization)) == NULL)
