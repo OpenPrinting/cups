@@ -507,7 +507,7 @@ cgiSetCookie(const char *name,		/* I - Name */
 	     time_t     expires,	/* I - Expiration date (0 for session) */
 	     int        secure)		/* I - Require SSL */
 {
-  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=\"%s\", path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value, path, domain, (long)expires, secure);
+  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=%s, path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value && *value ? "(set)" : "(empty)", path, domain, (long)expires, secure);
 
   num_cookies = cupsAddOption(name, value, num_cookies, &cookies);
 
