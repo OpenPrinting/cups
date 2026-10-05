@@ -976,14 +976,14 @@ cupsJSONImportString(const char *s)	// I - JSON string
               // embed plane N Unicode characters in 12 bytes instead of 4...
               int	lch;		// "Lower" surrogate
 
-              if (strncmp(s, "\\u", 2) || !isxdigit(s[2] & 255) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255) || !isxdigit(s[5] & 255))
+              if (strncmp(s + 1, "\\u", 2) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255) || !isxdigit(s[5] & 255) || !isxdigit(s[6] & 255))
               {
 		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
 		goto error;
               }
 
               // Grab the second escaped Unicode character...
-              for (s ++, lch = 0, digit = 0; digit < 4; digit ++)
+              for (s += 2, lch = 0, digit = 0; digit < 4; digit ++)
               {
                 // Already know we have "\uXXXX"...
                 s ++;
@@ -1002,7 +1002,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	      }
 
 	      // Combine to form a single 20-bit Unicode character...
-	      ch = 0x10000 | ((ch - 0xd800) << 10) | (lch - 0xdc00);
+	      ch = 0x10000 + (((ch - 0xd800) << 10) | (lch - 0xdc00));
 	    }
 
 	    // Validate the Unicode character...
