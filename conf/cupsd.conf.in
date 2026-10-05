@@ -105,6 +105,7 @@ WebInterface @CUPS_WEBIF@
     Order deny,allow
   </Limit>
 
+  # Anyone can get printer information or do other unlimited operations
   <Limit All>
     Order deny,allow
   </Limit>
@@ -151,7 +152,14 @@ WebInterface @CUPS_WEBIF@
     Order deny,allow
   </Limit>
 
+  # Anyone can get printer information
+  <Limit Get-Printer-Attributes CUPS-Get-Classes CUPS-Get-Default CUPS-Get-Printers>
+    Order deny,allow
+  </Limit>
+
+  # Require authorization for any operation not listed
   <Limit All>
+    AuthType Default
     Order deny,allow
   </Limit>
 </Policy>
@@ -197,7 +205,14 @@ WebInterface @CUPS_WEBIF@
     Order deny,allow
   </Limit>
 
+  # Anyone can get printer information
+  <Limit Get-Printer-Attributes CUPS-Get-Classes CUPS-Get-Default CUPS-Get-Printers>
+    Order deny,allow
+  </Limit>
+
+  # Require authorization for any operation not listed
   <Limit All>
+    AuthType Negotiate
     Order deny,allow
   </Limit>
 </Policy>
