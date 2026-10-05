@@ -1128,7 +1128,7 @@ cupsSignCredentialsRequest(
     return (false);
   }
 
-  if (X509_REQ_verify(crq, X509_REQ_get_pubkey(crq)) < 0)
+  if (X509_REQ_verify(crq, X509_REQ_get_pubkey(crq)) <= 0)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to verify X.509 certificate request."), 1);
     goto done;
