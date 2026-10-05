@@ -2,7 +2,7 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
-v2.4.20 - YYYY-MM-DD
+v2.4.20 - 2026-10-05
 --------------------
 
 - SECURITY-5.7: The scheduler did not open temporary PPD files in exclusive
