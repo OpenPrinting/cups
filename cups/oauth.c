@@ -1369,12 +1369,12 @@ cupsOAuthGetTokens(
   {
     // Validate the JWT
     cups_json_t	*jwks;			// JWT key set
-    bool	valid_aud,		// Valid audience?
+    bool	valid_aud = false,	// Valid audience?
 		valid_token;		// Valid id_token?
     char	*client_id;		// Client ID
+    cups_json_t	*aud;			// "aud" (audience) claim
     const char	*iss,			// "iss" (issuer) claim
 		*issuer,		// "issuer" metadata
-		*aud,			// "aud" (audience) claim
 		*at_hash;		// "at_hash" claim
     double	exp;			// "exp" claim
 
@@ -1407,10 +1407,31 @@ cupsOAuthGetTokens(
       goto done;
 
     // Validate audience
-    client_id = cupsOAuthCopyClientId(auth_uri, redirect_uri);
-    aud       = cupsJWTGetClaimString(jwt, CUPS_JWT_AUD);
-    valid_aud = aud && client_id && !strcmp(aud, client_id);
+    if ((client_id = cupsOAuthCopyClientId(auth_uri, redirect_uri)) != NULL &&
+        (aud = cupsJWTGetClaimValue(jwt, CUPS_JWT_AUD)) != NULL)
+    {
+      if (cupsJSONGetType(aud) == CUPS_JTYPE_ARRAY)
+      {
+        // Array of strings for audience...
+        size_t		i,		// Looping var
+			count;		// Number of children
+	cups_json_t	*child;		// Child value
+
+        for (i = 0, count = cupsJSONGetCount(aud); i < count && !valid_aud; i ++)
+        {
+          if ((child = cupsJSONGetChild(aud, i)) != NULL && cupsJSONGetType(child) == CUPS_JTYPE_STRING)
+	    valid_aud = !strcmp(cupsJSONGetString(child), client_id);
+        }
+      }
+      else if (cupsJSONGetType(aud) == CUPS_JTYPE_STRING)
+      {
+        // Single string value for audience...
+	valid_aud = !strcmp(cupsJSONGetString(aud), client_id);
+      }
+    }
+
     free(client_id);
+
     if (!valid_aud)
       goto done;
 
