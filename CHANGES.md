@@ -28,6 +28,8 @@ v2.4.20 - YYYY-MM-DD
 - SECURITY-2.5: The scheduler did not sanitize fax numbers (CVE-2026-55467)
 - SECURITY-2.5: The 'mailto' notifier did not sanitize the recipient address
   provided to the sendmail command (CVE-2026-105326)
+- SECURITY-2.3: The scheduler could crash when modifying a class
+  (GHSA-pwg4-pv39-8c22)
 - Increased the size of the SNMP supply name buffer used by the network backends
   (Issue #1604)
 - The USB backend now clears a halt on USB errors (Issue #1606)

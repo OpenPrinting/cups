@@ -980,6 +980,8 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
     if (pclass->num_printers > 0)
     {
       free(pclass->printers);
+
+      pclass->printers     = NULL;
       pclass->num_printers = 0;
     }
 
