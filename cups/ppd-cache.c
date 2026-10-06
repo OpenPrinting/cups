@@ -2082,7 +2082,7 @@ _ppdCacheCreateWithPPD(ppd_file_t *ppd)	/* I - PPD file */
 void
 _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
 {
-  int		i;			/* Looping var */
+  int		i, j;			/* Looping vars */
   pwg_map_t	*map;			/* Current map */
   pwg_size_t	*size;			/* Current size */
 
@@ -2168,11 +2168,14 @@ _ppdCacheDestroy(_ppd_cache_t *pc)	/* I - PPD cache and mapping data */
 
   cupsArrayDelete(pc->templates);
 
-  for (i = _PWG_PRINT_COLOR_MODE_MONOCHROME;
-       i < _PWG_PRINT_COLOR_MODE_MAX; i ++)
-    for (int j = _PWG_PRINT_QUALITY_DRAFT; j < _PWG_PRINT_QUALITY_MAX; j ++)
+  for (i = _PWG_PRINT_COLOR_MODE_MONOCHROME; i < _PWG_PRINT_COLOR_MODE_MAX; i ++)
+  {
+    for (j = _PWG_PRINT_QUALITY_DRAFT; j < _PWG_PRINT_QUALITY_MAX; j ++)
+    {
       if (pc->num_presets[i][j])
 	cupsFreeOptions(pc->num_presets[i][j], pc->presets[i][j]);
+    }
+  }
 
   free(pc);
 }
