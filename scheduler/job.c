@@ -287,17 +287,19 @@ cupsdCheckJobs(void)
 	* the job so we can start printing...
 	*/
 
-        cupsd_client_t	*con;		/* Current client connection */
+        if (curtime < job->pending_timeout)
+        {
+	  cupsd_client_t	*con;		/* Current client connection */
 
-	for (con = (cupsd_client_t *)cupsArrayFirst(Clients);
-	     con;
-	     con = (cupsd_client_t *)cupsArrayNext(Clients))
-	  if (con->request &&
-	      con->request->request.op.operation_id == IPP_SEND_DOCUMENT)
-	    break;
+	  for (con = (cupsd_client_t *)cupsArrayFirst(Clients); con; con = (cupsd_client_t *)cupsArrayNext(Clients))
+	  {
+	    if (con->request && con->request->request.op.operation_id == IPP_SEND_DOCUMENT)
+	      break;
+	  }
 
-        if (con)
-	  continue;
+	  if (con)
+	    continue;
+	}
 
         if (cupsdTimeoutJob(job))
 	  continue;
@@ -306,7 +308,9 @@ cupsdCheckJobs(void)
 	cupsdLogJob(job, CUPSD_LOG_ERROR, "Job submission timed out.");
       }
       else
+      {
 	cupsdSetJobState(job, IPP_JOB_PENDING, CUPSD_JOB_DEFAULT, "Job hold expired.");
+      }
     }
 
    /*

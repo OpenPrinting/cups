@@ -5277,7 +5277,7 @@ create_job(cupsd_client_t  *con,	/* I - Client connection */
   if ((job = add_job(con, printer, NULL)) == NULL)
     return;
 
-  job->pending_timeout = 1;
+  job->pending_timeout = time(NULL) + MultipleOperationTimeout;
 
  /*
   * Save and log the job...

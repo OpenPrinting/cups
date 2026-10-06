@@ -30,7 +30,7 @@ struct cupsd_job_s			/**** Job request ****/
 			priority,	/* Job priority */
 			dirty;		/* Do we need to write the "c" file? */
   ipp_jstate_t		state_value;	/* Cached job-state */
-  int			pending_timeout;/* Non-zero if the job was created and
+  time_t		pending_timeout;/* Non-zero if the job was created and
 					 * waiting on files */
   char			*username;	/* Printing user */
   char			*dest;		/* Destination printer or class */
