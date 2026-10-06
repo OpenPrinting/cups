@@ -850,7 +850,10 @@ httpGetDateTime(const char *s)		/* I - Date/time string */
   * Check for invalid year (RFC 7231 says it's 4DIGIT)
   */
 
-  if (year > 9999)
+  if (year < 0 || year > 9999)
+    return (0);
+
+  if (day < 1 || day > 31 || hour < 0 || hour > 23 || min < 0 || min > 59 || sec < 0 || sec > 60)
     return (0);
 
  /*
