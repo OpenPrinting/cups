@@ -2,6 +2,12 @@ CHANGES - OpenPrinting CUPS
 ===========================
 
 
+v2.4.21 - YYYY-MM-DD
+--------------------
+
+- Fixed regression in mailto notifier address validation (Issue #1744)
+
+
 v2.4.20 - 2026-10-05
 --------------------
 
