@@ -1,4 +1,3 @@
-#
 # Swedish message catalog for CUPS.
 #
 # Copyright © 2025 by OpenPrinting.
@@ -241,17 +240,16 @@ msgstr ""
 
 #, c-format
 msgid ""
-"        WARN    Duplex option keyword %s may not work as expected and should "
-"be named Duplex.\n"
+"        WARN    Duplex option keyword %s may not work as expected and should be named Duplex.\n"
 "                REF: Page 122, section 5.17"
 msgstr ""
-"        WARN    Duplex-alternativets nyckelord %s kanske inte fungerar som "
-"väntat och bör kallas Duplex.\n"
+"        WARN    Duplex-alternativets nyckelord %s kanske inte fungerar som väntat och bör kallas Duplex.\n"
 "                REF: Sida 122, avsnitt 5.17"
 
 msgid "        WARN    File contains a mix of CR, LF, and CR LF line endings."
 msgstr ""
-"        WARN    Filen innehåller en blandning av CR, LF, och CR LF radavslut."
+"        WARN    Filen innehåller en blandning av CR-, LF- och CR LF-"
+"radavslut."
 
 msgid ""
 "        WARN    LanguageEncoding required by PPD 4.3 spec.\n"
@@ -290,8 +288,7 @@ msgid ""
 "        WARN    PCFileName longer than 8.3 in violation of PPD spec.\n"
 "                REF: Pages 61-62, section 5.3."
 msgstr ""
-"        WARN    PCFileName längre än 8.3 vilket bryter mot PPD-"
-"specifikationerna.\n"
+"        WARN    PCFileName längre än 8.3 vilket bryter mot PPD-specifikationerna.\n"
 "                REF: Sidor 61-62, avsnitt 5.3."
 
 msgid ""
@@ -615,8 +612,8 @@ msgid ""
 "      **FAIL**  Default translation string for option %s contains 8-bit "
 "characters."
 msgstr ""
-"      **FEL**  Förvald översättningssträng för alternativ %s innehåller 8-"
-"bitars tecken."
+"      **FEL**  Förvald översättningssträng för alternativ %s innehåller "
+"8-bitars tecken."
 
 #, c-format
 msgid "      **FAIL**  Group names %s and %s differ only by case."
@@ -837,16 +834,15 @@ msgstr "  -d output-dir           Ange mapp för utdata."
 msgid "  -e                      Use every filter from the PPD file."
 msgstr "  -e                      Använd alla filter från PPD-filen."
 
-#, fuzzy
 msgid "  -i MIME/TYPE            Set input MIME type (otherwise auto-typed)."
-msgstr "  -i mime/type            Ange indatans MIME-typ (auto-typas annars)."
+msgstr "  -i MIME/TYPE            Ange MIME-indatatyp (autotypas annars)."
 
-#, fuzzy
 msgid ""
 "  -j JOB-ID[,N]           Filter file N from the specified job (default is "
 "file 1)."
 msgstr ""
-"  -j jobb-id[,N]          Filtrera fil N från angivet jobb (förval är fil 1)."
+"  -j JOB-ID[,N]           Filtrera fil N från angivet jobb (standard är fil "
+"1)."
 
 msgid "  -l lang[,lang,...]      Specify the output language(s) (locale)."
 msgstr "  -l språk[,språk,...]    Ange språk för utdatan (lokal)."
@@ -854,19 +850,16 @@ msgstr "  -l språk[,språk,...]    Ange språk för utdatan (lokal)."
 msgid "  -m                      Use the ModelName value as the filename."
 msgstr "  -m                      Använd värdet ModelName som filnamn."
 
-#, fuzzy
 msgid ""
 "  -m MIME/TYPE            Set output MIME type (otherwise application/pdf)."
 msgstr ""
-"  -m mime/type            Ange utdatans MIME-typ (annars application/pdf)."
+"  -m MIME/TYPE            Ange MIME-utdatatyp (annars application/pdf)."
 
-#, fuzzy
 msgid "  -n COPIES               Set number of copies."
-msgstr "  -n exemplar             Ange antal exemplar."
+msgstr "  -n COPIES               Ange antal kopior."
 
-#, fuzzy
 msgid "  -o NAME=VALUE           Set option(s)."
-msgstr "  -o namn=värde           Ange alternativ."
+msgstr "  -o NAME=VALUE           Ange flagga eller flaggor."
 
 msgid ""
 "  -o filename.drv         Set driver information file (otherwise ppdi.drv)."
@@ -886,7 +879,8 @@ msgid "  -t TITLE                Set title."
 msgstr "  -t TITEL                Ange titel."
 
 msgid "  -u                      Remove the PPD file when finished."
-msgstr "  -u                      Ta bort PPD-fil när uppgiften har slutförts."
+msgstr ""
+"  -u                      Ta bort PPD-fil när uppgiften har slutförts."
 
 msgid "  -v                      Be verbose."
 msgstr "  -v                      Var utförlig."
@@ -909,36 +903,31 @@ msgstr "\"%s\": Dåligt URI-värde \"%s\" - %s (RFC 8011 avsnitt 5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."
-msgstr ""
-"\"%s\": Dåligt URI-värde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.6)."
+msgstr "\"%s\": Dåligt URI-värde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.6)."
 
 #, c-format
 msgid "\"%s\": Bad attribute name - bad length %d (RFC 8011 section 5.1.4)."
 msgstr "\"%s\": Dåligt attributnamn - dålig längd %d (RFC 8011 avsnitt 5.1.4)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
-msgstr ""
-"\"%s\": Dåligt attributnamn - ogiltigt tecken (RFC 8011 avsnitt 5.1.4)."
+msgid "\"%s\": Bad attribute name - invalid character (RFC 8011 section 5.1.4)."
+msgstr "\"%s\": Dåligt attributnamn - ogiltigt tecken (RFC 8011 avsnitt 5.1.4)."
 
 #, c-format
 msgid "\"%s\": Bad boolean value %d (RFC 8011 section 5.1.21)."
 msgstr "\"%s\": Dåligt booleskt värde %d (RFC 8011 avsnitt 5.1.21)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
+msgid "\"%s\": Bad charset value \"%s\" - bad characters (RFC 8011 section 5.1.8)."
 msgstr ""
 "\"%s\": Dåligt teckenuppsättningsvärde \"%s\" - dåliga tecken (RFC 8011 "
 "avsnitt 5.1.8)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
+msgid "\"%s\": Bad charset value \"%s\" - bad length %d (RFC 8011 section 5.1.8)."
 msgstr ""
-"\"%s\": Dåligt värde för teckenuppsättning \"%s\" - dålig längd %d (RFC 8011 "
-"avsnitt 5.1.8)."
+"\"%s\": Dåligt värde för teckenuppsättning \"%s\" - dålig längd %d (RFC 8011"
+" avsnitt 5.1.8)."
 
 #, c-format
 msgid "\"%s\": Bad dateTime UTC hours %u (RFC 8011 section 5.1.15)."
@@ -982,16 +971,13 @@ msgstr ""
 "\"%s\": Dåligt enum-värde %d - utanför intervall (RFC 8011 avsnitt 5.1.5)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
+msgid "\"%s\": Bad keyword value \"%s\" - bad length %d (RFC 8011 section 5.1.4)."
 msgstr ""
 "\"%s\": Dåligt keyword-värde \"%s\" - dålig längd %d (RFC 8011 avsnitt "
 "5.1.4)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section "
-"5.1.4)."
+msgid "\"%s\": Bad keyword value \"%s\" - invalid character (RFC 8011 section 5.1.4)."
 msgstr ""
 "\"%s\": Dåligt keyword-värde \"%s\" - ogiltigt tecken (RFC 8011 avsnitt "
 "5.1.4)."
@@ -1009,12 +995,11 @@ msgid ""
 "\"%s\": Bad mimeMediaType value \"%s\" - bad length %d (RFC 8011 section "
 "5.1.10)."
 msgstr ""
-"\"%s\": Dåligt mimeMediaType-värde \"%s\" - dålig längd %d (RFC 8011 avsnitt "
-"5.1.10)."
+"\"%s\": Dåligt mimeMediaType-värde \"%s\" - dålig längd %d (RFC 8011 avsnitt"
+" 5.1.10)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
+msgid "\"%s\": Bad name value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.3)."
 msgstr ""
 "\"%s\": Dåligt name-värde \"%s\" - dålig UTF-8-sekvens (RFC 8011 avsnitt "
 "5.1.3)."
@@ -1029,8 +1014,7 @@ msgstr ""
 
 #, c-format
 msgid "\"%s\": Bad name value \"%s\" - bad length %d (RFC 8011 section 5.1.3)."
-msgstr ""
-"\"%s\": Dåligt namnvärde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.3)."
+msgstr "\"%s\": Dåligt namnvärde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.3)."
 
 #, c-format
 msgid ""
@@ -1049,8 +1033,7 @@ msgstr ""
 "avsnitt 5.1.9)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
+msgid "\"%s\": Bad octetString value - bad length %d (RFC 8011 section 5.1.20)."
 msgstr ""
 "\"%s\": Dåligt värde för octetString - dålig längd %d (RFC 8011 avsnitt "
 "5.1.20)."
@@ -1081,15 +1064,14 @@ msgstr ""
 
 #, c-format
 msgid ""
-"\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC "
-"8011 section 5.1.16)."
+"\"%s\": Bad resolution value %dx%d%s - feed resolution must be positive (RFC"
+" 8011 section 5.1.16)."
 msgstr ""
-"\"%s\": Dåligt upplösningsvärde %dx%d%s - flödesupplösning måste ha positiva "
-"värden (RFC 8011 avsnitt 5.1.16)."
+"\"%s\": Dåligt upplösningsvärde %dx%d%s - flödesupplösning måste ha positiva"
+" värden (RFC 8011 avsnitt 5.1.16)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
+msgid "\"%s\": Bad text value \"%s\" - bad UTF-8 sequence (RFC 8011 section 5.1.2)."
 msgstr ""
 "\"%s\": Dåligt textvärde \"%s\" - dålig UTF-8-sekvens (RFC 8011 avsnitt "
 "5.1.2)."
@@ -1099,27 +1081,24 @@ msgid ""
 "\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section "
 "8.3)."
 msgstr ""
-"\"%s\": Dåligt textvärde \"%s\" - dåligt kontrolltecken (PWG 5100.14 avsnitt "
-"8.3)."
+"\"%s\": Dåligt textvärde \"%s\" - dåligt kontrolltecken (PWG 5100.14 avsnitt"
+" 8.3)."
 
 #, c-format
 msgid "\"%s\": Bad text value \"%s\" - bad length %d (RFC 8011 section 5.1.2)."
-msgstr ""
-"\"%s\": Dåligt textvärde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.2)."
+msgstr "\"%s\": Dåligt textvärde \"%s\" - dålig längd %d (RFC 8011 avsnitt 5.1.2)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
+msgid "\"%s\": Bad uriScheme value \"%s\" - bad characters (RFC 8011 section 5.1.7)."
 msgstr ""
 "\"%s\": Dåligt värde för uriScheme \"%s\" - dåliga tecken (RFC 8011 avsnitt "
 "5.1.7)."
 
 #, c-format
-msgid ""
-"\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
+msgid "\"%s\": Bad uriScheme value \"%s\" - bad length %d (RFC 8011 section 5.1.7)."
 msgstr ""
-"\"%s\": Dåligt värde för uriScheme \"%s\" - dålig längd %d (RFC 8011 avsnitt "
-"5.1.7)."
+"\"%s\": Dåligt värde för uriScheme \"%s\" - dålig längd %d (RFC 8011 avsnitt"
+" 5.1.7)."
 
 msgid "\"requesting-user-name\" attribute in wrong group."
 msgstr "Attribut \"requesting-user-name\" i fel grupp."
@@ -1166,6 +1145,7 @@ msgstr "%s tar emot begäran sedan %s"
 #, c-format
 msgid "%s attributes cannot be supplied in a job creation request."
 msgstr ""
+"Attribut av typen %s kan inte anges i en begäran om att skapa ett jobb."
 
 #, c-format
 msgid "%s cannot be changed."
@@ -1222,7 +1202,7 @@ msgstr "%s: %s misslyckades: %s"
 
 #, c-format
 msgid "%s: '-i' and '-n' are incompatible with '--ippfile', '-P', and '-X'."
-msgstr ""
+msgstr "%s: '-i' och '-n' kan inte användas med '--ippfile', '-P' och '-X'."
 
 #, c-format
 msgid "%s: Bad version %s for \"-V\"."
@@ -1237,10 +1217,8 @@ msgid "%s: Error - %s"
 msgstr "%s: Fel - %s"
 
 #, c-format
-msgid ""
-"%s: Error - %s environment variable names non-existent destination \"%s\"."
-msgstr ""
-"%s: Fel - miljövariabeln %s nämner icke-existerande destination \"%s\"."
+msgid "%s: Error - %s environment variable names non-existent destination \"%s\"."
+msgstr "%s: Fel - miljövariabeln %s nämner icke-existerande destination \"%s\"."
 
 #, c-format
 msgid "%s: Error - The printer or class does not exist."
@@ -1395,13 +1373,13 @@ msgstr "%s: Fel - användarnamn förväntades efter alternativet \"-u\"."
 msgid "%s: Error - expected value after \"-%c\" option."
 msgstr "%s: Fel - värde förväntades efter alternativet \"-%c\"."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"%s: Error - need \"completed\", \"not-completed\", \"successful\", or \"all"
-"\" after \"-W\" option."
+"%s: Error - need \"completed\", \"not-completed\", \"successful\", or "
+"\"all\" after \"-W\" option."
 msgstr ""
-"%s: Fel - \"completed\", \"not-completed\", eller \"all\" behövs efter "
-"alternativet \"-W\"."
+"%s: Fel – \"completed\", \"not-completed\", \"successful\" eller \"all\" "
+"krävs efter flaggan \"-W\"."
 
 #, c-format
 msgid "%s: Error - no default destination available."
@@ -1453,7 +1431,7 @@ msgstr "%s: Jobb-ID förväntades efter alternativet \"-i\"."
 
 #, c-format
 msgid "%s: File '%s' is too large to load in memory."
-msgstr ""
+msgstr "%s: Filen '%s' är för stor för att läsas in i minnet."
 
 #, c-format
 msgid "%s: Invalid destination name in list \"%s\"."
@@ -1463,9 +1441,9 @@ msgstr "%s: Ogiltig destinationsnamn i listan \"%s\"."
 msgid "%s: Invalid filter string \"%s\"."
 msgstr "%s: Ogiltig filtersträng \"%s\"."
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Missing client name after '--client-name'."
-msgstr "%s: Filnamn saknas för \"-P\"."
+msgstr "%s: klientnamn saknas efter '--client-name'."
 
 #, c-format
 msgid "%s: Missing filename for \"-P\"."
@@ -1481,7 +1459,7 @@ msgstr "%s: Saknar ord efter växeln \"--bearer-token\"."
 
 #, c-format
 msgid "%s: Missing user agent after '--user-agent'."
-msgstr ""
+msgstr "%s: Användaragent saknas efter '--user-agent'."
 
 #, c-format
 msgid "%s: Missing version for \"-V\"."
@@ -1499,17 +1477,17 @@ msgstr "%s: Inget filter att konvertera från %s/%s till %s/%s."
 msgid "%s: Operation failed: %s"
 msgstr "%s: Åtgärd misslyckades: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "%s: Scheduler is not running."
-msgstr "%s: schemaläggare körs inte"
+msgstr "%s: schemaläggaren körs inte."
 
 #, c-format
 msgid "%s: Unable to access '%s': %s"
-msgstr ""
+msgstr "%s: Det går inte att komma åt '%s': %s"
 
 #, c-format
 msgid "%s: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "%s: Det gick inte att allokera minne för '%s': %s"
 
 #, c-format
 msgid "%s: Unable to connect to server."
@@ -1533,7 +1511,7 @@ msgstr "%s: Kan inte öppna %s: %s"
 
 #, c-format
 msgid "%s: Unable to open '%s': %s"
-msgstr ""
+msgstr "%s: Det gick inte att öppna '%s': %s"
 
 #, c-format
 msgid "%s: Unable to open PPD file: %s on line %d."
@@ -1541,7 +1519,7 @@ msgstr "%s: Kan inte öppna PPD-fil: %s på rad %d."
 
 #, c-format
 msgid "%s: Unable to read '%s': %s"
-msgstr ""
+msgstr "%s: Det gick inte att läsa '%s': %s"
 
 #, c-format
 msgid "%s: Unable to read MIME database from \"%s\" or \"%s\"."
@@ -1631,12 +1609,12 @@ msgstr "--[no-]share-printers   Växla skrivardelning på/av"
 msgid "--[no-]user-cancel-any  Allow/prevent users to cancel any job"
 msgstr "--[no-]user-cancel-any  Tillåt/förbjud användare att avbryta jobb"
 
-#, fuzzy
 msgid ""
 "--bearer-token BEARER-TOKEN\n"
 "                        Set the OAuth Bearer token for authentication"
 msgstr ""
-"-U username             Ange användarnamn att använda för autentisering"
+"--bearer-token BEARER-TOKEN\n"
+"                        Ange OAuth Bearer-token för autentisering"
 
 msgid ""
 "--client-name CLIENT-NAME\n"
@@ -1648,8 +1626,8 @@ msgstr ""
 msgid ""
 "--device-id device-id   Show models matching the given IEEE 1284 device ID"
 msgstr ""
-"--device-id device-id   Visa modeller som matcher den givna IEEE 1284 enhets-"
-"ID:n"
+"--device-id device-id   Visa modeller som matcher den givna IEEE 1284 "
+"enhets-ID:n"
 
 msgid "--domain regex          Match domain to regular expression"
 msgstr "--domain regex          Matcha domän mot regeluttryck"
@@ -1677,9 +1655,8 @@ msgstr "--help                         Visa den här hjälptexten"
 msgid "--help                  Show program help"
 msgstr "--help                  Visa hjälp om programmet"
 
-#, fuzzy
 msgid "--help                  Show this help"
-msgstr "--help                  Visa hjälp om programmet"
+msgstr "--help                  Visa denna hjälp"
 
 msgid "--hold                  Hold new jobs"
 msgstr "--hold                  Håll nya jobb"
@@ -1778,8 +1755,8 @@ msgid ""
 "--timeout seconds       Specify the maximum number of seconds to discover "
 "devices"
 msgstr ""
-"--timeout seconds       Specificera maximalt antal sekunder för att upptäcka "
-"enheter"
+"--timeout seconds       Specificera maximalt antal sekunder för att upptäcka"
+" enheter"
 
 msgid "--true                  Always true"
 msgstr "--true                  Alltid sant"
@@ -1794,7 +1771,7 @@ msgid "--uri regex             Match URI to regular expression"
 msgstr "--uri regex             Matcha URI mot regeluttryck"
 
 msgid "--user-agent USER-AGENT Set the HTTP User-Agent string"
-msgstr ""
+msgstr "--user-agent USER-AGENT Ange HTTP User-Agent-strängen"
 
 msgid "--version                      Show the program version"
 msgstr "--version                      Visa programmet version"
@@ -1990,8 +1967,8 @@ msgstr ""
 msgid ""
 "-K keypath              Set location of server X.509 certificates and keys."
 msgstr ""
-"-K keypath              Ange plats för serverns X.509-certifikat och -"
-"nycklar."
+"-K keypath              Ange plats för serverns X.509-certifikat och "
+"-nycklar."
 
 msgid "-L                      Send requests using content-length"
 msgstr "-L                      Skicka begäran med content-length"
@@ -2026,7 +2003,7 @@ msgstr ""
 "testrapport till standardutmatningen"
 
 msgid "-P filename.ppd         Load printer attributes from PPD file"
-msgstr ""
+msgstr "-P filename.ppd         Läs in skrivarattribut från PPD-fil"
 
 msgid "-P number[-number]      Match port to number or range"
 msgstr "-P number[-number]      Matcha port mot nummer eller intervall"
@@ -2034,9 +2011,8 @@ msgstr "-P number[-number]      Matcha port mot nummer eller intervall"
 msgid "-P page-list            Specify a list of pages to print"
 msgstr "-P page-list            Ange en lista över sidor att skriva ut"
 
-#, fuzzy
 msgid "-R                      Repeat tests on server-error-busy"
-msgstr "-t                      Sammanställ en testrapport"
+msgstr "-R                      Upprepa tester vid server-error-busy"
 
 msgid "-R                      Show the ranking of jobs"
 msgstr "-R                      Visa jobbens rangordning"
@@ -2047,7 +2023,8 @@ msgstr ""
 "-R CSR-FILNAMN                Specifiera fil för  sertifikatsigningsbegäran."
 
 msgid "-R name-default         Remove the default value for the named option"
-msgstr "-R name-default         Ta bort förvalt värde för namngivet alternativ"
+msgstr ""
+"-R name-default         Ta bort förvalt värde för namngivet alternativ"
 
 msgid "-R root-directory       Set alternate root"
 msgstr "-R root-directory       Ange alternativ root"
@@ -2091,12 +2068,10 @@ msgid "-W not-completed        Show pending jobs"
 msgstr "-W not-completed        Visa väntande jobb"
 
 msgid ""
-"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
-"translations}\n"
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}\n"
 "                          Issue warnings instead of errors"
 msgstr ""
-"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,"
-"translations}\n"
+"-W {all,none,constraints,defaults,duplex,filters,profiles,sizes,translations}\n"
 "                          Skicka varningar istället för fel"
 
 msgid "-X                      Produce XML plist instead of plain text"
@@ -2111,9 +2086,11 @@ msgstr "-a                      Visa jobb på alla destinationer"
 msgid ""
 "-a OAUTH-URI                   Specify the OAuth authorization server URL"
 msgstr ""
+"-a OAUTH-URI                   Ange webbadressen till OAuth-"
+"auktoriseringsservern"
 
 msgid "-a SUBJECT-ALT-NAME            Add a subjectAltName."
-msgstr ""
+msgstr "-a SUBJECT-ALT-NAME            Lägg till ett subjectAltName."
 
 msgid "-a [destination(s)]     Show the accepting state of destinations"
 msgstr "-a [destination(s)]     Visa ta-emot-tillstånd för destinationer"
@@ -2148,8 +2125,10 @@ msgstr "-d DAGAR                        Ställ in utgångsdatum i dagar."
 msgid "-d destination          Set default destination"
 msgstr "-d destination          Ange förvald destination"
 
-msgid "-d destination          Set the named destination as the server default"
-msgstr "-d destination          Ange namngiven destination som serverns förval"
+msgid ""
+"-d destination          Set the named destination as the server default"
+msgstr ""
+"-d destination          Ange namngiven destination som serverns förval"
 
 msgid "-d destination          Specify the destination"
 msgstr "-d destination          Specificera destination"
@@ -2230,7 +2209,8 @@ msgid "-m                      Show models"
 msgstr "-m                      Visa modeller"
 
 msgid ""
-"-m everywhere           Specify the printer is compatible with IPP Everywhere"
+"-m everywhere           Specify the printer is compatible with IPP "
+"Everywhere"
 msgstr ""
 "-m everywhere           Ange att skrivaren är kompatibel med IPP Everywhere"
 
@@ -2267,16 +2247,14 @@ msgid ""
 "                        Disable supply level reporting via IPP"
 msgstr ""
 "-o cupsIPPSupplies=false\n"
-"                        Avaktivera nivårapporter för förbrukningsvaror via "
-"IPP"
+"                        Avaktivera nivårapporter för förbrukningsvaror via IPP"
 
 msgid ""
 "-o cupsSNMPSupplies=false\n"
 "                        Disable supply level reporting via SNMP"
 msgstr ""
 "-o cupsSNMPSupplies=false\n"
-"                        Avaktivera nivårapportering för förbrukningsvaror "
-"via SNMP"
+"                        Avaktivera nivårapportering för förbrukningsvaror via SNMP"
 
 msgid "-o job-k-limit=N        Specify the kilobyte limit for per-user quotas"
 msgstr ""
@@ -2308,8 +2286,8 @@ msgid ""
 "-o number-up=N          Specify that input pages should be printed N-up (1, "
 "2, 4, 6, 9, and 16 are supported)"
 msgstr ""
-"-o number-up=N          Specificera att inkommande sidor ska skrivas ut "
-"flera på samma sida (1, 2, 4, 6, 9, och 16 stöds)"
+"-o number-up=N          Ange att inkommande sidor ska skrivas ut flera på "
+"samma sida (1, 2, 4, 6, 9 och 16 stöds)"
 
 msgid "-o option[=value]       Specify a printer-specific option"
 msgstr "-o option[=värde]       Ange ett skrivarspecifikt alternativ"
@@ -2319,8 +2297,7 @@ msgid ""
 "                        Specify portrait (3) or landscape (4) orientation"
 msgstr ""
 "-o orientation-requested=N\n"
-"                        Specificera stående (3) eller liggande (4) "
-"orientering"
+"                        Specificera stående (3) eller liggande (4) orientering"
 
 msgid ""
 "-o print-quality=N      Specify the print quality - draft (3), normal (4), "
@@ -2372,9 +2349,10 @@ msgstr "-p                      Skriv ut URI om sant"
 
 msgid ""
 "-p PURPOSE                     Comma-delimited certificate purpose\n"
-"                               (serverAuth, clientAuth, codeSigning, "
-"emailProtection, timeStamping, OCSPSigning)"
+"                               (serverAuth, clientAuth, codeSigning, emailProtection, timeStamping, OCSPSigning)"
 msgstr ""
+"-p PURPOSE                     Kommaavgränsat certifikatsyfte\n"
+"                               (serverAuth, clientAuth, codeSigning, emailProtection, timeStamping, OCSPSigning)"
 
 msgid "-p [printer(s)]         Show the processing state of destinations"
 msgstr "-p [skrivare]           Visa processtillståndet för destinationerna"
@@ -2398,7 +2376,8 @@ msgid "-q                      Specify the job should be held for printing"
 msgstr ""
 "-q                      Specificera att jobbet bör vänta innan utskrift"
 
-msgid "-q priority             Specify the priority from low (1) to high (100)"
+msgid ""
+"-q priority             Specify the priority from low (1) to high (100)"
 msgstr ""
 "-q priority             Specificera prioritet från låg (1) till hög (100)"
 
@@ -2415,7 +2394,7 @@ msgid "-r                      Use 'relaxed' open mode"
 msgstr "-r                      Använd avslappnat öppet läge"
 
 msgid "-r ROOT-NAME                   Name of root certificate"
-msgstr ""
+msgstr "-r ROOT-NAME                   Namn på rotcertifikat"
 
 msgid "-r class                Remove the named destination from a class"
 msgstr "-r class                Ta bort given destination från en klass"
@@ -2438,6 +2417,8 @@ msgstr "-s                      Visa en statussammanfattning"
 
 msgid "-s SCOPE(S)                    Specify the scope(s) to authorize"
 msgstr ""
+"-s SCOPE(S)                    Ange de behörighetsomfattningar som ska "
+"auktoriseras"
 
 msgid "-s cups-files.conf      Set cups-files.conf file to use."
 msgstr ""
@@ -2457,9 +2438,10 @@ msgstr "-t                      Testa konfigurationsfilen."
 
 msgid ""
 "-t TYPE                        Certificate type\n"
-"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, "
-"ecdsa-p384, ecdsa-p521)"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, ecdsa-p384, ecdsa-p521)"
 msgstr ""
+"-t TYPE                        Certifikattyp\n"
+"                               (rsa-2048, rsa-3072, rsa-4096, ecdsa-p256, ecdsa-p384, ecdsa-p521)"
 
 msgid "-t key                  True if the TXT record contains the key"
 msgstr "-t key                  Sant om TXT-posten innehåller nyckeln"
@@ -2469,10 +2451,10 @@ msgstr "-t title                Specificera jobbets titel"
 
 msgid ""
 "-u USAGE                       Comma-delimited key usage\n"
-"                               (digitalSignature, nonRepudiation, "
-"keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, "
-"encipherOnly, decipherOnly, default-ca, default-tls)"
+"                               (digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, encipherOnly, decipherOnly, default-ca, default-tls)"
 msgstr ""
+"-u USAGE                       Kommaavgränsad nyckelanvändning\n"
+"                               (digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment, keyAgreement, keyCertSign, cRLSign, encipherOnly, decipherOnly, default-ca, default-tls)"
 
 msgid ""
 "-u [user(s)]            Show jobs queued by the current or specified users"
@@ -2486,8 +2468,8 @@ msgstr "-u allow:all            Tillåt alla användare att skriva ut"
 msgid ""
 "-u allow:list           Allow the list of users or groups (@name) to print"
 msgstr ""
-"-u allow:list           Tillåt listan av användare eller grupper (@namn) att "
-"skriva ut"
+"-u allow:list           Tillåt listan av användare eller grupper (@namn) att"
+" skriva ut"
 
 msgid ""
 "-u deny:list            Prevent the list of users or groups (@name) to print"
@@ -2533,7 +2515,8 @@ msgstr ""
 "-x utility [argument ...] ;\n"
 "                        Kör program om sant"
 
-msgid "/etc/cups/lpoptions file names default destination that does not exist."
+msgid ""
+"/etc/cups/lpoptions file names default destination that does not exist."
 msgstr "Filen /etc/cups/lpoptions nämner förvald destination som inte finns."
 
 msgid "0"
@@ -3237,7 +3220,7 @@ msgstr "B9"
 
 #, c-format
 msgid "Bad \"attributes-natural-language\" value '%s'."
-msgstr ""
+msgstr "Ogiltigt värde för \"attributes-natural-language\": '%s'."
 
 #, c-format
 msgid "Bad \"printer-id\" value %d."
@@ -3255,7 +3238,7 @@ msgid "Bad CloseUI/JCLCloseUI"
 msgstr "Dålig CloseUI/JCLCloseUI"
 
 msgid "Bad JOB_PRINTER_URI variable."
-msgstr ""
+msgstr "Felaktig JOB_PRINTER_URI-variabel."
 
 msgid "Bad NULL dests pointer"
 msgstr "Dålig NULL dests-pekare"
@@ -3291,7 +3274,7 @@ msgid "Bad arguments to function"
 msgstr "Dåliga argument för funktion"
 
 msgid "Bad certificate."
-msgstr ""
+msgstr "Felaktigt certifikat."
 
 msgid "Bad custom parameter"
 msgstr "Felaktig anpassad parameter"
@@ -3313,7 +3296,7 @@ msgid "Bad document-format-default \"%s\"."
 msgstr "Dåligt förvalt dokumentformat \"%s\"."
 
 msgid "Bad extKeyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Felaktig extKeyUsage-utökning i X.509-certifikatbegäran."
 
 msgid "Bad filename buffer"
 msgstr "Dålig filnamnbuffer"
@@ -3332,7 +3315,7 @@ msgid "Bad job-uri \"%s\"."
 msgstr "Dålig jobb-uri \"%s\"."
 
 msgid "Bad keyUsage extension in X.509 certificate request."
-msgstr ""
+msgstr "Felaktig keyUsage-utökning i X.509-certifikatbegäran."
 
 #, c-format
 msgid "Bad notify-pull-method \"%s\"."
@@ -3344,7 +3327,7 @@ msgstr "Dålig \"notify-recipient\"-uri \"%s\"."
 
 #, c-format
 msgid "Bad notify-recipient-uri URI \"%s\"."
-msgstr ""
+msgstr "Felaktig notify-recipient-uri-URI \"%s\"."
 
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
@@ -3365,7 +3348,7 @@ msgid "Bad printer-uri."
 msgstr "Dålig skrivar-uri."
 
 msgid "Bad private key."
-msgstr ""
+msgstr "Felaktig privat nyckel."
 
 #, c-format
 msgid "Bad request ID %d."
@@ -3382,7 +3365,7 @@ msgid "Bad scheme in URI"
 msgstr "Dåligt schema i URI"
 
 msgid "Bad subjectAltName extension in X.509 certificate request."
-msgstr ""
+msgstr "Felaktig subjectAltName-utökning i X.509-certifikatbegäran."
 
 msgid "Bad username in URI"
 msgstr "Dåligt användarnamn i URI"
@@ -3425,15 +3408,17 @@ msgid "Cannot share a remote Kerberized printer."
 msgstr "Kan inte dela en Kerberus-skyddad fjärrskrivare."
 
 msgid "Cannot specify both 'finishings' and 'finishings-col'."
-msgstr ""
+msgstr "Det går inte att ange både 'finishings' och 'finishings-col'."
 
 msgid "Cannot specify both 'media' and 'media-col'."
-msgstr ""
+msgstr "Det går inte att ange både 'media' och 'media-col'."
 
 msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
 "request."
 msgstr ""
+"Det går inte att ange både notify-pull-method och notify-recipient-uri i "
+"samma begäran."
 
 msgid "Cassette"
 msgstr "Kassett"
@@ -3492,13 +3477,13 @@ msgstr "Kopierar utskriftsdata."
 
 #, c-format
 msgid "Couldn't resolve mDNS URI \"%s\"."
-msgstr ""
+msgstr "Det gick inte att slå upp mDNS-URI:n \"%s\"."
 
 msgid "Created"
 msgstr "Skapades"
 
 msgid "Credentials are OK/trusted."
-msgstr ""
+msgstr "Autentiseringsuppgifterna är korrekta/tillförlitliga."
 
 msgid "Credentials are expired."
 msgstr "Inloggningsuppgifterna har gått ut."
@@ -3506,15 +3491,14 @@ msgstr "Inloggningsuppgifterna har gått ut."
 msgid "Credentials are invalid."
 msgstr "Inloggningsuppgifterna är ogiltiga."
 
-#, fuzzy
 msgid "Credentials are not CA-signed."
-msgstr "Inloggningsuppgifter har gått ut."
+msgstr "Autentiseringsuppgifterna är inte CA-signerade."
 
 msgid "Credentials are unknown/new."
 msgstr "Inloggningsuppgifterna är okända/nya."
 
 msgid "Credentials do not validate against CA certificates."
-msgstr ""
+msgstr "Autentiseringsuppgifterna valideras inte mot CA-certifikaten."
 
 msgid "Credentials have been renewed."
 msgstr "Inloggningsuppgifter har förnyats."
@@ -3576,7 +3560,7 @@ msgstr "Enhetens CMYK"
 
 #, c-format
 msgid "Device Code: %s"
-msgstr ""
+msgstr "Enhetskod: %s"
 
 msgid "Device Gray"
 msgstr "Enhetens Grå"
@@ -3585,7 +3569,7 @@ msgid "Device RGB"
 msgstr "Enhetens RGB"
 
 msgid "Device authorization grant is not supported by this server."
-msgstr ""
+msgstr "Den här servern stöder inte auktoriseringsbeviljande för enheter."
 
 #, c-format
 msgid ""
@@ -3608,7 +3592,7 @@ msgstr "Direct Thermal Media"
 
 #, c-format
 msgid "Directory \"%s\" contains a relative path."
-msgstr "Katalogen \"%s\" innehåller en relativ sökväg"
+msgstr "Katalogen \"%s\" innehåller en relativ sökväg."
 
 #, c-format
 msgid "Directory \"%s\" has insecure permissions (0%o/uid=%d/gid=%d)."
@@ -3624,7 +3608,7 @@ msgstr "Katalogen \"%s\" ej tillgänglig: %s"
 
 #, c-format
 msgid "Directory \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
-msgstr "Katalogen \"%s\"s rättigheter OK (0%o/uid=%d/gid=%d)."
+msgstr "Rättigheterna för katalogen \"%s\" är OK (0%o/uid=%d/gid=%d)."
 
 msgid "Disabled"
 msgstr "Avaktiverad"
@@ -3656,8 +3640,8 @@ msgid "English"
 msgstr "Engelska"
 
 msgid ""
-"Enter your username and password or the root username and password to access "
-"this page. If you are using Kerberos authentication, make sure you have a "
+"Enter your username and password or the root username and password to access"
+" this page. If you are using Kerberos authentication, make sure you have a "
 "valid Kerberos ticket."
 msgstr ""
 "Ange ditt användarnamn och lösenord eller root-användarnamnet och lösenord "
@@ -3907,19 +3891,19 @@ msgstr "Filen \"%s\" ej tillgänglig: %s"
 
 #, c-format
 msgid "File \"%s\" permissions OK (0%o/uid=%d/gid=%d)."
-msgstr "Filen \"%s\"s rättigheter OK (0%o/uid=%d/gid=%d)."
+msgstr "Rättigheterna för filen \"%s\" är OK (0%o/uid=%d/gid=%d)."
 
 msgid "File Folder"
 msgstr "Filmapp"
 
 #, c-format
 msgid "File device URI \"%s\" is not allowed."
-msgstr ""
+msgstr "Enhets-URI:n för fil \"%s\" är inte tillåten."
 
 #, c-format
 msgid ""
-"File device URIs have been disabled. To enable, see the FileDevice directive "
-"in \"%s/cups-files.conf\"."
+"File device URIs have been disabled. To enable, see the FileDevice directive"
+" in \"%s/cups-files.conf\"."
 msgstr ""
 "Filenhets-URI:er har avaktiverats. För att aktivera dem, se direktivet "
 "FileDevice i \"%s/cups-files.conf\"."
@@ -3934,9 +3918,8 @@ msgstr "Folio"
 msgid "Forbidden"
 msgstr "Förbjuden"
 
-#, fuzzy
 msgid "Form data too large."
-msgstr "Utskriftsjobb för stort."
+msgstr "Formulärdata är för stora."
 
 msgid "Found"
 msgstr "Hittades"
@@ -3975,16 +3958,18 @@ msgid "Help file not in index."
 msgstr "Hjälpfil inte i index."
 
 msgid "Home"
-msgstr ""
+msgstr "Hem"
 
 msgid "IP address is not allowed as hostname when using Negotiate - use FQDN."
 msgstr ""
+"En IP-adress är inte tillåten som värdnamn vid användning av Negotiate – "
+"använd FQDN."
 
 msgid "IPP 1setOf attribute with incompatible value tags."
 msgstr "IPP 1setOf-attribut med inkompatibla värdeetiketter."
 
 msgid "IPP Everywhere driver requires an IPP connection."
-msgstr ""
+msgstr "IPP Everywhere-drivrutinen kräver en IPP-anslutning."
 
 msgid "IPP attribute has no name."
 msgstr "IPP-attribut har inget namn."
@@ -4016,9 +4001,8 @@ msgstr "IPP språklängd överflödar värde."
 msgid "IPP language length too large."
 msgstr "IPP språklängd för stor."
 
-#, fuzzy
 msgid "IPP member attribute outside of collection."
-msgstr "Ogiltigt namngivet IPP-attribut i samling."
+msgstr "IPP-medlemsattribut utanför samling."
 
 msgid "IPP member name is not empty."
 msgstr "IPP medlemsnamn är inte tomt."
@@ -4026,9 +4010,8 @@ msgstr "IPP medlemsnamn är inte tomt."
 msgid "IPP memberName value is empty."
 msgstr "IPP memberName-värde tomt."
 
-#, fuzzy
 msgid "IPP message nested too deeply."
-msgstr "IPP medlemsnamn är inte tomt."
+msgstr "IPP-meddelandet är nästlat för djupt."
 
 msgid "IPP name larger than 32767 bytes."
 msgstr "IPP namn större än 32767 byte."
@@ -4127,16 +4110,14 @@ msgstr "Internetporto 3-part"
 msgid "Internet Printing Protocol"
 msgstr "Internet Printing Protocol"
 
-#, fuzzy
 msgid "Invalid JSON data."
-msgstr "Ogiltig gruppetikett."
+msgstr "Ogiltiga JSON-data."
 
 msgid "Invalid JSON web token."
-msgstr ""
+msgstr "Ogiltig JSON-webbtoken."
 
-#, fuzzy
 msgid "Invalid form data."
-msgstr "Ogiltig gruppetikett."
+msgstr "Ogiltiga formulärdata."
 
 msgid "Invalid group tag."
 msgstr "Ogiltig gruppetikett."
@@ -4202,9 +4183,8 @@ msgstr "JIS B8"
 msgid "JIS B9"
 msgstr "JIS B9"
 
-#, fuzzy
 msgid "JSON file too large."
-msgstr "URI för stor"
+msgstr "JSON-filen är för stor."
 
 #, c-format
 msgid "Job #%d cannot be restarted - no files."
@@ -4348,7 +4328,7 @@ msgid "Missing CloseUI/JCLCloseUI"
 msgstr "Saknar CloseUI/JCLCloseUI"
 
 msgid "Missing DEVICE_URI variable."
-msgstr ""
+msgstr "DEVICE_URI-variabel saknas."
 
 msgid "Missing PPD-Adobe-4.x header"
 msgstr "Saknar PPD-Adobe-4.x-huvud"
@@ -4460,7 +4440,7 @@ msgid "No IPP attributes."
 msgstr "Inga IPP-attribut."
 
 msgid "No JWKS URI in authorization server metadata."
-msgstr ""
+msgstr "Ingen JWKS-URI finns i auktoriseringsserverns metadata."
 
 msgid "No PPD name"
 msgstr "Inget PPD-namn"
@@ -4485,7 +4465,7 @@ msgid "No authentication information provided."
 msgstr "Ingen autentiseringsinformation angavs."
 
 msgid "No client ID configured for this server."
-msgstr ""
+msgstr "Inget klient-ID har konfigurerats för den här servern."
 
 msgid "No community name"
 msgstr "Inget gemenskapsnamn"
@@ -4500,7 +4480,8 @@ msgid "No destinations added."
 msgstr "Inga mål tillagda."
 
 msgid "No device URI found in argv[0] or in DEVICE_URI environment variable."
-msgstr "Ingen enhets-URI hittades i argv[0] eller i miljövariabeln DEVICE_URI."
+msgstr ""
+"Ingen enhets-URI hittades i argv[0] eller i miljövariabeln DEVICE_URI."
 
 msgid "No error-index"
 msgstr "Inget felindex"
@@ -4532,9 +4513,8 @@ msgstr "Ingen skrivar-uri hittades för klass"
 msgid "No printer-uri in request."
 msgstr "Ingen skrivar-uri i begäran."
 
-#, fuzzy
 msgid "No printer-uri-supported attribute."
-msgstr "job-printer-uri-attribut saknas."
+msgstr "Attributet printer-uri-supported saknas."
 
 msgid "No request URI."
 msgstr "Ingen begäran-URI."
@@ -4557,9 +4537,8 @@ msgstr "Inga prenumerationsattribut i begäran."
 msgid "No subscriptions found."
 msgstr "Inga prenumerationer hittades."
 
-#, fuzzy
 msgid "No variable-bindings SEQUENCE"
-msgstr "Ingen VarBind SEQUENCE"
+msgstr "Ingen variable-bindings-SEQUENCE"
 
 msgid "No version number"
 msgstr "Inget versionsnummer"
@@ -4589,13 +4568,13 @@ msgid "Not Supported"
 msgstr "Stöds inte"
 
 msgid "Not allowed to print."
-msgstr "Ingen förvald skrivare"
+msgstr "Det är inte tillåtet att skriva ut."
 
 msgid "Note"
 msgstr "Anteckning"
 
 msgid "OAuth Login"
-msgstr ""
+msgstr "OAuth-inloggning"
 
 msgid "OK"
 msgstr "OK"
@@ -4610,7 +4589,7 @@ msgid "Online Help"
 msgstr "Online-hjälp"
 
 msgid "Only WGS-84 coordinates are supported."
-msgstr ""
+msgstr "Endast WGS 84-koordinater stöds."
 
 msgid "Only local users can create a local printer."
 msgstr "Endast lokala användare kan skapa en lokal skrivare."
@@ -4808,7 +4787,7 @@ msgstr "Skrivaren stödjer inte nödvändiga IPP-attribut eller dokumentformat."
 
 #, c-format
 msgid "Printer returned invalid data: %s"
-msgstr ""
+msgstr "Skrivaren returnerade ogiltiga data: %s"
 
 msgid "Printer:"
 msgstr "Skrivare:"
@@ -4940,7 +4919,7 @@ msgid "Statement"
 msgstr "Kontroutdrag"
 
 msgid "Sub-Commands:"
-msgstr ""
+msgstr "Underkommandon:"
 
 #, c-format
 msgid "Subscription #%d does not exist."
@@ -5017,7 +4996,7 @@ msgstr ""
 "innehålla blanksteg, snedstreck (/) eller fyrkantstecknet (#)."
 
 msgid "The client ID is not configured for this server."
-msgstr ""
+msgstr "Klient-ID:t är inte konfigurerat för den här servern."
 
 msgid ""
 "The notify-lease-duration attribute cannot be used with job subscriptions."
@@ -5029,15 +5008,16 @@ msgstr ""
 msgid "The notify-user-data value is too large (%d > 63 octets)."
 msgstr "Värdet för notify-user-data är för stort (%d > 63 oktetter)."
 
-msgid "The printer configuration is incorrect or the printer no longer exists."
+msgid ""
+"The printer configuration is incorrect or the printer no longer exists."
 msgstr "Skrivarkonfigurationen är felaktig eller skrivaren finns inte längre."
 
 msgid "The printer did not respond."
 msgstr "Skrivaren svarade inte."
 
-#, fuzzy
 msgid "The printer does not provide attributes required for IPP Everywhere."
-msgstr "Attributet printer-uri krävs."
+msgstr ""
+"Skrivaren tillhandahåller inte de attribut som krävs för IPP Everywhere."
 
 msgid "The printer is in use."
 msgstr "Skrivaren används."
@@ -5064,13 +5044,13 @@ msgid "The printer may not exist or is unavailable at this time."
 msgstr "Skrivaren kanske inte finns eller är inte tillgänglig just nu."
 
 msgid ""
-"The printer name may only contain up to 127 printable characters and may not "
-"contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
+"The printer name may only contain up to 127 printable characters and may not"
+" contain spaces, slashes (/ \\), quotes (' \"), question mark (?), or the "
 "pound sign (#)."
 msgstr ""
-"Skrivarnamn för bara innehålla upp till 127 skrivbara tecken, och får inte "
-"innehålla blanksteg, snedstreck (/ \\), citationstecken (' \"), frågetecken "
-"(?), eller #."
+"Skrivarnamnet får endast innehålla högst 127 skrivbara tecken och får inte "
+"innehålla blanksteg, snedstreck (/ \\), citattecken (' \"), frågetecken (?) "
+"eller nummertecknet (#)."
 
 msgid "The printer or class does not exist."
 msgstr "Skrivaren eller klassen finns inte."
@@ -5080,23 +5060,22 @@ msgstr "Skrivaren eller klassen delas inte."
 
 #, c-format
 msgid "The printer-uri \"%s\" contains invalid characters."
-msgstr "printer-uri ”%s” innehåller ogiltiga tecken."
+msgstr "Printer-URI:n ”%s” innehåller ogiltiga tecken."
 
 msgid "The printer-uri attribute is required."
 msgstr "Attributet printer-uri krävs."
 
-msgid ""
-"The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
-msgstr "printer-uri måste vara i formatet ”ipp://VÄRDNAMN/classes/KLASSNAMN”."
+msgid "The printer-uri must be of the form \"ipp://HOSTNAME/classes/CLASSNAME\"."
+msgstr "Printer-URI:n måste ha formatet ”ipp://VÄRDNAMN/classes/KLASSNAMN”."
 
 msgid ""
 "The printer-uri must be of the form \"ipp://HOSTNAME/printers/PRINTERNAME\"."
 msgstr ""
-"printer-uri måste vara i formatet ”ipp://VÄRDNAMN/printers/SKRIVARNAMN”."
+"Printer-URI:n måste ha formatet ”ipp://VÄRDNAMN/printers/SKRIVARNAMN”."
 
 msgid ""
-"The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to "
-"enable it."
+"The web interface is currently disabled. Run \"cupsctl WebInterface=yes\" to"
+" enable it."
 msgstr ""
 "Webbgränssnittet är avaktiverat just nu. Kör \"cupsctl WebInterface=yes\" "
 "för att aktivera det."
@@ -5187,9 +5166,8 @@ msgstr "Kan inte lägga till klass"
 msgid "Unable to add document to print job."
 msgstr "Kan inte lägga till dokument till utskriftsjobb."
 
-#, fuzzy
 msgid "Unable to add extension to X.509 certificate."
-msgstr "Kan inte etablera en säker anslutning till värd (utgånget certifikat)."
+msgstr "Det gick inte att lägga till utökning i X.509-certifikatet."
 
 #, c-format
 msgid "Unable to add job for destination \"%s\"."
@@ -5212,7 +5190,7 @@ msgid "Unable to allocate memory for printer: %s"
 msgstr "Kan inte allokera minne för skrivare: %s"
 
 msgid "Unable to authorize access"
-msgstr ""
+msgstr "Det gick inte att auktorisera åtkomst"
 
 msgid "Unable to cancel print job."
 msgstr "Kan inte avbryta utskriftsjobb."
@@ -5223,9 +5201,9 @@ msgstr "Kan inte ändra skrivare"
 msgid "Unable to change server settings"
 msgstr "Kan inte ändra serverinställningar"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to commit PPD file: %s"
-msgstr "Kan inte kopiera PPD-fil - %s"
+msgstr "Det gick inte att verkställa PPD-filen: %s"
 
 #, c-format
 msgid "Unable to compile mimeMediaType regular expression: %s."
@@ -5238,13 +5216,12 @@ msgstr "Kan inte kompilera naturalLanguage-regeluttryck: %s."
 msgid "Unable to configure printer options."
 msgstr "Kam inte konfigurera skrivaralternativ."
 
-#, fuzzy
 msgid "Unable to configure private key context."
-msgstr "Kam inte konfigurera skrivaralternativ."
+msgstr "Det gick inte att konfigurera kontexten för den privata nyckeln."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to connect to %s:%d: %s"
-msgstr "Kan inte ansluta till %s:%d: %s"
+msgstr "Det gick inte att ansluta till %s:%d: %s"
 
 msgid "Unable to connect to host."
 msgstr "Kan inte ansluta till värd."
@@ -5256,21 +5233,19 @@ msgstr "Kan inte kontakta skrivare, köar på nästa skrivare i klassen."
 msgid "Unable to copy PPD file - %s"
 msgstr "Kan inte kopiera PPD-fil - %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create PPD for printer: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "Det gick inte att skapa PPD för skrivaren: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to create PPD: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "Det gick inte att skapa PPD: %s"
 
-#, fuzzy
 msgid "Unable to create X.509 certificate signing request."
-msgstr "Kan inte skapa skrivare."
+msgstr "Det gick inte att skapa X.509-certifikatsigneringsbegäran."
 
-#, fuzzy
 msgid "Unable to create X.509 certificate."
-msgstr "Kan inte skapa skrivare."
+msgstr "Det gick inte att skapa X.509-certifikatet."
 
 msgid "Unable to create printer-uri"
 msgstr "Kan inte skapa skrivar-uri"
@@ -5278,13 +5253,11 @@ msgstr "Kan inte skapa skrivar-uri"
 msgid "Unable to create printer."
 msgstr "Kan inte skapa skrivare."
 
-#, fuzzy
 msgid "Unable to create private key context."
-msgstr "Kan inte skapa skrivare."
+msgstr "Det gick inte att skapa kontexten för den privata nyckeln."
 
-#, fuzzy
 msgid "Unable to create private key."
-msgstr "Kan inte skapa skrivare."
+msgstr "Det gick inte att skapa den privata nyckeln."
 
 msgid "Unable to create server credentials."
 msgstr "Kan inte skapa inloggningsuppgifter för server."
@@ -5315,15 +5288,14 @@ msgstr "Kan inte köra kommandot \"%s\": %s"
 msgid "Unable to find destination for job"
 msgstr "Kan inte hitta destination för jobb"
 
-#, fuzzy
 msgid "Unable to finish request."
-msgstr "Kan inte hitta skrivare."
+msgstr "Det gick inte att slutföra begäran."
 
 msgid "Unable to get authorization URL"
-msgstr ""
+msgstr "Det gick inte att hämta auktoriserings-URL"
 
 msgid "Unable to get authorization server information"
-msgstr ""
+msgstr "Det gick inte att hämta information om auktoriseringsservern"
 
 msgid "Unable to get backend exit status."
 msgstr "Kan inte hämta bakändens avslutsstatus."
@@ -5350,18 +5322,16 @@ msgid "Unable to get printer status."
 msgstr "Kan inte hämta skrivarstatus."
 
 msgid "Unable to import X.509 certificate request."
-msgstr ""
+msgstr "Det gick inte att importera X.509-certifikatbegäran."
 
-#, fuzzy
 msgid "Unable to import credentials."
-msgstr "Kan inte hitta serverns inloggningsuppgifter."
+msgstr "Det gick inte att importera autentiseringsuppgifter."
 
-#, fuzzy
 msgid "Unable to initialize private key context."
-msgstr "Kan inte hitta skrivare."
+msgstr "Det gick inte att initiera kontexten för den privata nyckeln."
 
 msgid "Unable to load X.509 CA certificate and private key."
-msgstr ""
+msgstr "Det gick inte att läsa in X.509-CA-certifikat och privat nyckel."
 
 msgid "Unable to load help index."
 msgstr "Kan inte läsa in hjälpindex."
@@ -5411,11 +5381,11 @@ msgid "Unable to print test page"
 msgstr "Kan inte skriva ut testsidan"
 
 msgid "Unable to read IPP attribute name."
-msgstr ""
+msgstr "Det gick inte att läsa IPP-attributnamnet."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to read generated PPD: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "Det gick inte att läsa den skapade PPD-filen: %s"
 
 msgid "Unable to read print data."
 msgstr "Kan inte läsa utskriftsdata."
@@ -5429,17 +5399,17 @@ msgstr "Kan inte döpa om jobbets dokumentfil."
 msgid "Unable to resolve printer-uri."
 msgstr "Kan inte slå upp skrivar-uri."
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to run cups-driverd: %s"
-msgstr "Kan inte kommunicera med skrivare: %s"
+msgstr "Det gick inte att köra cups-driverd: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save PPD file: %s"
-msgstr "Kan inte skapa PPD-fil: %s"
+msgstr "Det gick inte att spara PPD-filen: %s"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to save value for \"%s\" with a temporary printer."
-msgstr "Kan inte skicka data \"%s\" till skrivare."
+msgstr "Det gick inte att spara värdet för \"%s\" med en tillfällig skrivare."
 
 msgid "Unable to see in file"
 msgstr "Kan inte se i fil"
@@ -5466,25 +5436,22 @@ msgid "Unable to use legacy USB class driver."
 msgstr "Kan inte använda gammal USB-klassdrivrutin."
 
 msgid "Unable to verify X.509 certificate request."
-msgstr ""
+msgstr "Det gick inte att verifiera X.509-certifikatbegäran."
 
 msgid "Unable to write X.509 certificate signing request."
-msgstr ""
+msgstr "Det gick inte att skriva X.509-certifikatsigneringsbegäran."
 
-#, fuzzy
 msgid "Unable to write X.509 certificate."
-msgstr "Kan inte skriva utskriftsdata"
+msgstr "Det gick inte att skriva X.509-certifikatet."
 
 msgid "Unable to write print data"
 msgstr "Kan inte skriva utskriftsdata"
 
-#, fuzzy
 msgid "Unable to write private key."
-msgstr "Kan inte skriva utskriftsdata"
+msgstr "Det gick inte att skriva den privata nyckeln."
 
-#, fuzzy
 msgid "Unable to write public key."
-msgstr "Kan inte skriva utskriftsdata"
+msgstr "Det gick inte att skriva den offentliga nyckeln."
 
 #, c-format
 msgid "Unable to write uncompressed print data: %s"
@@ -5559,11 +5526,11 @@ msgstr "Okänt värde för versionsalternativ: \"%s\"."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
-msgstr ""
+msgstr "Värdet '%s' för \"attributes-charset\" stöds inte."
 
 #, c-format
 msgid "Unsupported '%s' value."
-msgstr ""
+msgstr "Värdet '%s' stöds inte."
 
 #, c-format
 msgid "Unsupported 'compression' value \"%s\"."
@@ -5603,15 +5570,16 @@ msgstr "Mediavärdet stöds inte."
 
 #, c-format
 msgid "Unsupported number-up value %d, using number-up=1."
-msgstr "number-up-värde %d stöds inte, använder number-up=1."
+msgstr "Värdet %d för number-up stöds inte; number-up=1 används."
 
 #, c-format
 msgid "Unsupported number-up-layout value %s, using number-up-layout=lrtb."
-msgstr "number-up-layout-värde %s stöds inte, använder number-up-layout=lrtb."
+msgstr ""
+"Värdet %s för number-up-layout stöds inte; number-up-layout=lrtb används."
 
 #, c-format
 msgid "Unsupported page-border value %s, using page-border=none."
-msgstr "page-border-värde %s stöds inte, använder page-border=none."
+msgstr "Värdet %s för page-border stöds inte; page-border=none används."
 
 msgid "Unsupported raster data."
 msgstr "Rasterdata stöds inte."
@@ -5640,10 +5608,10 @@ msgstr ""
 "       cancel [alternativ] [destinations-id]"
 
 msgid "Usage: cups-oauth [OPTIONS] [SUB-COMMAND [ARGUMENT(S)]]"
-msgstr ""
+msgstr "Användning: cups-oauth [FLAGGOR] [UNDERKOMMANDO [ARGUMENT]]"
 
 msgid "Usage: cups-x509 [OPTIONS] [SUB-COMMAND] [ARGUMENT]"
-msgstr ""
+msgstr "Användning: cups-x509 [FLAGGOR] [UNDERKOMMANDO] [ARGUMENT]"
 
 msgid "Usage: cupsctl [options] [param=value ... paramN=valueN]"
 msgstr "Användning: cupsctl [alternativ] [param=värde ... paramN=värdeN]"
@@ -5651,16 +5619,14 @@ msgstr "Användning: cupsctl [alternativ] [param=värde ... paramN=värdeN]"
 msgid "Usage: cupsd [options]"
 msgstr "Användning: cupsd [alternativ]"
 
-#, fuzzy
 msgid "Usage: cupsfilter [ OPTIONS ] [ -- ] FILENAME"
-msgstr "Användning: cupsfilter [ alternativ ] [ -- ] filnamn"
+msgstr "Användning: cupsfilter [ FLAGGOR ] [ -- ] FILNAMN"
 
 msgid ""
 "Usage: cupstestppd [options] filename1.ppd[.gz] [... filenameN.ppd[.gz]]\n"
 "       program | cupstestppd [options] -"
 msgstr ""
-"Användning: cupstestppd [alternativ] filnamn1.ppd[.gz] [... filnamnN.ppd[."
-"gz]]\n"
+"Användning: cupstestppd [alternativ] filnamn1.ppd[.gz] [... filnamnN.ppd[.gz]]\n"
 "       program | cupstestppd [alternativ] -"
 
 msgid "Usage: ippeveprinter [options] \"name\""
@@ -5756,21 +5722,22 @@ msgstr "Användning: ppdmerge [alternativ] filnamn.ppd [ ... filnamnN.ppd ]"
 msgid ""
 "Usage: ppdpo [options] -o filename.po filename.drv [ ... filenameN.drv ]"
 msgstr ""
-"Användning: ppdpo [alternativ] -o filnamn.po filnamn.drv [ ... filnamnN.drv ]"
+"Användning: ppdpo [alternativ] -o filnamn.po filnamn.drv [ ... filnamnN.drv "
+"]"
 
 msgid "Usage: snmp [host-or-ip-address]"
 msgstr "Användning: snmp [värd-eller-IP-adress]"
 
 #, c-format
 msgid "User Code: %s"
-msgstr ""
+msgstr "Användarkod: %s"
 
 #, c-format
 msgid "Using spool directory \"%s\"."
 msgstr "Använder spool-katalog \"%s\"."
 
 msgid "Validation of subjectAltName in X.509 certificate request failed."
-msgstr ""
+msgstr "Validering av subjectAltName i X.509-certifikatbegäran misslyckades."
 
 msgid "Value uses indefinite length"
 msgstr "Värde använder obestämd längd"
@@ -5800,7 +5767,7 @@ msgstr "Webbgränssnitt är avaktiverat"
 
 #, c-format
 msgid "Web Page: %s"
-msgstr ""
+msgstr "Webbsida: %s"
 
 msgid "Yes"
 msgstr "Ja"
@@ -5841,16 +5808,15 @@ msgid "accuracy-units.um"
 msgstr "µm"
 
 msgid "authorize [RESOURCE]           Authorize access to a resource"
-msgstr ""
+msgstr "authorize [RESURS]           Auktorisera åtkomst till en resurs"
 
 #. TRANSLATORS: Bale Output
 msgid "baling"
-msgstr ""
+msgstr "Utmatning i balar"
 
 #. TRANSLATORS: Bale Using
-#, fuzzy
 msgid "baling-type"
-msgstr "Band"
+msgstr "Bala med"
 
 #. TRANSLATORS: Band
 msgid "baling-type.band"
@@ -5865,9 +5831,8 @@ msgid "baling-type.wrap"
 msgstr "Omslag"
 
 #. TRANSLATORS: Bale After
-#, fuzzy
 msgid "baling-when"
-msgstr "Jobb"
+msgstr "Bala efter"
 
 #. TRANSLATORS: Job
 msgid "baling-when.after-job"
@@ -5939,15 +5904,16 @@ msgstr "Velo"
 
 msgid "ca COMMON-NAME             Sign a CSR to produce a certificate."
 msgstr ""
+"ca COMMON-NAME             Signera en CSR för att skapa ett certifikat."
 
 msgid "cacert COMMON-NAME         Create a CA certificate."
-msgstr ""
+msgstr "cacert COMMON-NAME         Skapa ett CA-certifikat."
 
 msgid "canceled"
 msgstr "stoppad"
 
 msgid "cert COMMON-NAME           Create a certificate."
-msgstr ""
+msgstr "cert COMMON-NAME           Skapa ett certifikat."
 
 #. TRANSLATORS: Chamber Humidity
 msgid "chamber-humidity"
@@ -5962,20 +5928,18 @@ msgid "charge-info-message"
 msgstr "Kostnad för utskriftsjobb"
 
 msgid "clear [RESOURCE]               Clear the authorization for a resource"
-msgstr ""
+msgstr "clear [RESURS]               Rensa auktoriseringen för en resurs"
 
 msgid "client URI                 Connect to URI."
-msgstr ""
+msgstr "client URI                 Anslut till URI."
 
 #. TRANSLATORS: Coat Sheets
-#, fuzzy
 msgid "coating"
-msgstr "Typ av ytbeläggning"
+msgstr "Belägg ark"
 
 #. TRANSLATORS: Add Coating To
-#, fuzzy
 msgid "coating-sides"
-msgstr "Bak"
+msgstr "Applicera beläggning på"
 
 #. TRANSLATORS: Back
 msgid "coating-sides.back"
@@ -6121,17 +6085,15 @@ msgid "covering-name.plain"
 msgstr "Vanligt"
 
 #. TRANSLATORS: Pre-cut
-#, fuzzy
 msgid "covering-name.pre-cut"
-msgstr "Lägg till omslag"
+msgstr "Förskuret"
 
 #. TRANSLATORS: Pre-printed
-#, fuzzy
 msgid "covering-name.pre-printed"
-msgstr "Vanligt"
+msgstr "Förtryckt"
 
 msgid "csr COMMON-NAME            Create a certificate signing request."
-msgstr ""
+msgstr "csr COMMON-NAME            Skapa en certifikatsigneringsbegäran."
 
 msgid "cups-deviced failed to execute."
 msgstr "cups-deviced misslyckades med att starta."
@@ -6140,180 +6102,182 @@ msgid "cups-driverd failed to execute."
 msgstr "cups-driverd misslyckades med att starta."
 
 msgid "cups-driverd failed to get PPD file - see error_log for details."
-msgstr ""
+msgstr "cups-driverd kunde inte hämta PPD-filen – se error_log för detaljer."
 
 msgid "cups-oauth: Missing Authorization Server URI after '-a'."
-msgstr ""
+msgstr "cups-oauth: auktoriseringsserverns URI saknas efter '-a'."
 
 msgid "cups-oauth: Missing client_id and/or client_secret."
-msgstr ""
+msgstr "cups-oauth: client_id och/eller client_secret saknas."
 
 msgid "cups-oauth: Missing resource URI and/or access token."
-msgstr ""
+msgstr "cups-oauth: resurs-URI och/eller åtkomsttoken saknas."
 
 msgid "cups-oauth: Missing resource URI and/or device token."
-msgstr ""
+msgstr "cups-oauth: resurs-URI och/eller enhetstoken saknas."
 
 msgid "cups-oauth: Missing scope(s) after '-s'."
-msgstr ""
+msgstr "cups-oauth: omfattning(ar) saknas efter '-s'."
 
 msgid "cups-oauth: No authorization server specified."
-msgstr ""
+msgstr "cups-oauth: ingen auktoriseringsserver har angetts."
 
 #, c-format
 msgid "cups-oauth: Unable to get access token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta åtkomsttoken från '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta auktorisering från '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device authorization from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta enhetsauktorisering från '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get device token from '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta enhetstoken från '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get metadata for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta metadata för '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unable to get user ID for '%s': %s"
-msgstr ""
+msgstr "cups-oauth: det gick inte att hämta användar-ID för '%s': %s"
 
 #, c-format
 msgid "cups-oauth: Unknown command '%s'."
-msgstr ""
+msgstr "cups-oauth: okänt kommando '%s'."
 
 #, c-format
 msgid "cups-x509: Bad DAYS value '%s' after '-d'."
-msgstr ""
+msgstr "cups-x509: felaktigt DAYS-värde '%s' efter '-d'."
 
 msgid "cups-x509: Bad HTTP version."
-msgstr ""
+msgstr "cups-x509: felaktig HTTP-version."
 
 #, c-format
 msgid "cups-x509: Bad certificate type '%s'."
-msgstr ""
+msgstr "cups-x509: felaktig certifikattyp '%s'."
 
 #, c-format
 msgid "cups-x509: Bad key usage '%s'."
-msgstr ""
+msgstr "cups-x509: felaktig nyckelanvändning '%s'."
 
 #, c-format
 msgid "cups-x509: Bad purpose '%s'."
-msgstr ""
+msgstr "cups-x509: felaktigt syfte '%s'."
 
 #, c-format
 msgid "cups-x509: Bad request line (%s)."
-msgstr ""
+msgstr "cups-x509: felaktig begäranderad (%s)."
 
 msgid "cups-x509: Bad/unknown operation."
-msgstr ""
+msgstr "cups-x509: felaktig eller okänd åtgärd."
 
 msgid "cups-x509: Client closed connection."
-msgstr ""
+msgstr "cups-x509: klienten stängde anslutningen."
 
 msgid "cups-x509: Missing CSR filename after '-R'."
-msgstr ""
+msgstr "cups-x509: CSR-filnamn saknas efter '-R'."
 
 msgid "cups-x509: Missing certificate type after '-t'."
-msgstr ""
+msgstr "cups-x509: certifikattyp saknas efter '-t'."
 
 msgid "cups-x509: Missing country after '-C'."
-msgstr ""
+msgstr "cups-x509: land saknas efter '-C'."
 
 msgid "cups-x509: Missing expiration days after '-d'."
-msgstr ""
+msgstr "cups-x509: antal giltighetsdagar saknas efter '-d'."
 
 msgid "cups-x509: Missing key usage after '-u'."
-msgstr ""
+msgstr "cups-x509: nyckelanvändning saknas efter '-u'."
 
 msgid "cups-x509: Missing locality/city/town after '-L'."
-msgstr ""
+msgstr "cups-x509: ort/stad saknas efter '-L'."
 
 msgid "cups-x509: Missing organization after '-O'."
-msgstr ""
+msgstr "cups-x509: organisation saknas efter '-O'."
 
 msgid "cups-x509: Missing organizational unit after '-U'."
-msgstr ""
+msgstr "cups-x509: organisationsenhet saknas efter '-U'."
 
 msgid "cups-x509: Missing purpose after '-p'."
-msgstr ""
+msgstr "cups-x509: syfte saknas efter '-p'."
 
 msgid "cups-x509: Missing root name after '-r'."
-msgstr ""
+msgstr "cups-x509: rotnamn saknas efter '-r'."
 
 msgid "cups-x509: Missing state/province after '-S'."
-msgstr ""
+msgstr "cups-x509: stat/provins saknas efter '-S'."
 
 msgid "cups-x509: Missing sub-command argument."
-msgstr ""
+msgstr "cups-x509: argument till underkommando saknas."
 
 msgid "cups-x509: Missing subjectAltName after '-a'."
-msgstr ""
+msgstr "cups-x509: subjectAltName saknas efter '-a'."
 
 #, c-format
 msgid "cups-x509: No request for '%s'."
-msgstr ""
+msgstr "cups-x509: ingen begäran för '%s'."
 
 msgid "cups-x509: Too many subjectAltName values."
-msgstr ""
+msgstr "cups-x509: för många subjectAltName-värden."
 
 #, c-format
 msgid "cups-x509: Unable to accept connection: %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att acceptera anslutningen: %s"
 
 #, c-format
 msgid "cups-x509: Unable to access '%s': %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att komma åt '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to allocate memory for '%s': %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att allokera minne för '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to connect to '%s': %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att ansluta till '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate (%s)"
-msgstr ""
+msgstr "cups-x509: det gick inte att skapa certifikatet (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to create certificate request (%s)"
-msgstr ""
+msgstr "cups-x509: det gick inte att skapa certifikatbegäran (%s)"
 
 #, c-format
 msgid "cups-x509: Unable to encrypt connection: %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att kryptera anslutningen: %s"
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate for '%s'."
-msgstr ""
+msgstr "cups-x509: det gick inte att hämta det skapade certifikatet för '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated certificate request for '%s'."
 msgstr ""
+"cups-x509: det gick inte att hämta den skapade certifikatbegäran för '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to get generated private key for '%s'."
 msgstr ""
+"cups-x509: det gick inte att hämta den skapade privata nyckeln för '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to listen on port %d: %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att lyssna på port %d: %s"
 
 #, c-format
 msgid "cups-x509: Unable to read '%s'."
-msgstr ""
+msgstr "cups-x509: det gick inte att läsa '%s'."
 
 #, c-format
 msgid "cups-x509: Unable to stat '%s': %s"
-msgstr ""
+msgstr "cups-x509: det gick inte att hämta filstatus för '%s': %s"
 
 #, c-format
 msgid "cups-x509: Unknown command '%s'."
@@ -6607,9 +6571,8 @@ msgid "document-state.6"
 msgstr "Stoppad"
 
 #. TRANSLATORS: Canceled
-#, fuzzy
 msgid "document-state.7"
-msgstr "Väntar"
+msgstr "Avbrutet"
 
 #. TRANSLATORS: Aborted
 msgid "document-state.8"
@@ -6663,9 +6626,8 @@ msgid "finishing-template"
 msgstr "Avslutande mall"
 
 #. TRANSLATORS: Bale
-#, fuzzy
 msgid "finishing-template.bale"
-msgstr "Häftklammer"
+msgstr "Balning"
 
 #. TRANSLATORS: Bind
 msgid "finishing-template.bind"
@@ -7128,9 +7090,8 @@ msgid "finishing-template.jdf-f8-7"
 msgstr "JDF F8-7"
 
 #. TRANSLATORS: Jog Offset
-#, fuzzy
 msgid "finishing-template.jog-offset"
-msgstr "Postervikning"
+msgstr "Buntförskjutning"
 
 #. TRANSLATORS: Laminate
 msgid "finishing-template.laminate"
@@ -7329,18 +7290,16 @@ msgid "finishings.11"
 msgstr "Trimma"
 
 #. TRANSLATORS: Bale
-#, fuzzy
 msgid "finishings.12"
-msgstr "Vikning"
+msgstr "Balning"
 
 #. TRANSLATORS: Booklet Maker
 msgid "finishings.13"
 msgstr "Broschyr"
 
 #. TRANSLATORS: Jog Offset
-#, fuzzy
 msgid "finishings.14"
-msgstr "Häftklammer"
+msgstr "Buntförskjutning"
 
 #. TRANSLATORS: Coat
 msgid "finishings.15"
@@ -7651,26 +7610,31 @@ msgid "from-name"
 msgstr "Från namn"
 
 msgid "get-access-token [RESOURCE]    Get the current access token"
-msgstr ""
+msgstr "get-access-token [RESURS]    Hämta den aktuella åtkomsttoken"
 
 msgid ""
-"get-client-id                  Get the client ID for the authorization server"
+"get-client-id                  Get the client ID for the authorization "
+"server"
 msgstr ""
+"get-client-id                  Hämta klient-ID:t för auktoriseringsservern"
 
 msgid "get-device-grant [RESOURCE]    Authorize access through a device"
-msgstr ""
+msgstr "get-device-grant [RESURS]    Auktorisera åtkomst via en enhet"
 
 msgid ""
 "get-device-token [RESOURCE] DEVICE-CODE\n"
 "                               Wait for the device access token"
 msgstr ""
+"get-device-token [RESURS] ENHETSKOD\n"
+"                               Vänta på enhetens åtkomsttoken"
 
 msgid ""
 "get-metadata [NAME]            Get metadata from the authorization server"
 msgstr ""
+"get-metadata [NAMN]            Hämta metadata från auktoriseringsservern"
 
 msgid "get-user-id [RESOURCE] [NAME]  Get the authorized user ID"
-msgstr ""
+msgstr "get-user-id [RESURS] [NAMN]  Hämta auktoriserat användar-ID"
 
 msgid "held"
 msgstr "hålls kvar"
@@ -7709,13 +7673,15 @@ msgid ""
 "install COMMON-NAME FILENAME.crt [FILENAME.key]\n"
 "                           Install a certificate and (optional) private key."
 msgstr ""
+"install COMMON-NAME FILNAMN.crt [FILNAMN.key]\n"
+"                           Installera ett certifikat och en valfri privat nyckel."
 
 msgid "ippeveprinter: Unable to create IPP mapping of PPD file."
-msgstr ""
+msgstr "ippeveprinter: det gick inte att skapa IPP-mappning av PPD-filen."
 
 #, c-format
 msgid "ippeveprinter: Unable to open \"%s\": %s on line %d."
-msgstr ""
+msgstr "ippeveprinter: det gick inte att öppna \"%s\": %s på rad %d."
 
 #, c-format
 msgid "ippfind: Bad regular expression: %s"
@@ -7789,12 +7755,8 @@ msgstr "ippfind: Kan inte köra \"%s\": %s"
 msgid "ippfind: Unknown variable \"{%s}\"."
 msgstr "ippfind: Okänd variabel \"{%s}\"."
 
-msgid ""
-"ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", "
-"and \"-X\"."
-msgstr ""
-"ipptool: \"-\" och \"-\" är inkompatibla med \"--ipserver\", \"-P\", och \"-X"
-"\"."
+msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"--ippserver\", \"-P\", and \"-X\"."
+msgstr "ipptool: \"-i\" och \"-n\" är inkompatibla med \"--ippserver\", \"-P\" och \"-X\"."
 
 msgid "ipptool: \"-i\" and \"-n\" are incompatible with \"-P\" and \"-X\"."
 msgstr "ipptool: \"-i\" och \"-n\" är inkompatibla med \"-P\" och \"-X\"."
@@ -7814,7 +7776,7 @@ msgstr "ipptool: Saknar antal för \"-n\"."
 
 #, c-format
 msgid "ipptool: Missing filename for \"%s\"."
-msgstr ""
+msgstr "ipptool: filnamn saknas för \"%s\"."
 
 msgid "ipptool: Missing filename for \"-f\"."
 msgstr "ipptool: Saknar filnamn för \"-f\"."
@@ -7828,9 +7790,9 @@ msgstr "ipptool: Saknar sekunder för \"-i\"."
 msgid "ipptool: URI required before test file."
 msgstr "ipptool: URI krävs innan testfil."
 
-#, fuzzy, c-format
+#, c-format
 msgid "ipptool: Unable to allocate memory: %s"
-msgstr "ipptool: Kan inte allokera minne för skrivare: %s"
+msgstr "ipptool: det gick inte att allokera minne: %s"
 
 #. TRANSLATORS: Job Account ID
 msgid "job-account-id"
@@ -7878,7 +7840,7 @@ msgstr "Jobbkontospårning användar-ID"
 
 #. TRANSLATORS: Job Cancel After
 msgid "job-cancel-after"
-msgstr ""
+msgstr "Avbryt jobb efter"
 
 #. TRANSLATORS: Copies
 msgid "job-copies"
@@ -8348,9 +8310,8 @@ msgid "job-state-reasons.job-queued-for-marker"
 msgstr "Behandlar dokument"
 
 #. TRANSLATORS: Job Release Wait
-#, fuzzy
 msgid "job-state-reasons.job-release-wait"
-msgstr "Jobb väntar på lösenord"
+msgstr "Väntar på att jobbet ska frisläppas"
 
 #. TRANSLATORS: Restartable
 msgid "job-state-reasons.job-restartable"
@@ -8385,9 +8346,8 @@ msgid "job-state-reasons.job-streaming"
 msgstr "Jobb strömmas"
 
 #. TRANSLATORS: Suspended
-#, fuzzy
 msgid "job-state-reasons.job-suspended"
-msgstr "Jobbet pausas"
+msgstr "Jobbet är pausat"
 
 #. TRANSLATORS: Job Suspended By Operator
 msgid "job-state-reasons.job-suspended-by-operator"
@@ -8557,8 +8517,7 @@ msgid "lpadmin: Expected PPD after \"-%c\" option."
 msgstr "lpadmin: PPD förväntades efter alternativet \"-%c\"."
 
 msgid "lpadmin: Expected allow/deny:userlist after \"-u\" option."
-msgstr ""
-"lpadmin: allow/deny:användarlista förväntades efter alternativet \"-u\"."
+msgstr "lpadmin: allow/deny:användarlista förväntades efter alternativet \"-u\"."
 
 msgid "lpadmin: Expected class after \"-r\" option."
 msgstr "lpadmin: Klass förväntades efter alternativet \"-r\"."
@@ -8615,15 +8574,21 @@ msgid ""
 "version of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: skrivardrivrutiner är föråldrade och kommer att sluta fungera i en "
+"framtida CUPS-version. Använd IPP Everywhere-drivrutiner (\"-m everywhere\")"
+" eller skrivarprogram i stället."
 
 msgid "lpadmin: Printer name can only contain printable characters."
 msgstr "lpadmin: Skrivarnamn får bara innehålla utskrivbara tecken."
 
 msgid ""
-"lpadmin: Raw queues are deprecated and will stop working in a future version "
-"of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
+"lpadmin: Raw queues are deprecated and will stop working in a future version"
+" of CUPS. Use IPP Everywhere drivers (\"-m everywhere\") or Printer "
 "Applications instead."
 msgstr ""
+"lpadmin: råköer är föråldrade och kommer att sluta fungera i en framtida "
+"CUPS-version. Använd IPP Everywhere-drivrutiner (\"-m everywhere\") eller "
+"skrivarprogram i stället."
 
 msgid "lpadmin: Raw queues are no longer supported on macOS."
 msgstr "lpadmin: Råa köer stöds inte längre på macOS."
@@ -8747,8 +8712,8 @@ msgstr "lpoptions: Okänd skrivare eller klass."
 
 #, c-format
 msgid ""
-"lpstat: error - %s environment variable names non-existent destination \"%s"
-"\"."
+"lpstat: error - %s environment variable names non-existent destination "
+"\"%s\"."
 msgstr ""
 "lpstat: fel - miljövariabeln %s namnger icke-existerande destination \"%s\"."
 
@@ -9661,9 +9626,8 @@ msgid "media-type.auto"
 msgstr "Automatisk"
 
 #. TRANSLATORS: Back Print Film
-#, fuzzy
 msgid "media-type.back-print-film"
-msgstr "Våt film"
+msgstr "Baktrycksfilm"
 
 #. TRANSLATORS: Cardboard
 msgid "media-type.cardboard"
@@ -9786,9 +9750,8 @@ msgid "media-type.embossing-foil"
 msgstr "Präglingsfolie"
 
 #. TRANSLATORS: End Board
-#, fuzzy
 msgid "media-type.end-board"
-msgstr "Kartong"
+msgstr "Ändkartong"
 
 #. TRANSLATORS: Envelope
 msgid "media-type.envelope"
@@ -10019,9 +9982,8 @@ msgid "media-type.multi-layer"
 msgstr "Flera lager"
 
 #. TRANSLATORS: Multi Part Form
-#, fuzzy
 msgid "media-type.multi-part-form"
-msgstr "Flera lager"
+msgstr "Flerdelat formulär"
 
 #. TRANSLATORS: Other
 msgid "media-type.other"
@@ -11084,9 +11046,8 @@ msgid "multiple-operation-time-out-action.abort-job"
 msgstr "Avbryt jobb"
 
 #. TRANSLATORS: Hold Job
-#, fuzzy
 msgid "multiple-operation-time-out-action.hold-job"
-msgstr "Avbryt jobb"
+msgstr "Behåll jobb"
 
 #. TRANSLATORS: Process Job
 msgid "multiple-operation-time-out-action.process-job"
@@ -11262,49 +11223,40 @@ msgid "number-up"
 msgstr "Numrera"
 
 #. TRANSLATORS: Number-Up Layout
-#, fuzzy
 msgid "number-up-layout"
-msgstr "Numrera"
+msgstr "Sidlayout för flera sidor per ark"
 
 #. TRANSLATORS: Bottom-Top, Left-Right
-#, fuzzy
 msgid "number-up-layout.btlr"
-msgstr "Numrera"
+msgstr "Nederifrån och upp, vänster till höger"
 
 #. TRANSLATORS: Bottom-Top, Right-Left
-#, fuzzy
 msgid "number-up-layout.btrl"
-msgstr "Numrera"
+msgstr "Nederifrån och upp, höger till vänster"
 
 #. TRANSLATORS: Left-Right, Bottom-Top
-#, fuzzy
 msgid "number-up-layout.lrbt"
-msgstr "Numrera"
+msgstr "Vänster till höger, nedifrån och upp"
 
 #. TRANSLATORS: Left-Right, Top-Bottom
-#, fuzzy
 msgid "number-up-layout.lrtb"
-msgstr "Numrera"
+msgstr "Vänster till höger, uppifrån och ned"
 
 #. TRANSLATORS: Right-Left, Bottom-Top
-#, fuzzy
 msgid "number-up-layout.rlbt"
-msgstr "Numrera"
+msgstr "Höger till vänster, nedifrån och upp"
 
 #. TRANSLATORS: Right-Left, Top-Bottom
-#, fuzzy
 msgid "number-up-layout.rltb"
-msgstr "Numrera"
+msgstr "Höger till vänster, uppifrån och ned"
 
 #. TRANSLATORS: Top-Bottom, Left-Right
-#, fuzzy
 msgid "number-up-layout.tblr"
-msgstr "Numrera"
+msgstr "Uppifrån och ned, vänster till höger"
 
 #. TRANSLATORS: Top-Bottom, Right-Left
-#, fuzzy
 msgid "number-up-layout.tbrl"
-msgstr "Numrera"
+msgstr "Uppifrån och ned, höger till vänster"
 
 #. TRANSLATORS: Object Offset
 msgid "object-offset"
@@ -11527,31 +11479,28 @@ msgid "output-compression-quality-factor"
 msgstr "Scannad bildkvalitet"
 
 #. TRANSLATORS: Page Border
-#, fuzzy
 msgid "page-border"
-msgstr "Sidordning mottagen"
+msgstr "Sidkantlinje"
 
 #. TRANSLATORS: Thin Double Border
 msgid "page-border.double"
-msgstr ""
+msgstr "Tunn dubbel kantlinje"
 
 #. TRANSLATORS: Thick Double Border
 msgid "page-border.double-thick"
-msgstr ""
+msgstr "Tjock dubbel kantlinje"
 
 #. TRANSLATORS: No Border
-#, fuzzy
 msgid "page-border.none"
-msgstr "Sidordning mottagen"
+msgstr "Ingen kantlinje"
 
 #. TRANSLATORS: Thin Single Border
-#, fuzzy
 msgid "page-border.single"
-msgstr "Sidordning mottagen"
+msgstr "Tunn enkel kantlinje"
 
 #. TRANSLATORS: Thick Single Border
 msgid "page-border.single-thick"
-msgstr ""
+msgstr "Tjock enkel kantlinje"
 
 #. TRANSLATORS: Page Delivery
 msgid "page-delivery"
@@ -11594,22 +11543,20 @@ msgid "page-ranges"
 msgstr "Sidintervall"
 
 #. TRANSLATORS: Page Set
-#, fuzzy
 msgid "page-set"
-msgstr "Sidor"
+msgstr "Sidurval"
 
 #. TRANSLATORS: All Pages
 msgid "page-set.all"
-msgstr ""
+msgstr "Alla sidor"
 
 #. TRANSLATORS: Even Pages
-#, fuzzy
 msgid "page-set.even"
-msgstr "Sidutmatning"
+msgstr "Jämna sidor"
 
 #. TRANSLATORS: Odd Pages
 msgid "page-set.odd"
-msgstr ""
+msgstr "Udda sidor"
 
 #. TRANSLATORS: Pages
 msgid "pages"
@@ -11659,56 +11606,48 @@ msgid "platform-temperature"
 msgstr "Plattformens temperatur"
 
 #. TRANSLATORS: Image Position
-#, fuzzy
 msgid "position"
-msgstr "Spara disposition"
+msgstr "Bildposition"
 
 #. TRANSLATORS: Bottom-Center
-#, fuzzy
 msgid "position.bottom"
-msgstr "Nederst"
+msgstr "Längst ned i mitten"
 
 #. TRANSLATORS: Bottom-Left
-#, fuzzy
 msgid "position.bottom-left"
-msgstr "Impositionsmall"
+msgstr "Längst ned till vänster"
 
 #. TRANSLATORS: Bottom-Right
 msgid "position.bottom-right"
-msgstr ""
+msgstr "Längst ned till höger"
 
 #. TRANSLATORS: Center
-#, fuzzy
 msgid "position.center"
 msgstr "Mitten"
 
 #. TRANSLATORS: Left-Center
-#, fuzzy
 msgid "position.left"
-msgstr "Vänster"
+msgstr "Till vänster i mitten"
 
 #. TRANSLATORS: Right-Center
-#, fuzzy
 msgid "position.right"
-msgstr "Höger"
+msgstr "Till höger i mitten"
 
 #. TRANSLATORS: Top-Center
-#, fuzzy
 msgid "position.top"
-msgstr "Impositionsmall"
+msgstr "Längst upp i mitten"
 
 #. TRANSLATORS: Top-Left
-#, fuzzy
 msgid "position.top-left"
-msgstr "Impositionsmall"
+msgstr "Längst upp till vänster"
 
 #. TRANSLATORS: Top-Right
 msgid "position.top-right"
-msgstr ""
+msgstr "Längst upp till höger"
 
 #. TRANSLATORS: Post-dial String
 msgid "post-dial-string"
-msgstr ""
+msgstr "Sträng efter uppringning"
 
 #, c-format
 msgid "ppdc: Adding include directory \"%s\"."
@@ -11760,7 +11699,8 @@ msgstr "ppdc: Booleskt värde förväntades på rad %d av %s."
 
 #, c-format
 msgid "ppdc: Expected charset after Font on line %d of %s."
-msgstr "ppdc: Teckenuppsättning förväntades efter Teckensnitt på rad %d av %s."
+msgstr ""
+"ppdc: Teckenuppsättning förväntades efter Teckensnitt på rad %d av %s."
 
 #, c-format
 msgid "ppdc: Expected choice code on line %d of %s."
@@ -11881,7 +11821,8 @@ msgstr "ppdc: Alternativtyp förväntades på rad %d av %s."
 
 #, c-format
 msgid "ppdc: Expected override field after Resolution on line %d of %s."
-msgstr "ppdc: Åsidosättningsfält förväntades efter Resolution på rad %d av %s."
+msgstr ""
+"ppdc: Åsidosättningsfält förväntades efter Resolution på rad %d av %s."
 
 #, c-format
 msgid "ppdc: Expected quoted string on line %d of %s."
@@ -11980,7 +11921,8 @@ msgstr "ppdc: Saknar #if på rad %d av %s."
 #, c-format
 msgid ""
 "ppdc: Need a msgid line before any translation strings on line %d of %s."
-msgstr "ppdc: Behöver en msgid-rad före översättningssträngar på rad %d av %s."
+msgstr ""
+"ppdc: Behöver en msgid-rad före översättningssträngar på rad %d av %s."
 
 #, c-format
 msgid "ppdc: No message catalog provided for locale %s."
@@ -11994,9 +11936,9 @@ msgstr "ppdc: Alternativ %s definierad i två olika grupper på rad %d av %s."
 msgid "ppdc: Option %s redefined with a different type on line %d of %s."
 msgstr "ppdc: Alternativ %s omdefinierad med en annan typ på rad %d av %s."
 
-#, fuzzy, c-format
+#, c-format
 msgid "ppdc: Option constraint must *name on line %d of %s."
-msgstr "ppdc: Två alternativnamn förväntades på rad %d av %s."
+msgstr "ppdc: alternativbegränsningen måste *name på rad %d i %s."
 
 #, c-format
 msgid "ppdc: Too many nested #if's on line %d of %s."
@@ -12067,8 +12009,7 @@ msgid "ppdc: Unknown token \"%s\" seen on line %d of %s."
 msgstr "ppdc: Okänd token \"%s\" hittades på rad %d av %s."
 
 #, c-format
-msgid ""
-"ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
+msgid "ppdc: Unknown trailing characters in real number \"%s\" on line %d of %s."
 msgstr "ppdc: Okända avslutande tecken i realtal \"%s\" på rad %d av %s."
 
 #, c-format
@@ -12101,7 +12042,7 @@ msgstr "ppdmerge: Kunde inte säkerhetskopiera %s till %s - %s"
 
 #. TRANSLATORS: Pre-dial String
 msgid "pre-dial-string"
-msgstr ""
+msgstr "Sträng före uppringning"
 
 #. TRANSLATORS: Number-Up Layout
 msgid "presentation-direction-number-up"
@@ -12339,9 +12280,9 @@ msgstr "Standard"
 msgid "printer %s disabled since %s -"
 msgstr "skrivare %s avaktiverad sedan %s -"
 
-#, fuzzy, c-format
+#, c-format
 msgid "printer %s is holding new jobs.  enabled since %s"
-msgstr "skrivare %s används inte. aktiverad sedan %s"
+msgstr "skrivare %s håller kvar nya jobb. aktiverad sedan %s"
 
 #, c-format
 msgid "printer %s is idle.  enabled since %s"
@@ -12424,184 +12365,148 @@ msgid "printer-state-reasons.alert-removal-of-binary-change-entry"
 msgstr "Gamla varningar har tagits bort"
 
 #. TRANSLATORS: Bander Added
-#, fuzzy
 msgid "printer-state-reasons.bander-added"
-msgstr "Bindare tillagd"
+msgstr "Buntningsenhet tillagd"
 
 #. TRANSLATORS: Bander Almost Empty
-#, fuzzy
 msgid "printer-state-reasons.bander-almost-empty"
-msgstr "Bindare nästan tom"
+msgstr "Buntningsenheten är nästan tom"
 
 #. TRANSLATORS: Bander Almost Full
-#, fuzzy
 msgid "printer-state-reasons.bander-almost-full"
-msgstr "Bindare nästan full"
+msgstr "Buntningsenheten är nästan full"
 
 #. TRANSLATORS: Bander At Limit
-#, fuzzy
 msgid "printer-state-reasons.bander-at-limit"
-msgstr "Bindare vid gräns"
+msgstr "Buntningsenheten har nått gränsen"
 
 #. TRANSLATORS: Bander Closed
-#, fuzzy
 msgid "printer-state-reasons.bander-closed"
-msgstr "Bindare stängd"
+msgstr "Buntningsenheten är stängd"
 
 #. TRANSLATORS: Bander Configuration Change
-#, fuzzy
 msgid "printer-state-reasons.bander-configuration-change"
-msgstr "Bindarens konfiguration ändrad"
+msgstr "Buntningsenhetens konfiguration har ändrats"
 
 #. TRANSLATORS: Bander Cover Closed
-#, fuzzy
 msgid "printer-state-reasons.bander-cover-closed"
-msgstr "Bindarens lucka stängd"
+msgstr "Buntningsenhetens lucka är stängd"
 
 #. TRANSLATORS: Bander Cover Open
-#, fuzzy
 msgid "printer-state-reasons.bander-cover-open"
-msgstr "Bindarens lucka öppen"
+msgstr "Buntningsenhetens lucka är öppen"
 
 #. TRANSLATORS: Bander Empty
-#, fuzzy
 msgid "printer-state-reasons.bander-empty"
-msgstr "Bindare tom"
+msgstr "Buntningsenheten är tom"
 
 #. TRANSLATORS: Bander Full
-#, fuzzy
 msgid "printer-state-reasons.bander-full"
-msgstr "Bindare full"
+msgstr "Buntningsenheten är full"
 
 #. TRANSLATORS: Bander Interlock Closed
-#, fuzzy
 msgid "printer-state-reasons.bander-interlock-closed"
-msgstr "Bindarens lås stängt"
+msgstr "Buntningsenhetens spärr är stängd"
 
 #. TRANSLATORS: Bander Interlock Open
-#, fuzzy
 msgid "printer-state-reasons.bander-interlock-open"
-msgstr "Bindarens lås öppet"
+msgstr "Buntningsenhetens spärr är öppen"
 
 #. TRANSLATORS: Bander Jam
-#, fuzzy
 msgid "printer-state-reasons.bander-jam"
-msgstr "Bindaren blockerad"
+msgstr "Buntningsenheten har fastnat"
 
 #. TRANSLATORS: Bander Life Almost Over
-#, fuzzy
 msgid "printer-state-reasons.bander-life-almost-over"
-msgstr "Bindarens livstid nästan över"
+msgstr "Buntningsenhetens livslängd är nästan slut"
 
 #. TRANSLATORS: Bander Life Over
-#, fuzzy
 msgid "printer-state-reasons.bander-life-over"
-msgstr "Bindarens livstid över"
+msgstr "Buntningsenhetens livslängd är slut"
 
 #. TRANSLATORS: Bander Memory Exhausted
-#, fuzzy
 msgid "printer-state-reasons.bander-memory-exhausted"
-msgstr "Bindarens minne fullt"
+msgstr "Buntningsenhetens minne är fullt"
 
 #. TRANSLATORS: Bander Missing
-#, fuzzy
 msgid "printer-state-reasons.bander-missing"
-msgstr "Bindare saknas"
+msgstr "Buntningsenheten saknas"
 
 #. TRANSLATORS: Bander Motor Failure
-#, fuzzy
 msgid "printer-state-reasons.bander-motor-failure"
-msgstr "Bindare motorproblem"
+msgstr "Buntningsenhetens motorfel"
 
 #. TRANSLATORS: Bander Near Limit
-#, fuzzy
 msgid "printer-state-reasons.bander-near-limit"
-msgstr "Bindare nära gränsen"
+msgstr "Buntningsenheten är nära gränsen"
 
 #. TRANSLATORS: Bander Offline
-#, fuzzy
 msgid "printer-state-reasons.bander-offline"
-msgstr "Bindare nedkopplad"
+msgstr "Buntningsenheten är frånkopplad"
 
 #. TRANSLATORS: Bander Opened
-#, fuzzy
 msgid "printer-state-reasons.bander-opened"
-msgstr "Bindare öppen"
+msgstr "Buntningsenheten är öppen"
 
 #. TRANSLATORS: Bander Over Temperature
-#, fuzzy
 msgid "printer-state-reasons.bander-over-temperature"
-msgstr "Bindare över normal temperatur"
+msgstr "Buntningsenheten har för hög temperatur"
 
 #. TRANSLATORS: Bander Power Saver
-#, fuzzy
 msgid "printer-state-reasons.bander-power-saver"
-msgstr "Bindare energispar"
+msgstr "Buntningsenheten är i energisparläge"
 
 #. TRANSLATORS: Bander Recoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.bander-recoverable-failure"
-msgstr "Bindare återhämtningsbart fel"
+msgstr "Buntningsenheten har ett återställningsbart fel"
 
 #. TRANSLATORS: Bander Recoverable Storage
-#, fuzzy
 msgid "printer-state-reasons.bander-recoverable-storage"
-msgstr "Bindare återhämtningsbar lagring"
+msgstr "Buntningsenhetens lagring kan återställas"
 
 #. TRANSLATORS: Bander Removed
-#, fuzzy
 msgid "printer-state-reasons.bander-removed"
-msgstr "Bindare borttagen"
+msgstr "Buntningsenheten har tagits bort"
 
 #. TRANSLATORS: Bander Resource Added
-#, fuzzy
 msgid "printer-state-reasons.bander-resource-added"
-msgstr "Bindarresurs tillagd"
+msgstr "Buntningsenhetsresurs tillagd"
 
 #. TRANSLATORS: Bander Resource Removed
-#, fuzzy
 msgid "printer-state-reasons.bander-resource-removed"
-msgstr "Bindarresurs borttagen"
+msgstr "Buntningsenhetsresurs borttagen"
 
 #. TRANSLATORS: Bander Thermistor Failure
-#, fuzzy
 msgid "printer-state-reasons.bander-thermistor-failure"
-msgstr "Bindare termistorfel"
+msgstr "Buntningsenhetens termistorfel"
 
 #. TRANSLATORS: Bander Timing Failure
-#, fuzzy
 msgid "printer-state-reasons.bander-timing-failure"
-msgstr "Bindare timing-fel"
+msgstr "Buntningsenhetens tidsfel"
 
 #. TRANSLATORS: Bander Turned Off
-#, fuzzy
 msgid "printer-state-reasons.bander-turned-off"
-msgstr "Bindare avstängd"
+msgstr "Buntningsenheten är avstängd"
 
 #. TRANSLATORS: Bander Turned On
-#, fuzzy
 msgid "printer-state-reasons.bander-turned-on"
-msgstr "Bindare påsatt"
+msgstr "Buntningsenheten är påslagen"
 
 #. TRANSLATORS: Bander Under Temperature
-#, fuzzy
 msgid "printer-state-reasons.bander-under-temperature"
-msgstr "Bindare under normal temperatur"
+msgstr "Buntningsenheten har för låg temperatur"
 
 #. TRANSLATORS: Bander Unrecoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.bander-unrecoverable-failure"
-msgstr "Bindare ej återhämtningsbart fel"
+msgstr "Buntningsenheten har ett oåterställbart fel"
 
 #. TRANSLATORS: Bander Unrecoverable Storage Error
-#, fuzzy
 msgid "printer-state-reasons.bander-unrecoverable-storage-error"
-msgstr "Bindare ej återhämtningsbart lagringsfel"
+msgstr "Buntningsenheten har ett oåterställbart lagringsfel"
 
 #. TRANSLATORS: Bander Warming Up
-#, fuzzy
 msgid "printer-state-reasons.bander-warming-up"
-msgstr "Bindare värmer upp"
+msgstr "Buntningsenheten värms upp"
 
 #. TRANSLATORS: Binder Added
 msgid "printer-state-reasons.binder-added"
@@ -13152,9 +13057,8 @@ msgid "printer-state-reasons.fuser-under-temp"
 msgstr "Svets temperatur låg"
 
 #. TRANSLATORS: Hold New Jobs
-#, fuzzy
 msgid "printer-state-reasons.hold-new-jobs"
-msgstr "Vikare blockerad"
+msgstr "Nya jobb hålls kvar"
 
 #. TRANSLATORS: Identify Printer
 msgid "printer-state-reasons.identify-printer-requested"
@@ -14473,366 +14377,296 @@ msgid "printer-state-reasons.separation-cutter-warming-up"
 msgstr "Separationsskärare värmer upp"
 
 #. TRANSLATORS: Sheet Rotator Added
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-added"
-msgstr "Perforerare tillagd"
+msgstr "Arkroterare tillagd"
 
 #. TRANSLATORS: Sheet Rotator Almost Empty
 msgid "printer-state-reasons.sheet-rotator-almost-empty"
 msgstr "Arkvändare nästan tom"
 
 #. TRANSLATORS: Sheet Rotator Almost Full
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-almost-full"
-msgstr "Arkvändare nästan tom"
+msgstr "Arkroteraren är nästan full"
 
 #. TRANSLATORS: Sheet Rotator At Limit
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-at-limit"
-msgstr "Arkvändare nästan tom"
+msgstr "Arkroteraren har nått gränsen"
 
 #. TRANSLATORS: Sheet Rotator Closed
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-closed"
-msgstr "Arkvändare nästan tom"
+msgstr "Arkroteraren är stängd"
 
 #. TRANSLATORS: Sheet Rotator Configuration Change
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-configuration-change"
-msgstr "Perforerare konfiguration ändrad"
+msgstr "Arkroterarens konfiguration har ändrats"
 
 #. TRANSLATORS: Sheet Rotator Cover Closed
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-cover-closed"
-msgstr "Perforerarens lucka stängd"
+msgstr "Arkroterarens lucka är stängd"
 
 #. TRANSLATORS: Sheet Rotator Cover Open
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-cover-open"
-msgstr "Perforerarens lucka öppen"
+msgstr "Arkroterarens lucka är öppen"
 
 #. TRANSLATORS: Sheet Rotator Empty
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-empty"
-msgstr "Arkvändare nästan tom"
+msgstr "Arkroteraren är tom"
 
 #. TRANSLATORS: Sheet Rotator Full
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-full"
-msgstr "Perforerare full"
+msgstr "Arkroteraren är full"
 
 #. TRANSLATORS: Sheet Rotator Interlock Closed
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-interlock-closed"
-msgstr "Perforerarens lås stängt"
+msgstr "Arkroterarens spärr är stängd"
 
 #. TRANSLATORS: Sheet Rotator Interlock Open
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-interlock-open"
-msgstr "Perforerarens lås öppet"
+msgstr "Arkroterarens spärr är öppen"
 
 #. TRANSLATORS: Sheet Rotator Jam
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-jam"
-msgstr "Arkvändare nästan tom"
+msgstr "Arkroteraren har fastnat"
 
 #. TRANSLATORS: Sheet Rotator Life Almost Over
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-life-almost-over"
-msgstr "Perforerarens livstid nästan över"
+msgstr "Arkroterarens livslängd är snart slut"
 
 #. TRANSLATORS: Sheet Rotator Life Over
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-life-over"
-msgstr "Perforerarens livstid över"
+msgstr "Arkroterarens livslängd är slut"
 
 #. TRANSLATORS: Sheet Rotator Memory Exhausted
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-memory-exhausted"
-msgstr "Perforerarens minne slut"
+msgstr "Arkroterarens minne är slut"
 
 #. TRANSLATORS: Sheet Rotator Missing
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-missing"
-msgstr "Perforerare saknas"
+msgstr "Arkroteraren saknas"
 
 #. TRANSLATORS: Sheet Rotator Motor Failure
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-motor-failure"
-msgstr "Perforerare motorfel"
+msgstr "Fel på arkroterarens motor"
 
 #. TRANSLATORS: Sheet Rotator Near Limit
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-near-limit"
-msgstr "Perforerare nära gräns"
+msgstr "Arkroteraren är nära gränsen"
 
 #. TRANSLATORS: Sheet Rotator Offline
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-offline"
-msgstr "Perforerare nedkopplad"
+msgstr "Arkroteraren är frånkopplad"
 
 #. TRANSLATORS: Sheet Rotator Opened
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-opened"
-msgstr "Perforerare öppnad"
+msgstr "Arkroteraren är öppen"
 
 #. TRANSLATORS: Sheet Rotator Over Temperature
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-over-temperature"
-msgstr "Perforerare över normal temperatur"
+msgstr "Arkroteraren har för hög temperatur"
 
 #. TRANSLATORS: Sheet Rotator Power Saver
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-power-saver"
-msgstr "Perforerare energispar"
+msgstr "Arkroteraren är i energisparläge"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-recoverable-failure"
-msgstr "Perforerare återhämtningsbart fel"
+msgstr "Återställningsbart fel på arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Recoverable Storage
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-recoverable-storage"
-msgstr "Perforerare återhämtningsbar lagring"
+msgstr "Arkroterarens lagring kan återställas"
 
 #. TRANSLATORS: Sheet Rotator Removed
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-removed"
-msgstr "Perforerare borttagen"
+msgstr "Arkroteraren har tagits bort"
 
 #. TRANSLATORS: Sheet Rotator Resource Added
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-resource-added"
-msgstr "Perforerarresurs tillagd"
+msgstr "En resurs har lagts till i arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Resource Removed
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-resource-removed"
-msgstr "Perforerarresurs borttagen"
+msgstr "En resurs har tagits bort från arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Thermistor Failure
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-thermistor-failure"
-msgstr "Perforerare termistorfel"
+msgstr "Fel på arkroterarens termistor"
 
 #. TRANSLATORS: Sheet Rotator Timing Failure
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-timing-failure"
-msgstr "Perforerare timing-fel"
+msgstr "Tidsfel på arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Turned Off
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-turned-off"
-msgstr "Perforerare avständ"
+msgstr "Arkroteraren är avstängd"
 
 #. TRANSLATORS: Sheet Rotator Turned On
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-turned-on"
-msgstr "Perforerare påsatt"
+msgstr "Arkroteraren är påslagen"
 
 #. TRANSLATORS: Sheet Rotator Under Temperature
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-under-temperature"
-msgstr "Perforerare under normal temperatur"
+msgstr "Arkroteraren har för låg temperatur"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-failure"
-msgstr "Perforerare ej återhämtningsbart fel"
+msgstr "Oåterställbart fel på arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Unrecoverable Storage Error
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-unrecoverable-storage-error"
-msgstr "Perforerare ej återhämtningsbart lagringsfel"
+msgstr "Oåterställbart lagringsfel på arkroteraren"
 
 #. TRANSLATORS: Sheet Rotator Warming Up
-#, fuzzy
 msgid "printer-state-reasons.sheet-rotator-warming-up"
-msgstr "Perforerare värmer upp"
+msgstr "Arkroteraren värms upp"
 
 #. TRANSLATORS: Printer offline
 msgid "printer-state-reasons.shutdown"
 msgstr "Skrivare nedkopplad"
 
 #. TRANSLATORS: Slitter Added
-#, fuzzy
 msgid "printer-state-reasons.slitter-added"
-msgstr "Sömmaskin tillagd"
+msgstr "Skäraggregat har lagts till"
 
 #. TRANSLATORS: Slitter Almost Empty
-#, fuzzy
 msgid "printer-state-reasons.slitter-almost-empty"
-msgstr "Sömmaskin nästan tom"
+msgstr "Skäraggregatet är nästan tomt"
 
 #. TRANSLATORS: Slitter Almost Full
-#, fuzzy
 msgid "printer-state-reasons.slitter-almost-full"
-msgstr "Sömmaskin nästan full"
+msgstr "Skäraggregatet är nästan fullt"
 
 #. TRANSLATORS: Slitter At Limit
-#, fuzzy
 msgid "printer-state-reasons.slitter-at-limit"
-msgstr "Sömmaskin vid gräns"
+msgstr "Skäraggregatet har nått gränsen"
 
 #. TRANSLATORS: Slitter Closed
-#, fuzzy
 msgid "printer-state-reasons.slitter-closed"
-msgstr "Sömmaskin stängd"
+msgstr "Skäraggregatet är stängt"
 
 #. TRANSLATORS: Slitter Configuration Change
-#, fuzzy
 msgid "printer-state-reasons.slitter-configuration-change"
-msgstr "Sömmaskin konfiguration ändrad"
+msgstr "Skäraggregatets konfiguration har ändrats"
 
 #. TRANSLATORS: Slitter Cover Closed
-#, fuzzy
 msgid "printer-state-reasons.slitter-cover-closed"
-msgstr "Sömmaskinens lucka öppen"
+msgstr "Skäraggregatets lucka är stängd"
 
 #. TRANSLATORS: Slitter Cover Open
-#, fuzzy
 msgid "printer-state-reasons.slitter-cover-open"
-msgstr "Sömmaskinens lucka öppen"
+msgstr "Skäraggregatets lucka är öppen"
 
 #. TRANSLATORS: Slitter Empty
-#, fuzzy
 msgid "printer-state-reasons.slitter-empty"
-msgstr "Sömmaskin tom"
+msgstr "Skäraggregatet är tomt"
 
 #. TRANSLATORS: Slitter Full
-#, fuzzy
 msgid "printer-state-reasons.slitter-full"
-msgstr "Sömmaskin full"
+msgstr "Skäraggregatet är fullt"
 
 #. TRANSLATORS: Slitter Interlock Closed
-#, fuzzy
 msgid "printer-state-reasons.slitter-interlock-closed"
-msgstr "Sömmaskinens lås stängt"
+msgstr "Skäraggregatets spärr är stängd"
 
 #. TRANSLATORS: Slitter Interlock Open
-#, fuzzy
 msgid "printer-state-reasons.slitter-interlock-open"
-msgstr "Sömmaskinens lås öppet"
+msgstr "Skäraggregatets spärr är öppen"
 
 #. TRANSLATORS: Slitter Jam
-#, fuzzy
 msgid "printer-state-reasons.slitter-jam"
-msgstr "Sömmaskin blockerad"
+msgstr "Skäraggregatet har fastnat"
 
 #. TRANSLATORS: Slitter Life Almost Over
-#, fuzzy
 msgid "printer-state-reasons.slitter-life-almost-over"
-msgstr "Sömmaskinens livstid nästan över"
+msgstr "Skäraggregatets livslängd är snart slut"
 
 #. TRANSLATORS: Slitter Life Over
-#, fuzzy
 msgid "printer-state-reasons.slitter-life-over"
-msgstr "Sömmaskinens livstid över"
+msgstr "Skäraggregatets livslängd är slut"
 
 #. TRANSLATORS: Slitter Memory Exhausted
-#, fuzzy
 msgid "printer-state-reasons.slitter-memory-exhausted"
-msgstr "Sömmaskinens minne slut"
+msgstr "Skäraggregatets minne är slut"
 
 #. TRANSLATORS: Slitter Missing
-#, fuzzy
 msgid "printer-state-reasons.slitter-missing"
-msgstr "Sömmaskin saknas"
+msgstr "Skäraggregatet saknas"
 
 #. TRANSLATORS: Slitter Motor Failure
-#, fuzzy
 msgid "printer-state-reasons.slitter-motor-failure"
-msgstr "Sömmaskin motorfel"
+msgstr "Fel på skäraggregatets motor"
 
 #. TRANSLATORS: Slitter Near Limit
-#, fuzzy
 msgid "printer-state-reasons.slitter-near-limit"
-msgstr "Sömmaskin nära gräns"
+msgstr "Skäraggregatet är nära gränsen"
 
 #. TRANSLATORS: Slitter Offline
-#, fuzzy
 msgid "printer-state-reasons.slitter-offline"
-msgstr "Sömmaskin nedkopplad"
+msgstr "Skäraggregatet är frånkopplat"
 
 #. TRANSLATORS: Slitter Opened
-#, fuzzy
 msgid "printer-state-reasons.slitter-opened"
-msgstr "Sömmaskin öppen"
+msgstr "Skäraggregatet är öppet"
 
 #. TRANSLATORS: Slitter Over Temperature
-#, fuzzy
 msgid "printer-state-reasons.slitter-over-temperature"
-msgstr "Sömmaskin över normal temperatur"
+msgstr "Skäraggregatet har för hög temperatur"
 
 #. TRANSLATORS: Slitter Power Saver
-#, fuzzy
 msgid "printer-state-reasons.slitter-power-saver"
-msgstr "Sömmaskin energispar"
+msgstr "Skäraggregatet är i energisparläge"
 
 #. TRANSLATORS: Slitter Recoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.slitter-recoverable-failure"
-msgstr "Sömmaskin återhämtningsbart fel"
+msgstr "Återställningsbart fel på skäraggregatet"
 
 #. TRANSLATORS: Slitter Recoverable Storage
-#, fuzzy
 msgid "printer-state-reasons.slitter-recoverable-storage"
-msgstr "Sömmaskin återhämtningsbar lagring"
+msgstr "Skäraggregatets lagring kan återställas"
 
 #. TRANSLATORS: Slitter Removed
-#, fuzzy
 msgid "printer-state-reasons.slitter-removed"
-msgstr "Sömmaskin borttagen"
+msgstr "Skäraggregatet har tagits bort"
 
 #. TRANSLATORS: Slitter Resource Added
-#, fuzzy
 msgid "printer-state-reasons.slitter-resource-added"
-msgstr "Sömmaskinresurs tillagd"
+msgstr "En resurs har lagts till i skäraggregatet"
 
 #. TRANSLATORS: Slitter Resource Removed
-#, fuzzy
 msgid "printer-state-reasons.slitter-resource-removed"
-msgstr "Sömmaskinresurs borttagen"
+msgstr "En resurs har tagits bort från skäraggregatet"
 
 #. TRANSLATORS: Slitter Thermistor Failure
-#, fuzzy
 msgid "printer-state-reasons.slitter-thermistor-failure"
-msgstr "Sömmaskin termistorfel"
+msgstr "Fel på skäraggregatets termistor"
 
 #. TRANSLATORS: Slitter Timing Failure
 msgid "printer-state-reasons.slitter-timing-failure"
 msgstr "Nedskärare timing-fel"
 
 #. TRANSLATORS: Slitter Turned Off
-#, fuzzy
 msgid "printer-state-reasons.slitter-turned-off"
-msgstr "Sömmaskin avstängd"
+msgstr "Skäraggregatet är avstängt"
 
 #. TRANSLATORS: Slitter Turned On
-#, fuzzy
 msgid "printer-state-reasons.slitter-turned-on"
-msgstr "Sömmaskin påsatt"
+msgstr "Skäraggregatet är påslaget"
 
 #. TRANSLATORS: Slitter Under Temperature
-#, fuzzy
 msgid "printer-state-reasons.slitter-under-temperature"
-msgstr "Sömmaskin under normal temperatur"
+msgstr "Skäraggregatet har för låg temperatur"
 
 #. TRANSLATORS: Slitter Unrecoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.slitter-unrecoverable-failure"
-msgstr "Sömmaskin ej återhämtningsbart fel"
+msgstr "Oåterställbart fel på skäraggregatet"
 
 #. TRANSLATORS: Slitter Unrecoverable Storage Error
-#, fuzzy
 msgid "printer-state-reasons.slitter-unrecoverable-storage-error"
-msgstr "Sömmaskin ej återhämtningsbart lagringsfel"
+msgstr "Oåterställbart lagringsfel på skäraggregatet"
 
 #. TRANSLATORS: Slitter Warming Up
-#, fuzzy
 msgid "printer-state-reasons.slitter-warming-up"
-msgstr "Sömmaskin värmer upp"
+msgstr "Skäraggregatet värms upp"
 
 #. TRANSLATORS: Spool Area Full
 msgid "printer-state-reasons.spool-area-full"
@@ -15523,49 +15357,40 @@ msgid "printer-state-reasons.trimmer-resource-added"
 msgstr "Trimmarresurs tillagd"
 
 #. TRANSLATORS: Trimmer Resource Removed
-#, fuzzy
 msgid "printer-state-reasons.trimmer-resource-removed"
-msgstr "Sömmaskinresurs borttagen"
+msgstr "En resurs har tagits bort från beskäraren"
 
 #. TRANSLATORS: Trimmer Thermistor Failure
-#, fuzzy
 msgid "printer-state-reasons.trimmer-thermistor-failure"
-msgstr "Sömmaskin termistorfel"
+msgstr "Fel på beskärarens termistor"
 
 #. TRANSLATORS: Trimmer Timing Failure
-#, fuzzy
 msgid "printer-state-reasons.trimmer-timing-failure"
-msgstr "Sömmaskin timing-fel"
+msgstr "Tidsfel på beskäraren"
 
 #. TRANSLATORS: Trimmer Turned Off
-#, fuzzy
 msgid "printer-state-reasons.trimmer-turned-off"
-msgstr "Sömmaskin avstängd"
+msgstr "Beskäraren är avstängd"
 
 #. TRANSLATORS: Trimmer Turned On
-#, fuzzy
 msgid "printer-state-reasons.trimmer-turned-on"
-msgstr "Sömmaskin påsatt"
+msgstr "Beskäraren är påslagen"
 
 #. TRANSLATORS: Trimmer Under Temperature
-#, fuzzy
 msgid "printer-state-reasons.trimmer-under-temperature"
-msgstr "Trimmare över temperatur"
+msgstr "Beskäraren har för låg temperatur"
 
 #. TRANSLATORS: Trimmer Unrecoverable Failure
-#, fuzzy
 msgid "printer-state-reasons.trimmer-unrecoverable-failure"
-msgstr "Trimmare återhämtningsbart fel"
+msgstr "Oåterställbart fel på beskäraren"
 
 #. TRANSLATORS: Trimmer Unrecoverable Storage Error
-#, fuzzy
 msgid "printer-state-reasons.trimmer-unrecoverable-storage-error"
-msgstr "Sömmaskin ej återhämtningsbart lagringsfel"
+msgstr "Oåterställbart lagringsfel på beskäraren"
 
 #. TRANSLATORS: Trimmer Warming Up
-#, fuzzy
 msgid "printer-state-reasons.trimmer-warming-up"
-msgstr "Sömmaskin värmer upp"
+msgstr "Beskäraren värms upp"
 
 #. TRANSLATORS: Unknown
 msgid "printer-state-reasons.unknown"
@@ -15860,21 +15685,26 @@ msgid "separator-sheets-type.start-sheet"
 msgstr "Startark"
 
 msgid "server COMMON-NAME[:PORT]  Run a HTTPS server (default port 8NNN.)"
-msgstr ""
+msgstr "server COMMON-NAME[:PORT]  Kör en HTTPS-server (standardport 8NNN.)"
 
 msgid ""
 "set-access-token [RESOURCE] TOKEN\n"
 "                               Set the current access token"
 msgstr ""
+"set-access-token [RESURS] TOKEN\n"
+"                               Ange den aktuella åtkomsttoken"
 
 msgid ""
 "set-client-data CLIENT-ID CLIENT-SECRET\n"
-"                               Set the client ID and secret for the "
-"authorization server."
+"                               Set the client ID and secret for the authorization server."
 msgstr ""
+"set-client-data CLIENT-ID CLIENT-SECRET\n"
+"                               Ange klient-ID och hemlighet för auktoriseringsservern."
 
 msgid "show COMMON-NAME           Show stored credentials for COMMON-NAME."
 msgstr ""
+"show COMMON-NAME           Visa lagrade autentiseringsuppgifter för COMMON-"
+"NAME."
 
 #. TRANSLATORS: 2-Sided Printing
 msgid "sides"
@@ -16240,8 +16070,7 @@ msgstr "~/.cups/lpoptions-fil anger förvald destination som inte finns."
 #~ msgstr "Felaktiga värden för sidintervall, %d-%d."
 
 #~ msgid "Credentials do not validate against site CA certificate."
-#~ msgstr ""
-#~ "Inloggningsuppgifter kan inte valideras mot webbsidans CA-certifikat."
+#~ msgstr "Inloggningsuppgifter kan inte valideras mot webbsidans CA-certifikat."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."
@@ -16262,12 +16091,12 @@ msgstr "~/.cups/lpoptions-fil anger förvald destination som inte finns."
 #~ "lpadmin: Printer drivers are deprecated and will stop working in a future "
 #~ "version of CUPS."
 #~ msgstr ""
-#~ "lpadmin: Skrivardrivrutinerna är föråldrade och kommer att sluta fungera "
-#~ "i en framtida version av CUPS."
+#~ "lpadmin: Skrivardrivrutinerna är föråldrade och kommer att sluta fungera i "
+#~ "en framtida version av CUPS."
 
 #~ msgid ""
-#~ "lpadmin: Raw queues are deprecated and will stop working in a future "
-#~ "version of CUPS."
+#~ "lpadmin: Raw queues are deprecated and will stop working in a future version"
+#~ " of CUPS."
 #~ msgstr ""
-#~ "lpadmin: Råa köer har övergivits och kommer att sluta fungera i en "
-#~ "framtida version av CUPS."
+#~ "lpadmin: Råa köer har övergivits och kommer att sluta fungera i en framtida "
+#~ "version av CUPS."
