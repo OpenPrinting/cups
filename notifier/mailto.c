@@ -263,7 +263,7 @@ copy_validate_address(
       goto bad_address;
     }
     else if (!strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                     "0123456789!#$%&\'*+-/=?^_`{|}~", *bufptr))
+                     "0123456789!#$%&\'*+-/=?^_`{|}~.", *bufptr))
     {
      /*
       * Not an allowed address character...
