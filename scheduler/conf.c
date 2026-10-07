@@ -145,6 +145,7 @@ static const cupsd_var_t	cupsfiles_vars[] =
   { "DocumentRoot",		&DocumentRoot,		CUPSD_VARTYPE_STRING },
   { "ErrorLog",			&ErrorLog,		CUPSD_VARTYPE_STRING },
   { "FileDevice",		&FileDevice,		CUPSD_VARTYPE_BOOLEAN },
+  { "JobTicketComments",	&JobTicketComments,	CUPSD_VARTYPE_BOOLEAN },
   { "LogFilePerm",		&LogFilePerm,		CUPSD_VARTYPE_PERM },
   { "PageLog",			&PageLog,		CUPSD_VARTYPE_STRING },
   { "Printcap",			&Printcap,		CUPSD_VARTYPE_STRING },
@@ -800,6 +801,7 @@ cupsdReadConfiguration(void)
 
   cupsdSetString(&ErrorPolicy, CUPS_DEFAULT_ERROR_POLICY);
 
+  JobTicketComments   = FALSE;
   JobHistory          = DEFAULT_HISTORY;
   JobFiles            = DEFAULT_FILES;
   JobAutoPurge        = 0;

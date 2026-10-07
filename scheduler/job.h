@@ -133,6 +133,8 @@ VAR int			JobKillDelay	VALUE(DEFAULT_TIMEOUT),
 					/* Max number of tries */
 			JobRetryInterval VALUE(300);
 					/* Seconds between retries */
+VAR int			JobTicketComments VALUE(FALSE);
+					/* Allow job ticket comments? */
 
 
 /*

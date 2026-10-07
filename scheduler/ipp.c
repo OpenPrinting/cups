@@ -8954,7 +8954,8 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   * Read any embedded job ticket info from PS files...
   */
 
-  if (!_cups_strcasecmp(filetype->super, "application") &&
+  if (JobTicketComments &&
+      !_cups_strcasecmp(filetype->super, "application") &&
       (!_cups_strcasecmp(filetype->type, "postscript") ||
        !_cups_strcasecmp(filetype->type, "pdf")))
     read_job_ticket(con);
@@ -9145,7 +9146,7 @@ read_job_ticket(cupsd_client_t *con)	/* I - Client connection */
   */
 
   ticket = ippNew();
-  cupsEncodeOptions(ticket, num_options, options);
+  cupsEncodeOptions2(ticket, num_options, options, IPP_TAG_JOB);
 
  /*
   * See what the user wants to change.

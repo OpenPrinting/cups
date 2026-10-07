@@ -1,14 +1,14 @@
 .\"
 .\" cups-files.conf man page for CUPS.
 .\"
-.\" Copyright © 2020-2025 by OpenPrinting.
+.\" Copyright © 2020-2026 by OpenPrinting.
 .\" Copyright © 2007-2019 by Apple Inc.
 .\" Copyright © 1997-2006 by Easy Software Products.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH cups-files.conf 5 "CUPS" "2025-10-08" "OpenPrinting"
+.TH cups-files.conf 5 "CUPS" "2026-10-07" "OpenPrinting"
 .SH NAME
 cups\-files.conf \- file and directory configuration file for cups
 .SH DESCRIPTION
@@ -132,6 +132,15 @@ Bad startup file permissions are fatal, for example shared TLS certificate and k
 \fBGroup \fIgroup-name-or-number\fR
 Specifies the group name or ID that will be used when executing external programs.
 The default group is operating system specific but is usually "lp" or "nobody".
+.RE
+.\"#JobTicketComments
+.TP 5
+\fBJobTicketComments On\fR
+.TP 5
+\fBJobTicketComments Off\fR
+Specifies whether to allow job ticket comments in PostScript or PDF files as used by the obsolete Windows CUPS driver.
+The default is to not allow job ticket comments.
+Job ticket comments are a deprecated feature and will be removed in CUPS 2.5.
 .RE
 .\"#LogFileGroup
 .TP 5
@@ -300,4 +309,4 @@ command is used instead.
 .BR subscriptions.conf (5),
 CUPS Online Help (http://localhost:631/help)
 .SH COPYRIGHT
-Copyright \[co] 2020-2025 by OpenPrinting.
+Copyright \[co] 2020-2026 by OpenPrinting.
