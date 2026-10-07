@@ -45,6 +45,7 @@ v2.5b1 - YYYY-MM-DD
 - Added Chinese media sizes (Issue #1635)
 - Added language code validation to nameWithLanguage and textWithLanguage
   values (Issue #1653)
+- Removed support for the deprecated job ticket comment functionality.
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated translations (Issue #1146, Issue #1161, Issue #1164, Issue #1535)
 - Updated the configure script to default to installing to /usr/local.

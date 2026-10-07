@@ -93,6 +93,8 @@ static const ipp_op_t cups_ppd_name[] =
 
 static const _ipp_option_t ipp_options[] =
 {
+  { 0, "attributes-charset",	IPP_TAG_CHARSET,	IPP_TAG_ZERO }, /* never send as option */
+  { 0, "attributes-natural-language", IPP_TAG_LANGUAGE,	IPP_TAG_ZERO }, /* never send as option */
   { 1, "auth-info",		IPP_TAG_TEXT,		IPP_TAG_JOB },
   { 1, "auth-info-default",	IPP_TAG_TEXT,		IPP_TAG_PRINTER },
   { 1, "auth-info-required",	IPP_TAG_KEYWORD,	IPP_TAG_PRINTER },
