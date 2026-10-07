@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS
 v2.5b1 - YYYY-MM-DD
 -------------------
 
+- Web interface session IDs now use random data from `cupsGetRand` instead of a
+  time-seeded PRNG (CVE-2018-4700 follow-up).
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
