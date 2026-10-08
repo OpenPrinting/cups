@@ -8,7 +8,7 @@ v2.4.21 - YYYY-MM-DD
 - SECURITY-3.3: The scheduler did not protect against malicious clients that
   held multiple open print jobs (GHSA-hhw5-qqmc-p6rg)
 - SECURITY-3.3: Job ticket comments could cause the scheduler to crash
-  (GHSA-58wv-9ffm-5w78)
+  (CVE-2026-107655)
 - Added new `JobTicketComments` directive to "cups-files.conf" to enable job
   ticket comment support.
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)
