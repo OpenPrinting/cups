@@ -989,7 +989,14 @@ cgi_initialize_multipart(
 
 	  *ptr++ = '\0';
 	  if (line[0])
-            cgiSetArray(name, atoi(ptr) - 1, line);
+	  {
+	    errno = 0;
+	    long idx;
+	    idx = strtol(ptr, NULL, 10);
+
+	    if (errno != ERANGE && idx >= 1 && idx <= 100001)
+	        cgiSetArray(name, (int)(idx - 1), line);
+	  }
 	}
 	else if ((ptr = cgiGetVariable(name)) != NULL)
 	{
