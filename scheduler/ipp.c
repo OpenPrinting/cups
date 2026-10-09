@@ -5883,11 +5883,11 @@ create_local_printer(
 
   if (nameptr)
   {
-    size_t host_len,
-        server_name_len;
+    size_t	host_len,		/* Length of hostname */
+		server_name_len;	/* Length of server name */
 
     /* Get host name of device URI */
-    httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
+    httpSeparateURI(HTTP_URI_CODING_ALL, device_uri_ptr,
 		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
 		    sizeof(host), &port, resource, sizeof(resource));
 
