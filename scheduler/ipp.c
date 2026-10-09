@@ -10755,28 +10755,46 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
 
     if (!strcmp(attr->name, "attributes-charset") ||
 	!strcmp(attr->name, "attributes-natural-language") ||
+	!strcmp(attr->name, "client-info") ||
 	!strncmp(attr->name, "date-time-at-", 13) ||
+	!strncmp(attr->name, "document-charset", 16) ||
 	!strncmp(attr->name, "document-compression", 20) ||
 	!strncmp(attr->name, "document-format", 15) ||
+	!strncmp(attr->name, "document-message", 16) ||
+	!strcmp(attr->name, "document-metadata") ||
+	!strcmp(attr->name, "errors-count") ||
+	!strcmp(attr->name, "ipp-attribute-fidelity") ||
 	!strcmp(attr->name, "job-detailed-status-messages") ||
 	!strcmp(attr->name, "job-document-access-errors") ||
 	!strcmp(attr->name, "job-id") ||
-	!strcmp(attr->name, "job-impressions-completed") ||
-	!strcmp(attr->name, "job-k-octets-completed") ||
-	!strcmp(attr->name, "job-media-sheets-completed") ||
-        !strcmp(attr->name, "job-originating-host-name") ||
-        !strcmp(attr->name, "job-originating-user-name") ||
-	!strcmp(attr->name, "job-pages-completed") ||
-	!strcmp(attr->name, "job-printer-up-time") ||
-	!strcmp(attr->name, "job-printer-uri") ||
-	!strcmp(attr->name, "job-sheets") ||
+	!strncmp(attr->name, "job-impressions", 15) ||
+	!strncmp(attr->name, "job-k-octets", 12) ||
+	!strcmp(attr->name, "job-mandatory-attributes") ||
+	!strncmp(attr->name, "job-media", 9) ||
+	!strcmp(attr->name, "job-more-info") ||
+        !strncmp(attr->name, "job-originating-", 16) ||
+	!strncmp(attr->name, "job-pages", 9) ||
+	!strncmp(attr->name, "job-printer-", 12) ||
+	!strcmp(attr->name, "job-processing-time") ||
+	!strcmp(attr->name, "job-release-action") ||
+	!strcmp(attr->name, "job-resource-ids") ||
+	!strncmp(attr->name, "job-sheet", 9) ||
 	!strcmp(attr->name, "job-state-message") ||
 	!strcmp(attr->name, "job-state-reasons") ||
+	!strcmp(attr->name, "job-storage") ||
 	!strcmp(attr->name, "job-uri") ||
+	!strcmp(attr->name, "job-uuid") ||
 	!strcmp(attr->name, "number-of-documents") ||
 	!strcmp(attr->name, "number-of-intervening-jobs") ||
-	!strcmp(attr->name, "output-device-assigned") ||
-	!strncmp(attr->name, "time-at-", 8))
+	!strcmp(attr->name, "original-requesting-user-name") ||
+	!strncmp(attr->name, "output-device-", 14) ||
+	!strncmp(attr->name, "sheet-completed-", 16) ||
+	!strncmp(attr->name, "time-at-", 8) ||
+	!strcmp(attr->name, "warnings-count") ||
+	strstr(attr->name, "-actual") ||
+	strstr(attr->name, "-detected") ||
+	strstr(attr->name, "-ready") ||
+	strstr(attr->name, "-supplied"))
     {
      /*
       * Read-only attrs!
