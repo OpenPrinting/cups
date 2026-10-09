@@ -5832,7 +5832,7 @@ create_local_printer(
     cupsdSetDeviceURI(printer, uri);
   }
   else
-    cupsdSetDeviceURI(printer, ptr);
+    cupsdSetDeviceURI(printer, device_uri_ptr);
 
   if (printer_geo_location)
     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
