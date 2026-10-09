@@ -9,6 +9,8 @@ v2.4.21 - YYYY-MM-DD
   held multiple open print jobs (GHSA-hhw5-qqmc-p6rg)
 - SECURITY-3.3: Job ticket comments could cause the scheduler to crash
   (CVE-2026-107655)
+- SECURITY-2.0: Network backends could crash with malicious SNMP supply level
+  reporting from a printer, stopping the queue (GHSA-g863-fq3c-86jm)
 - Added new `JobTicketComments` directive to "cups-files.conf" to enable job
   ticket comment support.
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)

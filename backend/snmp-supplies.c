@@ -448,7 +448,7 @@ backend_init_supplies(
 		cachefilename[1024],	/* Cache filename */
 		description[CUPS_SNMP_MAX_STRING],
 					/* Device description string */
-		value[CUPS_MAX_SUPPLIES * (CUPS_SNMP_MAX_STRING * 4 + 3)],
+		value[CUPS_MAX_SUPPLIES * (CUPS_SNMP_MAX_STRING * 4 + 5)],
 					/* Value string */
 		*ptr,			/* Pointer into value string */
 		*name_ptr;		/* Pointer into name string */
