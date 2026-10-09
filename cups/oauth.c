@@ -1383,12 +1383,15 @@ cupsOAuthGetTokens(
     nonce  = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*try_sysconfig*/false);
 
     // We need a JWT...
-    if (!jwt)
-      goto done;
+   if (!jwt)
+  goto done;
 
-    // Validate nonce
-    if (nonce && (!jnonce || strcmp(jnonce, nonce)))
-      goto done;
+if (nonce)
+{
+  if (!jnonce || strcmp(jnonce, nonce) != 0)
+    goto done;
+}
+
 
     // Validate id_token against the Authorization Server's JWKS
     if ((jwks = cupsOAuthGetJWKS(auth_uri, metadata)) == NULL)
