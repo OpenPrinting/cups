@@ -146,6 +146,25 @@ The value "none" disables the "@ Computer Name" suffix added to shared printer n
 \fBDNSSDHostName \fIHOSTNAME\fR
 Specifies the fully-qualified domain name for the server that is used for DNS-SD sharing.
 The default is typically the server's ".local" hostname and is updated whenever that hostname changes.
+.\"#DNSSDServiceName
+.TP 5
+\fBDNSSDServiceName \fIservice-name\fR
+Specifies the service name announced for a shared printer.
+\fIservice-name\fR may contain the following placeholders:
+.RS
+.IP %n 5
+The printer's name.
+.IP %i 5
+The printer's \fIinfo\fR field.
+.IP %l 5
+The printer's \fIlocation\fR field.
+.IP %m 5
+The printer's \fImake & model\fR field.
+.IP %c 5
+The server's name.
+.IP %% 5
+A literal percent sign.
+.RE
 .\"#ErrorPolicy
 .TP 5
 \fBErrorPolicy abort-job\fR
