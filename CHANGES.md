@@ -192,6 +192,7 @@ v2.5b1 - YYYY-MM-DD
 - Fixed renewal of expired self-signed certificates (Issue #1590)
 - Fixed potential crash bug in `cupsCheckDestSupported` function.
 - Fixed validation of "job-hold-until" time values (Issue #1708)
+- Fixed saving of empty "marker-message" values to printers.conf.
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

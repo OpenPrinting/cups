@@ -1697,7 +1697,7 @@ cupsdSaveAllPrinters(void)
                                    IPP_TAG_TEXT)) != NULL)
     {
       snprintf(value, sizeof(value), "%s %s", marker->name,
-               marker->values[0].string.text);
+               marker->values[0].string.text[0] ? marker->values[0].string.text : "\"\"");
 
       cupsFilePutConf(fp, "Attribute", value);
     }
