@@ -1620,7 +1620,7 @@ find_key(cups_json_t *jwk,		// I - Key set
         current = cupsJSONGetChild(keys, i);
         curkty  = cupsJSONGetString(cupsJSONFind(current, "kty"));
 
-        if (((!curkty || !strcmp(curkty, "ocy")) && alg >= CUPS_JWA_HS256 && alg <= CUPS_JWA_HS512) || (curkty && !strcmp(curkty, "RSA") && alg >= CUPS_JWA_RS256 && alg <= CUPS_JWA_RS512) || (curkty && !strcmp(curkty, "EC") && alg >= CUPS_JWA_ES256 && alg <= CUPS_JWA_ES512))
+        if (((!curkty || !strcmp(curkty, "oct")) && alg >= CUPS_JWA_HS256 && alg <= CUPS_JWA_HS512) || (curkty && !strcmp(curkty, "RSA") && alg >= CUPS_JWA_RS256 && alg <= CUPS_JWA_RS512) || (curkty && !strcmp(curkty, "EC") && alg >= CUPS_JWA_ES256 && alg <= CUPS_JWA_ES512))
         {
           DEBUG_printf("4make_signature: Found compatible key \"%s\" at %p.", cupsJSONGetString(cupsJSONFind(current, "kid")), (void *)current);
           jwk = current;
