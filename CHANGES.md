@@ -21,6 +21,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed unintended usage of C99 language feature (Issue #1742)
 - Fixed regression in mailto notifier address validation (Issue #1744)
 - Fixed regression with setting up temporary queues (Issue #1751)
+- Fixed a potential integer overflow with `pwgMediaForPWG`.
 
 
 v2.4.20 - 2026-10-05
