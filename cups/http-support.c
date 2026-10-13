@@ -1206,7 +1206,7 @@ httpSeparateURI(
       uri = http_copy_decode(host, uri, hostlen, ":?/",
                              decoding & HTTP_URI_CODING_HOSTNAME);
 
-      if (!uri)
+      if (!uri || *host == '/')
       {
         *host = '\0';
         return (HTTP_URI_STATUS_BAD_HOSTNAME);
