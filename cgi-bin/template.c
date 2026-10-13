@@ -1,7 +1,7 @@
 /*
  * CGI template function.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -261,7 +261,7 @@ cgi_copy(FILE *out,			/* I - Output file */
 
       *s = '\0';
 
-      if (s == name && isspace(ch & 255))
+      if (s == name && _cups_isspace(ch))
       {
         fprintf(stderr, "DEBUG2: %*sLone { at %ld...\n", indent, "", ftell(in));
 
@@ -288,7 +288,7 @@ cgi_copy(FILE *out,			/* I - Output file */
         * Insert value only if it exists...
 	*/
 
-	if ((nameptr = strrchr(name, '-')) != NULL && isdigit(nameptr[1] & 255))
+	if ((nameptr = strrchr(name, '-')) != NULL && _cups_isdigit(nameptr[1]))
 	{
 	  *nameptr++ = '\0';
 
@@ -336,7 +336,7 @@ cgi_copy(FILE *out,			/* I - Output file */
 	int  count;	/* Number of elements */
 
 
-        if (isdigit(name[1] & 255))
+        if (_cups_isdigit(name[1]))
 	  count = atoi(name + 1);
 	else
           count = cgiGetSize(name + 1);
@@ -384,7 +384,7 @@ cgi_copy(FILE *out,			/* I - Output file */
         * Insert variable or variable name (if element is NULL)...
 	*/
 
-	if ((nameptr = strrchr(name, '-')) != NULL && isdigit(nameptr[1] & 255))
+	if ((nameptr = strrchr(name, '-')) != NULL && _cups_isdigit(nameptr[1]))
 	{
 	  *nameptr++ = '\0';
 	  if ((value = cgiGetArray(name, atoi(nameptr) - 1)) == NULL)
@@ -489,7 +489,7 @@ cgi_copy(FILE *out,			/* I - Output file */
             if (innername[0] == '#')
 	      snprintf(s, sizeof(compare) - (size_t)(s - compare), "%d", cgiGetSize(innername + 1));
 	    else if ((innerptr = strrchr(innername, '-')) != NULL &&
-	             isdigit(innerptr[1] & 255))
+	             _cups_isdigit(innerptr[1]))
             {
 	      *innerptr++ = '\0';
 	      if ((innerval = cgiGetArray(innername, atoi(innerptr) - 1)) == NULL)

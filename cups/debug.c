@@ -95,7 +95,7 @@ _cups_debug_printf(const char *format,	// I - Printf-style format string
     goto done;
 
   // Filter as needed...
-  if (isdigit(format[0]))
+  if (_cups_isdigit(format[0]))
     level = *format++ - '0';
   else
     level = 0;
@@ -164,7 +164,7 @@ _cups_debug_puts(const char *s)		// I - String to output
     goto done;
 
   // Filter as needed...
-  if (isdigit(s[0]))
+  if (_cups_isdigit(s[0]))
     level = *s++ - '0';
   else
     level = 0;

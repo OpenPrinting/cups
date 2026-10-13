@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers.
- */
-
 #include "backend-private.h"
 #ifndef HAVE_GETIFADDRS
 #  include <cups/getifaddrs-internal.h>
@@ -383,13 +379,13 @@ add_device_uri(char *value)		/* I - Value from snmp.conf */
 
   while (*value)
   {
-    while (isspace(*value & 255))
+    while (_cups_isspace(*value))
       value ++;
 
     if (!*value)
       break;
 
-    for (start = value; *value && !isspace(*value & 255); value ++);
+    for (start = value; *value && !_cups_isspace(*value); value ++);
 
     if (*value)
       *value++ = '\0';
@@ -486,14 +482,14 @@ fix_make_model(
 
     mmptr = (char *)old_make_model + 15;
 
-    while (isspace(*mmptr & 255))
+    while (_cups_isspace(*mmptr))
       mmptr ++;
 
     if (!_cups_strncasecmp(mmptr, "hp", 2))
     {
       mmptr += 2;
 
-      while (isspace(*mmptr & 255))
+      while (_cups_isspace(*mmptr))
 	mmptr ++;
     }
 

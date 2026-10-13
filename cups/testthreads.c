@@ -1,16 +1,14 @@
 //
 // Threaded test program for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2022-2026 by OpenPrinting.
 // Copyright © 2012-2019 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
 //
 
-#include <stdio.h>
-#include <errno.h>
-#include <cups/cups.h>
+#include <cups/cups-private.h>
 #include <cups/thread.h>
 
 
@@ -229,7 +227,7 @@ show_supported(http_t       *http,	// I - Connection to destination
               fputs("        ", stdout);
 	      for (j = 0; j < len; j ++)
 	      {
-	        if (data[j] < ' ' || data[j] >= 0x7f)
+	        if (_cups_iscntrl(data[j]))
 		  printf("<%02X>", data[j]);
 		else
 		  putchar(data[j]);

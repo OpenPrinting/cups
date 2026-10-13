@@ -198,7 +198,7 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
 	else
 	{
 	  // $name
-	  for (src ++, tempptr = temp; isalnum(*src & 255) || *src == '-' || *src == '_'; src ++)
+	  for (src ++, tempptr = temp; _cups_isalnum(*src) || *src == '-' || *src == '_'; src ++)
 	  {
 	    // Copy the name to "temp"...
 	    if (tempptr < (temp + sizeof(temp) - 1))
@@ -1669,7 +1669,7 @@ parse_value(ipp_file_t      *file,	// I  - IPP data file
 
             for (valueptr = value + 1; *valueptr; valueptr ++)
             {
-              if (isdigit(*valueptr & 255))
+              if (_cups_isdigit(*valueptr))
               {
                 period = strtol(valueptr, &valueptr, 10);
 
@@ -1811,23 +1811,13 @@ parse_value(ipp_file_t      *file,	// I  - IPP data file
 
           while (*valueptr && *valueptr != '>' && tempptr < (temp + sizeof(temp)))
           {
-	    if (!isxdigit(valueptr[0] & 255) || !isxdigit(valueptr[1] & 255))
+	    if (!_cups_isxdigit(valueptr[0]) || !_cups_isxdigit(valueptr[1]))
 	    {
 	      report_error(file, "Bad octetString value on line %d of '%s'.", file->linenum, file->filename);
 	      return (false);
 	    }
 
-            if (valueptr[0] >= '0' && valueptr[0] <= '9')
-              *tempptr = (char)((valueptr[0] - '0') << 4);
-	    else
-              *tempptr = (char)((tolower(valueptr[0]) - 'a' + 10) << 4);
-
-            if (valueptr[1] >= '0' && valueptr[1] <= '9')
-              *tempptr |= (valueptr[1] - '0');
-	    else
-              *tempptr |= (tolower(valueptr[1]) - 'a' + 10);
-
-            tempptr ++;
+	    *tempptr++ = (char)((_cups_xdigit(valueptr[0]) << 4) | _cups_xdigit(valueptr[1]));
             valueptr += 2;
           }
 

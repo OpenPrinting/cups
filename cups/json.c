@@ -287,7 +287,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
           {
 	    if (strchr("\\\"\b\f\n\r\t", *value))
 	      length += 2;		// Simple escaped char
-            else if ((*value & 255) < ' ')
+            else if (_cups_iscntrl(*value))
               length += 6;		// Worst case for control char
 	    else
 	      length ++;		// Literal char
@@ -420,7 +420,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 	      *ptr++ = '\\';
 	      *ptr++ = 't';
 	    }
-            else if ((*value & 255) < ' ')
+            else if (_cups_iscntrl(*value))
             {
               snprintf(ptr, length - (size_t)(ptr - s), "\\u%04x", *value);
               ptr += 6;
@@ -755,7 +755,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
   if (s)
   {
     // Skip leading whitespace...
-    while (*s && isspace(*s & 255))
+    while (*s && _cups_isspace(*s))
       s ++;
   }
 
@@ -782,7 +782,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
   while (*s)
   {
     // Skip leading whitespace/separators
-    while (*s && isspace(*s & 255))
+    while (*s && _cups_isspace(*s))
       s ++;
 
     if (parent->type == CUPS_JTYPE_ARRAY)
@@ -799,7 +799,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
       }
     }
@@ -818,7 +818,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
       }
       else if (*s == ':')
@@ -831,7 +831,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
       }
       else if (count & 1)
@@ -869,13 +869,13 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	    DEBUG_printf("2cupsJSONImportString: Bad escape '\\%c'.", *s);
             goto invalid;
           }
-          else if (*s == 'u' && (!isxdigit(s[1] & 255) || !isxdigit(s[2] & 255) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255)))
+          else if (*s == 'u' && (!_cups_isxdigit(s[1]) || !_cups_isxdigit(s[2]) || !_cups_isxdigit(s[3]) || !_cups_isxdigit(s[4])))
           {
 	    DEBUG_printf("2cupsJSONImportString: Bad escape '\\%s'.", s);
             goto invalid;
           }
         }
-        else if ((*s & 255) < ' ')
+        else if (_cups_iscntrl(*s))
         {
           // Control characters are not allowed in a string...
 	  DEBUG_printf("2cupsJSONImportString: Bad control character 0x%02x in string.", *s);
@@ -948,25 +948,22 @@ cupsJSONImportString(const char *s)	// I - JSON string
           {
             // Unicode character
             int ch,			// Unicode character
-		digit;			// Current digit
+		digit,			// Current digit
+		x;			// Current hex digit value
 
             // Convert hex digits to a 16-bit Unicode character
             for (ch = 0, digit = 0; digit < 4; digit ++)
             {
               s ++;
-              ch <<= 4;
-              if (isdigit(*s & 255))
-              {
-                ch |= *s - '0';
-              }
-              else if (isxdigit(*s & 255))
-              {
-                ch |= tolower(*s) - 'a' + 10;
-              }
-              else
+
+              if ((x = _cups_xdigit(*s)) < 0)
               {
 		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
 		goto error;
+              }
+              else
+              {
+		ch = (ch << 4) | x;
               }
             }
 
@@ -976,7 +973,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
               // embed plane N Unicode characters in 12 bytes instead of 4...
               int	lch;		// "Lower" surrogate
 
-              if (strncmp(s + 1, "\\u", 2) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255) || !isxdigit(s[5] & 255) || !isxdigit(s[6] & 255))
+              if (strncmp(s + 1, "\\u", 2) || !_cups_isxdigit(s[3]) || !_cups_isxdigit(s[4]) || !_cups_isxdigit(s[5]) || !_cups_isxdigit(s[6]))
               {
 		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
 		goto error;
@@ -987,11 +984,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
               {
                 // Already know we have "\uXXXX"...
                 s ++;
-                lch <<= 4;
-                if (isdigit(*s))
-                  lch |= *s - '0';
-		else
-		  lch |= tolower(*s) - 'a' + 10;
+                lch = (lch << 4) | _cups_xdigit(*s);
               }
 
 	      // Make sure the second escape character is the surrogate...

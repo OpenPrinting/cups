@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cgi-private.h"
 
 
@@ -45,8 +41,8 @@ cgiGetAttributes(ipp_t      *request,	/* I - IPP request */
   if ((lang = getenv("LANG")) != NULL)
   {
     for (i = 0; lang[i] && i < 15; i ++)
-      if (isalnum(lang[i] & 255))
-        locale[i] = (char)tolower(lang[i]);
+      if (_cups_isalnum(lang[i]))
+        locale[i] = (char)_cups_tolower(lang[i]);
       else
         locale[i] = '_';
 

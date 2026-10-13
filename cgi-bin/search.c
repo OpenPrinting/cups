@@ -1,16 +1,12 @@
 /*
  * Search routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cgi-private.h"
@@ -83,7 +79,7 @@ cgiCompileSearch(const char *query)	/* I - Query string */
     * Skip leading whitespace...
     */
 
-    while (isspace(*qptr & 255))
+    while (_cups_isspace(*qptr))
       qptr ++;
 
     if (!*qptr)

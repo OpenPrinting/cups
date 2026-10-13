@@ -1,16 +1,12 @@
 /*
  * Online help CGI for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2011 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers...
  */
 
 #include "cgi-private.h"
@@ -338,7 +334,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 
       while (cupsFileGets(fp, line, sizeof(line)))
       {
-        for (lineptr = line; *lineptr && isspace(*lineptr & 255); lineptr ++);
+        for (lineptr = line; *lineptr && _cups_isspace(*lineptr); lineptr ++);
 
         if (inbody)
 	{

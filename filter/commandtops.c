@@ -1,14 +1,11 @@
 /*
  * PostScript command filter for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2008-2014 by Apple Inc.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2008-2014 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include <cups/cups-private.h>
@@ -313,12 +310,12 @@ auto_configure(ppd_file_t *ppd,		/* I - PPD file */
       bytes = bufptr - buffer;
 
       for (bufptr --; bufptr >= buffer; bufptr --)
-        if (isspace(*bufptr & 255) || iscntrl(*bufptr & 255))
+        if (_cups_isspace(*bufptr) || _cups_iscntrl(*bufptr))
 	  *bufptr = '\0';
 	else
 	  break;
 
-      for (bufptr = buffer; *bufptr && (isspace(*bufptr & 255) || iscntrl(*bufptr & 255));
+      for (bufptr = buffer; *bufptr && (_cups_isspace(*bufptr) || _cups_iscntrl(*bufptr));
 	   bufptr ++);
 
       if (bufptr > buffer)

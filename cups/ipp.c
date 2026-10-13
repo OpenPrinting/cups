@@ -3895,7 +3895,7 @@ ippValidateAttribute(
 	    {
 	      break;
 	    }
-	    else if ((*ptr < ' ' && *ptr != '\n' && *ptr != '\r' && *ptr != '\t') || *ptr == 0x7f)
+	    else if (_cups_iscntrl(*ptr) && *ptr != '\n' && *ptr != '\r' && *ptr != '\t')
 	    {
 	      break;
 	    }
@@ -3906,7 +3906,7 @@ ippValidateAttribute(
 	    if (value_tag == IPP_TAG_TEXTLANG)
 	      ipp_regex_end();
 
-	    if (*ptr < ' ' || *ptr == 0x7f)
+	    if (_cups_iscntrl(*ptr))
 	    {
 	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section 8.3)."), attr->name, value->string.text);
 	      return (0);
@@ -3975,7 +3975,7 @@ ippValidateAttribute(
 	    {
 	      break;
 	    }
-	    else if (*ptr < ' ' || *ptr == 0x7f)
+	    else if (_cups_iscntrl(*ptr))
 	    {
 	      break;
 	    }
@@ -3986,7 +3986,7 @@ ippValidateAttribute(
 	    if (value_tag == IPP_TAG_NAMELANG)
 	      ipp_regex_end();
 
-	    if (*ptr < ' ' || *ptr == 0x7f)
+	    if (_cups_iscntrl(*ptr))
 	    {
 	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section 8.1)."), attr->name, value->string.text);
 	      return (0);
@@ -4042,11 +4042,11 @@ ippValidateAttribute(
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
 	  ptr = value->string.text;
-	  if (islower(*ptr & 255))
+	  if (_cups_islower(*ptr))
 	  {
 	    for (ptr ++; *ptr; ptr ++)
 	    {
-	      if (!islower(*ptr & 255) && !isdigit(*ptr & 255) && *ptr != '+' && *ptr != '-' && *ptr != '.')
+	      if (!_cups_islower(*ptr) && !_cups_isdigit(*ptr) && *ptr != '+' && *ptr != '-' && *ptr != '.')
                 break;
 	    }
 	  }
@@ -4070,7 +4070,7 @@ ippValidateAttribute(
 	{
 	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
-	    if (!isprint(*ptr & 255) || isupper(*ptr & 255) || isspace(*ptr & 255))
+	    if (!_cups_isprint(*ptr) || _cups_isupper(*ptr) || _cups_isspace(*ptr))
 	      break;
 	  }
 
@@ -5114,7 +5114,7 @@ ipp_is_valid_keyword(
 
   for (ptr = keyword; *ptr; ptr ++)
   {
-    if (!isalnum(*ptr & 255) && *ptr != '-' && *ptr != '.' && *ptr != '_')
+    if (!_cups_isalnum(*ptr) && *ptr != '-' && *ptr != '.' && *ptr != '_')
       break;
   }
 

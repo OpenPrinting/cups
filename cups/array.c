@@ -1,7 +1,7 @@
 //
 // Sorted array routines for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2014 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products.
 //
@@ -120,7 +120,7 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
     // Skip leading whitespace...
     DEBUG_puts("1cupsArrayAddStrings: Skipping leading whitespace.");
 
-    while (*s && isspace(*s & 255))
+    while (*s && _cups_isspace(*s))
       s ++;
 
     DEBUG_printf("1cupsArrayAddStrings: Remaining string \"%s\".", s);
@@ -147,9 +147,9 @@ cupsArrayAddStrings(cups_array_t *a,	// I - Array
       // it...
       if (delim == ' ')
       {
-        while (*end && !isspace(*end & 255))
+        while (*end && !_cups_isspace(*end))
           end ++;
-        while (*end && isspace(*end & 255))
+        while (*end && _cups_isspace(*end))
           *end++ = '\0';
       }
       else if ((end = strchr(start, delim)) != NULL)

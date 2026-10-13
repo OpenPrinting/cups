@@ -462,7 +462,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
       * Skip leading smbprn.######## from Samba jobs...
       */
 
-      for (title += 7; *title && isdigit(*title & 255); title ++);
+      for (title += 7; *title && _cups_isdigit(*title); title ++);
       while (_cups_isspace(*title))
         title ++;
 
@@ -792,14 +792,14 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  {
 	    cptr ++;
 
-	    if (isdigit(*cptr & 255))
+	    if (_cups_isdigit(*cptr))
 	    {
 	     /*
 	      * Substitute parameter...
 	      */
 
               pnum = *cptr++ - '0';
-	      while (isdigit(*cptr & 255))
+	      while (_cups_isdigit(*cptr))
 	        pnum = pnum * 10 + *cptr++ - '0';
 
               for (cparam = (ppd_cparam_t *)cupsArrayFirst(coption->params);

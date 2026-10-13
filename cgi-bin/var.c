@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 /*#define DEBUG*/
 #include "cgi-private.h"
 #include <cups/http.h>
@@ -729,7 +725,7 @@ cgi_initialize_cookies(void)
     * Skip leading whitespace...
     */
 
-    while (isspace(*cookie & 255))
+    while (_cups_isspace(*cookie))
       cookie ++;
     if (!*cookie)
       break;
@@ -981,7 +977,7 @@ cgi_initialize_multipart(
         * Set the form variable...
 	*/
 
-	if ((ptr = strrchr(name, '-')) != NULL && isdigit(ptr[1] & 255))
+	if ((ptr = strrchr(name, '-')) != NULL && _cups_isdigit(ptr[1]))
 	{
 	 /*
 	  * Set a specific index in the array...
@@ -1044,12 +1040,12 @@ cgi_initialize_multipart(
     }
     else if (!_cups_strncasecmp(line, "Content-Type:", 13))
     {
-      for (ptr = line + 13; isspace(*ptr & 255); ptr ++);
+      for (ptr = line + 13; _cups_isspace(*ptr); ptr ++);
 
       cupsCopyString(mimetype, ptr, sizeof(mimetype));
 
       for (ptr = mimetype + strlen(mimetype) - 1;
-           ptr > mimetype && isspace(*ptr & 255);
+           ptr > mimetype && _cups_isspace(*ptr);
 	   *ptr-- = '\0');
     }
   }
@@ -1209,7 +1205,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
 	    * Read the hex code...
 	    */
 
-            if (!isxdigit(data[1] & 255) || !isxdigit(data[2] & 255))
+            if (!_cups_isxdigit(data[1]) || !_cups_isxdigit(data[2]))
 	      return (0);
 
             if (s < (value + sizeof(value) - 1))
@@ -1246,7 +1242,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     if (s > value)
       s --;
 
-    while (s >= value && isspace(*s & 255))
+    while (s >= value && _cups_isspace(*s))
       *s-- = '\0';
 
    /*
@@ -1258,7 +1254,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     if (!_cups_strncasecmp(name, "ENV:", 4))
       continue;				// Don't allow environment vars to be set
 
-    if ((s = strrchr(name, '-')) != NULL && isdigit(s[1] & 255))
+    if ((s = strrchr(name, '-')) != NULL && _cups_isdigit(s[1]))
     {
       *s++ = '\0';
       if (value[0])

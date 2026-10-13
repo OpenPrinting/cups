@@ -1137,25 +1137,26 @@ read_hex(cups_file_t *fp,		// I - File to read from
 
   while (total < bytes)
   {
-    if (!hexptr || (isspace(hexptr[0] & 255) && isspace(hexptr[1] & 255)))
+    if (!hexptr || (_cups_isspace(hexptr[0]) && _cups_isspace(hexptr[1])))
     {
       if (!cupsFileGets(fp, hex, sizeof(hex)))
         break;
 
       hexptr = hex;
-      while (isxdigit(*hexptr & 255))
+      while (_cups_isxdigit(*hexptr))
         hexptr ++;
-      while (isspace(*hexptr & 255))
+      while (_cups_isspace(*hexptr))
         hexptr ++;
 
-      if (!isxdigit(*hexptr & 255))
+      if (!_cups_isxdigit(*hexptr))
       {
         hexptr = NULL;
         continue;
       }
     }
 
-    *buffer++ = (ipp_uchar_t)strtol(hexptr, &hexptr, 16);
+    *buffer++ = (ipp_uchar_t)((_cups_xdigit(hexptr[0]) << 4) | _cups_xdigit(hexptr[1]));
+    hexptr += 2;
     total ++;
   }
 

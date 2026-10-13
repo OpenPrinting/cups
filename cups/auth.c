@@ -328,7 +328,7 @@ _cupsSetNegotiateAuthString(
   }
 #  endif // __APPLE__
 
-  if (!strcmp(http->hostname, "localhost") || http->hostname[0] == '/' || isdigit(http->hostname[0] & 255) || !strchr(http->hostname, '.'))
+  if (!strcmp(http->hostname, "localhost") || http->hostname[0] == '/' || _cups_isdigit(http->hostname[0]) || !strchr(http->hostname, '.'))
   {
     DEBUG_printf("1_cupsSetNegotiateAuthString: Kerberos not available for host \"%s\".", http->hostname);
     return (CUPS_GSS_NONE);
@@ -500,12 +500,12 @@ cups_auth_find(const char *www_authenticate,	// I - Pointer into WWW-Authenticat
   {
     // Skip leading whitespace and commas...
     DEBUG_printf("9cups_auth_find: Before whitespace: \"%s\"", www_authenticate);
-    while (isspace(*www_authenticate & 255) || *www_authenticate == ',')
+    while (_cups_isspace(*www_authenticate) || *www_authenticate == ',')
       www_authenticate ++;
     DEBUG_printf("9cups_auth_find: After whitespace: \"%s\"", www_authenticate);
 
     // See if this is "Scheme" followed by whitespace or the end of the string.
-    if (!strncmp(www_authenticate, scheme, schemelen) && (isspace(www_authenticate[schemelen] & 255) || www_authenticate[schemelen] == ',' || !www_authenticate[schemelen]))
+    if (!strncmp(www_authenticate, scheme, schemelen) && (_cups_isspace(www_authenticate[schemelen]) || www_authenticate[schemelen] == ',' || !www_authenticate[schemelen]))
     {
       // Yes, this is the start of the scheme-specific information...
       DEBUG_printf("9cups_auth_find: Returning \"%s\".", www_authenticate);
@@ -514,7 +514,7 @@ cups_auth_find(const char *www_authenticate,	// I - Pointer into WWW-Authenticat
     }
 
     // Skip the scheme name or param="value" string...
-    while (!isspace(*www_authenticate & 255) && *www_authenticate)
+    while (!_cups_isspace(*www_authenticate) && *www_authenticate)
     {
       if (*www_authenticate == '\"')
       {
@@ -558,12 +558,12 @@ cups_auth_param(const char *scheme,		// I - Pointer to auth data
 
   DEBUG_printf("8cups_auth_param(scheme=\"%s\", name=\"%s\", value=%p, valsize=%d)", scheme, name, (void *)value, (int)valsize);
 
-  while (!isspace(*scheme & 255) && *scheme)
+  while (!_cups_isspace(*scheme) && *scheme)
     scheme ++;
 
   while (*scheme)
   {
-    while (isspace(*scheme & 255) || *scheme == ',')
+    while (_cups_isspace(*scheme) || *scheme == ',')
       scheme ++;
 
     if (!strncmp(scheme, name, namelen) && scheme[namelen] == '=')
@@ -603,7 +603,7 @@ cups_auth_param(const char *scheme,		// I - Pointer to auth data
     // Skip the param=value string...
     param = false;
 
-    while (!isspace(*scheme & 255) && *scheme)
+    while (!_cups_isspace(*scheme) && *scheme)
     {
       if (*scheme == '=')
       {
@@ -659,11 +659,11 @@ cups_auth_scheme(const char *www_authenticate,	// I - Pointer into WWW-Authentic
   while (*www_authenticate)
   {
     // Skip leading whitespace and commas...
-    while (isspace(*www_authenticate & 255) || *www_authenticate == ',')
+    while (_cups_isspace(*www_authenticate) || *www_authenticate == ',')
       www_authenticate ++;
 
     // Parse the scheme name or param="value" string...
-    for (sptr = scheme, start = www_authenticate, param = false; *www_authenticate && *www_authenticate != ',' && !isspace(*www_authenticate & 255); www_authenticate ++)
+    for (sptr = scheme, start = www_authenticate, param = false; *www_authenticate && *www_authenticate != ',' && !_cups_isspace(*www_authenticate); www_authenticate ++)
     {
       if (*www_authenticate == '=')
       {

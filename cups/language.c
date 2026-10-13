@@ -429,7 +429,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
       if (*language == '_' || *language == '-' || *language == '.')
 	break;
       else if (ptr < (langname + sizeof(langname) - 1))
-        *ptr++ = (char)tolower(*language & 255);
+        *ptr++ = (char)_cups_tolower(*language);
     }
 
     *ptr = '\0';
@@ -445,7 +445,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
 	if (*language == '.')
 	  break;
 	else if (ptr < (country + sizeof(country) - 1))
-          *ptr++ = (char)toupper(*language & 255);
+          *ptr++ = (char)_cups_toupper(*language);
       }
 
       *ptr = '\0';
@@ -469,7 +469,7 @@ cupsLangGet(const char *language)	/* I - Language or locale */
       for (language ++, ptr = charset; *language; language ++)
       {
         if (_cups_isalnum(*language) && ptr < (charset + sizeof(charset) - 1))
-          *ptr++ = (char)toupper(*language & 255);
+          *ptr++ = (char)_cups_toupper(*language);
       }
 
       *ptr = '\0';
@@ -1131,7 +1131,7 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
     *   "message" = "translation";
     */
 
-    for (bufptr = buffer; *bufptr && isspace(*bufptr & 255); bufptr ++);
+    for (bufptr = buffer; *bufptr && _cups_isspace(*bufptr); bufptr ++);
 
     if (*bufptr != '\"')
       continue;
@@ -1157,14 +1157,14 @@ cups_read_strings(cups_file_t  *fp,	/* I - .strings file */
     * Find the start of the translation...
     */
 
-    while (*bufptr && isspace(*bufptr & 255))
+    while (*bufptr && _cups_isspace(*bufptr))
       bufptr ++;
 
     if (*bufptr != '=')
       continue;
 
     bufptr ++;
-    while (*bufptr && isspace(*bufptr & 255))
+    while (*bufptr && _cups_isspace(*bufptr))
       bufptr ++;
 
     if (*bufptr != '\"')

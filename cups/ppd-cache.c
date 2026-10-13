@@ -5579,13 +5579,13 @@ ppd_get_string(cups_lang_t *base,	// I - Base (CUPS) localization
         return ("");
 
       cupsCopyString(buffer, msgptr, bufsize);
-      buffer[0] = (char)toupper(buffer[0] & 255);
+      buffer[0] = (char)_cups_toupper(buffer[0]);
       for (bufptr = buffer + 1; *bufptr; bufptr ++)
       {
         if (*bufptr == '-')
         {
           *bufptr   = ' ';
-          bufptr[1] = (char)toupper(bufptr[1] & 255);
+          bufptr[1] = (char)_cups_toupper(bufptr[1]);
         }
       }
 
@@ -5665,7 +5665,7 @@ ppd_put_strings(cups_file_t *fp,	/* I - PPD file */
     {
       // Add the first line of localized text...
       cupsFilePrintf(fp, "*%s.%s %s/", lang->language, ppd_option, ppd_choice);
-      while (*text && (*text & 255) >= ' ')
+      while (_cups_isprint(*text))
       {
         // Escape ":" and "<"...
         if (*text == ':' || *text == '<')
@@ -5792,7 +5792,7 @@ pwg_ppdize_name(const char *ipp,	/* I - IPP keyword */
     if (*ipp == '-' && _cups_isalnum(ipp[1]))
     {
       ipp ++;
-      *ptr++ = (char)toupper(*ipp++ & 255);
+      *ptr++ = (char)_cups_toupper(*ipp++);
     }
     else if (*ipp == '_' || *ipp == '.' || *ipp == '-' || _cups_isalnum(*ipp))
     {
@@ -5883,7 +5883,7 @@ pwg_unppdize_name(const char *ppd,	/* I - PPD keyword */
   {
     if (_cups_isalnum(*ppd) || *ppd == '.' || *ppd == '_')
     {
-      *ptr++ = (char)tolower(*ppd & 255);
+      *ptr++ = (char)_cups_tolower(*ppd);
       nodash = 0;
     }
     else if (*ppd == '-' || strchr(dashchars, *ppd))
@@ -5903,7 +5903,7 @@ pwg_unppdize_name(const char *ppd,	/* I - PPD keyword */
 	*ptr++ = '-';
 	nodash = 1;
       }
-      else if (!isdigit(*ppd & 255) && isdigit(ppd[1] & 255))
+      else if (!_cups_isdigit(*ppd) && _cups_isdigit(ppd[1]))
       {
 	*ptr++ = '-';
 	nodash = 1;

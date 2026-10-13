@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers.
- */
-
 #include <cups/http-private.h>
 #include "backend-private.h"
 #include <stdarg.h>
@@ -479,7 +475,7 @@ main(int  argc,				/* I - Number of command-line arguments (6 or 7) */
     char *ptr;
 
     for (ptr = title; *ptr; ptr ++)
-      if (!isalnum(*ptr & 255) && !isspace(*ptr & 255))
+      if (!_cups_isalnum(*ptr) && !_cups_isspace(*ptr))
 	*ptr = '_';
   }
 

@@ -1,7 +1,7 @@
 //
 // User, system, and password routines for CUPS.
 //
-// Copyright © 2021-2025 by OpenPrinting.
+// Copyright © 2021-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -575,8 +575,7 @@ cupsSetServer(const char *server)	// I - Server name
     else
       cg->server_version = 20;
 
-    if (cg->server[0] != '/' && (port = strrchr(cg->server, ':')) != NULL &&
-        !strchr(port, ']') && isdigit(port[1] & 255))
+    if (cg->server[0] != '/' && (port = strrchr(cg->server, ':')) != NULL && !strchr(port, ']') && _cups_isdigit(port[1]))
     {
       *port++ = '\0';
 
@@ -898,8 +897,10 @@ _cupsGetPassword(const char *prompt)	// I - Prompt string
       passptr = cg->password;
       break;
     }
-    else if ((passch & 255) < 0x20 || passptr >= passend)
+    else if (_cups_iscntrl(passch) || passptr >= passend)
+    {
       putchar(0x07);
+    }
     else
     {
       *passptr++ = passch;
@@ -1014,8 +1015,10 @@ _cupsGetPassword(const char *prompt)	// I - Prompt string
       passptr = cg->password;
       break;
     }
-    else if ((passch & 255) < 0x20 || passptr >= passend)
+    else if (_cups_iscntrl(passch) || passptr >= passend)
+    {
       putchar(0x07);
+    }
     else
     {
       *passptr++ = passch;

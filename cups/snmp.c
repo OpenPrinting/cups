@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers.
- */
-
 #include "cups-private.h"
 #include "snmp-private.h"
 #ifndef _WIN32
@@ -490,7 +486,7 @@ _cupsSNMPStringToOID(const char *src,	/* I - OID string */
       dstptr ++;
       *dstptr = 0;
     }
-    else if (isdigit(*src & 255))
+    else if (_cups_isdigit(*src))
     {
       if ((*dstptr * 10 + *src - '0') > 0xffff)
         break;

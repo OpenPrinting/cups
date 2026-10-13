@@ -1828,7 +1828,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	}
       }
 
-      if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+      if (_cups_isdigit(hostname[0]) || hostname[0] == '[')
 	hostname[0] = '\0';		// Don't allow numeric addresses
 
       if (hostname[0])

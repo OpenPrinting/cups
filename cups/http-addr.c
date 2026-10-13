@@ -667,7 +667,7 @@ httpGetHostByName(const char *name)	// I - Hostname or IP address
   }
 #endif // AF_LOCAL
 
-  for (nameptr = name; isdigit(*nameptr & 255) || *nameptr == '.'; nameptr ++);
+  for (nameptr = name; _cups_isdigit(*nameptr) || *nameptr == '.'; nameptr ++);
 
   if (!*nameptr)
   {
@@ -824,7 +824,7 @@ httpResolveHostname(http_t *http,	// I - HTTP connection
   if (!http)
     return (NULL);
 
-  if (isdigit(http->hostname[0] & 255) || http->hostname[0] == '[')
+  if (_cups_isdigit(http->hostname[0]) || http->hostname[0] == '[')
   {
     char	temp[1024];		// Temporary string
 

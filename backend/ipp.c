@@ -410,7 +410,7 @@ main(int  argc,				/* I - Number of command-line args */
     cupsSetEncryption(HTTP_ENCRYPTION_IF_REQUESTED);
 
   if (!strcmp(auth_info_required, "negotiate") &&
-      (isdigit(hostname[0] & 255) || hostname[0] == '['))
+      (_cups_isdigit(hostname[0]) || hostname[0] == '['))
   {
    /*
     * IP addresses are not allowed with Kerberos...
@@ -1534,7 +1534,7 @@ main(int  argc,				/* I - Number of command-line args */
 
       while (*argptr && userptr < (username + sizeof(username) - 1))
       {
-        if (isalnum(*argptr & 255))
+        if (_cups_isalnum(*argptr))
           *userptr++ = *argptr;
         argptr ++;
       }
@@ -3104,7 +3104,7 @@ quote_string(const char *s,		/* I - String */
         break;
     }
 
-    if ((*s & 255) < ' ' || *s == 127)
+    if (_cups_iscntrl(*s))
       *qptr++ = ' ';
     else
       *qptr++ = *s;

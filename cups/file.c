@@ -469,7 +469,7 @@ cupsFileFind(const char *filename,	// I - File to find
   while (*path)
   {
 #ifdef _WIN32
-    if (*path == ';' || (*path == ':' && ((bufptr - buffer) > 1 || !isalpha(buffer[0] & 255))))
+    if (*path == ';' || (*path == ':' && ((bufptr - buffer) > 1 || !_cups_isalpha(buffer[0]))))
 #else
     if (*path == ';' || *path == ':')
 #endif // _WIN32
@@ -943,7 +943,7 @@ cupsFileOpen(const char *filename,	// I - Name of file
   // Range check input...
   if (!filename || !mode ||
       (*mode != 'r' && *mode != 'w' && *mode != 'a' && *mode != 's') ||
-      (*mode == 'a' && isdigit(mode[1] & 255)))
+      (*mode == 'a' && _cups_isdigit(mode[1])))
     return (NULL);
 
   if ((ptr = strchr(mode, 'm')) != NULL && ptr[1] >= '0' && ptr[1] <= '7')
@@ -1046,7 +1046,7 @@ cupsFileOpenFd(int        fd,		// I - File descriptor
   // Range check input...
   if (fd < 0 || !mode ||
       (*mode != 'r' && *mode != 'w' && *mode != 'a' && *mode != 's') ||
-      (*mode == 'a' && isdigit(mode[1] & 255)))
+      (*mode == 'a' && _cups_isdigit(mode[1])))
     return (NULL);
 
   // Allocate memory...

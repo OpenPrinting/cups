@@ -787,7 +787,7 @@ ippAttributeString(
                 *bufptr = *ptr;
               bufptr ++;
             }
-            else if (!isprint(*ptr & 255))
+            else if (!_cups_isprint(*ptr))
             {
               if (buffer && bufptr < bufend)
                 bufptr += snprintf(bufptr, (size_t)(bufend - bufptr + 1), "\\%03o", *ptr & 255);
@@ -2191,7 +2191,7 @@ ippEnumValue(const char *attrname,	// I - Attribute name
 
 
   // If the string is just a number, return it...
-  if (isdigit(*enumstring & 255))
+  if (_cups_isdigit(*enumstring))
     return ((int)strtol(enumstring, NULL, 0));
 
   // Otherwise look up the string...

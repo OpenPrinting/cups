@@ -992,7 +992,7 @@ httpGetContentEncoding(http_t *http)	// I - HTTP connection
       // Find the end of the coding name...
       qvalue = 1.0;
       end    = start;
-      while (*end && *end != ';' && *end != ',' && !isspace(*end & 255))
+      while (*end && *end != ';' && *end != ',' && !_cups_isspace(*end))
         end ++;
 
       if (*end == ';')
@@ -1003,7 +1003,7 @@ httpGetContentEncoding(http_t *http)	// I - HTTP connection
 
         // Skip past all attributes...
         *end++ = '\0';
-        while (*end && *end != ',' && !isspace(*end & 255))
+        while (*end && *end != ',' && !_cups_isspace(*end))
           end ++;
       }
       else if (*end)
@@ -1011,7 +1011,7 @@ httpGetContentEncoding(http_t *http)	// I - HTTP connection
         *end++ = '\0';
       }
 
-      while (*end && isspace(*end & 255))
+      while (*end && _cups_isspace(*end))
 	end ++;
 
       // Check value if it matches something we support...
@@ -1081,7 +1081,7 @@ httpGetCookieValue(http_t     *http,	// I - HTTP connection
   for (cookie = http->cookie; *cookie;)
   {
     // Skip leading whitespace...
-    while (isspace(*cookie & 255))
+    while (_cups_isspace(*cookie))
       cookie ++;
     if (!*cookie)
       break;
@@ -2372,7 +2372,7 @@ httpReadRequest(http_t *http,		// I - HTTP connection
   req_method = line;
   req_uri    = line;
 
-  while (*req_uri && !isspace(*req_uri & 255))
+  while (*req_uri && !_cups_isspace(*req_uri))
     req_uri ++;
 
   if (!*req_uri)
@@ -2384,12 +2384,12 @@ httpReadRequest(http_t *http,		// I - HTTP connection
 
   *req_uri++ = '\0';
 
-  while (*req_uri && isspace(*req_uri & 255))
+  while (*req_uri && _cups_isspace(*req_uri))
     req_uri ++;
 
   req_version = req_uri;
 
-  while (*req_version && !isspace(*req_version & 255))
+  while (*req_version && !_cups_isspace(*req_version))
     req_version ++;
 
   if (!*req_version)
@@ -2401,7 +2401,7 @@ httpReadRequest(http_t *http,		// I - HTTP connection
 
   *req_version++ = '\0';
 
-  while (*req_version && isspace(*req_version & 255))
+  while (*req_version && _cups_isspace(*req_version))
     req_version ++;
 
   // Validate...

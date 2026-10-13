@@ -682,7 +682,7 @@ httpAddrGetList(const char *hostname,	/* I - Hostname, IP address, or NULL for p
 
     if (!service)
       portnum = 0;
-    else if (isdigit(*service & 255))
+    else if (_cups_isdigit(*service))
       portnum = atoi(service);
     else if ((port = getservbyname(service, NULL)) != NULL)
       portnum = ntohs(port->s_port);

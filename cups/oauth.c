@@ -2193,7 +2193,7 @@ oauth_make_path(
   DEBUG_printf("3oauth_make_path(buffer=%p, bufsize=%lu, auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, use_sysconfig=%s)", (void *)buffer, (unsigned long)bufsize, auth_uri, secondary_uri, cups_otypes[otype], use_sysconfig ? "true" : "false");
 
   // Range check input...
-  if (!auth_uri || strncmp(auth_uri, "https://", 8) || auth_uri[8] == '[' || isdigit(auth_uri[8] & 255) || (secondary_uri && strncmp(secondary_uri, "http://", 7) && strncmp(secondary_uri, "https://", 8) && strncmp(secondary_uri, "urn:token:", 10)))
+  if (!auth_uri || strncmp(auth_uri, "https://", 8) || auth_uri[8] == '[' || _cups_isdigit(auth_uri[8]) || (secondary_uri && strncmp(secondary_uri, "http://", 7) && strncmp(secondary_uri, "https://", 8) && strncmp(secondary_uri, "urn:token:", 10)))
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(EINVAL), false);
     *buffer = '\0';

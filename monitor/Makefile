@@ -1,11 +1,12 @@
 #
 # Port monitor makefile for CUPS.
 #
-# Copyright © 2020-2024 by OpenPrinting.
-# Copyright 2007-2019 by Apple Inc.
-# Copyright 2006 by Easy Software Products.
+# Copyright © 2020-2026 by OpenPrinting.
+# Copyright © 2007-2019 by Apple Inc.
+# Copyright © 2006 by Easy Software Products.
 #
-# Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
+# Licensed under Apache License v2.0.  See the file "LICENSE" for more
+# information.
 #
 
 include ../Makedefs
@@ -49,7 +50,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >Dependencies
 
 
 #

@@ -1,7 +1,7 @@
 //
 // HTTP test program for CUPS.
 //
-// Copyright © 2021-2025 by OpenPrinting.
+// Copyright © 2021-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -194,6 +194,9 @@ static uri_test_t	uri_tests[] =	// URI test data
 			    HTTP_URI_CODING_MOST  },
 			  { HTTP_URI_STATUS_BAD_HOSTNAME, "http://server with spaces/index.html",
 			    "http", "", "", "", 80, 0,
+			    HTTP_URI_CODING_MOST  },
+			  { HTTP_URI_STATUS_BAD_HOSTNAME, "ipp://%2Fvar%2Frun%2Fserver.sock/ipp/print",
+			    "ipp", "", "", "", 631, 0,
 			    HTTP_URI_CODING_MOST  },
 			  { HTTP_URI_STATUS_BAD_HOSTNAME, "ipp://\"#/:<>?@[\\]^`{|}/",
 			    "ipp", "", "", "", 631, 0,
@@ -393,11 +396,11 @@ main(int  argc,				// I - Number of command-line arguments
 
       httpAddrFreeList(addrlist);
     }
-    else if (isdigit(hostname[0] & 255))
+    else if (_cups_isdigit(hostname[0]))
     {
       testEndMessage(true, "ignored because hostname is numeric");
     }
-    else if (!strncmp(hostname, "mac-", 4) && isdigit(hostname[4]))
+    else if (!strncmp(hostname, "mac-", 4) && _cups_isdigit(hostname[4]))
     {
       testEndMessage(true, "ignored because GitHub Actions macOS runner doesn't resolve its own hostname");
     }

@@ -1318,7 +1318,7 @@ cupsDNSSDSeparateFullName(
       // Service type separator...
       break;
     }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    else if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)
@@ -1346,7 +1346,7 @@ cupsDNSSDSeparateFullName(
       // Service type separator...
       break;
     }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    else if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)
@@ -1369,7 +1369,7 @@ cupsDNSSDSeparateFullName(
   // Get the domain...
   for (ptr = domain, end = domain + domainsize - 1; *fullname; fullname ++)
   {
-    if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)

@@ -1,7 +1,7 @@
 #
 # Library Makefile for CUPS.
 #
-# Copyright © 2022-2024 by OpenPrinting.
+# Copyright © 2022-2026 by OpenPrinting.
 # Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #
@@ -314,7 +314,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' -e '1,$$s/..\/cups\///g' | grep -e '^  \\$$' -v >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >Dependencies
 
 
 #

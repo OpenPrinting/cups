@@ -1,15 +1,12 @@
 //
 // PPD file compiler main entry for the CUPS PPD Compiler.
 //
-// Copyright © 2020-2024 by OpenPrinting.
-// Copyright 2007-2014 by Apple Inc.
-// Copyright 2002-2007 by Easy Software Products.
+// Copyright © 2020-2026 by OpenPrinting.
+// Copyright © 2007-2014 by Apple Inc.
+// Copyright © 2002-2007 by Easy Software Products.
 //
-// Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
-//
-
-//
-// Include necessary headers...
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
 //
 
 #include "ppdc-private.h"
@@ -333,7 +330,7 @@ main(int  argc,				// I - Number of command-line arguments
 	  for (j = 0;
 	       outname[j] && j < (int)(sizeof(pcfilename) - 1);
 	       j ++)
-	    pcfilename[j] = (char)tolower(outname[j] & 255);
+	    pcfilename[j] = (char)_cups_tolower(outname[j]);
 
 	  pcfilename[j] = '\0';
 	}
