@@ -2018,10 +2018,9 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
     if (!(printer->type & CUPS_PTYPE_REMOTE))
     {
-      cupsdLogJob(job, CUPSD_LOG_INFO, "Adding start banner page \"%s\".",
-		  attr->values[0].string.text);
+      cupsdLogJob(job, CUPSD_LOG_INFO, "Adding start banner page \"%s\".", job_sheets);
 
-      if ((kbytes = copy_banner(con, job, attr->values[0].string.text)) < 0)
+      if ((kbytes = copy_banner(con, job, job_sheets)) < 0)
       {
         cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_PURGE,
 	                 "Aborting job because the start banner could not be "
@@ -2032,9 +2031,10 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
       cupsdUpdateQuota(printer, job->username, 0, kbytes);
     }
   }
-  else if ((attr = ippFindAttribute(job->attrs, "job-sheets",
-                                    IPP_TAG_ZERO)) != NULL)
+  else if ((attr = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_ZERO)) != NULL)
+  {
     job->job_sheets = attr;
+  }
 
  /*
   * Fill in the response info...
