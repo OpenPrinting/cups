@@ -5255,12 +5255,18 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
 
       if (job->sheets)
       {
+        int copies = ippGetInteger(ippFindAttribute(job->attrs, "copies", IPP_TAG_INTEGER), 0);
+					/* Number of copies */
 	const char *sides = ippGetString(ippFindAttribute(job->attrs, "sides", IPP_TAG_KEYWORD), 0, NULL);
+					/* Duplex mode, if any */
+
+	if (copies <= 0)
+	  copies = 1;
 
         if (sides && strcmp(sides, "one-sided"))
-          ippSetInteger(job->attrs, &job->sheets, 0, impressions / 2);
+          ippSetInteger(job->attrs, &job->sheets, 0, (impressions + 1) / 2 * copies);
 	else
-          ippSetInteger(job->attrs, &job->sheets, 0, impressions);
+          ippSetInteger(job->attrs, &job->sheets, 0, impressions * copies);
 
 	cupsdAddEvent(CUPSD_EVENT_JOB_PROGRESS, job->printer, job, "Printed %d page(s).", ippGetInteger(job->sheets, 0));
       }
