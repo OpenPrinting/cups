@@ -245,8 +245,12 @@ backendSNMPSupplies(
 
     for (i = 0, ptr = value; i < num_supplies; i ++, ptr += strlen(ptr))
     {
-      if (supplies[i].max_capacity > 0 && supplies[i].level >= 0)
-	percent = 100 * supplies[i].level / supplies[i].max_capacity;
+      if (supplies[i].max_capacity > 0 && supplies[i].level >= 0) {
+        if (supplies[i].level >= supplies[i].max_capacity)
+          percent = 100;
+        else 
+        	percent = (int)((100LL * supplies[i].level) / supplies[i].max_capacity);
+      }
       else if (supplies[i].level >= 0 && supplies[i].level <= 100 &&
                (quirks & CUPS_SNMP_CAPACITY))
         percent = supplies[i].level;
