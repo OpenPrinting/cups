@@ -733,8 +733,8 @@ cups_do_local_auth(http_t *http)	// I - HTTP connection to server
 
   DEBUG_printf("7cups_local_auth(http=%p) hostaddr=%s, hostname=\"%s\"", (void *)http, httpAddrString(http->hostaddr, filename, sizeof(filename)), http->hostname);
 
-  // See if we are accessing localhost...
-  if (httpAddrGetFamily(httpGetAddress(http)) != AF_LOCAL)
+  // See if we are accessing over the default domain socket...
+  if (httpAddrGetFamily(httpGetAddress(http)) != AF_LOCAL || strcmp(http->hostname, cg->server))
   {
     DEBUG_puts("8cups_local_auth: Not a local connection, returning false.");
     return (false);
