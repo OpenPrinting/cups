@@ -4323,10 +4323,10 @@ ipp_length(ipp_t *ipp)			/* I - IPP request */
       case IPP_TAG_RESOLUTION :
          /*
 	  * A resolution is two signed integers separated by an "x" and
-	  * suffixed by the units, or 26 characters max.
+	  * suffixed by the units, or 27 characters max.
 	  */
 
-	  bytes += (size_t)attr->num_values * 26;
+	  bytes += (size_t)attr->num_values * 27;
 	  break;
 
       case IPP_TAG_STRING :
