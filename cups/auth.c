@@ -988,7 +988,7 @@ cups_local_auth(http_t *http)		/* I - HTTP connection to server */
   * See if we are accessing localhost...
   */
 
-  if (httpAddrFamily(httpGetAddress(http)) != AF_LOCAL)
+  if (httpAddrFamily(httpGetAddress(http)) != AF_LOCAL || strcmp(http->hostname, cg->server))
   {
     DEBUG_puts("8cups_local_auth: Not a local connection!");
     return (1);
