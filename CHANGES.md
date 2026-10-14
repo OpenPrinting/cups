@@ -13,6 +13,8 @@ v2.4.21 - YYYY-MM-DD
   read-only print job attributes (GHSA-3mc2-9qgx-j5rx)
 - SECURITY-3.3: The scheduler did not prevent print jobs that directly used a
   printer-specific MIME media type (GHSA-fw5x-gqfr-7jh7)
+- SECURITY-3.3: The scheduler did not reserve enough space for certain
+  resolution option values (GHSA-56v5-mj3w-4f59)
 - SECURITY-2.0: Network backends could crash with malicious SNMP supply level
   reporting from a printer, stopping the queue (GHSA-g863-fq3c-86jm)
 - Added new `JobTicketComments` directive to "cups-files.conf" to enable job
