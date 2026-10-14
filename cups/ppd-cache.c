@@ -38,6 +38,7 @@ static int	pwg_compare_finishings(_pwg_finishings_t *a, _pwg_finishings_t *b, vo
 static int	pwg_compare_sizes(cups_size_t *a, cups_size_t *b, void *data);
 static cups_size_t *pwg_copy_size(cups_size_t *size, void *data);
 static void	pwg_free_finishings(_pwg_finishings_t *f, void *data);
+static int	pwg_is_set_finishing(int value);
 static void	pwg_ppdize_name(const char *ipp, char *name, size_t namesize);
 static void	pwg_ppdize_resolution(ipp_attribute_t *attr, int element, int *xres, int *yres, char *name, size_t namesize);
 static void	pwg_unppdize_name(const char *ppd, char *name, size_t namesize,
@@ -84,7 +85,8 @@ _cupsConvertOptions(
   int           finishings_copies = copies,
                                         /* Number of copies for finishings */
                 job_pages = 0,		/* job-pages value */
-		number_up = 1;		/* number-up value */
+		number_up = 1,		/* number-up value */
+		set_finishings = 0;	/* Do the finishings bind a set? */
   const char	*value;			/* Option value */
 
 
@@ -340,6 +342,32 @@ _cupsConvertOptions(
   }
 
  /*
+  * Look up the requested finishings up front - whether any of them bind a set
+  * together determines how copies have to be produced below...
+  */
+
+  if ((finishing_template = cupsGetOption("cupsFinishingTemplate", num_options, options)) == NULL)
+    finishing_template = cupsGetOption("finishing-template", num_options, options);
+
+  if (finishing_template && strcmp(finishing_template, "none"))
+  {
+    set_finishings = strstr(finishing_template, "staple") || strstr(finishing_template, "stitch") || strstr(finishing_template, "bind") || strstr(finishing_template, "fold") || strstr(finishing_template, "booklet");
+  }
+  else
+  {
+    num_finishings = _ppdCacheGetFinishingValues(ppd, pc, (int)(sizeof(finishings) / sizeof(finishings[0])), finishings);
+
+    for (i = 0; i < num_finishings; i ++)
+    {
+      if (pwg_is_set_finishing(finishings[i]))
+      {
+        set_finishings = 1;
+        break;
+      }
+    }
+  }
+
+ /*
   * Copies...
   */
 
@@ -352,6 +380,19 @@ _cupsConvertOptions(
   }
   else if ((keyword = cupsGetOption("collate", num_options, options)) == NULL)
     keyword = "true";
+
+  if (set_finishings && strcmp(keyword, "true"))
+  {
+   /*
+    * Uncollated copies interleave the pages of every copy, so a finishing that
+    * binds a set together (staple, stitch, bind, fold, ...) has no set to be
+    * applied to.  Printers typically respond by binding the job as a whole and
+    * delivering a single set instead of the requested number of copies, so ask
+    * for collated copies and let each copy be finished on its own...
+    */
+
+    keyword = "true";
+  }
 
   if (format)
   {
@@ -432,9 +473,6 @@ _cupsConvertOptions(
       job_pages ++;
   }
 
-  if ((finishing_template = cupsGetOption("cupsFinishingTemplate", num_options, options)) == NULL)
-    finishing_template = cupsGetOption("finishing-template", num_options, options);
-
   if (finishing_template && strcmp(finishing_template, "none"))
   {
     ipp_t *fin_col = ippNew();		/* finishings-col value */
@@ -452,21 +490,17 @@ _cupsConvertOptions(
       ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-pages-per-set", job_pages);
     }
   }
-  else
+  else if (num_finishings > 0)
   {
-    num_finishings = _ppdCacheGetFinishingValues(ppd, pc, (int)(sizeof(finishings) / sizeof(finishings[0])), finishings);
-    if (num_finishings > 0)
+    ippAddIntegers(request, IPP_TAG_JOB, IPP_TAG_ENUM, "finishings", num_finishings, finishings);
+
+    if (copies != finishings_copies && job_pages > 0)
     {
-      ippAddIntegers(request, IPP_TAG_JOB, IPP_TAG_ENUM, "finishings", num_finishings, finishings);
+     /*
+      * Send job-pages-per-set attribute to apply finishings correctly...
+      */
 
-      if (copies != finishings_copies && job_pages > 0)
-      {
-       /*
-	* Send job-pages-per-set attribute to apply finishings correctly...
-	*/
-
-	ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-pages-per-set", job_pages);
-      }
+      ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-pages-per-set", job_pages);
     }
   }
 
@@ -5763,6 +5797,26 @@ pwg_free_finishings(_pwg_finishings_t *f, /* I - Finishings value */
   (void)data;
   cupsFreeOptions(f->num_options, f->options);
   free(f);
+}
+
+
+/*
+ * 'pwg_is_set_finishing()' - Determine whether a finishings value binds the
+ *                            pages of a set together.
+ */
+
+static int				/* O - 1 if the set is bound, 0 otherwise */
+pwg_is_set_finishing(int value)		/* I - finishings value */
+{
+  return ((value >= IPP_FINISHINGS_STAPLE_TOP_LEFT && value <= IPP_FINISHINGS_STAPLE_TRIPLE_BOTTOM) ||
+          (value >= IPP_FINISHINGS_BIND_LEFT && value <= IPP_FINISHINGS_BIND_BOTTOM) ||
+          (value >= IPP_FINISHINGS_FOLD_ACCORDION && value <= IPP_FINISHINGS_FOLD_ENGINEERING_Z) ||
+          value == IPP_FINISHINGS_STAPLE ||
+          value == IPP_FINISHINGS_BIND ||
+          value == IPP_FINISHINGS_SADDLE_STITCH ||
+          value == IPP_FINISHINGS_EDGE_STITCH ||
+          value == IPP_FINISHINGS_FOLD ||
+          value == IPP_FINISHINGS_BOOKLET_MAKER);
 }
 
 
