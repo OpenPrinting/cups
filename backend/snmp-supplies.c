@@ -253,6 +253,11 @@ backendSNMPSupplies(
       else
         percent = 50;
 
+      if (percent < 0)
+        percent = 0;
+      else if (percent > 100)
+        percent = 100;
+
       if (supplies[i].sclass == CUPS_TC_receptacleThatIsFilled)
         percent = 100 - percent;
 
