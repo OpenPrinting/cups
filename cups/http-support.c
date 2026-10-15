@@ -1086,19 +1086,23 @@ httpSeparateURI(
     if (*uri == ':')
     {
       // Yes, collect the port number...
+      long	portnum;		// Port number
+
       if (!_cups_isdigit(uri[1]))
       {
         *port = 0;
         return (HTTP_URI_STATUS_BAD_PORT);
       }
 
-      *port = (int)strtol(uri + 1, (char **)&uri, 10);
+      portnum = (int)strtol(uri + 1, (char **)&uri, 10);
 
-      if (*port <= 0 || *port > 65535)
+      if (portnum <= 0 || portnum > 65535)
       {
         *port = 0;
         return (HTTP_URI_STATUS_BAD_PORT);
       }
+
+      *port = (int)portnum;
 
       if (*uri != '/' && *uri)
       {
