@@ -115,7 +115,7 @@ pot:	checkpo
 	echo Updating cups.pot...
 	mv cups.pot cups.pot.bck
 	touch cups.pot
-	cd ..; xgettext -o locale/cups.pot -cTRANSLATORS -s \
+	cd ..; xgettext -o locale/cups.pot -cTRANSLATORS \
 		--keyword=_ --no-wrap --from-code utf-8 \
 		--copyright-holder="OpenPrinting" \
 		--package-name="CUPS" --package-version="$(CUPS_VERSION)" \
@@ -130,7 +130,7 @@ pot:	checkpo
 			break; \
 		fi; \
 		echo Merging changes into $$loc... ; \
-		msgmerge -o $$loc -s -N --no-location $$loc cups.pot ; \
+		msgmerge -o $$loc -N --no-location $$loc cups.pot ; \
 	done
 
 
