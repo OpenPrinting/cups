@@ -80,7 +80,7 @@ static bool		http_save_file(const char *path, const char *common_name, const cha
 // 'cupsCopyCredentials()' - Copy the X.509 certificate chain to a string.
 //
 
-char *
+char *					// O - PEM-encoded certificate(s)
 cupsCopyCredentials(
     const char *path,			// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name)		// I - Common name
@@ -93,12 +93,18 @@ cupsCopyCredentials(
 // 'cupsCopyCredentialsKey()' - Copy the private key to a string.
 //
 
-char *
+char *					// O - PEM-encoded private key
 cupsCopyCredentialsKey(
     const char *path,			// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name)		// I - Common name
 {
-  return (http_copy_file(path, common_name, "key"));
+  char	*key = http_copy_file(path, common_name, "key");
+					// Private key
+
+  if (!key)
+    key = http_copy_file(path, common_name, "ktm");
+
+  return (key);
 }
 
 
@@ -240,7 +246,7 @@ int					// O - `1` on success, `0` on failure
 cupsSetServerCredentials(
     const char *path,			// I - Directory path for certificate/key store or `NULL` for default
     const char *common_name,		// I - Default common name for server
-    int        auto_create)		// I - `true` = automatically create self-signed certificates
+    int        auto_create)		// I - `1` = automatically create self-signed certificates
 {
   char	temp[1024];			// Default path buffer
 
@@ -306,6 +312,8 @@ http_check_roots(const char *creds)	// I - Credentials
   char	*ret = NULL;			// Return value
 
 
+  DEBUG_printf("4http_check_roots(creds=\"%u bytes...\")", (unsigned)strlen(creds));
+
 #ifdef __APPLE__
   // Apple hides all of the keychain stuff (all deprecated) so the best we can
   // do is use the SecTrust API to evaluate the certificate...
@@ -323,14 +331,23 @@ http_check_roots(const char *creds)	// I - Credentials
 
   // Convert PEM-encoded credentials to an array of DER-encoded certificates...
   if ((tcreds = strdup(creds)) == NULL)
+  {
+    DEBUG_puts("5http_check_roots: Unable to duplicate credentials.");
     goto done;
+  }
 
   if ((certs = CFArrayCreateMutable(kCFAllocatorDefault, /*capacity*/0, &kCFTypeArrayCallBacks)) == NULL)
+  {
+    DEBUG_puts("5http_check_roots: Unable to create credentials array.");
     goto done;
+  }
 
   dersize = 3 * strlen(tcreds) / 4;
   if ((der = malloc(dersize)) == NULL)
+  {
+    DEBUG_printf("5http_check_roots: Unable to allocate %u byte buffer for certificate.", (unsigned)dersize);
     goto done;
+  }
 
   for (tstart = strstr(tcreds, "-----BEGIN CERTIFICATE-----\n"); tstart; tstart = strstr(tend, "-----BEGIN CERTIFICATE-----\n"))
   {
@@ -347,6 +364,7 @@ http_check_roots(const char *creds)	// I - Credentials
     if (httpDecode64_3(der, &derlen, tstart, /*end*/NULL))
     {
       // Create a CFData object for the data...
+      DEBUG_printf("5http_check_roots: Allocating %u bytes for certificate.", (unsigned)derlen);
       CFDataRef data = CFDataCreate(kCFAllocatorDefault, (const UInt8 *)der, (CFIndex)derlen);
 
       if (data)
@@ -358,8 +376,16 @@ http_check_roots(const char *creds)	// I - Credentials
           CFArrayAppendValue(certs, cert);
           CFRelease(cert);
 	}
+	else
+	{
+	  DEBUG_puts("5http_check_roots: Unable to create certificate.");
+	}
 
         CFRelease(data);
+      }
+      else
+      {
+	DEBUG_puts("5http_check_roots: Unable to create certificate data.");
       }
     }
   }
@@ -367,10 +393,21 @@ http_check_roots(const char *creds)	// I - Credentials
   // Test the certificate list against the macOS/iOS trust store...
   if ((policy = SecPolicyCreateBasicX509()) != NULL)
   {
+    DEBUG_puts("5http_check_roots: Created basic X.509 trust policy.");
+
     if (SecTrustCreateWithCertificates(certs, policy, &trust) == noErr)
     {
+      DEBUG_puts("5http_check_roots: Created trust object with policy.");
+
       if (SecTrustEvaluateWithError(trust, NULL))
+      {
+        DEBUG_puts("5http_check_roots: Certificate is trusted.");
         ret = strdup("");
+      }
+      else
+      {
+        DEBUG_puts("5http_check_roots: Certificate is not trusted.");
+      }
 
       CFRelease(trust);
     }
@@ -510,6 +547,8 @@ http_copy_file(const char *path,	// I - Directory
   struct stat	fileinfo;		// File information
 
 
+  DEBUG_printf("3http_copy_file(path=\"%s\", common_name=\"%s\", ext=\"%s\")", path, common_name, ext);
+
   if (!common_name)
     return (NULL);
 
@@ -517,10 +556,18 @@ http_copy_file(const char *path,	// I - Directory
     path = http_default_path(defpath, sizeof(defpath));
 
   if ((fd = open(http_make_path(filename, sizeof(filename), path, common_name, ext), O_RDONLY)) < 0)
+  {
+    DEBUG_printf("4http_copy_file: open() failed: %s", strerror(errno));
     return (NULL);
+  }
 
   if (fstat(fd, &fileinfo))
+  {
+    DEBUG_printf("4http_copy_file: fstat() failed: %s", strerror(errno));
     goto done;
+  }
+
+  DEBUG_printf("4http_copy_file: st_size=%lu", (unsigned long)fileinfo.st_size);
 
   if (fileinfo.st_size > 65536)
   {
@@ -530,12 +577,14 @@ http_copy_file(const char *path,	// I - Directory
 
   if ((s = calloc(1, (size_t)fileinfo.st_size + 1)) == NULL)
   {
+    DEBUG_printf("4http_copy_file: calloc() failed: %s", strerror(errno));
     close(fd);
     return (NULL);
   }
 
   if (read(fd, s, (size_t)fileinfo.st_size) < 0)
   {
+    DEBUG_printf("4http_copy_file: read() failed: %s", strerror(errno));
     free(s);
     s = NULL;
   }
@@ -543,6 +592,8 @@ http_copy_file(const char *path,	// I - Directory
   done:
 
   close(fd);
+
+  DEBUG_printf("4http_copy_file: Returning \"%s\"", s);
 
   return (s);
 }
@@ -567,7 +618,7 @@ http_default_path(
 
     if (!_cupsDirCreate(buffer, 0700))
     {
-      DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
+      DEBUG_printf("4http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
       return (NULL);
     }
   }
@@ -577,12 +628,12 @@ http_default_path(
 
     if (!_cupsDirCreate(buffer, 0700))
     {
-      DEBUG_printf("1http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
+      DEBUG_printf("4http_default_path: Failed to make directory '%s': %s", buffer, strerror(errno));
       return (NULL);
     }
   }
 
-  DEBUG_printf("1http_default_path: Using default path \"%s\".", buffer);
+  DEBUG_printf("4http_default_path: Using default path \"%s\".", buffer);
 
   return (buffer);
 }
@@ -703,6 +754,8 @@ http_make_path(
 	*bufend = buffer + bufsize - 1;	// End of buffer
 
 
+  DEBUG_printf("3http_make_path(buffer=%p, bufsize=%u, dirname=\"%s\", filename=\"%s\", ext=\"%s\")", (void *)buffer, (unsigned)bufsize, dirname, filename, ext);
+
   snprintf(buffer, bufsize, "%s/", dirname);
   bufptr = buffer + strlen(buffer);
 
@@ -720,6 +773,8 @@ http_make_path(
     *bufptr++ = '.';
 
   cupsCopyString(bufptr, ext, (size_t)(bufend - bufptr + 1));
+
+  DEBUG_printf("4http_make_path: Returning \"%s\".", buffer);
 
   return (buffer);
 }

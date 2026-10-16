@@ -404,7 +404,11 @@ static int				// O - Exit status
 do_unit_tests(void)
 {
   cups_credtype_t	type;		// Current credential type
-  char			*data;		// Cert data
+  char			*data,		// Cert data
+			*cadata,	// CA cert data
+			*chain;		// Cert chain data
+  size_t		chainlen;	// Length of cert chain data
+  http_trust_t		trust;		// Trust in credentials
   static const char * const alt_names[] =
   {					// subjectAltName values
     "printer.example.com",
@@ -425,7 +429,7 @@ do_unit_tests(void)
   for (type = CUPS_CREDTYPE_DEFAULT; type <= CUPS_CREDTYPE_ECDSA_P521_SHA256; type ++)
   {
     testBegin("cupsCreateCredentials(_site_, %s, CA)", types[type]);
-    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "_site_", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
+    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_CA, "Organization", "Unit", "Locality", "Ontario", "CA", "_site_", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
     {
       testEnd(true);
 
@@ -449,6 +453,62 @@ do_unit_tests(void)
       testEnd(true);
     else
       testEndMessage(false, "%s", cupsGetErrorString());
+
+    testBegin("cupsGetCredentialsTrust(printer signed by CA cert, %s)", types[type]);
+    if ((data = cupsCopyCredentials(TEST_CERT_PATH, "printer")) != NULL)
+    {
+      trust = cupsGetCredentialsTrust(TEST_CERT_PATH, "printer", data, /*require_ca*/true);
+      free(data);
+
+      if (trust == HTTP_TRUST_OK)
+	testEnd(true);
+      else
+	testEndMessage(false, "%s", cupsGetErrorString());
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+    }
+
+    testBegin("cupsCreateCredentials(selfsigned, %s)", types[type]);
+    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "selfsigned", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
+      testEnd(true);
+    else
+      testEndMessage(false, "%s", cupsGetErrorString());
+
+    testBegin("cupsGetCredentialsTrust(selfsigned with CA cert appended, %s)", types[type]);
+    if ((data = cupsCopyCredentials(TEST_CERT_PATH, "selfsigned")) != NULL && (cadata = cupsCopyCredentials(TEST_CERT_PATH, "_site_")) != NULL)
+    {
+      // A self-signed certificate with the (public) CA certificate appended is
+      // not signed by the CA and must not be trusted...
+      chainlen = strlen(data) + strlen(cadata) + 1;
+
+      if ((chain = malloc(chainlen)) != NULL)
+      {
+	cupsCopyString(chain, data, chainlen);
+	cupsConcatString(chain, cadata, chainlen);
+
+	trust = cupsGetCredentialsTrust(TEST_CERT_PATH, "selfsigned", chain, /*require_ca*/true);
+	free(chain);
+
+	if (trust != HTTP_TRUST_OK)
+	  testEnd(true);
+	else
+	  testEndMessage(false, "Expected a failure");
+      }
+      else
+      {
+	testEndMessage(false, "%s", strerror(errno));
+      }
+
+      free(data);
+      free(cadata);
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+      free(data);
+    }
 
     testBegin("cupsCreateCredentialsRequest(altprinter w/alt names, %s)", types[type]);
     if (cupsCreateCredentialsRequest(TEST_CERT_PATH, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "altprinter", "admin@example.com", sizeof(alt_names) / sizeof(alt_names[0]), alt_names))

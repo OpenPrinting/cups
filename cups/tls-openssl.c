@@ -721,7 +721,9 @@ cupsGetCredentialsInfo(
     const char		*sigalg;	// Signature algorithm
     unsigned char	md5_digest[16];	// MD5 result
 
+    DEBUG_printf("2cupsGetCredentialsInfo: certs=%p(%d certificates)", certs, sk_X509_num(certs));
     cert = sk_X509_value(certs, 0);
+    DEBUG_printf("2cupsGetCredentialsInfo: cert=%p", cert);
 
     if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name)) < 0)
       cupsCopyString(name, "unknown", sizeof(name));
@@ -936,20 +938,26 @@ cupsGetCredentialsTrust(
     if (trust == HTTP_TRUST_OK && *tcreds)
     {
       // Verify the full certificate chain...
+      STACK_OF(X509)	*tcerts = openssl_load_x509(tcreds);
+					// Trusted certificates
       X509_STORE_CTX	*ctx = X509_STORE_CTX_new();
 					// Context for certificate store
       X509_STORE	*store = X509_STORE_new();
 					// Certificate store
 
-      if (!ctx || !store)
+      if (!tcerts || !ctx || !store)
       {
         // Unable to create store...
         trust = HTTP_TRUST_INVALID;
       }
       else
       {
-        // Verify the certificate chain signatures...
-	X509_STORE_add_cert(store, cert);
+        // Verify the certificate chain signatures against the trusted root...
+        int	i;			// Looping var
+
+	for (i = 0; i < sk_X509_num(tcerts); i ++)
+	  X509_STORE_add_cert(store, sk_X509_value(tcerts, i));
+
 	X509_STORE_CTX_init(ctx, store, cert, certs);
 
 	if (X509_verify_cert(ctx) != 1)
@@ -960,6 +968,8 @@ cupsGetCredentialsTrust(
         X509_STORE_CTX_free(ctx);
       if (store)
         X509_STORE_free(store);
+      if (tcerts)
+        sk_X509_pop_free(tcerts, X509_free);
     }
 
     free(tcreds);
@@ -1179,8 +1189,8 @@ cupsSignCredentialsRequest(
     int			datalen;		// Length of extension data
 
     ext     = sk_X509_EXTENSION_value(exts, i);
-    obj     = X509_EXTENSION_get_object(ext);
-    extdata = X509_EXTENSION_get_data(ext);
+    obj     = (ASN1_OBJECT *)X509_EXTENSION_get_object(ext);
+    extdata = (ASN1_OCTET_STRING *)X509_EXTENSION_get_data(ext);
     datalen = i2d_ASN1_OCTET_STRING(extdata, &data);
 
 #ifdef DEBUG
@@ -1299,9 +1309,9 @@ cupsSignCredentialsRequest(
           // Parse the SAN values (there should be an easier/standard OpenSSL API to do this!)
           for (j = 4; j < datalen; j += data[j + 1] + 2)
           {
-            // Stop if the element header or value runs past the extension data...
-            if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
-              break;
+	    // Stop if the element header or value runs past the extension data...
+	    if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
+	      break;
 
             if (data[j] == 0x82 && data[j + 1])
             {
@@ -2050,9 +2060,10 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 	      const char *buf,		// I - Buffer holding data
 	      int        len)		// I - Length of buffer
 {
-  int bytes;
+  int bytes = SSL_write(http->tls, buf, len);
+					// Bytes written
 
-  bytes = SSL_write(http->tls, buf, len);
+  DEBUG_printf("7_httpTLSWrite(http=%p, buf=%p, len=%d) got %d", (void *)http, (void *)buf, len, bytes);
 
   if (bytes > 0)
     return (bytes);

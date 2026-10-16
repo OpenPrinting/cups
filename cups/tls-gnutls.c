@@ -995,7 +995,7 @@ cupsGetCredentialsTrust(
       {
         unsigned	verify;		// Verification results
 
-        if (gnutls_x509_crt_list_verify (certs, num_certs, tcerts, num_tcerts, /*CRL_list*/NULL, /*CRL_list_length*/0, /*flags*/0, &verify))
+        if (gnutls_x509_crt_list_verify (certs, num_certs, tcerts, num_tcerts, /*CRL_list*/NULL, /*CRL_list_length*/0, /*flags*/0, &verify) < 0 || (verify & GNUTLS_CERT_INVALID))
           trust = HTTP_TRUST_INVALID;
 
         gnutls_free_certs(num_tcerts, tcerts);
