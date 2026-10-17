@@ -1382,13 +1382,18 @@ cupsOAuthGetTokens(
     jnonce = cupsJWTGetClaimString(jwt, "nonce");
     nonce  = oauth_load_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*try_sysconfig*/false);
 
-    // We need a JWT...
-    if (!jwt)
-      goto done;
+     // We need a JWT...
+  if (!jwt)
+    goto done;
 
-    // Validate nonce
-    if (nonce && (!jnonce || strcmp(jnonce, nonce)))
-      goto done;
+  /*
+   * Validate the nonce step to prevent replay attacks...
+   */
+
+  if (!nonce || !jnonce || strcmp(nonce, jnonce) != 0)
+    goto done;
+
+
 
     // Validate id_token against the Authorization Server's JWKS
     if ((jwks = cupsOAuthGetJWKS(auth_uri, metadata)) == NULL)
