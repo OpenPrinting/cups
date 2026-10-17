@@ -1,0 +1,36 @@
+{#job_id=0?:
+<TABLE CLASS="list" SUMMARY="Elenco Lavori">
+<THEAD>
+<TR><TH>ID</TH><TH>Nome</TH><TH>Utente</TH><TH>Dimensione</TH><TH>Pagine</TH><TH>Stato</TH><TH>Controllo</TH></TR>
+</THEAD>
+<TBODY>
+{[job_id]
+<TR VALIGN="TOP">
+<TD><A HREF="{job_printer_uri}">{job_printer_name}</A>-{job_id}{?phone? ({phone}):}&nbsp;</TD>
+<TD>{?job_name=?Sconosciuto:{job_name}}&nbsp;</TD>
+<TD>{?job_originating_user_name=?Withheld:{job_originating_user_name}}&nbsp;</TD>
+<TD>{job_k_octets}k&nbsp;</TD>
+<TD>{job_impressions_completed=0?Sconosciuto:{?job_impressions_completed}}&nbsp;</TD>
+<TD>{job_state=3?in attesa da <BR>{?date_time_at_creation=?Sconosciuto:{date_time_at_creation}}:{job_state=4?trattenuto da <BR>{?date_time_at_creation=?Sconosciuto:{date_time_at_creation}}:
+{job_state=5?in elaborazione da <BR>{?date_time_at_processing=?Sconosciuto:{date_time_at_processing}}:{job_state=6?stopped:
+{job_state=7?annullato il <BR>{?date_time_at_completed=?Sconosciuto:{date_time_at_completed}}:{job_state=8?aborted:completed at<BR>{?date_time_at_completed=?Sconosciuto:{date_time_at_completed}}}}}}}}&nbsp;{job_printer_state_message?<BR>
+<EM>"{job_printer_state_message}"</EM>:}</TD>
+<TD>
+{job_preserved>0?{job_state>5?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="restart-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}"><INPUT TYPE="SUBMIT" VALUE="Ristampa lavoro"></FORM>:}:}
+{job_state=4?{job_hold_until=auth-info-required?Trattenuto per autenticazione.:
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="release-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Rilascia Lavoro"></FORM>:}:}
+{job_state=3?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="hold-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Trattieni Lavoro"></FORM>:}
+{job_state<7?
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="cancel-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="HIDDEN" NAME="job_printer_uri" VALUE="{job_printer_uri}">
+<INPUT TYPE="SUBMIT" VALUE="Annulla Lavoro"></FORM>
+<FORM ACTION="/jobs/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="move-job"><INPUT TYPE="HIDDEN" NAME="job_id" VALUE="{job_id}"><INPUT TYPE="SUBMIT" VALUE="Sposta Lavoro"></FORM>:}
+&nbsp;</TD>
+</TR>
+}
+</TBODY>
+</TABLE>
+}
