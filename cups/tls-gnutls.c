@@ -1559,7 +1559,7 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
                 char   *buffer,		// I - String buffer
                 size_t bufsize)		// I - Size of buffer
 {
-  const char	*cipherName;		// Cipher suite name
+  char		*cipherName;		// Cipher suite name
 
 
   // Range check input...
@@ -1571,6 +1571,8 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
 
   // Record the TLS version and cipher suite...
   cipherName = gnutls_session_get_desc(http->tls);
+  if (!cipherName)
+    return (NULL);
 
   switch (gnutls_protocol_get_version(http->tls))
   {
@@ -1594,6 +1596,8 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
         snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName);
         break;
   }
+
+  gnutls_free(cipherName);
 
   return (buffer);
 }
