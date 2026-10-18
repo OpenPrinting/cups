@@ -22,6 +22,8 @@ v2.4.21 - YYYY-MM-DD
   GHSA-5cpc-rwrw-jp83)
 - Added new `JobTicketComments` directive to "cups-files.conf" to enable job
   ticket comment support.
+- Updated `cupsRasterReadHeader` to reject raster data with a 0 resolution
+  (Issue #1771)
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)
 - Fixed unintended usage of C99 language feature (Issue #1742)
 - Fixed regression in mailto notifier address validation (Issue #1744)
