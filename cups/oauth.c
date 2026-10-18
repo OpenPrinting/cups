@@ -629,6 +629,12 @@ cupsOAuthGetAuthorizationCode(
                   else
                   {
                     // Got an error...
+		    if (error_code && strchr(error_code, '<'))
+		      error_code = NULL;
+
+		    if (error_desc && strchr(error_desc, '<'))
+		      error_desc = NULL;
+
 		    hbody = message;
                     snprintf(message, sizeof(message),
                              "<!DOCTYPE html>\n"
