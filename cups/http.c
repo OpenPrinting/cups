@@ -1896,20 +1896,20 @@ httpPrintf(http_t     *http,		/* I - HTTP connection */
     va_copy(ap2, ap);
     bytes = vsnprintf(http->fbuffer, http->fbufsize, format, ap2);
 
-    if (bytes < http->fbufsize || bytes >= _HTTP_MAX_PRINTF)
+    if (bytes < (ssize_t)http->fbufsize || bytes >= _HTTP_MAX_PRINTF)
       break;
 
-    if ((temp = realloc(http->fbuffer, bytes + 1)) == NULL)
+    if ((temp = realloc(http->fbuffer, (size_t)bytes + 1)) == NULL)
       break;
 
     http->fbuffer  = temp;
-    http->fbufsize = bytes + 1;
+    http->fbufsize = (size_t)bytes + 1;
   }
   va_end(ap);
 
   DEBUG_printf(("3httpPrintf: (" CUPS_LLFMT " bytes) %s", CUPS_LLCAST bytes, http->fbuffer));
 
-  if (bytes >= http->fbufsize)
+  if (bytes < 0 || bytes >= (ssize_t)http->fbufsize)
   {
     http->error = ENOMEM;
     return (-1);
@@ -2778,8 +2778,7 @@ int					/* O - 1 to continue, 0 to stop */
 _httpUpdate(http_t        *http,	/* I - HTTP connection */
             http_status_t *status)	/* O - Current HTTP status */
 {
-  char		line[_HTTP_MAX_BUFFER],	/* Line from connection... */
-		*value;			/* Pointer to value on line */
+  char		*value;			/* Pointer to value on line */
   http_field_t	field;			/* Field index */
   int		major, minor;		/* HTTP version numbers */
 
@@ -2823,16 +2822,16 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
   * Grab a single line from the connection...
   */
 
-  if (!httpGets(line, sizeof(line), http))
+  if (!httpGets(http->line, sizeof(http->line), http))
   {
     DEBUG_puts("1_httpUpdate: Error reading request line.");
     *status = HTTP_STATUS_ERROR;
     return (0);
   }
 
-  DEBUG_printf(("2_httpUpdate: Got \"%s\"", line));
+  DEBUG_printf(("2_httpUpdate: Got \"%s\"", http->line));
 
-  if (line[0] == '\0')
+  if (http->line[0] == '\0')
   {
    /*
     * Blank line means the start of the data section (if any).  Return
@@ -2908,7 +2907,7 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
     *status = http->status;
     return (0);
   }
-  else if (!strncmp(line, "HTTP/", 5) && http->mode == _HTTP_MODE_CLIENT)
+  else if (!strncmp(http->line, "HTTP/", 5) && http->mode == _HTTP_MODE_CLIENT)
   {
    /*
     * Got the beginning of a response...
@@ -2916,7 +2915,7 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
 
     int	intstatus;			/* Status value as an integer */
 
-    if (sscanf(line, "HTTP/%d.%d%d", &major, &minor, &intstatus) != 3)
+    if (sscanf(http->line, "HTTP/%d.%d%d", &major, &minor, &intstatus) != 3)
     {
       *status = http->status = HTTP_STATUS_ERROR;
       return (0);
@@ -2927,7 +2926,7 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
     http->version = (http_version_t)(major * 100 + minor);
     *status       = http->status = (http_status_t)intstatus;
   }
-  else if ((value = strchr(line, ':')) != NULL)
+  else if ((value = strchr(http->line, ':')) != NULL)
   {
    /*
     * Got a value...
@@ -2937,13 +2936,13 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
     while (_cups_isspace(*value))
       value ++;
 
-    DEBUG_printf(("1_httpUpdate: Header %s: %s", line, value));
+    DEBUG_printf(("1_httpUpdate: Header %s: %s", http->line, value));
 
    /*
     * Be tolerants of servers that send unknown attribute fields...
     */
 
-    if (!_cups_strcasecmp(line, "expect"))
+    if (!_cups_strcasecmp(http->line, "expect"))
     {
      /*
       * "Expect: 100-continue" or similar...
@@ -2951,7 +2950,7 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
 
       http->expect = (http_status_t)atoi(value);
     }
-    else if (!_cups_strcasecmp(line, "cookie"))
+    else if (!_cups_strcasecmp(http->line, "cookie"))
     {
      /*
       * "Cookie: name=value[; name=value ...]" - replaces previous cookies...
@@ -2959,7 +2958,7 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
 
       httpSetCookie(http, value);
     }
-    else if ((field = httpFieldValue(line)) != HTTP_FIELD_UNKNOWN)
+    else if ((field = httpFieldValue(http->line)) != HTTP_FIELD_UNKNOWN)
     {
       http_add_field(http, field, value, 1);
 
@@ -2968,12 +2967,12 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
     }
 #ifdef DEBUG
     else
-      DEBUG_printf(("1_httpUpdate: unknown field %s seen!", line));
+      DEBUG_printf(("1_httpUpdate: unknown field %s seen!", http->line));
 #endif /* DEBUG */
   }
   else
   {
-    DEBUG_printf(("1_httpUpdate: Bad response line \"%s\"!", line));
+    DEBUG_printf(("1_httpUpdate: Bad response line \"%s\"!", http->line));
     http->error  = EINVAL;
     http->status = *status = HTTP_STATUS_ERROR;
     return (0);

@@ -315,6 +315,8 @@ struct _http_s				/**** HTTP connection structure ****/
 					/* Read buffer */
 
   /**** New in CUPS 2.4.21 ****/
+  char			line[_HTTP_MAX_BUFFER];
+					// Line buffer for headers
   char			*fbuffer;	/* httpPrintf buffer */
   size_t		fbufsize;	/* Size of httpPrintf buffer */
 };
