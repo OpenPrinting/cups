@@ -1,9 +1,9 @@
 /*
  * Private HTTP definitions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
- * Copyright 2007-2018 by Apple Inc.
- * Copyright 1997-2007 by Easy Software Products, all rights reserved.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2007-2018 by Apple Inc.
+ * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
@@ -122,7 +122,9 @@ extern "C" {
  */
 
 #  define _HTTP_MAX_BUFFER	32768	/* Size of read buffer */
+#  define _HTTP_MAX_PRINTF	65536	/* Max size of httpPrintf buffer */
 #  define _HTTP_MAX_SBUFFER	65536	/* Size of (de)compression buffer */
+
 #  define _HTTP_RESOLVE_DEFAULT	0	/* Just resolve with default options */
 #  define _HTTP_RESOLVE_STDERR	1	/* Log resolve progress to stderr */
 #  define _HTTP_RESOLVE_FQDN	2	/* Resolve to a FQDN */
@@ -311,6 +313,10 @@ struct _http_s				/**** HTTP connection structure ****/
 					/* Default field values, if any */
   char			buffer[_HTTP_MAX_BUFFER];
 					/* Read buffer */
+
+  /**** New in CUPS 2.4.21 ****/
+  char			*fbuffer;	/* httpPrintf buffer */
+  size_t		fbufsize;	/* Size of httpPrintf buffer */
 };
 #  endif /* !_HTTP_NO_PRIVATE */
 
