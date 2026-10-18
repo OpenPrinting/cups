@@ -3696,7 +3696,7 @@ read_cups_files_conf(cups_file_t *fp)	/* I - File to read from */
           cupsdSetEnv(value, NULL);
 
         for (value += valuelen; *value; value ++)
-	  if (!_cups_isspace(*value) || *value != ',')
+	  if (!_cups_isspace(*value) && *value != ',')
 	    break;
       }
     }
