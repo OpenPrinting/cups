@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-07-22 21:01+0000\n"
 "Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
@@ -3223,6 +3223,9 @@ msgstr "Ungültiger Wert CloseUI/JCLCloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Ungültiger NULL-Dests-Zeiger"
 
@@ -3252,6 +3255,9 @@ msgstr "Ungültige UIConstraints"
 
 msgid "Bad URI."
 msgstr "Ungültige URI."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "Ungültige Argumente an Funktion"
@@ -4095,9 +4101,6 @@ msgstr "Internet Printing Protocol"
 
 msgid "Invalid JSON data."
 msgstr "Ungültige JSON-Daten."
-
-msgid "Invalid JSON web token."
-msgstr "Ungültiges JSON-Web-Token."
 
 msgid "Invalid form data."
 msgstr "Ungültige Formulardaten."
@@ -5150,6 +5153,9 @@ msgstr "US Letter übergroß, lange Seite"
 msgid "US Letter Small"
 msgstr "US Letter klein"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "Kein Zugriff auf die Datei cupsd.conf"
 
@@ -5269,6 +5275,21 @@ msgstr "Anlegen des spool-Verzeichnisses \"%s\" nicht möglich: %s"
 msgid "Unable to create temporary file"
 msgstr "Temporäre Datei konnte nicht erstellt werden"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Die Klasse konnte nicht gelöscht werden"
 
@@ -5284,6 +5305,15 @@ msgstr "cupsd.conf-Dateien größer als 1MB können nicht bearbeitet werden"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Befehl \"%s\" kann nicht ausgeführt werden: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Das Ziel für den Auftrag kann nicht gefunden werden"
@@ -16081,6 +16111,9 @@ msgstr ""
 
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr "Anmeldedaten validieren nicht gegen das CA-Zertifikat der Seite"
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "Ungültiges JSON-Web-Token."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-07-18 17:01+0000\n"
 "Last-Translator: reducedradius <137701630+flytothehighest@users.noreply."
 "github.com>\n"
@@ -3104,6 +3104,9 @@ msgstr "无效的 CloseUI/JCLCloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "无效的 NULL 目标指针"
 
@@ -3133,6 +3136,9 @@ msgstr "无效的 UIConstraints 值"
 
 msgid "Bad URI."
 msgstr "无效的 URI。"
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "函数的参数无效"
@@ -3968,9 +3974,6 @@ msgid "Internet Printing Protocol"
 msgstr "互联网打印协议"
 
 msgid "Invalid JSON data."
-msgstr ""
-
-msgid "Invalid JSON web token."
 msgstr ""
 
 msgid "Invalid form data."
@@ -5003,6 +5006,9 @@ msgstr "美国信纸 (Letter) 加大 长边"
 msgid "US Letter Small"
 msgstr "美国信纸 (Letter) 小号"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "无法访问 cupsd.conf 文件。"
 
@@ -5118,6 +5124,21 @@ msgstr ""
 msgid "Unable to create temporary file"
 msgstr "无法创建临时文件"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "无法删除类"
 
@@ -5132,6 +5153,15 @@ msgstr "无法编辑大小超过 1MB 的 cupsd.conf 文件"
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
+msgstr ""
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
 msgstr ""
 
 msgid "Unable to find destination for job"

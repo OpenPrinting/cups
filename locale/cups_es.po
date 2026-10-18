@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-06-26 20:01+0000\n"
 "Last-Translator: Libre <6n0n1m0s@proton.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/cups/cups/es/>\n"
@@ -3367,6 +3367,9 @@ msgstr "CloseUI/JCLCloseUI incorrecto"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr "Variable JOB_PRINTER_URI incorrecta."
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Puntero destino NULL incorrecto"
 
@@ -3396,6 +3399,9 @@ msgstr "UIConstraints incorrecto"
 
 msgid "Bad URI."
 msgstr "URI incorrecto."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "Argumentos de la función incorrectos"
@@ -4242,9 +4248,6 @@ msgstr "Protocolo de Impresión de Internet IPP"
 
 msgid "Invalid JSON data."
 msgstr "Datos JSON no válidos."
-
-msgid "Invalid JSON web token."
-msgstr "Testigo web JSON no válido."
 
 msgid "Invalid form data."
 msgstr "Datos de formularios incorrectos."
@@ -5295,6 +5298,9 @@ msgstr "Carta EE. UU. Extragrande lado largo"
 msgid "US Letter Small"
 msgstr "Carta EE. UU. Pequeña"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "No se ha podido acceder al archivo cupsd.conf"
 
@@ -5412,6 +5418,21 @@ msgstr "No es capaz de crear directorio de consorcio «%s»: %s"
 msgid "Unable to create temporary file"
 msgstr "No se ha podido crear el archivo temporal"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "No se ha podido borrar la clase"
 
@@ -5427,6 +5448,15 @@ msgstr "No se pueden editar archivos cupsd.conf mayores de 1MB"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "No es capaz de ejecutar comando «%s»: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "No se ha podido encontrar destino para la tarea"
@@ -16276,6 +16306,9 @@ msgstr "Archivo ~/.cups/lpoptions nombra destino predet. que no existe."
 
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr "Las credenciales no se validan con el certificado AC del sitio."
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "Testigo web JSON no válido."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-06-26 20:01+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/cups/cups/ro/>\n"
@@ -3390,6 +3390,9 @@ msgstr "CloseUI/JCLCloseUI incorect"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr "Variabila JOB_PRINTER_URI este incorectă."
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Indicator de destinație NULL incorect"
 
@@ -3419,6 +3422,9 @@ msgstr "UIConstraints incorecte"
 
 msgid "Bad URI."
 msgstr "Adresă URI incorectă."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "Argumente incorecte pentru funcție"
@@ -4269,9 +4275,6 @@ msgstr "Protocol de imprimare prin Internet (ipp)"
 
 msgid "Invalid JSON data."
 msgstr "Date JSON nevalide."
-
-msgid "Invalid JSON web token."
-msgstr "Jeton web JSON nevalid."
 
 msgid "Invalid form data."
 msgstr "Date de formular nevalide."
@@ -5323,6 +5326,9 @@ msgstr "Letter Oversize Long Edge SUA"
 msgid "US Letter Small"
 msgstr "Letter Small SUA"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "Nu s-a putut accesa fișierul cupsd.conf"
 
@@ -5440,6 +5446,21 @@ msgstr "Nu s-a putut crea directorul cozii de imprimare (spool) „%s”: %s"
 msgid "Unable to create temporary file"
 msgstr "Nu s-a putut crea fișierul temporar"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Nu s-a putut șterge clasa"
 
@@ -5455,6 +5476,15 @@ msgstr "Nu se pot edita fișiere cupsd.conf mai mari de 1 Mo"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Nu s-a putut executa comanda „%s”: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Nu s-a putut găsi destinația pentru lucrare"
@@ -16284,6 +16314,9 @@ msgstr ""
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr ""
 #~ "Acreditările nu sunt validate în raport cu certificatul CA al sitului."
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "Jeton web JSON nevalid."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

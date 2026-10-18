@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-03-30 02:09+0000\n"
 "Last-Translator: Naruhiko Ogasawara <naruoga@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/cups/cups/ja/>\n"
@@ -3229,6 +3229,9 @@ msgstr "不正な CloseUI/JCLCloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "不正な NULL 送信先ポインター"
 
@@ -3258,6 +3261,9 @@ msgstr "不正な UIConstraints"
 
 msgid "Bad URI."
 msgstr "不正な URI。"
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "関数の引数が不正"
@@ -4104,9 +4110,6 @@ msgstr "インターネット印刷プロトコル"
 
 msgid "Invalid JSON data."
 msgstr "不正なJSONデータです。"
-
-msgid "Invalid JSON web token."
-msgstr "不正なJSONウェブトークンです。"
 
 msgid "Invalid form data."
 msgstr "不正なフォームデータです。"
@@ -5149,6 +5152,9 @@ msgstr "US レター (特大) 長辺送り"
 msgid "US Letter Small"
 msgstr "US レター (小)"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "cupsd.conf ファイルにアクセスできません"
 
@@ -5264,6 +5270,21 @@ msgstr "スプールディレクトリ \"%s\" を作成できません: %s"
 msgid "Unable to create temporary file"
 msgstr "テンポラリーファイルを作成できません"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "クラスを削除できません"
 
@@ -5279,6 +5300,15 @@ msgstr "1MB 以上の cupsd.conf ファイルは編集できません"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "コマンド \"%s\" を実行できません: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "ジョブの宛先が見つかりません"
@@ -16108,6 +16138,9 @@ msgstr ""
 
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr "証明書はサイトの CA 証明書による検証に失敗しました。"
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "不正なJSONウェブトークンです。"
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

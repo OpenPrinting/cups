@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2025-09-09 14:16+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
@@ -3609,6 +3609,9 @@ msgstr "O CloseUI/JCLCloseUI não é válido"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "O ponteiro do destino NULO não é válido"
 
@@ -3638,6 +3641,9 @@ msgstr "O UIConstraints não é válido"
 
 msgid "Bad URI."
 msgstr "O URI não é válido."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "Os argumentos para a função não são válidos"
@@ -4501,9 +4507,6 @@ msgstr "Protocolo de Impressão na Internet (IPP)"
 
 msgid "Invalid JSON data."
 msgstr "Os dados do JSON não são válidos."
-
-msgid "Invalid JSON web token."
-msgstr "A chave do portador do JSON para internet não é válida."
 
 msgid "Invalid form data."
 msgstr "Os dados do formulário não são válidos."
@@ -5562,6 +5565,9 @@ msgstr "Carta Grande com a Borda Maior dos EUA"
 msgid "US Letter Small"
 msgstr "Carta pequena dos EUA"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "Não foi possível acessar o arquivo cupsd.conf"
 
@@ -5680,6 +5686,21 @@ msgstr "Não foi possível criar o diretório \"%s\" do spool %s"
 msgid "Unable to create temporary file"
 msgstr "Não foi possível criar o arquivo temporário"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Não foi possível excluir a classe"
 
@@ -5697,6 +5718,15 @@ msgstr ""
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Não foi possível executar o comando \"%s\" de %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Não foi possível encontrar o destino do trabalho"
@@ -16661,6 +16691,9 @@ msgstr ""
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr ""
 #~ "As credenciais não são válidas para o certificado CA da página eletrônica."
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "A chave do portador do JSON para internet não é válida."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

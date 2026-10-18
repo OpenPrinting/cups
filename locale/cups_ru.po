@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-07-04 10:01+0000\n"
 "Last-Translator: hyperflint <yourflint@tutamail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/cups/cups/ru/>\n"
@@ -3129,6 +3129,9 @@ msgstr ""
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Неверный указатель NULL dests"
 
@@ -3157,6 +3160,9 @@ msgid "Bad UIConstraints"
 msgstr "Неверное значение UIConstraints"
 
 msgid "Bad URI."
+msgstr ""
+
+msgid "Bad Unicode escape."
 msgstr ""
 
 msgid "Bad arguments to function"
@@ -3988,9 +3994,6 @@ msgid "Internet Printing Protocol"
 msgstr "Протокол интернет-печати"
 
 msgid "Invalid JSON data."
-msgstr ""
-
-msgid "Invalid JSON web token."
 msgstr ""
 
 msgid "Invalid form data."
@@ -5026,6 +5029,9 @@ msgstr ""
 msgid "US Letter Small"
 msgstr ""
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "Не удается получить доступ к файлу \"cupsd.conf\""
 
@@ -5143,6 +5149,21 @@ msgstr ""
 msgid "Unable to create temporary file"
 msgstr "Не удается создать временный файл"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Не удается удалить группу"
 
@@ -5157,6 +5178,15 @@ msgstr "Невозможно редактировать файлы cupsd.conf б
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
+msgstr ""
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
 msgstr ""
 
 msgid "Unable to find destination for job"

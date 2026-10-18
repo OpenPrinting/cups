@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5b1\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -3006,6 +3006,9 @@ msgstr ""
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr ""
 
@@ -3034,6 +3037,9 @@ msgid "Bad UIConstraints"
 msgstr ""
 
 msgid "Bad URI."
+msgstr ""
+
+msgid "Bad Unicode escape."
 msgstr ""
 
 msgid "Bad arguments to function"
@@ -3857,9 +3863,6 @@ msgid "Internet Printing Protocol"
 msgstr ""
 
 msgid "Invalid JSON data."
-msgstr ""
-
-msgid "Invalid JSON web token."
 msgstr ""
 
 msgid "Invalid form data."
@@ -4883,6 +4886,9 @@ msgstr ""
 msgid "US Letter Small"
 msgstr ""
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr ""
 
@@ -4998,6 +5004,21 @@ msgstr ""
 msgid "Unable to create temporary file"
 msgstr ""
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr ""
 
@@ -5012,6 +5033,15 @@ msgstr ""
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
+msgstr ""
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
 msgstr ""
 
 msgid "Unable to find destination for job"

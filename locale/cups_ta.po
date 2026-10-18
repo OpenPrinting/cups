@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5b1\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-06-25 09:02+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/cups/cups/ta/>\n"
@@ -3239,6 +3239,9 @@ msgstr "மோசமான CloseUI/JCLCcloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "மோசமான NULL dests சுட்டிக்காட்டி"
 
@@ -3268,6 +3271,9 @@ msgstr "மோசமான UIC கட்டுப்பாடுகள்"
 
 msgid "Bad URI."
 msgstr "மோசமான URI."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "செயல்படுவதற்கு மோசமான வாதங்கள்"
@@ -4109,9 +4115,6 @@ msgstr "இணைய அச்சிடும் நெறிமுறை"
 
 msgid "Invalid JSON data."
 msgstr "தவறான சாதொபொகு தரவு."
-
-msgid "Invalid JSON web token."
-msgstr "தவறான சாதொபொகு இணைய கிள்ளாக்கு."
 
 msgid "Invalid form data."
 msgstr "தவறான படிவத் தரவு."
@@ -5147,6 +5150,9 @@ msgstr "யுஎச் லெட்டர் ஓவர்சைச் லாங
 msgid "US Letter Small"
 msgstr "அமெரிக்க கடிதம் சிறியது"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "cupsd.conf கோப்பை அணுக முடியவில்லை"
 
@@ -5263,6 +5269,21 @@ msgstr "\"%s\" என்ற ச்பூல் கோப்பகத்தை �
 msgid "Unable to create temporary file"
 msgstr "தற்காலிக கோப்பை உருவாக்க முடியவில்லை"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "வகுப்பை நீக்க முடியவில்லை"
 
@@ -5278,6 +5299,15 @@ msgstr "1MB ஐ விட பெரிய cupsd.conf கோப்புகளை
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "\"%s\" கட்டளையை இயக்க முடியவில்லை: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "வேலைக்கான இலக்கைக் கண்டுபிடிக்க முடியவில்லை"
@@ -16061,6 +16091,9 @@ msgstr ""
 
 #~ msgid "Credentials do not validate against site CA certificate."
 #~ msgstr "Credentials do not validate against site CA certificate."
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "தவறான சாதொபொகு இணைய கிள்ளாக்கு."
 
 #, c-format
 #~ msgid "Too many job-sheets values (%d > 2)."

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-10-02 12:38-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
@@ -3206,6 +3206,9 @@ msgstr "Bad CloseUI/JCLCloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Bad NULL dests pointer"
 
@@ -3235,6 +3238,9 @@ msgstr "Bad UIConstraints"
 
 msgid "Bad URI."
 msgstr "Bad URI."
+
+msgid "Bad Unicode escape."
+msgstr ""
 
 msgid "Bad arguments to function"
 msgstr "Bad arguments to function"
@@ -4073,9 +4079,6 @@ msgid "Internet Printing Protocol"
 msgstr "Internet Printing Protocol"
 
 msgid "Invalid JSON data."
-msgstr ""
-
-msgid "Invalid JSON web token."
 msgstr ""
 
 msgid "Invalid form data."
@@ -5118,6 +5121,9 @@ msgstr "US Letter Oversize Long Edge"
 msgid "US Letter Small"
 msgstr "US Letter Small"
 
+msgid "Unable allocate memory for signature."
+msgstr ""
+
 msgid "Unable to access cupsd.conf file"
 msgstr "Unable to access cupsd.conf file"
 
@@ -5233,6 +5239,21 @@ msgstr "Unable to create spool directory \"%s\": %s"
 msgid "Unable to create temporary file"
 msgstr "Unable to create temporary file"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Unable to delete class"
 
@@ -5248,6 +5269,15 @@ msgstr "Unable to edit cupsd.conf files larger than 1MB"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Unable to execute command \"%s\": %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Unable to find destination for job"
