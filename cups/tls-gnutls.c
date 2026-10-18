@@ -1559,7 +1559,7 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
                 char   *buffer,		// I - String buffer
                 size_t bufsize)		// I - Size of buffer
 {
-  const char	*cipherName;		// Cipher suite name
+  char	*cipherName;			// Cipher suite name
 
 
   // Range check input...
@@ -1575,25 +1575,28 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
   switch (gnutls_protocol_get_version(http->tls))
   {
     default :
-        snprintf(buffer, bufsize, "TLS/?.? %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/?.? %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_0 :
-        snprintf(buffer, bufsize, "TLS/1.0 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.0 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_1 :
-        snprintf(buffer, bufsize, "TLS/1.1 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.1 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_2 :
-        snprintf(buffer, bufsize, "TLS/1.2 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.2 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_3 :
-        snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName ? cipherName : "UNKNOWN");
         break;
   }
+
+  if (cipherName != NULL)
+    gnutls_free(cipherName);
 
   return (buffer);
 }
