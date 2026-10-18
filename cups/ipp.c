@@ -4034,6 +4034,7 @@ ippValidateAttribute(
 	  if (strlen(value->string.text) > (IPP_MAX_URI - 1))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."), attr->name, value->string.text, (int)strlen(value->string.text));
+	    return (0);
 	  }
 	}
         break;
