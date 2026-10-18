@@ -403,8 +403,19 @@ main(int  argc,				// I - Number of command-line arguments
 	  return (1);
         }
       }
-      else if ((jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      else
       {
+        if (argv[i][0] == '{')
+	  jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_JSON);
+        else
+	  jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT);
+
+	if (!jwt)
+	{
+	  fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
+	  return (1);
+	}
+
         cups_json_t	*claims = cupsJWTGetClaims(jwt);
 					// All claims
         cups_json_t	*headers = cupsJWTGetHeaders(jwt);
@@ -459,11 +470,6 @@ main(int  argc,				// I - Number of command-line arguments
 	}
 
         cupsJWTDelete(jwt);
-      }
-      else
-      {
-	fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
-	return (1);
       }
     }
   }
