@@ -84,6 +84,7 @@ extern "C" {
 //
 
 #  define _HTTP_MAX_BUFFER	32768	/* Size of read buffer */
+#  define _HTTP_MAX_PRINTF	65536	/* Max size of httpPrintf buffer */
 #  define _HTTP_MAX_SBUFFER	65536	/* Size of (de)compression buffer */
 
 #  define _HTTP_TLS_NONE	0	/* No TLS options */
@@ -231,6 +232,11 @@ struct _http_s				// HTTP connection structure
 					/* Allocated field values */
   			*default_fields[HTTP_FIELD_MAX];
 					/* Default field values, if any */
+
+  /**** New in CUPS 2.4.21 ****/
+  char			*fbuffer;	/* httpPrintf buffer */
+  size_t		fbufsize;	/* Size of httpPrintf buffer */
+
   /**** New in CUPS 2.5 ****/
   char			buffer[_HTTP_MAX_BUFFER];
 					/* Read buffer */

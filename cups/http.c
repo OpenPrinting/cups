@@ -42,13 +42,13 @@ static ssize_t		http_read(http_t *http, char *buffer, size_t length, int timeout
 static ssize_t		http_read_buffered(http_t *http, char *buffer, size_t length);
 static ssize_t		http_read_chunk(http_t *http, char *buffer, size_t length);
 static bool		http_send(http_t *http, http_state_t request, const char *uri);
-static ssize_t		http_write(http_t *http, const char *buffer, size_t length);
-static ssize_t		http_write_chunk(http_t *http, const char *buffer, size_t length);
 static off_t		http_set_length(http_t *http);
 static void		http_set_timeout(int fd, double timeout);
 static void		http_set_wait(http_t *http);
 static bool		http_tls_upgrade(http_t *http);
-
+static ssize_t		http_write(http_t *http, const char *buffer, size_t length);
+static ssize_t		http_write_chunk(http_t *http, const char *buffer, size_t length);
+static bool		http_write_header(http_t *http, http_field_t field, const char *value);
 
 //
 // Local globals...
@@ -324,6 +324,7 @@ httpClose(http_t *http)			// I - HTTP connection
 
   free(http->cookie);
   free(http->set_cookie);
+  free(http->fbuffer);
 
 #ifdef HAVE_GSSAPI
   if (http->gssctx != GSS_C_NO_CONTEXT)
@@ -2069,26 +2070,39 @@ httpPrintf(http_t     *http,		// I - HTTP connection
 	   ...)				// I - Additional args as needed
 {
   ssize_t	bytes;			// Number of bytes to write
-  char		buf[65536];		// Buffer for formatted string
-  va_list	ap;			// Variable argument pointer
+  va_list	ap, ap2;		// Variable argument pointers
+  char		*temp;			// Temporary buffer pointer
 
 
   DEBUG_printf("2httpPrintf(http=%p, format=\"%s\", ...)", (void *)http, format);
 
   va_start(ap, format);
-  bytes = vsnprintf(buf, sizeof(buf), format, ap);
+  while (true)
+  {
+    va_copy(ap2, ap);
+    bytes = vsnprintf(http->fbuffer, http->fbufsize, format, ap2);
+
+    if (bytes < http->fbufsize || bytes >= _HTTP_MAX_PRINTF)
+      break;
+
+    if ((temp = realloc(http->fbuffer, bytes + 1)) == NULL)
+      break;
+
+    http->fbuffer  = temp;
+    http->fbufsize = bytes + 1;
+  }
   va_end(ap);
 
-  DEBUG_printf("3httpPrintf: (" CUPS_LLFMT " bytes) %s", CUPS_LLCAST bytes, buf);
+  DEBUG_printf("3httpPrintf: (" CUPS_LLFMT " bytes) %s", CUPS_LLCAST bytes, http->fbuffer);
 
-  if (bytes > (ssize_t)(sizeof(buf) - 1))
+  if (bytes >= http->fbufsize)
   {
     http->error = ENOMEM;
     return (-1);
   }
   else if (http->data_encoding == HTTP_ENCODING_FIELDS)
   {
-    return ((int)httpWrite2(http, buf, (size_t)bytes));
+    return ((int)httpWrite2(http, http->fbuffer, (size_t)bytes));
   }
   else
   {
@@ -2100,7 +2114,7 @@ httpPrintf(http_t     *http,		// I - HTTP connection
 	return (-1);
     }
 
-    return ((int)http_write(http, buf, (size_t)bytes));
+    return ((int)http_write(http, http->fbuffer, (size_t)bytes));
   }
 }
 
@@ -3429,6 +3443,7 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
   http_encoding_t	old_encoding;	// Old data_encoding value
   off_t			old_remaining;	// Old data_remaining value
   cups_lang_t		*lang;		// Response language
+  char			buf[1024];	// Response header
 
 
   // Range check input...
@@ -3470,7 +3485,7 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
       httpSetField(http, HTTP_FIELD_CONNECTION, "Upgrade");
 
     if (!http->fields[HTTP_FIELD_UPGRADE])
-      httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.2,TLS/1.1,TLS/1.0");
+      httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.3,TLS/1.2");
 
     if (!http->fields[HTTP_FIELD_CONTENT_LENGTH])
       httpSetField(http, HTTP_FIELD_CONTENT_LENGTH, "0");
@@ -3491,7 +3506,9 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
   old_remaining       = http->data_remaining;
   http->data_encoding = HTTP_ENCODING_FIELDS;
 
-  if (httpPrintf(http, "HTTP/%d.%d %d %s\r\n", http->version / 100, http->version % 100, (int)status, _httpStatusString(lang, status)) < 0)
+  snprintf(buf, sizeof(buf), "HTTP/%d.%d %d %s\r\n", http->version / 100, http->version % 100, (int)status, _httpStatusString(lang, status));
+
+  if (httpWrite2(http, buf, strlen(buf)) < 0)
   {
     http->status = HTTP_STATUS_ERROR;
     return (-1);
@@ -3507,7 +3524,7 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
     {
       if ((value = httpGetField(http, i)) != NULL && *value)
       {
-	if (httpPrintf(http, "%s: %s\r\n", http_fields[i], value) < 1)
+        if (!http_write_header(http, i, value))
 	{
 	  http->status = HTTP_STATUS_ERROR;
 	  return (-1);
@@ -3518,33 +3535,40 @@ httpWriteResponse(http_t        *http,	// I - HTTP connection
     if (http->set_cookie)
     {
       char	*start,			// Start of cookie
-		*ptr;			// Pointer into cookie
+		*end,			// Pointer into cookie
+		*semi;			// Pointer to semicolon in cookie
 
-      for (start = http->set_cookie; start; start = ptr)
+      for (start = http->set_cookie; start && *start; start = end)
       {
-        if ((ptr = strchr(start, '\n')) != NULL)
-          *ptr = '\0';
+        if ((end = strchr(start, '\n')) == NULL)
+          end = start + strlen(start);
 
-	if (strchr(start, ';'))
+	if ((semi = strchr(start, ';')) != NULL && semi < end)
 	{
-	  if (httpPrintf(http, "Set-Cookie: %s\r\n", start) < 1)
+	  if (httpWrite2(http, "Set-Cookie: ", 12) < 0 ||
+	      httpWrite2(http, start, (size_t)(end - start)) < 0 ||
+	      httpWrite2(http, "\r\n", 2) < 0)
 	  {
 	    http->status = HTTP_STATUS_ERROR;
-	    if (ptr)
-	      *ptr = '\n';
-	    return (-1);
+	    return (false);
 	  }
 	}
-	else if (httpPrintf(http, "Set-Cookie: %s; path=/; httponly;%s\r\n", start, http->tls ? " secure;" : "") < 1)
+	else
 	{
-	  http->status = HTTP_STATUS_ERROR;
-	  if (ptr)
-	    *ptr = '\n';
-	  return (-1);
-	}
+	  const char *foot = http->tls ? "; path=/; httponly; secure;\r\n" : "; path=/; httponly;\r\n";
+					// End of cookie header
 
-	if (ptr)
-	  *ptr++ = '\n';
+	  if (httpWrite2(http, "Set-Cookie: ", 12) < 0 ||
+	      httpWrite2(http, start, (size_t)(end - start)) < 0 ||
+	      httpWrite2(http, foot, strlen(foot)) < 0)
+	  {
+	    http->status = HTTP_STATUS_ERROR;
+	    return (false);
+	  }
+        }
+
+	if (*end)
+	  end ++;
       }
     }
 
@@ -4354,18 +4378,18 @@ http_send(http_t       *http,		// I - HTTP connection
   static const char * const codes[] =	// Request code strings
 		{
 		  NULL,
-		  "OPTIONS",
-		  "GET",
+		  "OPTIONS ",
+		  "GET ",
 		  NULL,
-		  "HEAD",
-		  "POST",
+		  "HEAD ",
+		  "POST ",
 		  NULL,
 		  NULL,
-		  "PUT",
+		  "PUT ",
 		  NULL,
-		  "DELETE",
-		  "TRACE",
-		  "CLOSE",
+		  "DELETE ",
+		  "TRACE ",
+		  "CLOSE ",
 		  NULL,
 		  NULL
 		};
@@ -4427,10 +4451,12 @@ http_send(http_t       *http,		// I - HTTP connection
   if (http->encryption == HTTP_ENCRYPTION_REQUIRED && !http->tls)
   {
     httpSetField(http, HTTP_FIELD_CONNECTION, "Upgrade");
-    httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.2,TLS/1.1,TLS/1.0");
+    httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.3,TLS/1.2");
   }
 
-  if (httpPrintf(http, "%s %s HTTP/1.1\r\n", codes[request], buf) < 1)
+  if (httpWrite2(http, codes[request], strlen(codes[request])) < 1 ||
+      httpWrite2(http, buf, strlen(buf)) < 1 ||
+      httpWrite2(http, " HTTP/1.1\r\n", 11) < 1)
   {
     http->status = HTTP_STATUS_ERROR;
     return (false);
@@ -4444,13 +4470,15 @@ http_send(http_t       *http,		// I - HTTP connection
 
       if (i == HTTP_FIELD_HOST)
       {
-	if (httpPrintf(http, "Host: %s:%d\r\n", value, httpAddrGetPort(http->hostaddr)) < 1)
+        snprintf(buf, sizeof(buf), "%s:%d", value, httpAddrGetPort(http->hostaddr));
+
+	if (!http_write_header(http, HTTP_FIELD_HOST, buf))
 	{
 	  http->status = HTTP_STATUS_ERROR;
 	  return (false);
 	}
       }
-      else if (httpPrintf(http, "%s: %s\r\n", http_fields[i], value) < 1)
+      else if (!http_write_header(http, i, value))
       {
 	http->status = HTTP_STATUS_ERROR;
 	return (false);
@@ -4460,7 +4488,9 @@ http_send(http_t       *http,		// I - HTTP connection
 
   if (http->cookie)
   {
-    if (httpPrintf(http, "Cookie: $Version=0; %s\r\n", http->cookie) < 1)
+    if (httpWrite2(http, "Cookie: $Version=0; ", 20) < 1 ||
+        httpWrite2(http, http->cookie, strlen(http->cookie)) < 1 ||
+        httpWrite2(http, "\r\n", 2) < 1)
     {
       http->status = HTTP_STATUS_ERROR;
       return (false);
@@ -4471,14 +4501,14 @@ http_send(http_t       *http,		// I - HTTP connection
 
   if (http->expect == HTTP_STATUS_CONTINUE && http->mode == _HTTP_MODE_CLIENT && (http->state == HTTP_STATE_POST_RECV || http->state == HTTP_STATE_PUT_RECV))
   {
-    if (httpPrintf(http, "Expect: 100-continue\r\n") < 1)
+    if (httpWrite2(http, "Expect: 100-continue\r\n", 22) < 1)
     {
       http->status = HTTP_STATUS_ERROR;
       return (false);
     }
   }
 
-  if (httpPrintf(http, "\r\n") < 1)
+  if (httpWrite2(http, "\r\n", 2) < 1)
   {
     http->status = HTTP_STATUS_ERROR;
     return (false);
@@ -4628,7 +4658,7 @@ http_tls_upgrade(http_t *http)		// I - HTTP connection
     httpSetField(http, HTTP_FIELD_HOST, http->hostname);
 
   httpSetField(http, HTTP_FIELD_CONNECTION, "upgrade");
-  httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.3,TLS/1.2,TLS/1.1,TLS/1.0");
+  httpSetField(http, HTTP_FIELD_UPGRADE, "TLS/1.3,TLS/1.2");
 
   if ((ret = httpOptions(http, "*")) == 0)
   {
@@ -4802,7 +4832,7 @@ http_write(http_t     *http,		// I - HTTP connection
 static ssize_t				// O - Number bytes written
 http_write_chunk(http_t     *http,	// I - HTTP connection
                  const char *buffer,	// I - Buffer to write
-		 size_t        length)	// I - Length of buffer
+		 size_t     length)	// I - Length of buffer
 {
   char		header[16];		// Chunk header
   ssize_t	bytes;			// Bytes written
@@ -4831,4 +4861,20 @@ http_write_chunk(http_t     *http,	// I - HTTP connection
   }
 
   return (bytes);
+}
+
+
+//
+// 'http_write_header()' - Write a HTTP request/response header.
+//
+
+static bool				// O - `true` on success, `false` on error
+http_write_header(http_t       *http,	// I - HTTP connection
+                  http_field_t field,	// I - Header field
+                  const char   *value)	// I - Header value
+{
+  return (httpWrite2(http, http_fields[field], strlen(http_fields[field])) > 0 &&
+          httpWrite2(http, ": ", 2) > 0 &&
+          httpWrite2(http, value, strlen(value)) > 0 &&
+          httpWrite2(http, "\r\n", 2) > 0);
 }
