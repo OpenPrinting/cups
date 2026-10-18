@@ -783,10 +783,15 @@ cupsdAuthorize(cupsd_client_t *con)	/* I - Client connection */
     * Decode the authorization string to get the input token...
     */
 
-    len                = (int)strlen(authorization) + 0;
-    input_token.value  = malloc((size_t)len);
-    input_token.value  = httpDecode64_2(input_token.value, &len,
-					authorization);
+    len = (int)strlen(authorization) + 0;
+
+    if ((input_token.value  = malloc((size_t)len)) == NULL ||
+        !httpDecode64_2(input_token.value, &len, authorization))
+    {
+      cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to extract Kerberos token.");
+      return;
+    }
+
     input_token.length = (size_t)len;
 
    /*
