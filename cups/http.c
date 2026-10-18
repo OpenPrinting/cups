@@ -1891,7 +1891,7 @@ httpPrintf(http_t     *http,		/* I - HTTP connection */
   DEBUG_printf(("2httpPrintf(http=%p, format=\"%s\", ...)", (void *)http, format));
 
   va_start(ap, format);
-  while (true)
+  while (1)
   {
     va_copy(ap2, ap);
     bytes = vsnprintf(http->fbuffer, http->fbufsize, format, ap2);
