@@ -27,6 +27,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed regression in mailto notifier address validation (Issue #1744)
 - Fixed regression with setting up temporary queues (Issue #1751)
 - Fixed "job-media-sheets-completed" value (Issue #1758)
+- Fixed `ippValidateAttribute` not returning `0` for too-long URIs (Issue #1769)
 - Fixed `PassEnv` handling of comma separators (Issue #1770)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
 
