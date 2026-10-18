@@ -702,11 +702,16 @@ cupsJWTImportString(
     if (datalen > 0)
     {
       if ((jwt->signature = malloc(datalen)) == NULL)
+      {
+	cupsJSONDelete(json);
 	goto import_error;
+      }
 
       memcpy(jwt->signature, data, datalen);
       jwt->sigsize = datalen;
     }
+
+    cupsJSONDelete(json);
   }
 
 #ifdef DEBUG
