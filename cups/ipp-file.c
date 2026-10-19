@@ -239,7 +239,7 @@ ippFileExpandVars(ipp_file_t *file,	// I - IPP data file
 //
 // 'ippFileGetAttribute()' - Get a single named attribute from an IPP data file.
 //
-// This function finds the first occurence of a named attribute in the current
+// This function finds the first occurrence of a named attribute in the current
 // IPP attributes in the specified data file.
 //
 // @since CUPS 2.5@

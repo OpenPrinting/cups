@@ -2194,7 +2194,7 @@ mdns_browse_cb(
 
 static void DNSSD_API
 mdns_hostname_cb(
-    DNSServiceRef       ref,		// I - Service reference (unsued)
+    DNSServiceRef       ref,		// I - Service reference (unused)
     DNSServiceFlags     flags,		// I - Flags (unused)
     uint32_t            if_index,	// I - Interface index (unused)
     DNSServiceErrorType error,		// I - Error code, if any

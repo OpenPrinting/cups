@@ -1995,7 +1995,7 @@ _ppdCacheCreateWithPPD(
 	}
 	else
 	{
-	  // Other languauge...
+	  // Other language...
           snprintf(ppd_name, sizeof(ppd_name), "%s.cupsFinishingTemplate", lang->language);
           if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
             msg.str = ppd_attr->text;
@@ -5631,7 +5631,7 @@ ppd_get_strings(
     }
     else
     {
-      // Other languauge...
+      // Other language...
       snprintf(ppd_name, sizeof(ppd_name), "%s.%s", lang->language, option);
       if ((ppd_attr = ppdFindAttr(ppd, ppd_name, choice->choice)) != NULL)
 	msg.str = ppd_attr->text;
