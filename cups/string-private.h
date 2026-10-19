@@ -80,7 +80,7 @@ _cups_isalpha(int ch)			// I - Character to test
 _CUPS_INLINE bool			// O - `true` on match, `false` otherwise
 _cups_iscntrl(int ch)			// I - Character to test
 {
-  return (ch < ' ' || ch == 0x7f);
+  return ((ch & 255) < ' ' || ch == 0x7f);
 }
 
 _CUPS_INLINE bool			// O - `true` on match, `false` otherwise
