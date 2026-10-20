@@ -1,7 +1,7 @@
 /*
  * Authentication certificate routines for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2016 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -27,6 +27,7 @@
  */
 
 static int	ctcompare(const char *a, const char *b);
+static unsigned	get_rand(void);
 
 
 /*
@@ -64,7 +65,7 @@ cupsdAddCert(int        pid,		/* I - Process ID */
   strlcpy(cert->username, username, sizeof(cert->username));
 
   for (i = 0; i < 32; i ++)
-    cert->certificate[i] = hex[CUPS_RAND() & 15];
+    cert->certificate[i] = hex[get_rand() & 15];
 
  /*
   * Save the certificate to a file readable only by the User and Group
@@ -378,45 +379,6 @@ cupsdFindCert(const char *certificate)	/* I - Certificate */
 void
 cupsdInitCerts(void)
 {
-#ifndef HAVE_ARC4RANDOM
-  cups_file_t	*fp;			/* /dev/random file */
-
-
- /*
-  * Initialize the random number generator using the random device or
-  * the current time, as available...
-  */
-
-  if ((fp = cupsFileOpen("/dev/urandom", "rb")) == NULL)
-  {
-    struct timeval tod;			/* Time of day */
-
-   /*
-    * Get the time in usecs and use it as the initial seed...
-    */
-
-    gettimeofday(&tod, NULL);
-
-    CUPS_SRAND((unsigned)(tod.tv_sec + tod.tv_usec));
-  }
-  else
-  {
-    unsigned	seed;			/* Seed for random number generator */
-
-   /*
-    * Read 4 random characters from the random device and use
-    * them as the seed...
-    */
-
-    seed = (unsigned)cupsFileGetChar(fp);
-    seed = (seed << 8) | (unsigned)cupsFileGetChar(fp);
-    seed = (seed << 8) | (unsigned)cupsFileGetChar(fp);
-    CUPS_SRAND((seed << 8) | (unsigned)cupsFileGetChar(fp));
-
-    cupsFileClose(fp);
-  }
-#endif /* !HAVE_ARC4RANDOM */
-
  /*
   * Create a root certificate and return...
   */
@@ -452,4 +414,99 @@ ctcompare(const char *a,		/* I - First string */
   */
 
   return (result | *a | *b);
+}
+
+
+//
+// 'get_rand()' - Return a 32-bit pseudo-random number.
+//
+// This function returns a 32-bit pseudo-random number suitable for use as
+// one-time identifiers or nonces.  The random numbers are generated/seeded
+// using system entropy.
+//
+
+static unsigned				// O - Random number
+get_rand(void)
+{
+#ifdef __APPLE__
+  // macOS/iOS arc4random() uses real entropy automatically...
+  return (arc4random());
+
+#else
+  // Use a Mersenne twister random number generator seeded from /dev/urandom...
+  unsigned	i,			// Looping var
+		temp;			// Temporary value
+  static bool	first_time = true;	// First time we ran?
+  static unsigned mt_state[624],	// Mersenne twister state
+		mt_index;		// Mersenne twister index
+
+
+  if (first_time)
+  {
+    int		fd;			// "/dev/urandom" file
+    struct timeval curtime;		// Current time
+
+    // Seed the random number state...
+    if ((fd = open("/dev/urandom", O_RDONLY)) >= 0)
+    {
+      // Read random entropy from the system...
+      if (read(fd, mt_state, sizeof(mt_state[0])) < sizeof(mt_state[0]))
+        mt_state[0] = 0;		// Force fallback...
+
+      close(fd);
+    }
+    else
+      mt_state[0] = 0;
+
+    if (!mt_state[0])
+    {
+      // Fallback to using the current time in microseconds...
+      gettimeofday(&curtime, NULL);
+      mt_state[0] = (unsigned)(curtime.tv_sec + curtime.tv_usec);
+    }
+
+    mt_index = 0;
+
+    for (i = 1; i < 624; i ++)
+      mt_state[i] = (unsigned)((1812433253 * (mt_state[i - 1] ^ (mt_state[i - 1] >> 30))) + i);
+
+    first_time = false;
+  }
+
+  if (mt_index == 0)
+  {
+    // Generate a sequence of random numbers...
+    unsigned i1 = 1, i397 = 397;	// Looping vars
+
+    for (i = 0; i < 624; i ++)
+    {
+      temp        = (mt_state[i] & 0x80000000) + (mt_state[i1] & 0x7fffffff);
+      mt_state[i] = mt_state[i397] ^ (temp >> 1);
+
+      if (temp & 1)
+	mt_state[i] ^= 2567483615u;
+
+      i1 ++;
+      i397 ++;
+
+      if (i1 == 624)
+	i1 = 0;
+
+      if (i397 == 624)
+	i397 = 0;
+    }
+  }
+
+  // Pull 32-bits of random data...
+  temp = mt_state[mt_index ++];
+  temp ^= temp >> 11;
+  temp ^= (temp << 7) & 2636928640u;
+  temp ^= (temp << 15) & 4022730752u;
+  temp ^= temp >> 18;
+
+  if (mt_index == 624)
+    mt_index = 0;
+
+  return (temp);
+#endif // __APPLE__
 }
