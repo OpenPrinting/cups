@@ -84,7 +84,10 @@ static const char * const cups_jwa_algorithms[CUPS_JWA_MAX] =
 //
 
 static cups_json_t *copy_x5c(cups_json_t *x5c);
+static cups_json_t *decode_json64(const char *b64, const char **b64ptr, char **data);
+static char	*encode_base64(const char *s, size_t slen, char *buffer, size_t bufsize);
 static cups_json_t *find_key(cups_json_t *jwk, cups_jwa_t sigalg, const char *kid);
+static inline size_t get_base64_size(size_t len) { return (4 * (len + 2) / 3 + 1); }
 #ifdef HAVE_OPENSSL
 static BIGNUM	*make_bignum(cups_json_t *jwk, const char *key);
 static void	make_bnstring(const BIGNUM *bn, char *buffer, size_t bufsize);
@@ -142,46 +145,52 @@ cupsJWTExportString(
   char	*ret = NULL;			// Return value
 
 
-  if (jwt)
+  // Range check input...
+  if (jwt && !jwt->claims_string)
+    jwt->claims_string = cupsJSONExportString(jwt->claims);
+
+  if (!jwt || !jwt->jose_string || !jwt->claims_string || jwt->sigsize == 0)
+    return (NULL);
+
+  if (format == CUPS_JWS_FORMAT_COMPACT)
   {
-    if (format == CUPS_JWS_FORMAT_COMPACT)
+    // Compact token string
+    ret = make_string(jwt, true);
+  }
+  else
+  {
+    // JSON (flattened) serialized string
+    cups_json_t *json;			// JSON serialization
+    char	*b64;			// Base64URL-encoded value
+
+    // The payload is the compact token string without signature...
+    json = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT);
+
+    b64 = encode_base64(jwt->claims_string, /*slen*/0, /*buffer*/NULL, /*bufsize*/0);
+    cupsJSONNewString(json, cupsJSONNewKey(json, NULL, "payload"), b64);
+    free(b64);
+
+    // The protected data is the JOSE header...
+    b64 = encode_base64(jwt->jose_string, /*slen*/0, /*buffer*/NULL, /*bufsize*/0);
+    cupsJSONNewString(json, cupsJSONNewKey(json, NULL, "protected"), b64);
+    free(b64);
+
+    if (jwt->sigkid)
     {
-      // Compact token string
-      ret = make_string(jwt, true);
+      cups_json_t *header;		// Unprotected header
+
+      header = cupsJSONNew(json, cupsJSONNewKey(json, NULL, "header"), CUPS_JTYPE_OBJECT);
+      cupsJSONNewString(header, cupsJSONNewKey(header, NULL, "kid"), jwt->sigkid);
     }
-    else
-    {
-      // JSON (flattened) serialized string
-      cups_json_t *json;		// JSON serialization
-      char	*payload,		// Payload value
-		signature[((_CUPS_JWT_MAX_SIGNATURE + 2) * 4 / 3) + 1];
-					// Base64URL-encoded signature value
 
-      // The payload is the compact token string without signature...
-      json = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT);
+    // Add the Base64URL-encoded signature value...
+    b64 = encode_base64((char *)jwt->signature, jwt->sigsize, /*buffer*/NULL, /*bufsize*/0);
+    cupsJSONNewString(json, cupsJSONNewKey(json, NULL, "signature"), b64);
+    free(b64);
 
-      payload = make_string(jwt, false);
-      cupsJSONNewString(json, cupsJSONNewKey(json, NULL, "payload"), payload);
-      free(payload);
-
-      if (jwt->sigsize)
-      {
-        if (jwt->sigkid)
-        {
-	  cups_json_t *header;		// Unprotected header
-
-	  header = cupsJSONNew(json, cupsJSONNewKey(json, NULL, "header"), CUPS_JTYPE_OBJECT);
-	  cupsJSONNewString(header, cupsJSONNewKey(header, NULL, "kid"), jwt->sigkid);
-	}
-
-        // Add the Base64URL-encoded signature value...
-        httpEncode64_3(signature, sizeof(signature), (char *)jwt->signature, jwt->sigsize, true);
-	cupsJSONNewString(json, cupsJSONNewKey(json, NULL, "signature"), signature);
-      }
-
-      ret = cupsJSONExportString(json);
-      cupsJSONDelete(json);
-    }
+    // Export the flattened JSON output to a string...
+    ret = cupsJSONExportString(json);
+    cupsJSONDelete(json);
   }
 
   return (ret);
@@ -565,10 +574,11 @@ cupsJWTImportString(
     cups_jws_format_t format)		// I - JWS serialization format
 {
   cups_jwt_t	*jwt;			// JWT object
-  size_t	datalen;		// Size of data
-  char		data[65536];		// Data
   const char	*kid,			// Key identifier
 		*alg;			// Signature algorithm, if any
+  char		sigdata[_CUPS_JWT_MAX_SIGNATURE];
+					// Signature data
+  size_t	sigsize = 0;		// Length of signature data
 
 
   // Allocate a JWT...
@@ -582,55 +592,42 @@ cupsJWTImportString(
     const char	*tokptr;		// Pointer into the token
 
     // Extract the JOSE header...
-    datalen = sizeof(data) - 1;
-    if (!httpDecode64_3(data, &datalen, s, &tokptr) || !tokptr || *tokptr != '.')
+    if ((jwt->jose = decode_json64(s, &tokptr, &jwt->jose_string)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JOSE header."), 1);
+      goto import_error;
+    }
+    else if (!tokptr || *tokptr != '.')
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Missing JWT separator."), true);
       goto import_error;
     }
 
     tokptr ++;
-    data[datalen] = '\0';
-    jwt->jose_string = strdup(data);
-    if ((jwt->jose = cupsJSONImportString(data)) == NULL)
-    {
-      goto import_error;
-    }
 
     // Extract the JWT claims...
-    datalen = sizeof(data) - 1;
-    if (!httpDecode64_3(data, &datalen, tokptr, &tokptr) || !tokptr || *tokptr != '.')
+    if ((jwt->claims = decode_json64(tokptr, &tokptr, &jwt->claims_string)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JWT claims."), 1);
+      goto import_error;
+    }
+    else if (!tokptr || *tokptr != '.')
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Missing JWT separator."), true);
       goto import_error;
     }
 
     tokptr ++;
-    data[datalen] = '\0';
-    jwt->claims_string = strdup(data);
-    if ((jwt->claims = cupsJSONImportString(data)) == NULL)
-    {
-      goto import_error;
-    }
 
     // Extract the signature, if any...
-    datalen = sizeof(data);
-    if (!httpDecode64_3(data, &datalen, tokptr, &tokptr) || !tokptr || *tokptr)
+    sigsize = sizeof(sigdata);
+    if (!httpDecode64_3(sigdata, &sigsize, tokptr, &tokptr))
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JWT signature."), 1);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalidate Base64 data."), true);
       goto import_error;
     }
-
-    if (datalen > 0)
+    else if (tokptr && *tokptr)
     {
-      if ((jwt->signature = malloc(datalen)) == NULL)
-      {
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable allocate memory for signature."), 1);
-	goto import_error;
-      }
-
-      memcpy(jwt->signature, data, datalen);
-      jwt->sigsize = datalen;
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unexpected trailing data."), true);
+      goto import_error;
     }
   }
   else
@@ -652,23 +649,19 @@ cupsJWTImportString(
     // Copy the payload...
     if ((json_value = cupsJSONFind(json, "payload")) == NULL || (value = cupsJSONGetString(json_value)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT payload data."), 1);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT payload data."), true);
       cupsJSONDelete(json);
       goto import_error;
     }
 
-    datalen = sizeof(data) - 1;
-    if (!httpDecode64_3(data, &datalen, value, &valueptr) || !valueptr || *valueptr)
+    if ((jwt->claims = decode_json64(value, &valueptr, &jwt->claims_string)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JWT payload data."), 1);
       cupsJSONDelete(json);
       goto import_error;
     }
-
-    data[datalen] = '\0';
-    jwt->claims_string = strdup(data);
-    if ((jwt->claims = cupsJSONImportString(data)) == NULL)
+    else if (valueptr && *valueptr)
     {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unexpected trailing data."), true);
       cupsJSONDelete(json);
       goto import_error;
     }
@@ -688,55 +681,56 @@ cupsJWTImportString(
     // Copy the protected header and signature values...
     if ((json_value = cupsJSONFind(signature, "protected")) == NULL || (value = cupsJSONGetString(json_value)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT protected data."), 1);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT protected data."), true);
       cupsJSONDelete(json);
       goto import_error;
     }
 
-    datalen = sizeof(data) - 1;
-    if (!httpDecode64_3(data, &datalen, value, &valueptr) || !valueptr || *valueptr)
+    if ((jwt->jose = decode_json64(value, &valueptr, &jwt->jose_string)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JWT protected data."), 1);
       cupsJSONDelete(json);
       goto import_error;
     }
-
-    data[datalen] = '\0';
-    jwt->jose_string = strdup(data);
-    if ((jwt->jose = cupsJSONImportString(data)) == NULL)
+    else if (valueptr && *valueptr)
     {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unexpected trailing data."), true);
       cupsJSONDelete(json);
       goto import_error;
     }
 
     if ((json_value = cupsJSONFind(signature, "signature")) == NULL || (value = cupsJSONGetString(json_value)) == NULL)
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT signature."), 1);
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to find JWT signature."), true);
       cupsJSONDelete(json);
       goto import_error;
     }
 
-    datalen = sizeof(data);
-    if (!httpDecode64_3(data, &datalen, value, &valueptr) || !valueptr || *valueptr)
+    sigsize = sizeof(sigdata);
+    if (!httpDecode64_3(sigdata, &sigsize, value, &valueptr))
     {
-      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to decode JWT signature."), 1);
       cupsJSONDelete(json);
       goto import_error;
     }
-
-    if (datalen > 0)
+    else if (valueptr && *valueptr)
     {
-      if ((jwt->signature = malloc(datalen)) == NULL)
-      {
-	_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable allocate memory for signature."), 1);
-	goto import_error;
-      }
-
-      memcpy(jwt->signature, data, datalen);
-      jwt->sigsize = datalen;
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unexpected trailing data."), true);
+      cupsJSONDelete(json);
+      goto import_error;
     }
 
     cupsJSONDelete(json);
+  }
+
+  if (sigsize > 0)
+  {
+    if ((jwt->signature = malloc(sigsize)) == NULL)
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable allocate memory for signature."), true);
+      goto import_error;
+    }
+
+    memcpy(jwt->signature, sigdata, sigsize);
+    jwt->sigsize = sigsize;
   }
 
 #ifdef DEBUG
@@ -773,7 +767,7 @@ cupsJWTImportString(
   // Can't have signature with none or no signature for !none...
   if ((jwt->sigalg == CUPS_JWA_NONE) != (jwt->sigsize == 0))
   {
-    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad JWT signature."), 1);
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad JWT signature."), true);
     goto import_error;
   }
 
@@ -1606,6 +1600,82 @@ copy_x5c(cups_json_t *x5c)		// I - X.509 certificate chain
 
 
 //
+// 'decode_json64()' - Decode a Base64 blob to a JSON object.
+//
+
+static cups_json_t *			// O - JSON object
+decode_json64(const char *b64,		// I - Base64 blob
+              const char **b64ptr,	// O - Pointer to end of current blob or `NULL`
+              char       **data)	// O - Copy of decoded data if not `NULL`
+{
+  size_t	slen;			// Length of temporary string buffer
+  char		*s;			// Temporary string
+  cups_json_t	*json = NULL;		// JSON object
+
+
+  // Initialize return values...
+  if (data)
+    *data = NULL;
+
+  if (b64ptr)
+    *b64ptr = NULL;
+
+  // Allocate a string buffer to hold the decoded Base64 data...
+  slen = strlen(b64);
+  if ((s = malloc(slen)) == NULL)
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), false);
+    return (NULL);
+  }
+
+  // Decode to the temporary buffer...
+  if (!httpDecode64_3(s, &slen, b64, b64ptr))
+  {
+    _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Invalidate Base64 data."), true);
+    free(s);
+    return (NULL);
+  }
+
+  json = cupsJSONImportString(s);
+
+  if (data)
+    *data = s;
+  else
+    free(s);
+
+  return (json);
+}
+
+
+//
+// 'encode_json64()' - Encode a JSON object to a Base64 blob.
+//
+
+static char *				// O - Base64 blob
+encode_base64(const char *s,		// I - Data/string to encode
+              size_t     slen,		// I - Length of data/string
+              char       *buffer,	// I - Buffer or `NULL` to allocate
+              size_t     bufsize)	// I - Size of buffer
+{
+  // Allocate a Base64 buffer as needed...
+  if (!slen)
+    slen = strlen(s);
+
+  if (!buffer)
+  {
+    bufsize = get_base64_size(slen);
+    if ((buffer = calloc(1, bufsize)) == NULL)
+      return (NULL);
+  }
+
+  // Base64 encode the string...
+  httpEncode64_3(buffer, bufsize, s, slen, /*url*/true);
+
+  return (buffer);
+}
+
+
+//
 // 'find_key()' - Find the key by name or algorithm.
 //
 
@@ -2326,7 +2396,7 @@ make_string(cups_jwt_t *jwt,		// I - JWT object
   claims_len = strlen(jwt->claims_string);
 
   // Calculate the maximum Base64URL-encoded string length...
-  len = ((jose_len + 2) * 4 / 3) + 1 + ((claims_len + 2) * 4 / 3) + 1 + ((_CUPS_JWT_MAX_SIGNATURE + 2) * 4 / 3) + 1;
+  len = get_base64_size(jose_len) + get_base64_size(claims_len) + get_base64_size(_CUPS_JWT_MAX_SIGNATURE);
 
   if ((s = malloc(len)) == NULL)
     return (NULL);

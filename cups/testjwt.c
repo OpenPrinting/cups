@@ -283,6 +283,68 @@ main(int  argc,				// I - Number of command-line arguments
       else
       {
         testEndMessage(false, "%s", cupsGetErrorString());
+
+        jwk = NULL;
+      }
+
+      testBegin("cupsJWATExportString(CUPS_JWS_FORMAT_COMPACT)");
+      if ((s = cupsJWTExportString(jwt, CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      {
+	testEnd(true);
+
+        cupsJWTDelete(jwt);
+
+	testBegin("cupsJWATImportString(CUPS_JWS_FORMAT_COMPACT)");
+	if ((jwt = cupsJWTImportString(s, CUPS_JWS_FORMAT_COMPACT)) != NULL)
+	{
+	  testEnd(true);
+
+	  if (jwk)
+	  {
+	    testBegin("cupsJWTHasValidSignature()");
+	    testEnd(cupsJWTHasValidSignature(jwt, jwk));
+	  }
+	}
+	else
+	{
+	  testEndMessage(false, "%s", cupsGetErrorString());
+	}
+
+	free(s);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
+      }
+
+      testBegin("cupsJWATExportString(CUPS_JWS_FORMAT_JSON)");
+      if ((s = cupsJWTExportString(jwt, CUPS_JWS_FORMAT_JSON)) != NULL)
+      {
+	testEnd(true);
+
+        cupsJWTDelete(jwt);
+
+	testBegin("cupsJWATImportString(CUPS_JWS_FORMAT_JSON)");
+	if ((jwt = cupsJWTImportString(s, CUPS_JWS_FORMAT_JSON)) != NULL)
+	{
+	  testEnd(true);
+
+	  if (jwk)
+	  {
+	    testBegin("cupsJWTHasValidSignature()");
+	    testEnd(cupsJWTHasValidSignature(jwt, jwk));
+	  }
+	}
+	else
+	{
+	  testEndMessage(false, "%s", cupsGetErrorString());
+	}
+
+	free(s);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
       }
 
       cupsJSONDelete(jwk);

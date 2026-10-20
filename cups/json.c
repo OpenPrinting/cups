@@ -1463,7 +1463,7 @@ cupsJSONNewKey(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root
 
 cups_json_t *				// O - JSON node
 cupsJSONNewNumber(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root node
-		  cups_json_t  *after,	// I - Previous sibling node or `NULL` to append to the end
+		  cups_json_t *after,	// I - Previous sibling node or `NULL` to append to the end
                   double      value)	// I - Number value
 {
   cups_json_t	*node;			// JSON node
@@ -1484,14 +1484,17 @@ cupsJSONNewNumber(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a r
 
 cups_json_t *				// O - JSON node
 cupsJSONNewString(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root node
-		  cups_json_t  *after,	// I - Previous sibling node or `NULL` to append to the end
+		  cups_json_t *after,	// I - Previous sibling node or `NULL` to append to the end
 		  const char  *value)	// I - String value
 {
   cups_json_t	*node;			// JSON node
-  char		*s = strdup(value);	// String value
+  char		*s;			// String value
 
 
-  if (!s)
+  if (!value)
+    return (NULL);
+
+  if ((s = strdup(value)) == NULL)
     return (NULL);
 
   if ((node = cupsJSONNew(parent, after, CUPS_JTYPE_STRING)) != NULL)
