@@ -566,6 +566,9 @@ ippFileRead(ipp_file_t      *file,	// I - IPP data file
 		syntax[128],		// Attribute syntax (value tag)
 		name[128];		// Attribute name
       ipp_tag_t	value_tag;		// Value tag
+      bool	add;			// Add this attribute?
+
+      attr = NULL;
 
       if (!ippFileReadToken(file, varname, sizeof(varname)))
       {
@@ -594,24 +597,23 @@ ippFileRead(ipp_file_t      *file,	// I - IPP data file
 	break;
       }
 
-      if (!file->attr_cb || (*file->attr_cb)(file, file->cb_data, name))
+      if (!_cups_strcasecmp(token, "ATTR-IF-DEFINED"))
+        add = ippFileGetVar(file, varname) != NULL;
+      else			// ATTR-IF-NOT-DEFINED
+        add = ippFileGetVar(file, varname) == NULL;
+
+      if (add && (!file->attr_cb || (*file->attr_cb)(file, file->cb_data, name)))
       {
         // Add this attribute...
         attrs = file->attrs;
       }
-      else if (!_cups_strcasecmp(token, "ATTR-IF-DEFINED"))
+      else
       {
-        if (ippFileGetVar(file, varname))
-          attrs = file->attrs;
-        else
-          attrs = ignored;
-      }
-      else			// ATTR-IF-NOT-DEFINED
-      {
-        if (ippFileGetVar(file, varname))
-          attrs = ignored;
-        else
-          attrs = file->attrs;
+        // Ignore this attribute...
+        if (!ignored)
+          ignored = ippNew();
+
+        attrs = ignored;
       }
 
       if (value_tag < IPP_TAG_INTEGER)
