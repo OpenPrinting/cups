@@ -436,7 +436,7 @@ get_rand(void)
   // Use a Mersenne twister random number generator seeded from /dev/urandom...
   unsigned	i,			// Looping var
 		temp;			// Temporary value
-  static bool	first_time = true;	// First time we ran?
+  static int	first_time = 1;		// First time we ran?
   static unsigned mt_state[624],	// Mersenne twister state
 		mt_index;		// Mersenne twister index
 
@@ -470,7 +470,7 @@ get_rand(void)
     for (i = 1; i < 624; i ++)
       mt_state[i] = (unsigned)((1812433253 * (mt_state[i - 1] ^ (mt_state[i - 1] >> 30))) + i);
 
-    first_time = false;
+    first_time = 0;
   }
 
   if (mt_index == 0)
