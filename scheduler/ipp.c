@@ -1960,8 +1960,7 @@ add_job_subscriptions(
 
     while (attr && attr->group_tag != IPP_TAG_ZERO)
     {
-      if (!strcmp(attr->name, "notify-recipient-uri") &&
-          attr->value_tag == IPP_TAG_URI)
+      if (!strcmp(attr->name, "notify-recipient-uri"))
       {
        /*
         * Validate the recipient scheme against the ServerBin/notifier
@@ -1976,38 +1975,34 @@ add_job_subscriptions(
         int	port;			/* Port portion of URI */
         struct stat info;		/* File information */
 
+        if (attr->value_tag != IPP_TAG_URI || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         recipient = attr->values[0].string.text;
 
-	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient,
-	                    scheme, sizeof(scheme), userpass, sizeof(userpass),
-			    host, sizeof(host), &port,
-			    resource, sizeof(resource)) < HTTP_URI_OK)
+	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
         {
-          send_ipp_status(con, IPP_NOT_POSSIBLE,
-	                  _("Bad notify-recipient-uri \"%s\"."), recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_URI_SCHEME);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad notify-recipient-uri \"%s\"."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
 	  return;
 	}
 
         snprintf(notifier, sizeof(notifier), "%s/notifier/%s", ServerBin, scheme);
         if (access(notifier, X_OK) || stat(notifier, &info) || !S_ISREG(info.st_mode))
 	{
-          send_ipp_status(con, IPP_NOT_POSSIBLE,
-	                  _("notify-recipient-uri URI \"%s\" uses unknown "
-			    "scheme."), recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_URI_SCHEME);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("notify-recipient-uri URI \"%s\" uses unknown scheme."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
 	  return;
 	}
 
         if (!strcmp(scheme, "rss") && !check_rss_recipient(recipient))
 	{
-          send_ipp_status(con, IPP_NOT_POSSIBLE,
-	                  _("notify-recipient-uri URI \"%s\" is already used."),
-			  recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_ATTRIBUTES);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("notify-recipient-uri URI \"%s\" is already used."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
 	else if (!strcmp(scheme, "rss") && strstr(resource, "../") != NULL)
@@ -2017,75 +2012,108 @@ add_job_subscriptions(
 	  return;
 	}
       }
-      else if (!strcmp(attr->name, "notify-pull-method") &&
-               attr->value_tag == IPP_TAG_KEYWORD)
+      else if (!strcmp(attr->name, "notify-pull-method"))
       {
-        pullmethod = attr->values[0].string.text;
+        if (attr->value_tag != IPP_TAG_KEYWORD || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
 
-        if (strcmp(pullmethod, "ippget"))
+	pullmethod = attr->values[0].string.text;
+
+	if (strcmp(pullmethod, "ippget"))
 	{
-          send_ipp_status(con, IPP_NOT_POSSIBLE,
-	                  _("Bad notify-pull-method \"%s\"."), pullmethod);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_ATTRIBUTES);
+	  send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad notify-pull-method \"%s\"."), pullmethod);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
       }
-      else if (!strcmp(attr->name, "notify-charset") &&
-               attr->value_tag == IPP_TAG_CHARSET &&
-	       strcmp(attr->values[0].string.text, "us-ascii") &&
-	       strcmp(attr->values[0].string.text, "utf-8"))
+      else if (!strcmp(attr->name, "notify-charset"))
       {
-        send_ipp_status(con, IPP_CHARSET,
-	                _("Character set \"%s\" not supported."),
-			attr->values[0].string.text);
-	return;
-      }
-      else if (!strcmp(attr->name, "notify-natural-language") &&
-               (attr->value_tag != IPP_TAG_LANGUAGE ||
-	        strcmp(attr->values[0].string.text, DefaultLanguage)))
-      {
-        send_ipp_status(con, IPP_CHARSET,
-	                _("Language \"%s\" not supported."),
-			attr->values[0].string.text);
-	return;
-      }
-      else if (!strcmp(attr->name, "notify-user-data") &&
-               attr->value_tag == IPP_TAG_STRING)
-      {
-        if (attr->num_values > 1 || attr->values[0].unknown.length > 63)
+        if (attr->value_tag != IPP_TAG_CHARSET || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
+	if (strcmp(attr->values[0].string.text, "us-ascii") && strcmp(attr->values[0].string.text, "utf-8"))
 	{
-          send_ipp_status(con, IPP_REQUEST_VALUE,
-	                  _("The notify-user-data value is too large "
-			    "(%d > 63 octets)."),
-			  attr->values[0].unknown.length);
+	  send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Character set \"%s\" not supported."), attr->values[0].string.text);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
+      }
+      else if (!strcmp(attr->name, "notify-natural-language"))
+      {
+        if (attr->value_tag != IPP_TAG_LANGUAGE || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
+        if (strcmp(attr->values[0].string.text, DefaultLanguage))
+	{
+	  send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Language \"%s\" not supported."), attr->values[0].string.text);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+	}
+      }
+      else if (!strcmp(attr->name, "notify-user-data"))
+      {
+        if (attr->value_tag != IPP_TAG_STRING || attr->num_values > 1 || attr->values[0].unknown.length > 63)
+	{
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
 
         user_data = attr;
       }
-      else if (!strcmp(attr->name, "notify-events") &&
-               attr->value_tag == IPP_TAG_KEYWORD)
+      else if (!strcmp(attr->name, "notify-events"))
       {
+        if (attr->value_tag != IPP_TAG_KEYWORD)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         for (i = 0; i < attr->num_values; i ++)
 	  mask |= cupsdEventValue(attr->values[i].string.text);
       }
       else if (!strcmp(attr->name, "notify-lease-duration"))
       {
-        send_ipp_status(con, IPP_BAD_REQUEST,
-	                _("The notify-lease-duration attribute cannot be "
-			  "used with job subscriptions."));
+        send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("The notify-lease-duration attribute cannot be used with job subscriptions."));
+	ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	return;
       }
-      else if (!strcmp(attr->name, "notify-time-interval") &&
-               attr->value_tag == IPP_TAG_INTEGER)
+      else if (!strcmp(attr->name, "notify-time-interval"))
+      {
+        if (attr->value_tag != IPP_TAG_INTEGER || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         interval = attr->values[0].integer;
+      }
 
       attr = attr->next;
     }
 
     if (!recipient && !pullmethod)
       break;
+    else if (recipient && pullmethod)
+    {
+      send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Cannot specify both notify-pull-method and notify-recipient-uri in the same request."));
+      ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+      return;
+    }
 
     if (mask == CUPSD_EVENT_NONE)
       mask = CUPSD_EVENT_JOB_COMPLETED;

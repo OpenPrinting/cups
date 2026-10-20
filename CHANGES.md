@@ -17,6 +17,8 @@ v2.4.21 - YYYY-MM-DD
   resolution option values (GHSA-56v5-mj3w-4f59)
 - SECURITY-3.3: Local certificates used a weak random number generator on some
   platforms (GHSA-f33q-qc2j-585m)
+- SECURITY-3.3: The scheduler did not fully validate job subscription
+  attributes (GHSA-p6cf-j6h3-rcf7)
 - SECURITY-2.5: Local authentication tokens could be disclosed and used in a
   replay attack (GHSA-8q78-mrwh-rm85)
 - SECURITY-2.0: Network backends could crash with malicious SNMP supply level
