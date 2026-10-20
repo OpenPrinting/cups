@@ -2595,6 +2595,7 @@ cups_dnssd_get_device(
 {
   _cups_dnssd_device_t	key,		// Search key
 			*device;	// Device
+  cups_dnssd_query_t	*query = NULL;	// Old query to delete
   char			fullname[1024],	// Full name for query
 			name[128];	// Queue name
 
@@ -2606,13 +2607,11 @@ cups_dnssd_get_device(
 
   key.dest.name = name;
 
-  cupsRWLockRead(&data->rwlock);
+  // The device is shared with cups_enum_dests and cups_dest_query_cb, so hold
+  // the write lock while looking it up and changing it...
+  cupsRWLockWrite(&data->rwlock);
 
-  device = cupsArrayFind(data->devices, &key);
-
-  cupsRWUnlock(&data->rwlock);
-
-  if (device)
+  if ((device = cupsArrayFind(data->devices, &key)) != NULL)
   {
     // Yes, see if we need to do anything with this...
     bool	update = false;		// Non-zero if we need to update
@@ -2642,7 +2641,7 @@ cups_dnssd_get_device(
     if (!update)
     {
       DEBUG_printf("6cups_dnssd_get_device: No changes to '%s'.", device->dest.name);
-      return (device);
+      goto done;
     }
   }
   else
@@ -2651,7 +2650,7 @@ cups_dnssd_get_device(
     DEBUG_printf("6cups_dnssd_get_device: Adding '%s' for %s with domain '%s'.", serviceName, !strcmp(regtype, "_ipps._tcp") ? "IPPS" : "IPP", replyDomain);
 
     if ((device = calloc(sizeof(_cups_dnssd_device_t), 1)) == NULL)
-      return (NULL);
+      goto done;
 
     device->dest.name = _cupsStrAlloc(name);
     device->domain    = _cupsStrAlloc(replyDomain);
@@ -2659,9 +2658,7 @@ cups_dnssd_get_device(
 
     device->dest.num_options = cupsAddOption("printer-info", serviceName, 0, &device->dest.options);
 
-    cupsRWLockWrite(&data->rwlock);
     cupsArrayAdd(data->devices, device);
-    cupsRWUnlock(&data->rwlock);
   }
 
   // Set the "full name" of this service, which is used for queries...
@@ -2669,7 +2666,7 @@ cups_dnssd_get_device(
   _cupsStrFree(device->fullname);
   device->fullname = _cupsStrAlloc(fullname);
 
-  cupsDNSSDQueryDelete(device->query);
+  query         = device->query;
   device->query = NULL;
 
   if (device->state == _CUPS_DNSSD_ACTIVE)
@@ -2679,6 +2676,19 @@ cups_dnssd_get_device(
     (*data->cb)(data->user_data, CUPS_DEST_FLAGS_REMOVED, &device->dest);
     device->state = _CUPS_DNSSD_NEW;
   }
+  else if (query && (device->state == _CUPS_DNSSD_QUERY || device->state == _CUPS_DNSSD_PENDING))
+  {
+    // Query the device again using the new full name...
+    device->state = _CUPS_DNSSD_NEW;
+  }
+
+  done:
+
+  cupsRWUnlock(&data->rwlock);
+
+  // Delete the old query after unlocking, since the DNS-SD context may need
+  // its own lock to do so...
+  cupsDNSSDQueryDelete(query);
 
   return (device);
 }
@@ -2728,11 +2738,13 @@ cups_dest_query_cb(
 
   dkey.dest.name = name;
 
-  cupsRWLockRead(&data->rwlock);
-  device = cupsArrayFind(data->devices, &dkey);
-  cupsRWUnlock(&data->rwlock);
+  // Hold the write lock while updating the device since cups_enum_dests reads
+  // it from another thread...
+  cupsRWLockWrite(&data->rwlock);
 
-  if (device && device->state == _CUPS_DNSSD_NEW)
+  device = cupsArrayFind(data->devices, &dkey);
+
+  if (device && device->state == _CUPS_DNSSD_QUERY)
   {
     // Found it, pull out the make and model from the TXT record and save it...
     const uint8_t	*txt,		// Pointer into data
@@ -2971,6 +2983,8 @@ cups_dest_query_cb(
   {
     DEBUG_printf("6cups_dnssd_query: Ignoring TXT record for '%s'.", fullname);
   }
+
+  cupsRWUnlock(&data->rwlock);
 }
 
 
@@ -3133,6 +3147,7 @@ cups_enum_dests(
   double	curtime;		// Current time
   _cups_dnssd_data_t data;		// Data for callback
   _cups_dnssd_device_t *device;		// Current device
+  cups_array_t	*queries = NULL;	// Devices to query
   cups_dnssd_t	*dnssd = NULL;		// DNS-SD context
   char		filename[1024];		// Local lpoptions file
   _cups_globals_t *cg = _cupsGlobals();	// Pointer to library globals
@@ -3377,13 +3392,14 @@ cups_enum_dests(
     remaining = msec;
 
   curtime = cupsGetClock();
+  queries = cupsArrayNew3(NULL, NULL, NULL, 0, NULL, NULL);
 
   while (remaining > 0 && (!cancel || !*cancel))
   {
     // Check for input...
     DEBUG_printf("1cups_enum_dests: remaining=%d", remaining);
 
-    cupsRWLockRead(&data.rwlock);
+    cupsRWLockWrite(&data.rwlock);
 
     for (i = 0, num_devices = cupsArrayCount(data.devices), count = 0, completed = 0; i < num_devices; i ++)
     {
@@ -3397,18 +3413,9 @@ cups_enum_dests(
 
       if (!device->query && device->state == _CUPS_DNSSD_NEW)
       {
-        DEBUG_printf("1cups_enum_dests: Querying '%s'.", device->fullname);
-
-	if ((device->query = cupsDNSSDQueryNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, device->fullname, CUPS_DNSSD_RRTYPE_TXT, cups_dest_query_cb, &data)) != NULL)
-        {
-          count ++;
-        }
-        else
-        {
-          device->state = _CUPS_DNSSD_ERROR;
-
-          DEBUG_puts("1cups_enum_dests: Query failed.");
-        }
+        // Start the query after releasing the lock below...
+        if (cupsArrayAdd(queries, device))
+          device->state = _CUPS_DNSSD_QUERY;
       }
       else if (device->query && device->state == _CUPS_DNSSD_PENDING)
       {
@@ -3499,11 +3506,44 @@ cups_enum_dests(
       }
     }
 
-    DEBUG_printf("1cups_enum_dests: remaining=%d, completed=%u, count=%u, devices count=%u", remaining, (unsigned)completed, (unsigned)count, (unsigned)cupsArrayCount(data.devices));
+    DEBUG_printf("1cups_enum_dests: remaining=%d, completed=%u, count=%u, devices count=%u", remaining, (unsigned)completed, (unsigned)count, (unsigned)num_devices);
 
     cupsRWUnlock(&data.rwlock);
 
-    if (completed && completed == cupsArrayCount(data.devices))
+    // Start new queries without holding the lock, since the DNS-SD callbacks
+    // take the lock while the DNS-SD context holds its own lock...
+    for (device = (_cups_dnssd_device_t *)cupsArrayGetFirst(queries); device && remaining > 0; device = (_cups_dnssd_device_t *)cupsArrayGetNext(queries))
+    {
+      char		fullname[1024];	// Full name for query
+      cups_dnssd_query_t *query;	// New query
+
+      cupsRWLockRead(&data.rwlock);
+      cupsCopyString(fullname, device->fullname, sizeof(fullname));
+      cupsRWUnlock(&data.rwlock);
+
+      DEBUG_printf("1cups_enum_dests: Querying '%s'.", fullname);
+
+      query = cupsDNSSDQueryNew(dnssd, CUPS_DNSSD_IF_INDEX_ANY, fullname, CUPS_DNSSD_RRTYPE_TXT, cups_dest_query_cb, &data);
+
+      cupsRWLockWrite(&data.rwlock);
+
+      if (query)
+      {
+        device->query = query;
+      }
+      else
+      {
+        DEBUG_puts("1cups_enum_dests: Query failed.");
+
+        device->state = _CUPS_DNSSD_ERROR;
+      }
+
+      cupsRWUnlock(&data.rwlock);
+    }
+
+    cupsArrayClear(queries);
+
+    if (completed && completed == num_devices)
       break;
 
     usleep(100000);
@@ -3515,6 +3555,7 @@ cups_enum_dests(
   enum_finished:
 
   cupsDNSSDDelete(dnssd);
+  cupsArrayDelete(queries);
 
   cupsFreeDests(data.num_dests, data.dests);
   cupsFreeDests(data.num_local, data.local_dests);
