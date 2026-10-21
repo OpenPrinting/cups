@@ -5844,7 +5844,7 @@ create_local_printer(
 
   if (!device_uri_ptr || !device_uri_ptr[0] || (strncmp(device_uri_ptr, "dnssd://", 8) && strncmp(device_uri_ptr, "ipp://", 6) && strncmp(device_uri_ptr, "ipps://", 7)))
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
+    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), device_uri_ptr ? device_uri_ptr : "");
 
     return;
   }
