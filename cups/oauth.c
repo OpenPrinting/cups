@@ -1754,11 +1754,11 @@ cupsOAuthMakeBase64Random(size_t len)	// I - Number of bytes
     len = sizeof(bytes);
 
   // Fill out random bytes and convert it to Base64URL...
-#ifdef HAVE_LIBSSL
+#ifdef HAVE_OPENSSL
   if (RAND_bytes((unsigned char *)bytes, (int)len) < 0)
 #  else
   if (gnutls_rnd(GNUTLS_RND_NONCE, bytes, len) != 0)
-#  endif // HAVE_LIBSSL
+#  endif // HAVE_OPENSSL
   {
     // TLS library random number generator failed, use the backup generator...
     for (i = 0; i < len; i ++)
