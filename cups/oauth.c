@@ -1754,9 +1754,18 @@ cupsOAuthMakeBase64Random(size_t len)	// I - Number of bytes
     len = sizeof(bytes);
 
   // Fill out random bytes and convert it to Base64URL...
-  for (i = 0; i < len; i ++)
-    bytes[i] = (char)cupsGetRand();
+#ifdef HAVE_OPENSSL
+  if (RAND_bytes((unsigned char *)bytes, (int)len) < 0)
+#  else
+  if (gnutls_rnd(GNUTLS_RND_NONCE, bytes, len) != 0)
+#  endif // HAVE_OPENSSL
+  {
+    // TLS library random number generator failed, use the backup generator...
+    for (i = 0; i < len; i ++)
+      bytes[i] = (char)cupsGetRand();
+  }
 
+  // Base64URL-encode the bytes...
   httpEncode64_3(base64url, sizeof(base64url), bytes, len, /*url*/true);
 
   // Copy and return the random string...

@@ -40,7 +40,6 @@ cupsGetRand(void)
   return (arc4random());
 
 #else
-  // Use a Mersenne twister random number generator seeded from /dev/urandom...
   unsigned	i,			// Looping var
 		temp;			// Temporary value
   static bool	first_time = true;	// First time we ran?
@@ -50,6 +49,17 @@ cupsGetRand(void)
 					// Mutex to control access to state
 
 
+  // Try getting random data from the TLS library...
+#  ifdef HAVE_OPENSSL
+  if (RAND_bytes(&i, (int)sizeof(i)) > 0)
+    return (i);
+
+#  else
+  if (gnutls_rnd(GNUTLS_RND_NONCE, &i, sizeof(i)) == 0)
+    return (i);
+#  endif // HAVE_OPENSSL
+
+  // Fall back to a Mersenne twister random number generator seeded from /dev/urandom...
   pthread_mutex_lock(&mt_mutex);
 
   if (first_time)
