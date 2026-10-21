@@ -50,14 +50,14 @@ cupsGetRand(void)
 
 
   // Try getting random data from the TLS library...
-#  ifdef HAVE_OPENSSL
+#  ifdef HAVE_LIBSSL
   if (RAND_bytes(&i, (int)sizeof(i)) > 0)
     return (i);
 
 #  else
   if (gnutls_rnd(GNUTLS_RND_NONCE, &i, sizeof(i)) == 0)
     return (i);
-#  endif // HAVE_OPENSSL
+#  endif // HAVE_LIBSSL
 
   // Fall back to a Mersenne twister random number generator seeded from /dev/urandom...
   pthread_mutex_lock(&mt_mutex);
