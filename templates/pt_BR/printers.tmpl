@@ -1,11 +1,36 @@
-{#printer_name=0?:
-<TABLE CLASS="list" SUMMARY="Lista de impressoras">
-<THEAD>
-<TR><TH>Nome da fila</TH><TH>Descri&ccedil;&atilde;o</TH><TH>Localiza&ccedil;&atilde;o</TH><TH>Marca e modelo</TH><TH>Estado</TH></TR>
-</THEAD>
-<TBODY>
+{#printer_name=0?
+<div class="empty-state-box">
+  <div class="empty-ascii">+----------------------------------------+<br>| &nbsp;[ _ ] &nbsp;Nenhuma fila de impress&atilde;o ativa &nbsp;|<br>+----------------------------------------+</div>
+  <p class="empty-text">Nenhuma impressora configurada ou correspondente &agrave; pesquisa atual.</p>
+  <div class="server-actions-bar">
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Adicionar impressora"></form>
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Encontrar novas impressoras"></form>
+  </div>
+  <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -p -d <span class="cmd-comment"># Verificar se o scheduler CUPS detectou filas locais</span></pre>
+</div>
+:
+<div class="table-container">
+<table class="list" summary="Lista de impressoras">
+<thead>
+<tr>
+  <th scope="col">Nome da fila</th>
+  <th scope="col">Descri&ccedil;&atilde;o</th>
+  <th scope="col">Localiza&ccedil;&atilde;o</th>
+  <th scope="col">Marca e modelo</th>
+  <th scope="col">Estado</th>
+</tr>
+</thead>
+<tbody>
 {[printer_name]
-<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{printer_make_and_model}</TD><TD>{printer_state=3?Ociosa:{printer_state=4?Processando:Pausada}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+<tr>
+  <td><a href="{printer_uri_supported}" class="queue-name">{printer_name}</a></td>
+  <td>{printer_info}</td>
+  <td>{printer_location}</td>
+  <td><code>{printer_make_and_model}</code></td>
+  <td>{printer_state=3?<span class="status-pill idle">&bull; Ociosa</span>:{printer_state=4?<span class="status-pill processing">&bull; Processando</span>:<span class="status-pill paused">&FilledSmallSquare; Pausada</span>}}{printer_state_message?<div class="status-msg">"{printer_state_message}"</div>:}</td>
+</tr>
 }
-</TBODY>
-</TABLE></DIV>}
+</tbody>
+</table>
+</div>
+}

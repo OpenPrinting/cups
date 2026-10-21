@@ -1,5 +1,11 @@
-{?which_jobs=?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Show Active Jobs"></FORM>}
-{?which_jobs=completed?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="completed"><INPUT TYPE="SUBMIT" VALUE="Show Completed Jobs"></FORM>}
-{?which_jobs=all?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="all"><INPUT TYPE="SUBMIT" VALUE="Show All Jobs"></FORM>}
+<div class="jobs-filter-toolbar">
+  <div class="filter-buttons-group">
+    {?which_jobs=?:<form action="{?printer_name=?/jobs:{printer_uri_supported}}" method="GET"><input type="submit" value="Show Active Jobs" class="btn-filter"></form>}
+    {?which_jobs=completed?:<form action="{?printer_name=?/jobs:{printer_uri_supported}}" method="GET"><input type="hidden" name="which_jobs" value="completed"><input type="submit" value="Show Completed Jobs" class="btn-filter"></form>}
+    {?which_jobs=all?:<form action="{?printer_name=?/jobs:{printer_uri_supported}}" method="GET"><input type="hidden" name="which_jobs" value="all"><input type="submit" value="Show All Jobs" class="btn-filter"></form>}
+  </div>
 
-<P ALIGN="CENTER">{?which_jobs=?Active jobs listed in processing order▼; held jobs appear first.:{which_jobs=all?Jobs in sequential order▼:Completed jobs in order of completion or cancellation▲}}</P>
+  <div class="filter-order-note">
+    <span class="prompt-marker">&gt;_</span> {?which_jobs=?Active jobs listed in processing order &blacktriangledown; (held jobs appear first):{which_jobs=all?All jobs in sequential order &blacktriangledown;:Completed jobs in reverse completion order &blacktriangle;}}
+  </div>
+</div>

@@ -1,11 +1,35 @@
-{#printer_name=0?:
-<TABLE CLASS="list" SUMMARY="Class List">
-<THEAD>
-<TR><TH>Nome da fila</TH><TH>Descri&ccedil;&atilde;o</TH><TH>Localiza&ccedil;&atilde;o</TH><TH>Membros</TH><TH>Estado</TH></TR>
-</THEAD>
-<TBODY>
+{#printer_name=0?
+<div class="empty-state-box">
+  <div class="empty-ascii">+----------------------------------------+<br>| &nbsp;[ _ ] &nbsp;Nenhuma classe de impress&atilde;o &nbsp;&nbsp;&nbsp;|<br>+----------------------------------------+</div>
+  <p class="empty-text">Nenhuma classe de impressoras agrupada ou configurada.</p>
+  <div class="server-actions-bar">
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-class"><input type="submit" value="Adicionar classe"></form>
+  </div>
+  <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -c <span class="cmd-comment"># Listar membros de classes no CUPS</span></pre>
+</div>
+:
+<div class="table-container">
+<table class="list" summary="Lista de Classes de Impressão">
+<thead>
+<tr>
+  <th scope="col">Nome da fila</th>
+  <th scope="col">Descri&ccedil;&atilde;o</th>
+  <th scope="col">Localiza&ccedil;&atilde;o</th>
+  <th scope="col">Membros</th>
+  <th scope="col">Estado</th>
+</tr>
+</thead>
+<tbody>
 {[printer_name]
-<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{?member_uris=?Nenhum:{member_uris}}</TD><TD>{printer_state=3?ociosa:{printer_state=4?processando:pausada}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+<tr>
+  <td><a href="{printer_uri_supported}" class="queue-name">{printer_name}</a></td>
+  <td>{printer_info}</td>
+  <td>{printer_location}</td>
+  <td><code>{?member_uris=?Nenhum:{member_uris}}</code></td>
+  <td>{printer_state=3?<span class="status-pill idle">&bull; Ociosa</span>:{printer_state=4?<span class="status-pill processing">&bull; Processando</span>:<span class="status-pill paused">&FilledSmallSquare; Pausada</span>}}{printer_state_message?<div class="status-msg">"{printer_state_message}"</div>:}</td>
+</tr>
 }
-</TBODY>
-</TABLE></DIV>}
+</tbody>
+</table>
+</div>
+}

@@ -1,77 +1,148 @@
-<div class="row">
   <div class="halves">
-    <H2 CLASS="title">Impressoras</H2>
+    <div class="admin-panel">
+      <h2 class="title"><span class="prompt-marker">&gt;_</span> /admin/printers &mdash; Filas de Impress&atilde;o</h2>
+      <p class="admin-panel-desc">Gerenciamento direto de dispositivos f&iacute;sicos e conex&otilde;es de rede.</p>
+      <div class="server-actions-bar">
+        <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Adicionar impressora"></form>
+        <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Encontrar novas impressoras"></form>
+        <form action="/printers/" method="GET"><input type="submit" value="Gerenciar impressoras"></form>
+      </div>
+    </div>
 
-    <P>
-    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="add-printer"><INPUT TYPE="SUBMIT" VALUE="Adicionar impressora"></FORM>
-    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="find-new-printers"><INPUT TYPE="SUBMIT" VALUE="Encontrar novas impressoras"></FORM>
-    <FORM ACTION="/printers/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Gerenciar impressoras"></FORM>
-    </P>
+    <div class="admin-panel">
+      <h2 class="title"><span class="prompt-marker">&gt;_</span> /admin/classes &mdash; Classes de Agrupamento</h2>
+      <p class="admin-panel-desc">Agrupamento de m&uacute;ltiplas impressoras em uma &uacute;nica fila l&oacute;gica com balanceamento.</p>
+      <div class="server-actions-bar">
+        <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-class"><input type="submit" value="Adicionar classe"></form>
+        <form action="/classes/" method="GET"><input type="submit" value="Gerenciar classes"></form>
+      </div>
+    </div>
 
-    <H2 CLASS="title">Classes</H2>
-
-    <P>
-    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="add-class"><INPUT TYPE="SUBMIT" VALUE="Adicionar classe"></FORM>
-    <FORM ACTION="/classes/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Gerenciar classes"></FORM>
-    </P>
-
-    <H2 CLASS="title">Trabalhos</H2>
-
-    <P>
-    <FORM ACTION="/jobs/" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Gerenciar trabalhos"></FORM>
-    </P>
+    <div class="admin-panel">
+      <h2 class="title"><span class="prompt-marker">&gt;_</span> /admin/jobs &mdash; Spooler de Trabalhos</h2>
+      <p class="admin-panel-desc">Auditoria, cancelamento em lote, reten&ccedil;&atilde;o e libera&ccedil;&atilde;o de documentos.</p>
+      <div class="server-actions-bar">
+        <form action="/jobs/" method="GET"><input type="submit" value="Gerenciar trabalhos"></form>
+      </div>
+    </div>
   </div>
+
   <div class="halves">
-    <H2 CLASS="title">Servidor</H2>
+    <div class="admin-panel">
+      <h2 class="title"><span class="prompt-marker">&gt;_</span> /admin/server &mdash; Configura&ccedil;&otilde;es do Servidor CUPS</h2>
 
-    <P>
-    <FORM ACTION="/admin/" METHOD="POST"><INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}"><INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server"><INPUT TYPE="SUBMIT" VALUE="Editar arquivo de configura&ccedil;&atilde;o"></FORM>
-    </P>
+      <div class="server-actions-bar">
+        <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="config-server"><input type="submit" value="Editar cupsd.conf diretamente"></form>
+      </div>
 
-    {SETTINGS_ERROR?<P>{SETTINGS_MESSAGE}</P>
-    <BLOCKQUOTE>{SETTINGS_ERROR}</BLOCKQUOTE>:
+      {SETTINGS_ERROR?<div class="server-alerts-box" role="alert"><p><strong>{SETTINGS_MESSAGE}</strong></p><blockquote>{SETTINGS_ERROR}</blockquote></div>:
 
-    <FORM METHOD="POST" ACTION="/admin">
-    <INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+      <form method="POST" action="/admin">
+      <input type="hidden" name="org.cups.sid" value="{$org.cups.sid}">
 
-    {ADVANCEDSETTINGS?<P><B>Configura&ccedil;&otilde;es do servidor\:</B></P>
+      {ADVANCEDSETTINGS?
+      <div class="settings-group">
+        <div class="settings-header">
+          <strong>Configura&ccedil;&otilde;es Avan&ccedil;adas do cupsd</strong> &bull; <a href="/admin/" class="disclosure-link">Ocultar avan&ccedil;adas <small>&#x25bc;</small></a>
+        </div>
 
-    <P><A HREF="/admin/">Avan&ccedil;ado <SMALL>&#x25bc;</SMALL></A><BR>
-    <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
-    <INPUT TYPE="HIDDEN" NAME="ADVANCEDSETTINGS" VALUE="CHECKED">
-    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Compartilhar impressoras conectadas a este sistema</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M&aacute;ximo de clientes\:
-    <INPUT TYPE="TEXT" NAME="MAX_CLIENTS" VALUE="{?max_clients}" SIZE="6"><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> Permitir impress&atilde;o a partir da Internet</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="BROWSE_WEB_IF" ID="BROWSE_WEB_IF" VALUE="CHECKED" {?browse_web_if}><LABEL FOR="BROWSE_WEB_IF"> Anunciar interface web</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Permitir administra&ccedil;&atilde;o remota</LABEL><BR>
-    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> Usar autentica&ccedil;&atilde;o via Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
-    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Permitir aos usu&aacute;rios cancelar qualquer trabalho (n&atilde;o apenas os seus pr&oacute;prios)</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="PRESERVE_JOBS" ID="PRESERVE_JOBS" VALUE="CHECKED" {?preserve_jobs}><LABEL FOR="PRESERVE_JOBS"> Preservar o hist&oacute;rico de trabalhos</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M&aacute;ximo de trabalhos (0 para sem limite)\:
-    <INPUT TYPE="TEXT" NAME="MAX_JOBS" VALUE="{?max_jobs}" SIZE="6"><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reter metadados\:
-    <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_HISTORY" VALUE="{?preserve_job_history}" SIZE="6"><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reter documentos\:
-    <INPUT TYPE="TEXT" NAME="PRESERVE_JOB_FILES" VALUE="{?preserve_job_files}" SIZE="6"><BR>
-    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Salvar informa&ccedil;&atilde;o de depura&ccedil;&atilde;o para solu&ccedil;&atilde;o de problemas</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tamanho m&aacute;ximo do arquivo de log\:
-    <INPUT TYPE="TEXT" NAME="MAX_LOG_SIZE" VALUE="{?max_log_size}" SIZE="6"></P>
+        <input type="hidden" name="OP" value="config-server">
+        <input type="hidden" name="ADVANCEDSETTINGS" value="CHECKED">
 
-    :<P><B>Configura&ccedil;&otilde;es do servidor:</B></P>
+        <div class="setting-item">
+          <label><input type="checkbox" name="SHARE_PRINTERS" id="SHARE_PRINTERS" value="CHECKED" {?share_printers}> <strong>Compartilhar impressoras conectadas a este sistema</strong></label>
+          <div class="setting-desc">Anuncia as filas via mDNS/DNS-SD (Bonjour/Avahi) na rede local.</div>
+        </div>
 
-    <P><A HREF="/admin/?ADVANCEDSETTINGS=YES">Avan&ccedil;ado <SMALL>&#x25b6;</SMALL></A><BR>
-    <INPUT TYPE="HIDDEN" NAME="OP" VALUE="config-server">
-    <INPUT TYPE="CHECKBOX" NAME="SHARE_PRINTERS" ID="SHARE_PRINTERS" VALUE="CHECKED" {?share_printers}><LABEL FOR="SHARE_PRINTERS"> Compartilhar impressoras conectadas a este sistema</LABEL><BR>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<INPUT TYPE="CHECKBOX" NAME="REMOTE_ANY" ID="REMOTE_ANY" VALUE="CHECKED" {?remote_any}><LABEL FOR="REMOTE_ANY"> Permitir impress&atilde;o a partir da Internet</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="REMOTE_ADMIN" ID="REMOTE_ADMIN" VALUE="CHECKED" {?remote_admin}><LABEL FOR="REMOTE_ADMIN"> Permitir administra&ccedil;&atilde;o remota</LABEL><BR>
-    {have_gssapi?<INPUT TYPE="CHECKBOX" NAME="KERBEROS" ID="KERBEROS" VALUE="CHECKED" {?kerberos}><LABEL FOR="KERBEROS"> Usar autentica&ccedil;&atilde;o via Kerberos (<A HREF="/help/kerberos.html?TOPIC=Getting+Started">FAQ</A>)</LABEL><BR>:}
-    <INPUT TYPE="CHECKBOX" NAME="USER_CANCEL_ANY" ID="USER_CANCEL_ANY" VALUE="CHECKED" {?user_cancel_any}><LABEL FOR="USER_CANCEL_ANY"> Permitir aos usu&aacute;rios cancelar qualquer trabalho (n&atilde;o apenas seus pr&oacute;prios)</LABEL><BR>
-    <INPUT TYPE="CHECKBOX" NAME="DEBUG_LOGGING" ID="DEBUG_LOGGING" VALUE="CHECKED" {?debug_logging}><LABEL FOR="DEBUG_LOGGING"> Salvar informa&ccedil;&otilde;es de depura&ccedil;&atilde;o para solu&ccedil;&atilde;o de problemas</LABEL></P>
+        <div class="setting-item setting-indent">
+          <label>M&aacute;ximo de clientes simult&acirc;neos&#58; <input type="text" name="MAX_CLIENTS" value="{?max_clients}" size="6" class="mono-val"></label>
+          <div class="setting-desc">Limita descritores de socket abertos no daemon cupsd.</div>
+        </div>
 
-    }
-    <P><INPUT TYPE="SUBMIT" NAME="CHANGESETTINGS" VALUE="Alterar configura&ccedil;&otilde;es"></P>
+        <div class="setting-item setting-indent">
+          <label><input type="checkbox" name="REMOTE_ANY" id="REMOTE_ANY" value="CHECKED" {?remote_any}> <strong>Permitir impress&atilde;o a partir da Internet</strong></label>
+          <div class="setting-desc">Permite conex&otilde;es al&eacute;m da sub-rede local (0.0.0.0/0).</div>
+        </div>
 
-    </FORM>}
+        <div class="setting-item setting-indent">
+          <label><input type="checkbox" name="BROWSE_WEB_IF" id="BROWSE_WEB_IF" value="CHECKED" {?browse_web_if}> <strong>Anunciar interface web na rede</strong></label>
+        </div>
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="REMOTE_ADMIN" id="REMOTE_ADMIN" value="CHECKED" {?remote_admin}> <strong>Permitir administra&ccedil;&atilde;o remota</strong></label>
+          <div class="setting-desc">Autoriza requisi&ccedil;&otilde;es de gerenciamento via browser vindas de outros IPs.</div>
+        </div>
+
+        {have_gssapi?<div class="setting-item"><label><input type="checkbox" name="KERBEROS" id="KERBEROS" value="CHECKED" {?kerberos}> <strong>Usar autentica&ccedil;&atilde;o via Kerberos</strong> (<a href="/help/kerberos.html?TOPIC=Getting+Started">Documenta&ccedil;&atilde;o</a>)</label></div>:}
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="USER_CANCEL_ANY" id="USER_CANCEL_ANY" value="CHECKED" {?user_cancel_any}> <strong>Permitir aos usu&aacute;rios cancelar qualquer trabalho</strong></label>
+          <div class="setting-desc">Permite que usu&aacute;rios cancelem impress&otilde;es de outros colegas sem root.</div>
+        </div>
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="PRESERVE_JOBS" id="PRESERVE_JOBS" value="CHECKED" {?preserve_jobs}> <strong>Preservar hist&oacute;rico de trabalhos de impress&atilde;o</strong></label>
+        </div>
+
+        <div class="setting-item setting-indent">
+          <label>M&aacute;ximo de trabalhos no hist&oacute;rico (0 = ilimitado)&#58; <input type="text" name="MAX_JOBS" value="{?max_jobs}" size="6" class="mono-val"></label>
+        </div>
+
+        <div class="setting-item setting-indent">
+          <label>Reter metadados dos trabalhos&#58; <input type="text" name="PRESERVE_JOB_HISTORY" value="{?preserve_job_history}" size="6" class="mono-val"></label>
+        </div>
+
+        <div class="setting-item setting-indent">
+          <label>Reter c&oacute;pias dos documentos impressos&#58; <input type="text" name="PRESERVE_JOB_FILES" value="{?preserve_job_files}" size="6" class="mono-val"></label>
+        </div>
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="DEBUG_LOGGING" id="DEBUG_LOGGING" value="CHECKED" {?debug_logging}> <strong>Salvar informa&ccedil;&atilde;o de depura&ccedil;&atilde;o detalhada (LogLevel debug)</strong></label>
+          <div class="setting-desc">Essencial para an&aacute;lise de diagn&oacute;stico de falhas de filtros e drivers.</div>
+        </div>
+
+        <div class="setting-item setting-indent">
+          <label>Tamanho m&aacute;ximo do log de erro&#58; <input type="text" name="MAX_LOG_SIZE" value="{?max_log_size}" size="6" class="mono-val"></label>
+        </div>
+      </div>
+
+      :
+      <div class="settings-group">
+        <div class="settings-header">
+          <strong>Configura&ccedil;&otilde;es B&aacute;sicas do cupsd</strong> &bull; <a href="/admin/?ADVANCEDSETTINGS=YES" class="disclosure-link">Mostrar avan&ccedil;adas <small>&#x25b6;</small></a>
+        </div>
+
+        <input type="hidden" name="OP" value="config-server">
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="SHARE_PRINTERS" id="SHARE_PRINTERS" value="CHECKED" {?share_printers}> <strong>Compartilhar impressoras conectadas a este sistema</strong></label>
+          <div class="setting-desc">Publica as filas na rede local via mDNS.</div>
+        </div>
+
+        <div class="setting-item setting-indent">
+          <label><input type="checkbox" name="REMOTE_ANY" id="REMOTE_ANY" value="CHECKED" {?remote_any}> <strong>Permitir impress&atilde;o a partir da Internet</strong></label>
+        </div>
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="REMOTE_ADMIN" id="REMOTE_ADMIN" value="CHECKED" {?remote_admin}> <strong>Permitir administra&ccedil;&atilde;o remota</strong></label>
+        </div>
+
+        {have_gssapi?<div class="setting-item"><label><input type="checkbox" name="KERBEROS" id="KERBEROS" value="CHECKED" {?kerberos}> <strong>Usar autentica&ccedil;&atilde;o via Kerberos</strong> (<a href="/help/kerberos.html?TOPIC=Getting+Started">Documenta&ccedil;&atilde;o</a>)</label></div>:}
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="USER_CANCEL_ANY" id="USER_CANCEL_ANY" value="CHECKED" {?user_cancel_any}> <strong>Permitir aos usu&aacute;rios cancelar qualquer trabalho</strong></label>
+        </div>
+
+        <div class="setting-item">
+          <label><input type="checkbox" name="DEBUG_LOGGING" id="DEBUG_LOGGING" value="CHECKED" {?debug_logging}> <strong>Salvar informa&ccedil;&otilde;es de depura&ccedil;&atilde;o para diagn&oacute;stico</strong></label>
+        </div>
+      </div>
+
+      }
+      <div class="settings-actions">
+        <input type="submit" name="CHANGESETTINGS" value="Alterar configura&ccedil;&otilde;es" class="btn-primary">
+      </div>
+
+      </form>}
+    </div>
   </div>
-</div>

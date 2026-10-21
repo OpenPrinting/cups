@@ -1,11 +1,35 @@
-{#printer_name=0?:
-<TABLE CLASS="list" SUMMARY="Class List">
-<THEAD>
-<TR><TH>Queue Name</TH><TH>Description</TH><TH>Location</TH><TH>Members</TH><TH>Status</TH></TR>
-</THEAD>
-<TBODY>
+{#printer_name=0?
+<div class="empty-state-box">
+  <div class="empty-ascii">+----------------------------------------+<br>| &nbsp;[ _ ] &nbsp;No printer classes found &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+----------------------------------------+</div>
+  <p class="empty-text">No printer classes pooled or configured.</p>
+  <div class="server-actions-bar">
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-class"><input type="submit" value="Add Class"></form>
+  </div>
+  <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -c <span class="cmd-comment"># List class pool members in CUPS</span></pre>
+</div>
+:
+<div class="table-container">
+<table class="list" summary="Class List">
+<thead>
+<tr>
+  <th scope="col">Queue Name</th>
+  <th scope="col">Description</th>
+  <th scope="col">Location</th>
+  <th scope="col">Members</th>
+  <th scope="col">Status</th>
+</tr>
+</thead>
+<tbody>
 {[printer_name]
-<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{?member_uris=?None:{member_uris}}</TD><TD>{printer_state=3?Idle:{printer_state=4?Processing:Paused}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+<tr>
+  <td><a href="{printer_uri_supported}" class="queue-name">{printer_name}</a></td>
+  <td>{printer_info}</td>
+  <td>{printer_location}</td>
+  <td><code>{?member_uris=?None:{member_uris}}</code></td>
+  <td>{printer_state=3?<span class="status-pill idle">&bull; Idle</span>:{printer_state=4?<span class="status-pill processing">&bull; Processing</span>:<span class="status-pill paused">&FilledSmallSquare; Paused</span>}}{printer_state_message?<div class="status-msg">"{printer_state_message}"</div>:}</td>
+</tr>
 }
-</TBODY>
-</TABLE></DIV>}
+</tbody>
+</table>
+</div>
+}

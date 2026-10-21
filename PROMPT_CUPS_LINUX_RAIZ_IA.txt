@@ -1,0 +1,229 @@
+CUPS / ROOT INTELLIGENCE
+Prompt de implementação — Linux raiz, minimalismo e inteligência local
+
+Você é responsável pelo design e pela implementação de uma evolução da interface
+web deste repositório OpenPrinting CUPS. Crie uma experiência de administração de
+impressão contemporânea, precisa e sofisticada, com referências à cultura Unix.
+Implemente em incrementos executáveis e verificados; não entregue apenas conceitos.
+
+IDEIA CENTRAL
+
+“A clareza do terminal. A inteligência do contexto. O controle continua seu.”
+
+Trate “Root Intelligence” como nome conceitual da proposta, não como indicação de
+executar processos como root nem como marca oficial do OpenPrinting.
+
+A direção escolhida valoriza características presentes em muitas ferramentas da
+cultura Linux: autonomia, transparência, eficiência, composição e controle local.
+Não presuma que toda a comunidade compartilha uma preferência estética única.
+O resultado deve parecer uma ferramenta de trabalho mantida por pessoas que
+entendem sistemas, com acabamento visual cuidadoso e personalidade própria.
+
+1. COMECE PELO PROJETO REAL
+
+Leia as instruções locais e inspecione a arquitetura antes de alterar arquivos.
+Este checkout contém CUPS com código C, interface CGI e templates próprios.
+Pontos de partida identificados:
+
+- doc/cups.css: estilos compartilhados da interface.
+- doc/cups-printable.css: estilos de impressão.
+- templates/header.tmpl: cabeçalho e navegação padrão.
+- templates/pt_BR/header.tmpl: cabeçalho em português brasileiro.
+- templates/admin.tmpl: administração.
+- templates/printers.tmpl e templates/printer.tmpl: impressoras.
+- templates/jobs.tmpl: trabalhos e ações.
+- templates/pt_BR/: traduções dos templates.
+- cgi-bin/: controladores da interface web.
+- doc/Makefile: instalação dos recursos web.
+- doc/help/ e man/: documentação do projeto.
+
+Verifique também os demais templates, idiomas, páginas iniciais e caminhos de
+instalação. Não presuma a existência de endpoints JSON ou de um frontend React.
+Priorize HTML semântico, CSS e JavaScript progressivo quando necessário.
+Qualquer novo recurso estático precisa entrar no processo de instalação.
+
+Preserve os textos, dados, rotas, traduções, regras e funcionalidades existentes.
+Preserve a sintaxe dos templates, condicionais, formulários, métodos, campos OP,
+identificadores e tokens org.cups.sid. Mantenha autenticação, autorização e
+proteções de sessão. Melhorias de texto devem conservar o significado operacional.
+
+2. DIREÇÃO VISUAL: UNIX CONTEMPORÂNEO
+
+Referências conceituais: organização de man pages, precisão de utilitários como
+htop, divisões de painéis do tmux e simplicidade das interfaces de terminal.
+Traduza essas referências em uma interface gráfica original e acessível.
+
+Use fundo grafite quase preto, superfícies discretamente elevadas, linhas finas,
+margens generosas e alinhamento rigoroso. Evite uma sequência de cartões enormes.
+Priorize tabelas, listas de eventos, divisores e painéis compactos bem organizados.
+
+Paleta inicial, sujeita à verificação de contraste:
+  fundo principal       #101211
+  superfície            #181C19
+  superfície elevada    #202622
+  divisores             #343D36
+  texto principal       #EDF2EC
+  texto secundário      #B0BCAF
+  destaque verde sálvia  #A8C686
+  atenção âmbar         #E4BC75
+  erro coral            #EF9990
+  informação azul       #9FBFCB
+
+Use verde como acento pontual para seleção, foco e ações principais.
+Estados precisam de texto e/ou ícone além da cor.
+Defina tokens CSS para cores, espaçamento, tipografia e bordas.
+Use escala de espaçamento de 4, 8, 12, 16, 24, 32 e 48 px.
+Bordas de 1 px e raios contidos, aproximadamente 4 a 8 px.
+
+Use fonte de sistema legível nos textos e ui-monospace nos nomes de filas,
+identificadores, horários, comandos, rótulos técnicos e valores tabulares.
+Não faça a interface depender de fontes remotas; se incorporar fontes, hospede-as
+localmente e respeite suas licenças. Inspecione o @import remoto do CSS atual.
+Texto principal entre 14 e 16 px; títulos claros e sem proporções de landing page.
+
+Referências raiz em pequenos detalhes:
+- Um marcador “>_” discreto junto à identidade, preservando os créditos do CUPS.
+- Cabeçalhos de seção compactos, com referências como /printers e /jobs.
+- Horários alinhados e números com largura tabular.
+- Um detalhe ASCII curto em estados vazios, acompanhado de explicação útil.
+- Blocos de comando selecionáveis, com copiar e descrição do efeito.
+
+Evite chuva Matrix, neon intenso, scanlines, glitch, fundo animado, cursores
+piscando sem função, vidro translúcido e gradientes decorativos dominantes.
+A sofisticação deve vir de proporção, contraste, ritmo e qualidade da informação.
+
+3. ESTRUTURA DA EXPERIÊNCIA
+
+Mantenha acesso evidente a Início, Impressoras, Trabalhos, Classes, Administração
+e Ajuda. Preserve busca, identificação de sessão e login/logout quando disponíveis.
+Prefira uma barra superior compacta; adapte a navegação a telas pequenas sem
+ocultar destinos ou sobrepor o conteúdo.
+
+Início:
+- Apresente identidade do servidor e estado observado, se disponíveis.
+- Resuma filas e trabalhos com dados reais e horário da última atualização.
+- Dê prioridade a situações que precisam de atenção.
+- Mostre “Não disponível” quando não houver uma fonte implementada.
+- Não invente uptime, economia, quantidade de impressões ou saúde do servidor.
+
+Impressoras:
+- Tabela com fila, descrição, localização, modelo e estado.
+- Preserve todos os campos existentes e suas ações.
+- Busca e filtros devem funcionar sobre dados reais, com estado vazio explícito.
+- No detalhe, organize propriedades, trabalhos e ações administrativas.
+- Não transforme um estado “ociosa” em garantia de conectividade física.
+
+Trabalhos:
+- Preserve identificação, usuário, tamanho, páginas, estado e ações permitidas.
+- Dê distinção clara a pendente, retido, processando, parado, cancelado,
+  abortado e concluído, conforme os dados existentes.
+- Mantenha as permissões e condições atuais de cancelar, mover, liberar e reimprimir.
+- Use confirmações proporcionais para ações destrutivas, com o alvo explícito.
+
+Administração e ajuda:
+- Agrupe configurações por finalidade e explique consequências relevantes.
+- Mantenha recursos avançados acessíveis e documentados.
+- Use divulgação progressiva para reduzir ruído sem eliminar funcionalidades.
+- Preserve a documentação local e a utilização sem acesso à internet.
+
+4. IA COM UTILIDADE OPERACIONAL
+
+Crie uma área contextual “Assistência de diagnóstico”, acessível a partir de uma
+fila ou ocorrência. Seu propósito é ajudar a entender evidências do sistema.
+O administrador deve conseguir trabalhar normalmente com a IA desligada.
+
+Casos de uso prioritários:
+- Explicar mensagens e estados de impressão em português claro.
+- Resumir eventos relevantes de uma fila dentro de uma janela de tempo.
+- Sugerir hipóteses e verificações com base nos dados realmente consultados.
+- Explicar comandos propostos antes que alguém decida utilizá-los.
+- Preparar um resumo técnico copiável para suporte.
+
+Cada diagnóstico deve separar:
+  Observado: estado ou mensagem real, origem e horário.
+  Hipótese: interpretação possível, explicitamente identificada como hipótese.
+  Verificação: próximo passo e resultado esperado para confirmar ou refutar.
+  Ação sugerida: efeito previsto e permissões necessárias, quando aplicável.
+
+Exemplo de tom, sem apresentar isto como dado real do servidor:
+  Observado: a fila está pausada.
+  Hipótese: a pausa pode ter sido manual ou associada a um erro anterior.
+  Verificação: consultar a mensagem da fila e os eventos correspondentes.
+
+Não atribua uma causa com certeza quando os dados só indicam um sintoma.
+Não invente percentual de confiança, eventos, comandos executados ou fontes.
+Regras determinísticas devem ser identificadas como regras, não como IA generativa.
+
+A integração deve ser opcional e privilegiar execução local. Inspecione o ambiente
+antes de escolher um provedor ou runtime. Separe o adaptador de inferência do
+scheduler e dos processos privilegiados do CUPS. Não exponha inferência ou
+credenciais diretamente no navegador. Defina limites de tempo, tamanho e acesso.
+
+Não habilite acesso externo automaticamente. Se houver provedor remoto, exija
+configuração explícita e mostre quais dados serão enviados. Nunca envie conteúdo
+dos documentos impressos, senhas ou tokens como contexto. Minimize e oculte dados
+pessoais e identificadores desnecessários nos logs usados para diagnóstico.
+
+Trate logs e respostas do modelo como dados não confiáveis: escape a saída,
+impeça HTML arbitrário e não interprete instruções contidas nos logs como comandos.
+A IA não deve executar shell nem alterar filas autonomamente. Eventuais ações
+integradas precisam de operações previamente definidas, validação no servidor,
+autorização existente, confirmação do usuário e registro do resultado real.
+
+Mostre estados explícitos: não configurada, consultando, resposta disponível,
+tempo excedido e falha de conexão. Sem integração real, mostre “IA não configurada”.
+Protótipos com respostas sintéticas devem estar marcados como demonstração.
+
+5. ACESSIBILIDADE E COMPORTAMENTO
+
+Garanta navegação por teclado, foco visível, nomes acessíveis, labels associados,
+hierarquia de títulos e cabeçalhos de tabela identificáveis.
+Verifique contraste de texto e controles; não use cinza muito escuro para conteúdo.
+Respeite prefers-reduced-motion. Transições discretas podem durar 120 a 180 ms.
+Evite atualizações que roubem foco ou interrompam leitura e formulários.
+
+Teste em larguras de 360, 768 e 1440 px e com zoom de 200%.
+Tabelas largas podem usar rolagem horizontal dentro de uma região identificada;
+o documento inteiro não deve transbordar horizontalmente.
+Garanta botões utilizáveis por toque e rodapé sem sobrepor informações.
+Preserve uma versão de impressão clara e econômica.
+
+6. IMPLEMENTAÇÃO E ENTREGA
+
+Execute em etapas:
+1. Registre o estado inicial, os fluxos existentes e alterações já feitas pelo usuário.
+2. Implemente tokens, estrutura responsiva e componentes sobre a interface atual.
+3. Atualize as páginas e traduções afetadas, preservando seus contratos funcionais.
+4. Implemente assistência contextual e integração opcional com limites explícitos.
+5. Valide instalação dos recursos, navegação, formulários e comportamento real.
+
+Não substitua todo o projeto por uma stack nova apenas para mudar o visual.
+Não adicione métricas, gráficos, menus ou botões que aparentem funcionar sem backend.
+Não altere configurações de rede, credenciais ou serviço como efeito colateral visual.
+
+Critérios de aceite:
+- A identidade remete a Unix com discrição e mantém a leitura confortável.
+- As telas principais apresentam uma linguagem visual consistente.
+- Dados, formulários, autenticação e ações existentes continuam funcionando.
+- A interface principal funciona sem serviços externos e sem IA.
+- Os recursos adicionados são incluídos na instalação e servidos corretamente.
+- O modo sem JavaScript preserva os fluxos essenciais que já eram disponíveis.
+- O diagnóstico diferencia evidência, hipótese e ação sugerida.
+- Estados vazios, erro, indisponibilidade e falta de permissão são compreensíveis.
+- Acessibilidade, responsividade e ausência de erros foram verificadas na medida
+  permitida pelo ambiente, com limitações descritas precisamente.
+
+Use verificações proporcionais às mudanças. Valide compilação e testes do CUPS
+quando houver alterações no código C; valide instalação e interface quando mudar
+recursos web. Faça smoke tests com filas e trabalhos isolados de demonstração,
+sem cancelar trabalhos reais nem enviar impressões físicas inesperadas.
+
+Entregue código, instruções para executar, capturas desktop/mobile e um resumo
+do que foi efetivamente testado. Separe funcionamento comprovado, demonstração
+e itens pendentes. Não anuncie IA integrada apenas porque a interface foi criada.
+
+RESULTADO ESPERADO
+
+Uma central de impressão com a precisão e a sobriedade de ferramentas Unix,
+acabamento visual contemporâneo e assistência de diagnóstico transparente.
+Pouco ruído. Informação confiável. Operação clara. Controle local.

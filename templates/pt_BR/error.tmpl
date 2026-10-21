@@ -1,5 +1,65 @@
-<H2 CLASS="title">Erro {?title} {?printer_name}</H2>
+<div class="unix-banner">
+  <div class="unix-banner-header">
+    <span class="unix-prompt-mark">&gt;_</span>
+    <span class="unix-path">/sistema/erro</span>
+    <span class="status-pill status-pill-coral">[FALHA / ERRO]</span>
+  </div>
+  <h1 class="title">Erro em {?title} {?printer_name}</h1>
+  <p class="unix-banner-desc">{?message?{message}:Ocorreu um erro durante a opera&ccedil;&atilde;o solicitada}:</p>
+</div>
 
-<P>{?message?{message}:Erro}:</P>
+<div class="alert-box alert-error">
+  <div class="alert-title">
+    <span>&#x26A0;</span>
+    <span>Mensagem do Subsistema</span>
+  </div>
+  <pre style="margin: 0; background: transparent; border: none; padding: 4px 0; color: inherit; font-size: 13px;">{error}</pre>
+</div>
 
-<BLOCKQUOTE>{error}</BLOCKQUOTE>
+<div class="diag-panel" style="margin-top: 16px;">
+  <div class="diag-header">
+    <div class="diag-title">
+      <span class="diag-icon">&#x2699;</span>
+      <span>Assist&ecirc;ncia de Diagn&oacute;stico Contextual &bull; Root Intelligence</span>
+    </div>
+    <span class="status-pill status-pill-amber">[DIAGN&Oacute;STICO AUTOM&Aacute;TICO]</span>
+  </div>
+
+  <div class="diag-grid">
+    <div class="diag-card diag-card-obs">
+      <div class="diag-card-label">1. Observado</div>
+      <div class="diag-card-content">
+        Falha reportada na execu&ccedil;&atilde;o da requisi&ccedil;&atilde;o <code>{?title}{?printer_name? ({printer_name}):}</code> pelo daemon CUPS.
+      </div>
+    </div>
+
+    <div class="diag-card diag-card-hyp">
+      <div class="diag-card-label">2. Hip&oacute;tese</div>
+      <div class="diag-card-content">
+        Permiss&atilde;o administrativa ausente no grupo <code>lpadmin</code>, backend de dispositivo inacess&iacute;vel na rede, ou fila inv&aacute;lida.
+      </div>
+    </div>
+
+    <div class="diag-card diag-card-ver">
+      <div class="diag-card-label">3. Verifica&ccedil;&atilde;o</div>
+      <div class="diag-card-content">
+        Inspecione as &uacute;ltimas entradas de erro do daemon com o comando:
+        <pre class="command" style="margin-top: 6px;">journalctl -u cups -n 25 --no-pager</pre>
+      </div>
+    </div>
+
+    <div class="diag-card diag-card-act">
+      <div class="diag-card-label">4. A&ccedil;&atilde;o Sugerida</div>
+      <div class="diag-card-content">
+        Verifique as permiss&otilde;es do usu&aacute;rio no arquivo <code>/etc/cups/cups-files.conf</code> ou teste o endere&ccedil;o do dispositivo via <code>ping</code> ou <code>ippfind</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="diag-actions" style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <a href="javascript:history.back()" class="button">&larr; Voltar &agrave; P&aacute;gina Anterior</a>
+    <a href="/printers" class="button">Listar Impressoras</a>
+    <a href="/jobs" class="button">Ver Trabalhos</a>
+    <a href="/admin" class="button">Administra&ccedil;&atilde;o</a>
+  </div>
+</div>

@@ -1,11 +1,36 @@
-{#printer_name=0?:
-<TABLE CLASS="list" SUMMARY="Printer List">
-<THEAD>
-<TR><TH>Queue Name</TH><TH>Description</TH><TH>Location</TH><TH>Make and Model</TH><TH>Status</TH></TR>
-</THEAD>
-<TBODY>
+{#printer_name=0?
+<div class="empty-state-box">
+  <div class="empty-ascii">+----------------------------------------+<br>| &nbsp;[ _ ] &nbsp;No active print queues found &nbsp;|<br>+----------------------------------------+</div>
+  <p class="empty-text">No printers configured or matching the current search criteria.</p>
+  <div class="server-actions-bar">
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Add Printer"></form>
+    <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Find New Printers"></form>
+  </div>
+  <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -p -d <span class="cmd-comment"># Check if cupsd has detected local queues</span></pre>
+</div>
+:
+<div class="table-container">
+<table class="list" summary="Printer List">
+<thead>
+<tr>
+  <th scope="col">Queue Name</th>
+  <th scope="col">Description</th>
+  <th scope="col">Location</th>
+  <th scope="col">Make and Model</th>
+  <th scope="col">Status</th>
+</tr>
+</thead>
+<tbody>
 {[printer_name]
-<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{printer_make_and_model}</TD><TD>{printer_state=3?Idle:{printer_state=4?Processing:Paused}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+<tr>
+  <td><a href="{printer_uri_supported}" class="queue-name">{printer_name}</a></td>
+  <td>{printer_info}</td>
+  <td>{printer_location}</td>
+  <td><code>{printer_make_and_model}</code></td>
+  <td>{printer_state=3?<span class="status-pill idle">&bull; Idle</span>:{printer_state=4?<span class="status-pill processing">&bull; Processing</span>:<span class="status-pill paused">&FilledSmallSquare; Paused</span>}}{printer_state_message?<div class="status-msg">"{printer_state_message}"</div>:}</td>
+</tr>
 }
-</TBODY>
-</TABLE></DIV>}
+</tbody>
+</table>
+</div>
+}

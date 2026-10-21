@@ -1,34 +1,123 @@
-	<h1>{ENV:CUPS_VERSION}</h1>
-	<p>CUPS &eacute; o sistema de impress&atilde;o baseado em padr&otilde;es e de c&oacute;digo aberto desenvolvido pela <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> para Linux® e outros sistemas operacionais similares ao UNIX<sup>&reg;</sup>. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
+	<div class="home-hero">
+	  <div class="hero-header">
+	    <span class="prompt-marker">&gt;_</span>
+	    <h1 class="hero-title">{ENV:CUPS_VERSION}</h1>
+	    <span class="hero-badge">[Root Intelligence &bull; Unix Contemporâneo]</span>
+	  </div>
+	  <p class="hero-desc">CUPS &eacute; o sistema de impress&atilde;o baseado em padr&otilde;es e de c&oacute;digo aberto mantido pela <a href="https://openprinting.github.io/" target="_blank" rel="noopener">OpenPrinting</a> para Linux&reg; e sistemas operacionais similares ao UNIX<sup>&reg;</sup>. Utiliza o padr&atilde;o <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank" rel="noopener">IPP Everywhere&trade;</a> para conex&atilde;o direta a impressoras locais e de rede.</p>
+	</div>
       </div>
+
       <div class="row">
-        <h2 class="title">Servidor</h2>
-	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Adicionar impressora"></form>
-	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Encontrar novas impressoras"></form>
-	<form action="/jobs/" method="GET"><input type="submit" value="Gerenciar trabalhos"></form>
-	<form action="/printers/" method="GET"><input type="submit" value="Gerenciar impressoras"></form>
-	<form action="/admin/" method="GET"><input type="submit" value="Alterar configura&ccedil;&otilde;es"></form>
-        {#alert_title=0?:<p>Alerts:</p>
-        <ul>{[alert_title]
-          <li><a href="{alert_href}">{alert_title}</a></li>}
-        </ul>}
+        <!-- Onboarding Checklist Banner (Amigável para Iniciantes e Entusiastas Linux) -->
+        <div class="onboarding-banner beginner-only" id="onboarding-banner" role="region" aria-label="Primeiros Passos no Linux Printing">
+          <div class="onboarding-header">
+            <div class="onboarding-title-area">
+              <span class="onboarding-icon">🚀</span>
+              <div>
+                <h2 class="onboarding-title">Primeiros Passos no Linux Printing</h2>
+                <p class="onboarding-subtitle">Guia prático para iniciantes e entusiastas no mundo Linux &bull; 100% autônomo e local</p>
+              </div>
+            </div>
+            <div class="onboarding-actions">
+              <button type="button" class="btn-tour-launch" id="btn-start-tour">
+                <span class="tour-icon">✦</span> Tour Rápido Interativo
+              </button>
+            </div>
+          </div>
+          <div class="onboarding-progress-wrapper">
+            <div class="onboarding-progress-bar">
+              <div class="onboarding-progress-fill" id="onboarding-progress-fill" style="width: 33%;"></div>
+            </div>
+            <span class="onboarding-progress-text" id="onboarding-progress-text">1 de 3 concluído</span>
+          </div>
+          <div class="onboarding-checklist" id="onboarding-checklist">
+            <label class="check-item done" data-task="check_printers">
+              <input type="checkbox" checked id="chk-task-printers">
+              <span class="check-box">✓</span>
+              <span class="check-content">
+                <strong>1. Inspecionar as impressoras conectadas</strong>
+                <small>Conheça os dispositivos detectados, URIs de conexão e status de filas em <a href="/printers/">/printers/</a>.</small>
+              </span>
+            </label>
+            <label class="check-item" data-task="send_test_page">
+              <input type="checkbox" id="chk-task-testpage">
+              <span class="check-box"></span>
+              <span class="check-content">
+                <strong>2. Imprimir uma página de teste</strong>
+                <small>Valide o pipeline completo de renderização do CUPS e a resposta do equipamento físico.</small>
+              </span>
+            </label>
+            <label class="check-item" data-task="explore_palette">
+              <input type="checkbox" id="chk-task-palette">
+              <span class="check-box"></span>
+              <span class="check-content">
+                <strong>3. Explorar a Paleta de Comandos (<kbd>Ctrl+K</kbd>)</strong>
+                <small>Busca imediata de filas, ações administrativas rápidas e comandos de terminal para copiar.</small>
+              </span>
+            </label>
+          </div>
+          <div class="onboarding-footer">
+            <span class="onboarding-hint">💡 <em>Dica: Alterne para o <strong>Modo Avançado</strong> no cabeçalho para visualizar métricas brutas IPP e comandos diretos.</em></span>
+          </div>
+        </div>
+
+        <!-- Barra de Telemetria Avançada (Exibida somente no Modo Avançado) -->
+        <div class="advanced-telemetry-bar advanced-only" id="advanced-telemetry-bar">
+          <div class="telemetry-badge">
+            <span class="pulse-indicator"></span>
+            <span>Motor IPP 2.0 / Everywhere Ativo</span>
+          </div>
+          <div class="telemetry-metrics">
+            <span class="metric-item"><span class="metric-label">Escalonador:</span> <code class="metric-value">cupsd (pid auto)</code></span>
+            <span class="metric-item"><span class="metric-label">Diretório de Spool:</span> <code class="metric-value">/var/spool/cups</code></span>
+            <span class="metric-item"><span class="metric-label">Autenticação:</span> <code class="metric-value">Local / PeerCred</code></span>
+            <span class="metric-item"><span class="metric-label">Paleta:</span> <code class="metric-value">Ctrl+K</code></span>
+          </div>
+        </div>
       </div>
+
+      <div class="row">
+        <h2 class="title"><span class="prompt-marker">&gt;_</span> /server &mdash; Servidor e A&ccedil;&otilde;es R&aacute;pidas</h2>
+        <div class="server-actions-bar">
+	  <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Adicionar impressora"></form>
+	  <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Encontrar novas impressoras"></form>
+	  <form action="/printers/" method="GET"><input type="submit" value="Gerenciar impressoras"></form>
+	  <form action="/jobs/" method="GET"><input type="submit" value="Gerenciar trabalhos"></form>
+	  <form action="/admin/" method="GET"><input type="submit" value="Alterar configura&ccedil;&otilde;es"></form>
+        </div>
+
+        {#alert_title=0?:
+        <div class="server-alerts-box" role="alert">
+          <div class="alerts-title">&Delta; Alertas do Sistema:</div>
+          <ul>{[alert_title]
+            <li><a href="{alert_href}">{alert_title}</a></li>}
+          </ul>
+        </div>}
+
+        <div class="cli-quickref">
+          <div class="quickref-header">Comandos de Terminal para Diagnóstico Rápido:</div>
+          <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -p -d <span class="cmd-comment"># Exibir status de todas as filas e verificar qual é o destino padrão</span></pre>
+          <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -o <span class="cmd-comment"># Consultar trabalhos ativos no spooler local do CUPS</span></pre>
+        </div>
+      </div>
+
       <div class="row">
 	<div class="thirds">
 	  <h2 class="title">CUPS para usu&aacute;rios</h2>
-	  <p><a href="help/overview.html">Vis&atilde;o geral do CUPS</a></p>
-	  <p><a href="help/options.html">Impress&atilde;o e op&ccedil;&otilde;es em linha de comando</a></p>
+	  <p><a href="/help/overview.html">Vis&atilde;o geral do CUPS</a></p>
+	  <p><a href="/help/options.html">Impress&atilde;o e op&ccedil;&otilde;es em linha de comando</a></p>
 	</div>
 	<div class="thirds">
 	  <h2 class="title">CUPS para administradores</h2>
-	  <p><a href="help/admin.html">Adicionar impressoras e classes</a></p>
-	  <p><a href="help/policies.html">Gerenciar pol&iacute;ticas de opera&ccedil;&atilde;o</a></p>
-	  <p><a href="help/network.html">Usar impressoras de rede</a></p>
-	  <p><a href="help/firewalls.html">Firewalls</a></p>
-	  <p><a href="help/man-cupsd.conf.html">Refer&ecirc;ncia para o cupsd.conf</a></p>
+	  <p><a href="/help/admin.html">Adicionar impressoras e classes</a></p>
+	  <p><a href="/help/policies.html">Gerenciar pol&iacute;ticas de opera&ccedil;&atilde;o</a></p>
+	  <p><a href="/help/network.html">Usar impressoras de rede</a></p>
+	  <p><a href="/help/firewalls.html">Firewalls</a></p>
+	  <p><a href="/help/man-cupsd.conf.html">Refer&ecirc;ncia para o cupsd.conf</a></p>
 	</div>
 	<div class="thirds">
 	  <h2 class="title">CUPS para desenvolvedores</h2>
-	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
-	  <p><a href="help/api-filter.html">Programa&ccedil;&atilde;o de filtros e backend</a></p>
+	  <p><a href="/help/cupspm.html">CUPS Programming Manual</a></p>
+	  <p><a href="/help/api-filter.html">Programa&ccedil;&atilde;o de filtros e backend</a></p>
 	</div>

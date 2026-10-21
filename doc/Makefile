@@ -17,6 +17,7 @@ WEBPAGES	=	\
 			apple-touch-icon.png \
 			cups.css \
 			cups-printable.css \
+			cups.js \
 			robots.txt
 WEBIMAGES	=	\
 			images/cups.png \

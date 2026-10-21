@@ -1,10 +1,16 @@
-<FORM ACTION="/{SECTION}/{?SEARCH_DEST}" METHOD="GET">
-{WHICH_JOBS?<INPUT TYPE="HIDDEN" NAME="WHICH_JOBS" VALUE="{WHICH_JOBS}">:}
-{ORDER?<INPUT TYPE="HIDDEN" NAME="ORDER" VALUE="{ORDER}">:}
+<div class="search-bar-container">
+<form action="/{SECTION}/{?SEARCH_DEST}" method="GET" role="search" class="section-search-form">
+{WHICH_JOBS?<input type="hidden" name="WHICH_JOBS" value="{WHICH_JOBS}">:}
+{ORDER?<input type="hidden" name="ORDER" value="{ORDER}">:}
 
-<P ALIGN="CENTER"><B>Pesquisar em
-{SEARCH_DEST?{SEARCH_DEST}:{SECTION=classes?classes:{SECTION=jobs?trabalhos:impressoras}}}:</B>
-<INPUT TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40"  PLACEHOLDER="" AUTOSAVE="org.cups.{SECTION}" RESULTS="20"> <INPUT
-TYPE="SUBMIT" VALUE="Pesquisar"> <INPUT TYPE="SUBMIT" NAME="CLEAR" VALUE="Limpar"></P>
+<div class="search-inputs-group">
+  <label for="section-search-input" class="search-label">
+    <span class="prompt-marker">&gt;_</span> Pesquisar em <strong>{SEARCH_DEST?{SEARCH_DEST}:{SECTION=classes?classes:{SECTION=jobs?trabalhos:impressoras}}}</strong>:
+  </label>
+  <input type="search" id="section-search-input" name="QUERY" value="{?QUERY}" size="36" placeholder="Filtrar por nome ou detalhes (/)..." autosave="org.cups.{SECTION}" results="20" aria-label="Pesquisar">
+  <input type="submit" value="Pesquisar">
+  <input type="submit" name="CLEAR" value="Limpar">
+</div>
 
-</FORM>
+</form>
+</div>

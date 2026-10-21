@@ -1,34 +1,123 @@
-	<h1>{ENV:CUPS_VERSION}</h1>
-	<p>The standards-based, open source printing system developed by <a class="jumbolink" href="https://openprinting.github.io/" target="_blank">OpenPrinting</a> for Linux® and other Unix®-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank">IPP Everywhere™</a> to support printing to local and network printers.</p>
+	<div class="home-hero">
+	  <div class="hero-header">
+	    <span class="prompt-marker">&gt;_</span>
+	    <h1 class="hero-title">{ENV:CUPS_VERSION}</h1>
+	    <span class="hero-badge">[Root Intelligence &bull; Contemporary Unix]</span>
+	  </div>
+	  <p class="hero-desc">The standards-based, open source printing system developed and maintained by <a href="https://openprinting.github.io/" target="_blank" rel="noopener">OpenPrinting</a> for Linux&reg; and other Unix&reg;-like operating systems. CUPS uses <a href="https://www.pwg.org/ipp/everywhere.html" target="_blank" rel="noopener">IPP Everywhere&trade;</a> to support direct printing to local and network printers.</p>
+	</div>
       </div>
+
       <div class="row">
-        <h2 class="title">This System</h2>
-	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Add Printer"></form>
-	<form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Find New Printers"></form>
-	<form action="/jobs/" method="GET"><input type="submit" value="Manage Jobs"></form>
-	<form action="/printers/" method="GET"><input type="submit" value="Manage Printers"></form>
-	<form action="/admin/" method="GET"><input type="submit" value="Manage System Settings"></form>
-        {#alert_title=0?:<p>Alerts:</p>
-        <ul>{[alert_title]
-          <li><a href="{alert_href}">{alert_title}</a></li>}
-        </ul>}
+        <!-- Onboarding Checklist Banner (Friendly for Beginners & Linux Enthusiasts) -->
+        <div class="onboarding-banner beginner-only" id="onboarding-banner" role="region" aria-label="Linux Printing Onboarding">
+          <div class="onboarding-header">
+            <div class="onboarding-title-area">
+              <span class="onboarding-icon">🚀</span>
+              <div>
+                <h2 class="onboarding-title">Getting Started with Linux Printing</h2>
+                <p class="onboarding-subtitle">Essential checklist for new users and Linux enthusiasts &bull; Everything runs locally</p>
+              </div>
+            </div>
+            <div class="onboarding-actions">
+              <button type="button" class="btn-tour-launch" id="btn-start-tour">
+                <span class="tour-icon">✦</span> Interactive Quick Tour
+              </button>
+            </div>
+          </div>
+          <div class="onboarding-progress-wrapper">
+            <div class="onboarding-progress-bar">
+              <div class="onboarding-progress-fill" id="onboarding-progress-fill" style="width: 33%;"></div>
+            </div>
+            <span class="onboarding-progress-text" id="onboarding-progress-text">1 of 3 completed</span>
+          </div>
+          <div class="onboarding-checklist" id="onboarding-checklist">
+            <label class="check-item done" data-task="check_printers">
+              <input type="checkbox" checked id="chk-task-printers">
+              <span class="check-box">✓</span>
+              <span class="check-content">
+                <strong>1. Inspect connected printers</strong>
+                <small>View discovered devices, IPP Everywhere endpoints, and queue states in <a href="/printers/">/printers/</a>.</small>
+              </span>
+            </label>
+            <label class="check-item" data-task="send_test_page">
+              <input type="checkbox" id="chk-task-testpage">
+              <span class="check-box"></span>
+              <span class="check-content">
+                <strong>2. Print a diagnostic test page</strong>
+                <small>Send a test page to verify the complete rendering pipeline and hardware connection.</small>
+              </span>
+            </label>
+            <label class="check-item" data-task="explore_palette">
+              <input type="checkbox" id="chk-task-palette">
+              <span class="check-box"></span>
+              <span class="check-content">
+                <strong>3. Discover the Command Palette (<kbd>Ctrl+K</kbd>)</strong>
+                <small>Instant queue search, administrative actions, and terminal CLI helpers at your fingertips.</small>
+              </span>
+            </label>
+          </div>
+          <div class="onboarding-footer">
+            <span class="onboarding-hint">💡 <em>Tip: Switch to <strong>Advanced Mode</strong> in the top menu to view raw IPP metrics and direct CLI telemetry.</em></span>
+          </div>
+        </div>
+
+        <!-- Advanced Telemetry Bar (Visible only in Advanced Mode) -->
+        <div class="advanced-telemetry-bar advanced-only" id="advanced-telemetry-bar">
+          <div class="telemetry-badge">
+            <span class="pulse-indicator"></span>
+            <span>IPP 2.0 / Everywhere Engine Active</span>
+          </div>
+          <div class="telemetry-metrics">
+            <span class="metric-item"><span class="metric-label">Scheduler:</span> <code class="metric-value">cupsd (pid auto)</code></span>
+            <span class="metric-item"><span class="metric-label">Spool Dir:</span> <code class="metric-value">/var/spool/cups</code></span>
+            <span class="metric-item"><span class="metric-label">Auth:</span> <code class="metric-value">Local / PeerCred</code></span>
+            <span class="metric-item"><span class="metric-label">Palette:</span> <code class="metric-value">Ctrl+K</code></span>
+          </div>
+        </div>
       </div>
+
+      <div class="row">
+        <h2 class="title"><span class="prompt-marker">&gt;_</span> /server &mdash; System &amp; Quick Actions</h2>
+        <div class="server-actions-bar">
+	  <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="add-printer"><input type="submit" value="Add Printer"></form>
+	  <form action="/admin/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="hidden" name="OP" value="find-new-printers"><input type="submit" value="Find New Printers"></form>
+	  <form action="/printers/" method="GET"><input type="submit" value="Manage Printers"></form>
+	  <form action="/jobs/" method="GET"><input type="submit" value="Manage Jobs"></form>
+	  <form action="/admin/" method="GET"><input type="submit" value="Manage System Settings"></form>
+        </div>
+
+        {#alert_title=0?:
+        <div class="server-alerts-box" role="alert">
+          <div class="alerts-title">&Delta; System Alerts:</div>
+          <ul>{[alert_title]
+            <li><a href="{alert_href}">{alert_title}</a></li>}
+          </ul>
+        </div>}
+
+        <div class="cli-quickref">
+          <div class="quickref-header">Terminal Commands for Quick Diagnostics:</div>
+          <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -p -d <span class="cmd-comment"># List status of all print queues and system default printer</span></pre>
+          <pre class="cli-block"><span class="cmd-prompt">$</span> lpstat -o <span class="cmd-comment"># Query active jobs in the local CUPS spooler</span></pre>
+        </div>
+      </div>
+
       <div class="row">
 	<div class="thirds">
 	  <h2 class="title">Help for Users</h2>
-	  <p><a href="help/overview.html">Overview of CUPS</a></p>
-	  <p><a href="help/options.html">Command-Line Printing and Options</a></p>
+	  <p><a href="/help/overview.html">Overview of CUPS</a></p>
+	  <p><a href="/help/options.html">Command-Line Printing and Options</a></p>
 	</div>
 	<div class="thirds">
 	  <h2 class="title">Help for Administrators</h2>
-	  <p><a href="help/admin.html">Adding Printers and Classes</a></p>
-	  <p><a href="help/policies.html">Managing Operation Policies</a></p>
-	  <p><a href="help/network.html">Using Network Printers</a></p>
-	  <p><a href="help/firewalls.html">Firewalls</a></p>
-	  <p><a href="help/man-cupsd.conf.html">cupsd.conf Reference</a></p>
+	  <p><a href="/help/admin.html">Adding Printers and Classes</a></p>
+	  <p><a href="/help/policies.html">Managing Operation Policies</a></p>
+	  <p><a href="/help/network.html">Using Network Printers</a></p>
+	  <p><a href="/help/firewalls.html">Firewalls</a></p>
+	  <p><a href="/help/man-cupsd.conf.html">cupsd.conf Reference</a></p>
 	</div>
 	<div class="thirds">
 	  <h2 class="title">Help for Developers</h2>
-	  <p><a href="help/cupspm.html">CUPS Programming Manual</a></p>
-	  <p><a href="help/api-filter.html">Filter and Backend Programming</a></p>
+	  <p><a href="/help/cupspm.html">CUPS Programming Manual</a></p>
+	  <p><a href="/help/api-filter.html">Filter and Backend Programming</a></p>
 	</div>

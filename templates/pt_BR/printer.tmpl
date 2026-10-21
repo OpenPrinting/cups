@@ -1,43 +1,75 @@
-<H1 CLASS="title"><A HREF="{printer_uri_supported}">{printer_name}</A>
-({printer_state=3?ociosa:{printer_state=4?processando:pausada}},
-{printer_is_accepting_jobs=0?rejeitando trabalhos:aceitando trabalhos},
-{server_is_sharing_printers=0?n&atilde;o compartilhada:{printer_is_shared=0?n&atilde;o compartilhada:compartilhada}} {default_name={printer_name}?, padr&atilde;o do servidor:})</H1>
+<div class="printer-detail-header">
+  <div class="detail-title-line">
+    <span class="prompt-marker">&gt;_</span>
+    <h1 class="title-inline"><a href="{printer_uri_supported}" class="queue-name">{printer_name}</a></h1>
+    <div class="status-pill-group">
+      {printer_state=3?<span class="status-pill idle">&bull; Ociosa</span>:{printer_state=4?<span class="status-pill processing">&bull; Processando</span>:<span class="status-pill paused">&FilledSmallSquare; Pausada</span>}}
+      {printer_is_accepting_jobs=0?<span class="status-pill stopped">&times; Rejeitando trabalhos</span>:<span class="status-pill idle">&check; Aceitando trabalhos</span>}
+      {server_is_sharing_printers=0?<span class="status-pill stopped">N&atilde;o compartilhada</span>:{printer_is_shared=0?<span class="status-pill stopped">N&atilde;o compartilhada</span>:<span class="status-pill idle">Compartilhada</span>}}
+      {default_name={printer_name}?<span class="status-pill default">&starf; Padr&atilde;o do Servidor</span>:}
+    </div>
+  </div>
 
-<FORM METHOD="POST" ACTION="{printer_uri_supported}" NAME="maintenance">
-<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
-<SELECT NAME="OP" ONCHANGE="document.maintenance.submit();">
-<OPTION VALUE="">Manuten&ccedil;&atilde;o</OPTION>
-<OPTION VALUE="print-test-page">Imprimir p&aacute;gina de teste</OPTION>
-{printer_commands~.*Clean.*?<OPTION VALUE="clean-print-heads">Limpar cabe&ccedil;as de impress&atilde;o</OPTION>:}
-{printer_commands~.*PrintSelfTestPage.*?<OPTION VALUE="print-self-test-page">Imprimir p&aacute;gina de auto-teste</OPTION>:}
-{printer_state=5?<OPTION VALUE="start-printer">Pausar impressora</OPTION>:<OPTION VALUE="stop-printer">Pausar impressora</OPTION>}
-{printer_is_accepting_jobs=0?<OPTION VALUE="accept-jobs">Aceitar trabalhos</OPTION>:<OPTION VALUE="reject-jobs">Rejeitar trabalhos</OPTION>}
-<OPTION VALUE="move-jobs">Mover todos trabalhos</OPTION>
-<OPTION VALUE="cancel-jobs">Cancelar todos trabalhos</OPTION>
-</SELECT>
-<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="Ir"></NOSCRIPT>
-</FORM>
+  <div class="printer-actions-toolbar">
+    <form method="POST" action="{printer_uri_supported}" name="maintenance">
+      <input type="hidden" name="org.cups.sid" value="{$org.cups.sid}">
+      <select name="OP" onchange="document.maintenance.submit();" aria-label="Ações de Manutenção">
+        <option value="">Manuten&ccedil;&atilde;o &hellip;</option>
+        <option value="print-test-page">Imprimir p&aacute;gina de teste</option>
+        {printer_commands~.*Clean.*?<option value="clean-print-heads">Limpar cabe&ccedil;as de impress&atilde;o</option>:}
+        {printer_commands~.*PrintSelfTestPage.*?<option value="print-self-test-page">Imprimir p&aacute;gina de auto-teste</option>:}
+        {printer_state=5?<option value="start-printer">Retomar impressora</option>:<option value="stop-printer">Pausar impressora</option>}
+        {printer_is_accepting_jobs=0?<option value="accept-jobs">Aceitar trabalhos</option>:<option value="reject-jobs">Rejeitar trabalhos</option>}
+        <option value="move-jobs">Mover todos trabalhos</option>
+        <option value="cancel-jobs">Cancelar todos trabalhos</option>
+      </select>
+      <noscript><input type="submit" value="Ir"></noscript>
+    </form>
 
-<FORM METHOD="POST" ACTION="{admin_uri}" NAME="administration">
-<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
-<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
-<SELECT NAME="OP" ONCHANGE="document.administration.submit();">
-<OPTION VALUE="">Administra&ccedil;&atilde;o</OPTION>
-<OPTION VALUE="modify-printer">Modificar impressora</OPTION>
-<OPTION VALUE="delete-printer">Excluir impressora</OPTION>
-<OPTION VALUE="set-printer-options">Definir op&ccedil;&otilde;es padr&otilde;es</OPTION>
-<OPTION VALUE="set-as-default">Definir com padr&atilde;o do servidor</OPTION>
-<OPTION VALUE="set-allowed-users">Definir usu&aacute;rios permitidos</OPTION>
-</SELECT>
-<NOSCRIPT><INPUT TYPE="SUBMIT" VALUE="Ir"></NOSCRIPT>
-</FORM>
+    <form method="POST" action="{admin_uri}" name="administration">
+      <input type="hidden" name="org.cups.sid" value="{$org.cups.sid}">
+      <input type="hidden" name="printer_name" value="{printer_name}">
+      <select name="OP" onchange="document.administration.submit();" aria-label="Ações de Administração">
+        <option value="">Administra&ccedil;&atilde;o &hellip;</option>
+        <option value="modify-printer">Modificar impressora</option>
+        <option value="delete-printer">Excluir impressora</option>
+        <option value="set-printer-options">Definir op&ccedil;&otilde;es padr&otilde;es</option>
+        <option value="set-as-default">Definir como padr&atilde;o do servidor</option>
+        <option value="set-allowed-users">Definir usu&aacute;rios permitidos</option>
+      </select>
+      <noscript><input type="submit" value="Ir"></noscript>
+    </form>
+  </div>
+</div>
 
-<TABLE SUMMARY="{printer_name}">
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Descri&ccedil;&atilde;o:</TH><TD>{printer_info}</TD></TR>
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Localiza&ccedil;&atilde;o:</TH><TD>{printer_location}</TD></TR>
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Driver:</TH><TD>{printer_make_and_model} ({color_supported=1?color:grayscale}{sides_supported?, 2-sided printing:})<BR>
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Conex&atilde;o:</TH><TD>{device_uri}</TD></TR>
-<TR><TH ALIGN="RIGHT" VALIGN="TOP">Padr&otilde;es:</TH><TD>job-sheets={job_sheets_default}
-media={media_default?{media_default}:desconhecido}
-{sides_default?sides={sides_default}:}</TD></TR>
-</TABLE>
+<div class="table-container">
+  <table class="indent" summary="{printer_name}">
+    <tbody>
+      <tr><th class="label" scope="row">Descri&ccedil;&atilde;o:</th><td>{printer_info}</td></tr>
+      <tr><th class="label" scope="row">Localiza&ccedil;&atilde;o:</th><td>{printer_location}</td></tr>
+      <tr><th class="label" scope="row">Driver:</th><td><code>{printer_make_and_model}</code> ({color_supported=1?color:grayscale}{sides_supported?, 2-sided printing:})</td></tr>
+      <tr><th class="label" scope="row">Conex&atilde;o:</th><td><code class="mono-val">{device_uri}</code></td></tr>
+      <tr><th class="label" scope="row">Padr&otilde;es:</th><td><code class="mono-val">job-sheets={job_sheets_default} media={media_default?{media_default}:desconhecido} {sides_default?sides={sides_default}:}</code></td></tr>
+      {printer_state_message?<tr><th class="label" scope="row">Mensagem&#58;</th><td><blockquote class="printer-msg">"{printer_state_message}"</blockquote></td></tr>:}
+    </tbody>
+  </table>
+</div>
+
+<!-- Área Contextual: Assistência de Diagnóstico (Root Intelligence) -->
+<div class="diagnostic-assistant-mount" data-queue="{printer_name}" data-state="{printer_state}" data-message="{?printer_state_message}" data-uri="{device_uri}" data-accepting="{printer_is_accepting_jobs}">
+  <noscript>
+    <div class="diagnostic-panel" role="region" aria-labelledby="diag-panel-title-ns">
+      <div class="diag-header">
+        <span class="prompt-marker">&gt;_</span>
+        <span id="diag-panel-title-ns" class="diag-title">Assistência de Diagnóstico [Regra Local Estática]</span>
+      </div>
+      <div class="diag-body">
+        <div class="diag-card">
+          <p><strong>Observado:</strong> Fila {printer_name} em estado {printer_state=3?Ociosa:{printer_state=4?Processando:Pausada}}.</p>
+          <p><strong>Verificação via terminal:</strong> Execute <code>lpstat -p {printer_name} -l</code> para ver detalhes do spooler.</p>
+          <pre class="cli-block"><span class="cmd-prompt">$</span> cupsenable {printer_name}</pre>
+        </div>
+      </div>
+    </div>
+  </noscript>
+</div>

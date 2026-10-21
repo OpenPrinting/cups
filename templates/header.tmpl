@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" href="/cups.css" type="text/css">
     <link rel="shortcut icon" href="/apple-touch-icon.png" type="image/png">
@@ -7,8 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     {refresh_page?<meta http-equiv="refresh" content="{refresh_page}">:}
     <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>html{display:none;}</style>
+    <noscript><style>html{display:block!important;}</style></noscript>
     <script type="text/javascript"><!--
       /* Only display document if we are not in a frame... */
       if (self == top) {
@@ -24,22 +25,25 @@
 	}
       }
     --></SCRIPT>
+    <script src="/cups.js" defer></script>
     <title>{title} - {ENV:CUPS_VERSION}</title>
   </head>
   <body onload="check_cookies();">
-    <div class="cups-header">
+    <nav class="cups-header" role="navigation" aria-label="Main Navigation">
       <ul>
-	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank"><img src="/images/cups.png" width="32" height="32" alt="OpenPrinting CUPS"></a></li>
-	<li><a {SECTION=home?class="active" :}href="/">Home</a></li>
-	<li><a {SECTION=admin?class="active" :}href="/admin">Administration</a></li>
-	<li><a {SECTION=classes?class="active" :}href="/classes/">Classes</a></li>
-	<li><a {SECTION=help?class="active" :}href="/help/">Help</a></li>
-	<li><a {SECTION=jobs?class="active" :}href="/jobs/">Jobs</a></li>
-	<li><a {SECTION=printers?class="active" :}href="/printers/">Printers</a></li>
-	<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="10" placeholder="" autosave="org.cups.site" results="20"><input type="submit" name="SEARCH" value="Search"></form></li>
+	<li><a class="img" href="https://openprinting.github.io/cups/" target="_blank" title="OpenPrinting CUPS"><img src="/images/cups.png" width="28" height="28" alt="OpenPrinting CUPS"><span class="prompt-glyph" aria-hidden="true">&gt;_</span></a></li>
+	<li><a {SECTION=home?class="active" :}href="/" title="/home">Home</a></li>
+	<li><a {SECTION=admin?class="active" :}href="/admin" title="/admin">Administration</a></li>
+	<li><a {SECTION=classes?class="active" :}href="/classes/" title="/classes">Classes</a></li>
+	<li><a {SECTION=help?class="active" :}href="/help/" title="/help">Help</a></li>
+	<li><a {SECTION=jobs?class="active" :}href="/jobs/" title="/jobs">Jobs</a></li>
+	<li><a {SECTION=printers?class="active" :}href="/printers/" title="/printers">Printers</a></li>
+	<li class="nav-cmd-item"><button type="button" class="btn-cmd-palette" id="btn-cmd-palette" title="Command Palette (Ctrl+K)" aria-label="Open Command Palette"><span class="cmd-icon">&gt;_</span> <span class="cmd-text">Palette</span> <kbd class="kbd-badge">Ctrl+K</kbd></button></li>
+	<li class="nav-mode-item"><button type="button" class="mode-toggle-btn" id="mode-toggle-btn" title="Toggle Beginner / Advanced Mode" aria-label="Toggle user mode"><span class="mode-indicator-dot" aria-hidden="true"></span><span class="mode-label-text">Mode: Beginner</span></button></li>
+	<li class="right"><form action="/" method="POST" role="search"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="search" name="QUERY" value="{?QUERY}" size="14" placeholder="Search (/)..." autosave="org.cups.site" results="20" aria-label="Search server"><input type="submit" name="SEARCH" value="Search"></form></li>
 	{?ENV:CUPS_OAUTH_SERVER=?:<li class="right"><form action="/" method="POST"><input type="hidden" name="org.cups.sid" value="{$org.cups.sid}"><input type="submit" name="{?ENV:REMOTE_USER=?LOGIN:LOGOUT}" value="{?ENV:REMOTE_USER=?Login:Logout}"></form></li>}
 	<li class="right"><span class="label">{?ENV:REMOTE_NAME=?Guest:{ENV:REMOTE_NAME}}</span></li>
       </ul>
-    </div>
-    <div class="cups-body">
+    </nav>
+    <main class="cups-body" role="main">
       <div class="row">
