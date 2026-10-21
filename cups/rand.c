@@ -7,7 +7,7 @@
 // information.
 //
 
-#include "cups.h"
+#include "cups-private.h"
 #if !defined(_WIN32) && !defined(__APPLE__)
 #  include <unistd.h>
 #  include <fcntl.h>
