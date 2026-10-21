@@ -51,7 +51,7 @@ cupsGetRand(void)
 
   // Try getting random data from the TLS library...
 #  ifdef HAVE_OPENSSL
-  if (RAND_bytes(&i, (int)sizeof(i)) > 0)
+  if (RAND_bytes((unsigned char *)&i, (int)sizeof(i)) > 0)
     return (i);
 
 #  else
