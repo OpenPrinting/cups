@@ -3042,6 +3042,10 @@ avahi_poll_cb(struct pollfd *ufds,	// I - File descriptors for poll
   ret = poll(ufds, nfds, timeout);
   DEBUG_printf("4avahi_poll_cb: poll() returned %d...", ret);
 
+  // Prevent fast loops consuming all CPU...
+  if (ret <= 0)
+    usleep(1000);
+
   DEBUG_puts("4avahi_poll_cb: Locking mutex.");
   cupsMutexLock(&dnssd->mutex);
 
