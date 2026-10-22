@@ -1,0 +1,117 @@
+#! /bin/sh
+#
+# Script to initialize and manage the cups-browsed service in a Snap environment.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
+set -e -x
+
+mkdir -p $SNAP_DATA/var/log
+mkdir -p $SNAP_DATA/var/cache
+mkdir -p $SNAP_DATA/var/run
+mkdir -p $SNAP_COMMON/etc/cups
+
+CONF=$SNAP_COMMON/etc/cups/cups-browsed.conf
+CLIENTCONF=$SNAP_COMMON/etc/cups/client.conf
+DAEMON=cups-browsed
+
+# Set UTF-8
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+# Set a general TMPDIR
+TMPDIR=$SNAP_DATA/tmp
+mkdir -p $TMPDIR
+
+# Activate debug logging of the libcups used by cups-browsed
+# (Needs "- --enable-debug-printfs" be uncommented in CUPS' configflags
+#  in snapcraft.yaml)
+#export CUPS_DEBUG_LOG=$SNAP_DATA/var/log/cups-browsed-debug_log
+#export CUPS_DEBUG_LEVEL=99
+
+# Set paths to CUPS resources in the CUPS snap for libcups used by
+# cups-browsed. This is usually not needed, only to work around CUPS
+# bugs.
+
+#export CUPS_CACHEDIR=$SNAP_DATA/var/cache
+#export CUPS_DATADIR=$SNAP_DATA/share/cups
+#export CUPS_DOCROOT=$SNAP_DATA/share/doc/cups
+#export CUPS_FONTPATH=$SNAP_DATA/share/cups/fonts
+#export CUPS_REQUESTROOT=$SNAP_DATA/var/spool
+#export CUPS_SERVERBIN=$SNAP_DATA/lib/cups
+#export CUPS_SERVERROOT=$SNAP_COMMON/etc/cups
+#export CUPS_STATEDIR=$SNAP_DATA/var/run
+
+# Wait for this Snap's CUPS coming up before preparing
+# cups-browsed.conf and starting cups-browsed, to assure
+# that it attaches to the correct CUPS
+CUPSSTARTED=0
+for i in $(seq 60); do
+    if [ -r ${SNAP_DATA}/var/run/cupsd.pid ]; then
+	PID=$(cat "${SNAP_DATA}/var/run/cupsd.pid" || true)
+	if [ -n "${PID}" ] && kill -0 "${PID}" 2>/dev/null; then
+	    CUPSSTARTED=1
+	    break;
+	fi
+    fi
+    sleep 1
+done
+if [ "${CUPSSTARTED}" = "0" ]; then
+    echo "ERROR: CUPS startup timed out"
+    exit 1
+fi
+
+PID=
+
+# Check whether CUPS is running in proxy mode, if so, do not run cups-browsed
+if  [ ! -e $SNAP_DATA/var/run/proxy-mode ]; then
+    # Standard mode, start cups-browsed
+
+    # Read domain socket from CUPS' client.conf
+    DOMAINSOCKET=`grep -i ServerName $CLIENTCONF | cut -d ' ' -f 2`
+
+    export CUPS_SERVER=$DOMAINSOCKET
+
+    # Create cups-browsed.conf if not already present
+    if  [ ! -f $CONF ]; then
+	# Get upstream default config file
+	cp $SNAP/etc/cups/cups-browsed.conf $CONF
+	# Edit the configuration file
+	perl -p -i \
+	     -e 's:^#\s*DebugLogging\s+file\s*$:DebugLogging file\n:;' \
+	     -e 's:^(#\s*)?BrowseRemoteProtocols\s+.*\s*$:BrowseRemoteProtocols dnssd cups\n:;' \
+	     -e 's:^#\s*CreateIPPPrinterQueues\s+All\s*$:CreateIPPPrinterQueues All\n:;' \
+	     -e 's:^(#\s*)?DebugLogFileSize\s+.*\s*$:DebugLogFileSize 30000\n:;' \
+	     $CONF
+    fi
+
+    # Set paths for the snap
+    perl -p -i \
+	 -e 's:^(\s*\#)?\s*CacheDir\s+\S+\s*$:CacheDir '"$SNAP_DATA"'/var/cache\n:;' \
+	 -e 's:^(\s*\#)?\s*LogDir\s+\S+\s*$:LogDir '"$SNAP_DATA"'/var/log\n:;' \
+	 -e 's:^(\s*\#)?\s*DomainSocket\s+/\S+\s*$:DomainSocket '"$DOMAINSOCKET"'\n:;' \
+	 $CONF
+
+    # Spawn cups-browsed in a way that we can grab its PID
+    exec $DAEMON -c $CONF &
+    PID=$!
+else
+    # Proxy mode, do not start cups-browsed
+
+    # Spawn a dummy daemon in a way that we can grab its PID
+    # The dummy daemon keeps this script running and can be stopped by
+    # stop-cups-browsed the same way as cups-browsed
+    ( while true; do sleep 3600; done ) &
+    PID=$!
+fi
+
+echo $PID > $SNAP_DATA/var/run/cups-browsed.pid
+
+# Keep this script running until cups-browsed terminates
+wait $PID
+
+# Remove PID file as process is done
+rm -f $SNAP_DATA/var/run/cups-browsed.pid
