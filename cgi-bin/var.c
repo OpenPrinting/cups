@@ -11,6 +11,7 @@
 
 /*#define DEBUG*/
 #include "cgi-private.h"
+#include <errno.h>
 #include <cups/http.h>
 
 
@@ -52,6 +53,30 @@ static int		cgi_compare_variables(const _cgi_var_t *v1,
 static _cgi_var_t	*cgi_find_variable(const char *name);
 static void		cgi_initialize_cookies(void);
 static int		cgi_initialize_get(void);
+
+/*
+ * '_cups_parse_index()' - Parse an array index from a form field suffix.
+ *
+ * Returns the 0-based index, or -1 if the value is missing, non-numeric,
+ * out of range, or would overflow.
+ */
+static int
+_cups_parse_index(const char *s)
+{
+  char	*endptr = NULL;
+  long	value;
+
+  errno = 0;
+  value = strtol(s, &endptr, 10);
+  if (errno == ERANGE || endptr == s || *endptr)
+    return (-1);
+  if (value < 1 || value > 100001)
+    return (-1);
+
+  return ((int)value - 1);
+}
+
+
 static int		cgi_initialize_multipart(const char *boundary);
 static int		cgi_initialize_post(void);
 static int		cgi_initialize_string(const char *data);
@@ -97,7 +122,7 @@ cgiCheckVariables(const char *names)	/* I - Variables to look for */
     if ((s = strrchr(name, '-')) != NULL)
     {
       *s      = '\0';
-      element = atoi(s + 1) - 1;
+      element = _cups_parse_index(s + 1);
       val     = cgiGetArray(name, element);
     }
     else
@@ -985,7 +1010,7 @@ cgi_initialize_multipart(
 
 	  *ptr++ = '\0';
 	  if (line[0])
-            cgiSetArray(name, atoi(ptr) - 1, line);
+            cgiSetArray(name, _cups_parse_index(ptr), line);
 	}
 	else if ((ptr = cgiGetVariable(name)) != NULL)
 	{
@@ -1258,7 +1283,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     {
       *s++ = '\0';
       if (value[0])
-        cgiSetArray(name, atoi(s) - 1, value);
+        cgiSetArray(name, _cups_parse_index(s), value);
     }
     else if ((temp = cgiGetVariable(name)) != NULL)
     {
