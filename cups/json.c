@@ -256,7 +256,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
   while (current)
   {
-    if (current->parent && current->parent->value.child != current)
+    if (current != json && current->parent && current->parent->value.child != current)
       length ++;			// Comma or colon separator
 
     switch (current->type)
@@ -301,6 +301,11 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       // Descend
       current = current->value.child;
     }
+    else if (current == json)
+    {
+      // Done with the node being exported...
+      current = NULL;
+    }
     else if (current->sibling)
     {
       // Visit sibling
@@ -312,7 +317,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       current = current->parent;
       while (current)
       {
-        if (current->sibling)
+        if (current == json)
+        {
+          current = NULL;
+          break;
+        }
+        else if (current->sibling)
 	{
 	  current = current->sibling;
 	  break;
@@ -341,7 +351,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
   while (current)
   {
-    if (current->parent && current->parent->value.child != current)
+    if (current != json && current->parent && current->parent->value.child != current)
     {
       // Add separator
       if (current->type == CUPS_JTYPE_KEY || current->parent->type == CUPS_JTYPE_ARRAY)
@@ -449,7 +459,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       else if (current->type == CUPS_JTYPE_OBJECT)
         *ptr++ = '}';
 
-      if (current->sibling)
+      if (current == json)
+      {
+	// Done with the node being exported...
+	current = NULL;
+      }
+      else if (current->sibling)
       {
 	// Visit sibling
 	current = current->sibling;
@@ -465,7 +480,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 	  else if (current->type == CUPS_JTYPE_OBJECT)
 	    *ptr++ = '}';
 
-	  if (current->sibling)
+	  if (current == json)
+	  {
+	    current = NULL;
+	    break;
+	  }
+	  else if (current->sibling)
 	  {
 	    current = current->sibling;
 	    break;
