@@ -908,7 +908,7 @@ cupsJWTLoadCredentials(
 
     switch (EC_GROUP_get_curve_name(group))
     {
-      case NID_secp256k1 :
+      case NID_X9_62_prime256v1 :
           crv = "P-256";
           break;
       case NID_secp384r1 :
@@ -1163,7 +1163,7 @@ cupsJWTMakePrivateKey(cups_jwa_t alg)	// I - Signing/encryption algorithm
     BIGNUM	*bx, *by;		// Public key coordinates
 
     if (alg == CUPS_JWA_ES256)
-      ec = EC_KEY_new_by_curve_name(NID_secp256k1);
+      ec = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
     else if (alg == CUPS_JWA_ES384)
       ec = EC_KEY_new_by_curve_name(NID_secp384r1);
     else
@@ -1817,7 +1817,7 @@ make_ec_key(cups_json_t *jwk,		// I - JSON web key
     goto ec_done;
 
   if (!strcmp(crv, "P-256"))
-    ec = EC_KEY_new_by_curve_name(NID_secp256k1);
+    ec = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
   else if (!strcmp(crv, "P-384"))
     ec = EC_KEY_new_by_curve_name(NID_secp384r1);
   else if (!strcmp(crv, "P-521"))

@@ -2305,7 +2305,7 @@ openssl_create_key(
   {
     case CUPS_CREDTYPE_ECDSA_P256_SHA256 :
         algid   = EVP_PKEY_EC;
-        curveid = NID_secp256k1;
+        curveid = NID_X9_62_prime256v1;
 	break;
 
     case CUPS_CREDTYPE_ECDSA_P384_SHA256 :
