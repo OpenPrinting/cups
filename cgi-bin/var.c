@@ -451,7 +451,7 @@ cgiSetArray(const char *name,		/* I - Name of variable */
   _cgi_var_t	*var;			/* Returned variable */
 
 
-  if (name == NULL || value == NULL || element < 0 || element > 100000)
+  if (name == NULL || value == NULL || element < 0 || element >= CUPS_MAX_ARRAY)
     return;
 
   fprintf(stderr, "DEBUG: cgiSetArray: %s[%d]=\"%s\"\n", name, element, value);
@@ -974,7 +974,13 @@ cgi_initialize_multipart(
 
 	  *ptr++ = '\0';
 	  if (line[0])
-            cgiSetArray(name, atoi(ptr) - 1, line);
+	  {
+	    long idx = strtol(line, NULL, 10);
+					/* Array index */
+
+	    if (idx > 0 && idx <= CUPS_MAX_ARRAY)
+              cgiSetArray(name, atoi(ptr) - 1, line);
+          }
 	}
 	else if ((ptr = cgiGetVariable(name)) != NULL)
 	{

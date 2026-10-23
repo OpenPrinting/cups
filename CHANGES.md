@@ -31,6 +31,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)
 - Fixed unintended usage of C99 language feature (Issue #1742)
 - Fixed regression in mailto notifier address validation (Issue #1744)
+- Fixed a potential integer overflow in the web interface (Issue #1748)
 - Fixed regression with setting up temporary queues (Issue #1751)
 - Fixed "job-media-sheets-completed" value (Issue #1758)
 - Fixed `ippValidateAttribute` not returning `0` for too-long URIs (Issue #1769)
