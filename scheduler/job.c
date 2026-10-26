@@ -4118,7 +4118,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
               {
                 int length = attr->values[i].unknown.length;
 
-		for (valptr = attr->values[i].unknown.data; length > 0; length --)
+		for (valptr = attr->values[i].unknown.data; length > 0; valptr ++, length --)
 		{
 		  if ((*valptr & 255) < 0x20 || *valptr == 0x7f)
 		    break;

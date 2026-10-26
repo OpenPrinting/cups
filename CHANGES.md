@@ -37,6 +37,8 @@ v2.4.21 - YYYY-MM-DD
 - Fixed `ippValidateAttribute` not returning `0` for too-long URIs (Issue #1769)
 - Fixed `PassEnv` handling of comma separators (Issue #1770)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
+- Fixed a scheduler issue with the encoding of "octetString" options for
+  filters.
 
 
 v2.4.20 - 2026-10-05
