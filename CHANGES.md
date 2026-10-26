@@ -4,6 +4,7 @@ CHANGES - OpenPrinting CUPS
 v2.5b1 - YYYY-MM-DD
 -------------------
 
+- Fixed unit tests reporting success after `testEndMessage` failures (Issue #1790)
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.

@@ -155,6 +155,9 @@ testEndMessage(bool       pass,		// I - `true` if the test passed, `false` other
   if (test_progress)
     putchar('\b');
 
+  if (!pass)
+    testsPassed = false;
+
   printf(pass ? "PASS (%s)\n" : "FAIL (%s)\n", buffer);
   if (!isatty(2))
     fprintf(stderr, pass ? "PASS (%s)\n" : "FAIL (%s)\n", buffer);
