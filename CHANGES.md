@@ -4,8 +4,6 @@ CHANGES - OpenPrinting CUPS
 v2.5b1 - YYYY-MM-DD
 -------------------
 
-- Fixed JSON import validation of separators, missing values, and trailing data
-  (Issue #1788)
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
