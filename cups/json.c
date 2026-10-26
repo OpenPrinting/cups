@@ -812,7 +812,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
       {
 	if (*s != ',')
 	{
-          DEBUG_puts("2cupsJSONImportString: Missing comma.");
+	  DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
@@ -835,7 +835,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
       {
 	if (*s != ':')
 	{
-          DEBUG_puts("2cupsJSONImportString: Missing colon.");
+	  DEBUG_puts("2cupsJSONImportString: Missing colon.");
 	  goto invalid;
 	}
 
@@ -851,9 +851,9 @@ cupsJSONImportString(const char *s)	// I - JSON string
       }
       else if (count && *s != '}')
       {
-        if (*s != ',')
-        {
-          DEBUG_puts("2cupsJSONImportString: Missing comma.");
+	if (*s != ',')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
@@ -870,7 +870,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
 
       if (!(count & 1) && *s != '\"' && *s != '}')
       {
-        // Need a key string here...
+	// Need a key string here...
 	DEBUG_puts("2cupsJSONImportString: Missing key string.");
 	goto invalid;
       }
@@ -1215,7 +1215,10 @@ cupsJSONImportString(const char *s)	// I - JSON string
   }
 
   // Only whitespace can follow the root object...
-  for (s ++; *s && _cups_isspace(*s); s ++);
+  s ++;
+  while (*s && _cups_isspace(*s))
+    s ++;
+
   if (*s)
   {
     DEBUG_puts("2cupsJSONImportString: Unexpected data after root object.");

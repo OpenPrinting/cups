@@ -1,7 +1,7 @@
 //
 // Unit test header for C/C++ programs.
 //
-// Copyright © 2021-2022 by Michael R Sweet.
+// Copyright © 2021-2026 by Michael R Sweet.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -34,6 +34,8 @@
 #  include <string.h>
 #  if _WIN32
 #    define isatty(f) _isatty(f)
+#  elif defined(__ZEPHYR__)
+#    define isatty(f) 0
 #  else
 #    include <unistd.h>
 #  endif // !_WIN32
@@ -95,6 +97,42 @@ static int test_progress;		// Current progress
 static char test_title[1024] = "";	// Current test title
 
 
+// Write a string to a file, escaping special characters...
+static inline void
+test_safe_puts(const char *s,		// I - String to write
+               FILE       *fp)		// I - Output file
+{
+  while (*s)
+  {
+    if ((*s & 255) < ' ' || *s == 127)
+    {
+      if (*s == '\b')
+        fputs("\\b", fp);
+      else if (*s == '\f')
+        fputs("\\f", fp);
+      else if (*s == '\n')
+        fputs("\\n", fp);
+      else if (*s == '\r')
+        fputs("\\r", fp);
+      else if (*s == '\t')
+        fputs("\\t", fp);
+      else
+        fprintf(fp, "\\%03o", *s & 255);
+    }
+    else if (*s == '\\')
+    {
+      fputs("\\\\", fp);
+    }
+    else
+    {
+      putc(*s, fp);
+    }
+
+    s ++;
+  }
+}
+
+
 // Start a test
 static inline void
 testBegin(const char *title, ...)	// I - printf-style title string
@@ -110,11 +148,15 @@ testBegin(const char *title, ...)	// I - printf-style title string
   // Send the title to stdout and stderr...
   test_progress = 0;
 
-  printf("%s: ", test_title);
+  test_safe_puts(test_title, stdout);
+  fputs(": ", stdout);
   fflush(stdout);
 
   if (!isatty(2))
-    fprintf(stderr, "%s: ", test_title);
+  {
+    test_safe_puts(test_title, stderr);
+    fputs(": ", stderr);
+  }
 }
 
 
@@ -155,9 +197,19 @@ testEndMessage(bool       pass,		// I - `true` if the test passed, `false` other
   if (test_progress)
     putchar('\b');
 
-  printf(pass ? "PASS (%s)\n" : "FAIL (%s)\n", buffer);
+  if (!pass)
+    testsPassed = false;
+
+  fputs(pass ? "PASS (" : "FAIL (", stdout);
+  test_safe_puts(buffer, stdout);
+  fputs(")\n", stdout);
+
   if (!isatty(2))
-    fprintf(stderr, pass ? "PASS (%s)\n" : "FAIL (%s)\n", buffer);
+  {
+    fputs(pass ? "PASS (" : "FAIL (", stderr);
+    test_safe_puts(buffer, stderr);
+    fputs(")\n", stderr);
+  }
 
   test_title[0] = '\0';
 }
@@ -190,10 +242,14 @@ testError(const char *error, ...)	// I - printf-style error string
   va_end(ap);
 
   // Send the error to stderr...
-  fprintf(stderr, "%s\n", buffer);
+  test_safe_puts(buffer, stderr);
+  fputs("\n", stderr);
 
   if (test_title[0])
-    fprintf(stderr, "%s: ", test_title);
+  {
+    test_safe_puts(test_title, stderr);
+    fputs(": ", stderr);
+  }
 }
 
 
@@ -211,19 +267,25 @@ testMessage(const char *error, ...)	// I - printf-style error string
   va_end(ap);
 
   // Send the message to stdout and stderr too if needed...
-  printf("%s\n", buffer);
+  test_safe_puts(buffer, stdout);
+  fputs("\n", stdout);
+
   if (test_title[0])
   {
-    printf("%s: ", test_title);
-    fflush(stdout);
+    test_safe_puts(test_title, stdout);
+    fputs(": ", stdout);
   }
 
   if (!isatty(2))
   {
-    fprintf(stderr, "%s\n", buffer);
+    test_safe_puts(buffer, stderr);
+    fputs("\n", stderr);
 
     if (test_title[0])
-      fprintf(stderr, "%s: ", test_title);
+    {
+      test_safe_puts(test_title, stderr);
+      fputs(": ", stderr);
+    }
   }
 }
 
@@ -272,7 +334,10 @@ testHexDump(const unsigned char *buffer,// I - Buffer
   }
 
   if (test_title[0])
-    fprintf(stderr, "%s: ", test_title);
+  {
+    test_safe_puts(test_title, stderr);
+    fputs(": ", stderr);
+  }
 }
 
 #  ifdef __cplusplus

@@ -46,40 +46,46 @@ main(int  argc,				// I - Number of command-line arguments
       "CUPS_JTYPE_OBJECT",		// Object value
       "CUPS_JTYPE_KEY"			// Object key (string)
     };
-    static const struct
+    static const struct			// JSON syntax parsing tests
     {
-      const char *data;
-      bool valid;
+      bool	valid;			// Should this be valid?
+      const char *data;			// JSON data
     } syntax_tests[] =
     {
-      { "{}", true },
-      { " { \"a\" : 1, \"b\" : [2, 3] } \n\t", true },
-      { "{\"a\":[],\"b\":{},\"c\":[{},[],[1,2],3]}", true },
-      { "{\"a\":[true,false,null,\"text\",1.5e2]}", true },
-      { "{\"a\":{\"b\":1},\"c\":2}", true },
-      { "{\"a\":1 \"b\":2}", false },
-      { "{\"a\":[1 2]}", false },
-      { "{\"a\":[{} {}]}", false },
-      { "{\"a\":{} \"b\":[]}", false },
-      { "{\"a\":1,}", false },
-      { "{\"a\":[1,]}", false },
-      { "{\"a\":[{},]}", false },
-      { "{\"a\":}", false },
-      { "{\"a\":{\"b\":}}", false },
-      { "{\"a\" 1}", false },
-      { "{,\"a\":1}", false },
-      { "{\"a\":[,1]}", false },
-      { "{\"a\":1,,\"b\":2}", false },
-      { "{}{}", false },
-      { "{} trailing text", false },
-      { "{\"a\":[1,2]", false }
+      { true,  "{}" },
+      { true,  " { \"a\" : 1, \"b\" : [2, 3] } \n\t" },
+      { true,  "{\"a\":[],\"b\":{},\"c\":[{},[],[1,2],3]}" },
+      { true,  "{\"a\":[true,false,null,\"text\",1.5e2]}" },
+      { true,  "{\"a\":{\"b\":1},\"c\":2}" },
+      { false, "{\"a\":1 \"b\":2}" },
+      { false, "{\"a\":[1 2]}" },
+      { false, "{\"a\":[{} {}]}" },
+      { false, "{\"a\":{} \"b\":[]}" },
+      { false, "{\"a\":1,}" },
+      { false, "{\"a\":[1,]}" },
+      { false, "{\"a\":[{},]}" },
+      { false, "{\"a\":}" },
+      { false, "{\"a\":{\"b\":}}" },
+      { false, "{\"a\" 1}" },
+      { false, "{,\"a\":1}" },
+      { false, "{\"a\":[,1]}" },
+      { false, "{\"a\":1,,\"b\":2}" },
+      { false, "{}{}" },
+      { false, "{} trailing text" },
+      { false, "{\"a\":[1,2]" }
     };
 
     for (i = 0; i < (int)(sizeof(syntax_tests) / sizeof(syntax_tests[0])); i ++)
     {
-      testBegin("cupsJSONImportString syntax test %d: %s", i + 1, syntax_tests[i].data);
+      testBegin("cupsJSONImportString(%s '%s')", syntax_tests[i].valid ? "good" : "bad", syntax_tests[i].data);
+
       json = cupsJSONImportString(syntax_tests[i].data);
-      testEnd((json != NULL) == syntax_tests[i].valid);
+
+      if ((json != NULL) == syntax_tests[i].valid)
+        testEndMessage(true, syntax_tests[i].valid ? "loaded" : "rejected");
+      else
+        testEndMessage(false, syntax_tests[i].valid ? "rejected" : "loaded");
+
       cupsJSONDelete(json);
     }
 
