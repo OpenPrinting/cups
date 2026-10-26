@@ -807,58 +807,65 @@ cupsJSONImportString(const char *s)	// I - JSON string
 
     if (parent->type == CUPS_JTYPE_ARRAY)
     {
-      // Arrays can have multiple values separated by commas and whitespace...
-      if (*s == ',')
+      // Require a comma between array values...
+      if (count && *s != ']')
       {
-	// Comma (value) separator...
-	if (!parent->value.child)
+	if (*s != ',')
 	{
-	  // Cannot have a comma here
-          DEBUG_puts("2cupsJSONImportString: Unexpected comma.");
+          DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
 	s ++;
 	while (*s && _cups_isspace(*s))
 	  s ++;
+
+	if (*s == ']')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing array value.");
+	  goto invalid;
+	}
       }
     }
     else
     {
       // Objects have colons between key and value and commas between key/value
       // pairs...
-      if (*s == ',')
+      if (count & 1)
       {
-	// Comma (value) separator...
-	if (!parent->value.child || (count & 1))
+	if (*s != ':')
 	{
-	  // Cannot have a comma here
-          DEBUG_puts("2cupsJSONImportString: Unexpected comma.");
+          DEBUG_puts("2cupsJSONImportString: Missing colon.");
 	  goto invalid;
 	}
 
 	s ++;
 	while (*s && _cups_isspace(*s))
 	  s ++;
+
+	if (*s == '}')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing object value.");
+	  goto invalid;
+	}
       }
-      else if (*s == ':')
+      else if (count && *s != '}')
       {
-        if (!parent->value.child || !(count & 1))
+        if (*s != ',')
         {
-	  // Cannot have a colon here
-          DEBUG_puts("2cupsJSONImportString: Unexpected colon.");
+          DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
 	s ++;
 	while (*s && _cups_isspace(*s))
 	  s ++;
-      }
-      else if (count & 1)
-      {
-        // Missing colon...
-	DEBUG_puts("2cupsJSONImportString: Missing colon.");
-	goto invalid;
+
+	if (*s == '}')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing object key.");
+	  goto invalid;
+	}
       }
 
       if (!(count & 1) && *s != '\"' && *s != '}')
@@ -1204,6 +1211,14 @@ cupsJSONImportString(const char *s)	// I - JSON string
   if (*s != '}')
   {
     DEBUG_puts("2cupsJSONImportString: Missing '}' at end.");
+    goto invalid;
+  }
+
+  // Only whitespace can follow the root object...
+  for (s ++; *s && _cups_isspace(*s); s ++);
+  if (*s)
+  {
+    DEBUG_puts("2cupsJSONImportString: Unexpected data after root object.");
     goto invalid;
   }
 

@@ -46,6 +46,42 @@ main(int  argc,				// I - Number of command-line arguments
       "CUPS_JTYPE_OBJECT",		// Object value
       "CUPS_JTYPE_KEY"			// Object key (string)
     };
+    static const struct
+    {
+      const char *data;
+      bool valid;
+    } syntax_tests[] =
+    {
+      { "{}", true },
+      { " { \"a\" : 1, \"b\" : [2, 3] } \n\t", true },
+      { "{\"a\":[],\"b\":{},\"c\":[{},[],[1,2],3]}", true },
+      { "{\"a\":[true,false,null,\"text\",1.5e2]}", true },
+      { "{\"a\":{\"b\":1},\"c\":2}", true },
+      { "{\"a\":1 \"b\":2}", false },
+      { "{\"a\":[1 2]}", false },
+      { "{\"a\":[{} {}]}", false },
+      { "{\"a\":{} \"b\":[]}", false },
+      { "{\"a\":1,}", false },
+      { "{\"a\":[1,]}", false },
+      { "{\"a\":[{},]}", false },
+      { "{\"a\":}", false },
+      { "{\"a\":{\"b\":}}", false },
+      { "{\"a\" 1}", false },
+      { "{,\"a\":1}", false },
+      { "{\"a\":[,1]}", false },
+      { "{\"a\":1,,\"b\":2}", false },
+      { "{}{}", false },
+      { "{} trailing text", false },
+      { "{\"a\":[1,2]", false }
+    };
+
+    for (i = 0; i < (int)(sizeof(syntax_tests) / sizeof(syntax_tests[0])); i ++)
+    {
+      testBegin("cupsJSONImportString syntax test %d: %s", i + 1, syntax_tests[i].data);
+      json = cupsJSONImportString(syntax_tests[i].data);
+      testEnd((json != NULL) == syntax_tests[i].valid);
+      cupsJSONDelete(json);
+    }
 
     testBegin("cupsJSONNew(root object)");
     json = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT);
