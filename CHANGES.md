@@ -4,6 +4,8 @@ CHANGES - OpenPrinting CUPS
 v2.5b1 - YYYY-MM-DD
 -------------------
 
+- Fixed the last-modified timestamp being updated after failed JSON URL imports
+  (Issue #1792)
 - Added multiple language support for IPP Everywhere.
 - Added `cupsConcatString`, `cupsCopyString`, and `cupsFormatString` string
   APIs.
