@@ -239,9 +239,9 @@ testserver:	all unittests
 
 
 check test:	all unittests
+	cd backend; make test
 	cd cups; make test
 	cd scheduler; make test
-	cd backend; make test
 	echo Running CUPS test suite...
 	cd test; ./run-stp-tests.sh 1 0 n n
 
