@@ -246,6 +246,7 @@ libs:		$(LIBTARGETS)
 #
 
 test:		unittests
+	(RM) -rf test.log test-debug.log .testssl
 	echo "Tests started at $$(date)..." >test.log
 	echo Running array API tests...
 	./testarray 2>>test.log

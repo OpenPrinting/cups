@@ -949,7 +949,7 @@ cupsFileOpen(const char *filename,	// I - Name of file
   if ((ptr = strchr(mode, 'm')) != NULL && ptr[1] >= '0' && ptr[1] <= '7')
   {
     // Get permissions from mode string...
-    perm = (int)strtol(mode + 1, NULL, 8);
+    perm = (int)strtol(ptr + 1, NULL, 8);
   }
 
   // Open the file...

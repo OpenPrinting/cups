@@ -231,7 +231,7 @@ cupsCreateCredentials(
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
     goto done;
   }
-  else if ((fp = cupsFileOpen(keyfile, "w")) != NULL)
+  else if ((fp = cupsFileOpen(keyfile, "wm600")) != NULL)
   {
     DEBUG_printf("1cupsCreateCredentials: Writing private key to \"%s\".", keyfile);
     cupsFileWrite(fp, (char *)buffer, bytes);
@@ -586,7 +586,7 @@ cupsCreateCredentialsRequest(
     DEBUG_printf("1cupsCreateCredentialsRequest: Unable to export private key: %s", gnutls_strerror(err));
     goto done;
   }
-  else if ((fp = cupsFileOpen(keyfile, "w")) != NULL)
+  else if ((fp = cupsFileOpen(keyfile, "wm600")) != NULL)
   {
     DEBUG_printf("1cupsCreateCredentialsRequest: Writing private key to \"%s\".", keyfile);
     cupsFileWrite(fp, (char *)buffer, bytes);
@@ -959,50 +959,31 @@ cupsGetCredentialsTrust(
   }
   else if (num_certs > 1)
   {
+    // Verify the certificate chain...
+    gnutls_x509_trust_list_t roots;	// Trusted roots
+    char	sitepath[1024];		// _site_ certificate path
+    unsigned	results;		// Verification results
+
     trust = HTTP_TRUST_INVALID;
 
-    if ((tcreds = http_check_roots(credentials)) != NULL)
+    if (!gnutls_x509_trust_list_init(&roots, /*size*/0))
     {
-      trust = HTTP_TRUST_OK;
-    }
-    else
-    {
-      // See if we have a site CA certificate we can compare...
-      if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
+      // Load trusted root certificates...
+      gnutls_x509_trust_list_add_system_trust(roots, /*tl_flags*/0, /*tl_vflags*/0);
+
+      http_make_path(sitepath, sizeof(sitepath), path, "_site_", "crt");
+      if (!access(sitepath, R_OK))
       {
-	size_t	credslen,		// Length of credentials
-		tcredslen;		// Length of trust root
-
-
-	// Do a tail comparison of the root...
-	credslen  = strlen(credentials);
-	tcredslen = strlen(tcreds);
-	if (credslen > tcredslen && !strcmp(credentials + (credslen - tcredslen), tcreds))
-	{
-	  // Certificate is signed by the site CA cert...
-	  trust = HTTP_TRUST_OK;
-	}
+	DEBUG_printf("1cupsGetCredentialsTrust: Adding site certificate '%s'.", sitepath);
+	gnutls_x509_trust_list_add_trust_file(roots, sitepath, /*crl_file*/NULL, GNUTLS_X509_FMT_PEM, /*tl_flags*/0, /*tl_vflags*/0);
       }
+
+      // Verify the certificate against the trusted certs...
+      if (gnutls_x509_trust_list_verify_crt(roots, certs, num_certs, /*flags*/0, &results, /*func*/NULL) == 0 && !(results & GNUTLS_CERT_INVALID))
+	trust = HTTP_TRUST_OK;
+
+      gnutls_x509_trust_list_deinit(roots, /*all*/1);
     }
-
-    if (trust == HTTP_TRUST_OK && tcreds && *tcreds)
-    {
-      // Also validate the entire certificate chain...
-      unsigned		num_tcerts = 10;// Number of trust certificates
-      gnutls_x509_crt_t	tcerts[10];	// Trust certificates
-
-      if (gnutls_import_certs(tcreds, &num_tcerts, tcerts))
-      {
-        unsigned	verify;		// Verification results
-
-        if (gnutls_x509_crt_list_verify (certs, num_certs, tcerts, num_tcerts, /*CRL_list*/NULL, /*CRL_list_length*/0, /*flags*/0, &verify) < 0 || (verify & GNUTLS_CERT_INVALID))
-          trust = HTTP_TRUST_INVALID;
-
-        gnutls_free_certs(num_tcerts, tcerts);
-      }
-    }
-
-    free(tcreds);
 
     if (trust != HTTP_TRUST_OK)
       _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials do not validate against CA certificates."), 1);

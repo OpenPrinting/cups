@@ -44,17 +44,12 @@ static cups_mutex_t	tls_mutex = CUPS_MUTEX_INITIALIZER;
 static int		tls_options = -1,// Options for TLS connections
 			tls_min_version = _HTTP_TLS_1_2,
 			tls_max_version = _HTTP_TLS_MAX;
-#ifndef __APPLE__
-static cups_array_t	*tls_root_certs = NULL;
-					// List of known root CAs
-#endif // __APPLE__
 
 
 //
 // Local functions...
 //
 
-static char		*http_check_roots(const char *creds);
 static char		*http_copy_file(const char *path, const char *common_name, const char *ext);
 static const char	*http_default_path(char *buffer, size_t bufsize);
 static bool		http_default_san_cb(const char *common_name, const char *subject_alt_name, void *data);
@@ -299,235 +294,6 @@ _httpTLSSetOptions(int options,		// I - Options
     tls_min_version = min_version;
     tls_max_version = max_version;
   }
-}
-
-
-//
-// 'http_check_roots()' - Check whether the supplied credentials use a trusted root CA.
-//
-
-static char *				// O - Trusted root certificate chain or `NULL` otherwise
-http_check_roots(const char *creds)	// I - Credentials
-{
-  char	*ret = NULL;			// Return value
-
-
-  DEBUG_printf("4http_check_roots(creds=\"%u bytes...\")", (unsigned)strlen(creds));
-
-#ifdef __APPLE__
-  // Apple hides all of the keychain stuff (all deprecated) so the best we can
-  // do is use the SecTrust API to evaluate the certificate...
-  CFMutableArrayRef	certs = NULL;	// Certificates from credentials
-  SecCertificateRef	cert;
-  char			*tcreds = NULL,	// Copy of credentials string
-			*tstart,	// Start of certificate data
-			*tend,		// End of certificate data
-			*der = NULL;	// DER-encoded fragment buffer
-  size_t		dersize,	// Size of DER buffer
-			derlen;		// Length of DER data
-  SecPolicyRef		policy;		// X.509 policy
-  SecTrustRef		trust;		// Trust evaluator
-
-
-  // Convert PEM-encoded credentials to an array of DER-encoded certificates...
-  if ((tcreds = strdup(creds)) == NULL)
-  {
-    DEBUG_puts("5http_check_roots: Unable to duplicate credentials.");
-    goto done;
-  }
-
-  if ((certs = CFArrayCreateMutable(kCFAllocatorDefault, /*capacity*/0, &kCFTypeArrayCallBacks)) == NULL)
-  {
-    DEBUG_puts("5http_check_roots: Unable to create credentials array.");
-    goto done;
-  }
-
-  dersize = 3 * strlen(tcreds) / 4;
-  if ((der = malloc(dersize)) == NULL)
-  {
-    DEBUG_printf("5http_check_roots: Unable to allocate %u byte buffer for certificate.", (unsigned)dersize);
-    goto done;
-  }
-
-  for (tstart = strstr(tcreds, "-----BEGIN CERTIFICATE-----\n"); tstart; tstart = strstr(tend, "-----BEGIN CERTIFICATE-----\n"))
-  {
-    // Find the end of the certificate data...
-    tstart += 28;			// Skip "-----BEGIN CERTIFICATE-----\n"
-    if ((tend = strstr(tstart, "-----END CERTIFICATE-----\n")) == NULL)
-      break;				// Missing end...
-
-    // Nul-terminate the cert data...
-    *tend++ = '\0';
-
-    // Convert to DER format
-    derlen = dersize;
-    if (httpDecode64_3(der, &derlen, tstart, /*end*/NULL))
-    {
-      // Create a CFData object for the data...
-      DEBUG_printf("5http_check_roots: Allocating %u bytes for certificate.", (unsigned)derlen);
-      CFDataRef data = CFDataCreate(kCFAllocatorDefault, (const UInt8 *)der, (CFIndex)derlen);
-
-      if (data)
-      {
-        // Create a certificate from the DER data...
-        if ((cert = SecCertificateCreateWithData(kCFAllocatorDefault, data)) != NULL)
-        {
-          // Add certificate to the array...
-          CFArrayAppendValue(certs, cert);
-          CFRelease(cert);
-	}
-	else
-	{
-	  DEBUG_puts("5http_check_roots: Unable to create certificate.");
-	}
-
-        CFRelease(data);
-      }
-      else
-      {
-	DEBUG_puts("5http_check_roots: Unable to create certificate data.");
-      }
-    }
-  }
-
-  // Test the certificate list against the macOS/iOS trust store...
-  if ((policy = SecPolicyCreateBasicX509()) != NULL)
-  {
-    DEBUG_puts("5http_check_roots: Created basic X.509 trust policy.");
-
-    if (SecTrustCreateWithCertificates(certs, policy, &trust) == noErr)
-    {
-      DEBUG_puts("5http_check_roots: Created trust object with policy.");
-
-      if (SecTrustEvaluateWithError(trust, NULL))
-      {
-        DEBUG_puts("5http_check_roots: Certificate is trusted.");
-        ret = strdup("");
-      }
-      else
-      {
-        DEBUG_puts("5http_check_roots: Certificate is not trusted.");
-      }
-
-      CFRelease(trust);
-    }
-
-    CFRelease(policy);
-  }
-
-  done:
-
-  free(tcreds);
-  free(der);
-
-  if (certs)
-    CFRelease(certs);
-
-#else
-  size_t	credslen;		// Length of credentials string
-  const char	*rcreds;		// Current root credential
-  size_t	rcredslen;		// Length of current root credential
-
-
-  cupsMutexLock(&tls_mutex);
-
-  // Load root certificates as needed...
-  if (!tls_root_certs)
-  {
-    // Load root certificates...
-    tls_root_certs = cupsArrayNew3(/*cb*/NULL, /*cb_data*/NULL, /*hash_cb*/NULL, /*hash_size*/0, /*copy_cb*/NULL, /*free_cb*/NULL);
-
-#  ifdef _WIN32
-    int			i;		// Looping var
-    HCERTSTORE		store;		// Certificate store
-    CERT_CONTEXT	*cert;		// Current certificate
-
-    // Add certificates in both the "ROOT" and "CA" stores...
-    for (i = 0; i < 2; i ++)
-    {
-      if ((store = CertOpenStore(CERT_STORE_PROV_SYSTEM, 0, 0, CERT_SYSTEM_STORE_CURRENT_USER, i ? L"CA" : L"ROOT")) == NULL)
-        continue;
-
-      // Loop through certificates...
-      for (cert = CertEnumCertificatesInStore(store, NULL); cert; cert = CertEnumCertificatesInStore(store, cert))
-      {
-        if (cert->dwCertEncodingType == X509_ASN_ENCODING)
-        {
-          // Convert DER to PEM and add to the list...
-          char * pem = http_der_to_pem(cert->pbCertEncoded, cert->cbCertEncoded);
-
-          if (pem)
-            cupsArrayAdd(tls_root_certs, pem);
-	}
-      }
-
-      CertCloseStore(store, 0);
-    }
-
-#  else
-    size_t		i;		// Looping var
-    cups_dir_t		*dir;		// Directory
-    cups_dentry_t	*dent;		// Directory entry
-    const char		*ext;		// Pointer to filename extension
-    static const char * const root_dirs[] =
-    {					// Root certificate stores
-      "/etc/ssl/certs",
-      "/system/etc/security/cacerts/",
-
-    };
-
-    for (i = 0, dir = NULL; i < (sizeof(root_dirs) / sizeof(root_dirs[0])); i ++)
-    {
-      if ((dir = cupsDirOpen(root_dirs[i])) != NULL)
-        break;
-    }
-
-    if (dir)
-    {
-      while ((dent = cupsDirRead(dir)) != NULL)
-      {
-        if ((ext = strrchr(dent->filename, '.')) != NULL && !strcmp(ext, ".pem"))
-        {
-          char	filename[1024],		// Certificate filename
-		*cert;			// Certificate data
-	  int	fd;			// File descriptor
-
-	  snprintf(filename, sizeof(filename), "%s/%s", root_dirs[i], dent->filename);
-          if ((fd = open(filename, O_RDONLY)) >= 0)
-          {
-            if ((cert = calloc(1, (size_t)(dent->fileinfo.st_size + 1))) != NULL)
-	    {
-	      read(fd, cert, (size_t)dent->fileinfo.st_size);
-	      cupsArrayAdd(tls_root_certs, cert);
-	    }
-
-	    close(fd);
-	  }
-	}
-      }
-    }
-#  endif // _WIN32
-  }
-
-  // Check all roots
-  credslen = strlen(creds);
-
-  DEBUG_printf("4http_check_roots: %lu root certificates to check.", (unsigned long)cupsArrayGetCount(tls_root_certs));
-
-  for (rcreds = (const char *)cupsArrayGetFirst(tls_root_certs); rcreds && !ret; rcreds = (const char *)cupsArrayGetNext(tls_root_certs))
-  {
-    // Compare the root against the tail of the current credentials...
-    rcredslen = strlen(rcreds);
-
-    if (credslen > rcredslen && !strcmp(creds + (credslen - rcredslen), rcreds))
-      ret = strdup(rcreds);
-  }
-
-  // Unlock access and return...
-  cupsMutexUnlock(&tls_mutex);
-#endif // __APPLE__
-
-  return (ret);
 }
 
 
@@ -811,7 +577,7 @@ http_save_file(const char *path,	// I - Directory path for certificate/key store
     return (true);
   }
 
-  if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644)) < 0)
+  if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, (strcmp(ext, "key") && strcmp(ext, "ktm")) ? 0644 : 0600)) < 0)
     return (false);
 
   if (write(fd, value, strlen(value)) < 0)

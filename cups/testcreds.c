@@ -409,6 +409,7 @@ do_unit_tests(void)
 			*chain;		// Cert chain data
   size_t		chainlen;	// Length of cert chain data
   http_trust_t		trust;		// Trust in credentials
+  struct stat		fileinfo;	// Key file information
   static const char * const alt_names[] =
   {					// subjectAltName values
     "printer.example.com",
@@ -442,6 +443,14 @@ do_unit_tests(void)
       data = cupsCopyCredentialsKey(TEST_CERT_PATH, "_site_");
       testEnd(data != NULL);
       free(data);
+
+      testBegin("_site_.key permissions");
+      if (stat(TEST_CERT_PATH "/_site_.key", &fileinfo))
+        testEndMessage(false, "%s", strerror(errno));
+      else if (fileinfo.st_mode & 077)
+        testEndMessage(false, "wrong permissions, got %03o expected %03o.", (unsigned)(fileinfo.st_mode & 0777), (unsigned)(fileinfo.st_mode & 0700));
+      else
+        testEnd(true);
     }
     else
     {
@@ -519,6 +528,14 @@ do_unit_tests(void)
       data = cupsCopyCredentialsKey(TEST_CERT_PATH, "altprinter");
       testEnd(data != NULL);
       free(data);
+
+      testBegin("altprinter.ktm permissions");
+      if (stat(TEST_CERT_PATH "/altprinter.ktm", &fileinfo))
+        testEndMessage(false, "%s", strerror(errno));
+      else if (fileinfo.st_mode & 077)
+        testEndMessage(false, "wrong permissions, got %03o expected %03o.", (unsigned)(fileinfo.st_mode & 0777), (unsigned)(fileinfo.st_mode & 0700));
+      else
+        testEnd(true);
 
       testBegin("cupsCopyCredentialsRequest(altprinter w/alt names)");
       data = cupsCopyCredentialsRequest(TEST_CERT_PATH, "altprinter");
