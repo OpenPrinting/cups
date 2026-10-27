@@ -12,6 +12,8 @@ v2.5b1 - YYYY-MM-DD
 - Added `ippAddCredentialsString`, `ippGetFirstAttribute`,
   `ippGetNextAttribute`, `ippRestore`, and `ippSave` APIs.
 - Added new DNS-SD APIs.
+- The USB backend now omits printers served by local `ipp-usb` advertisements
+  from legacy USB discovery (Issue #186).
 - Added new JSON APIs.
 - Added new JWT APIs.
 - Added new OAuth APIs.

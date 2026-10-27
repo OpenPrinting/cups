@@ -32,7 +32,8 @@ UBACKENDS =	\
 UNITTESTS =	\
 		test1284 \
 		testbackend \
-		testsupplies
+		testsupplies \
+		testusb
 TARGETS =	\
 		libbackend.a \
 		$(RBACKENDS) \
@@ -51,6 +52,7 @@ OBJS	=	\
 		test1284.o \
 		testbackend.o \
 		testsupplies.o \
+		testusb.o \
 		usb.o
 
 
@@ -172,10 +174,11 @@ uninstall:
 
 
 #
-# Run unit tests... (doesn't actually run these currently)
+# Run automated USB discovery tests (the other tests require arguments)...
 #
 
 test:	unittests
+	./testusb
 
 
 #
@@ -207,6 +210,17 @@ testsupplies:	testsupplies.o libbackend.a ../cups/$(LIBCUPSSTATIC)
 	$(LD_CC) $(ALL_LDFLAGS) -o testsupplies testsupplies.o libbackend.a \
 		$(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+
+
+#
+# testusb
+#
+
+testusb: testusb.o libbackend.a ../cups/$(LIBCUPSSTATIC)
+	echo Linking $@...
+	$(LD_CC) $(ALL_LDFLAGS) -o testusb testusb.o libbackend.a $(LIBUSB) $(BACKLIBS) $(COMMONLIBS) $(LINKCUPSSTATIC)
+	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
+testusb.o: testusb.c usb-libusb.c ../cups/dnssd.h
 
 
 #
