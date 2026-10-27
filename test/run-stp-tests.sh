@@ -1030,7 +1030,7 @@ fi
 
 # Requests logged
 count=`wc -l $BASE/log/access_log | awk '{print $1}'`
-expected=`expr 35 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5 + 4`
+expected=`expr 36 + 18 + 30 + $pjobs \* 8 + $pprinters \* $pjobs \* 4 + 2 + 2 + 5 + 4`
 if test $count != $expected; then
 	echo "FAIL: $count requests logged, expected $expected."
 	echo "    <p>FAIL: $count requests logged, expected $expected.</p>" >>$strfile
