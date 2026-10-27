@@ -574,7 +574,13 @@ if test -f "$root/cups/libcups.so.2"; then
 		LD_LIBRARY_PATH="$root/cups:$LD_LIBRARY_PATH"
 	fi
 
-	LD_PRELOAD="$root/cups/libcups.so.2:$root/cups/libcupsimage.so.2"
+	if ldd "$root/cups/libcups.so.2" | $GREP -q asan; then
+		# Let the sanitizer runtime load before the instrumented CUPS libraries.
+		LD_PRELOAD=""
+	else
+		LD_PRELOAD="$root/cups/libcups.so.2:$root/cups/libcupsimage.so.2"
+	fi
+
 	if test `uname` = SunOS -a -r /usr/lib/libCrun.so.1; then
 		LD_PRELOAD="/usr/lib/libCrun.so.1:$LD_PRELOAD"
 	fi
