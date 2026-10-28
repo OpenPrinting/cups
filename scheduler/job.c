@@ -1186,7 +1186,7 @@ cupsdContinueJob(cupsd_job_t *job)	/* I - Job */
 
               goto abort_job;
 	    }
-	    else if ((job->print_pipes[1] = open(resource, O_WRONLY | O_EXCL)) < 0)
+	    else if ((job->print_pipes[1] = open(resource, O_WRONLY | O_EXCL | O_TRUNC)) < 0)
 	    {
 	      abort_message = "Stopping job because the scheduler could not open the output file.";
 
