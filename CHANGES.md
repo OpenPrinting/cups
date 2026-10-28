@@ -30,6 +30,8 @@ v2.4.21 - YYYY-MM-DD
   ticket comment support.
 - Updated `cupsRasterReadHeader` to reject raster data with a 0 resolution
   (Issue #1771)
+- Updated scheduler to better handle speculative browser TLS connections
+  (Issue #1799)
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)
 - Fixed unintended usage of C99 language feature (Issue #1742)
 - Fixed regression in mailto notifier address validation (Issue #1744)
