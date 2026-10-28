@@ -902,6 +902,14 @@ encode_options(
       continue;
 
    /*
+    * Match the scheduler's default handling: ColorModel takes precedence over
+    * print-color-mode, which clients can inherit from destination defaults.
+    */
+
+    if (!_cups_strcasecmp(option->name, "print-color-mode") && cupsGetOption("ColorModel", num_options, options))
+      continue;
+
+   /*
     * Figure out the proper value and group tags for this option...
     */
 
