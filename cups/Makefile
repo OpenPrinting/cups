@@ -765,7 +765,7 @@ testlang:	testlang.o $(LIBCUPSSTATIC)
 # testoauth (dependency on static libraries is intentional)
 #
 
-testoauth:	testoauth.o $(LIBCUPS_STATIC)
+testoauth:	testoauth.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testoauth.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@
