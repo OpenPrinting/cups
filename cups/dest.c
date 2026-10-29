@@ -1462,13 +1462,13 @@ _cupsGetDests(http_t       *http,	/* I  - Connection to server or
 		  attr->value_tag == IPP_TAG_KEYWORD ||
 		  attr->value_tag == IPP_TAG_NAME ||
 		  attr->value_tag == IPP_TAG_RANGE) &&
-		 (ptr = strstr(attr->name, "-default")) != NULL)
+		 strstr(attr->name, "-default") != NULL)
 	{
 	 /*
 	  * Add a default option...
 	  */
 
-          cupsCopyString(optname, attr->name, sizeof(optname));
+	  cupsCopyString(optname, attr->name, sizeof(optname));
 	  if ((ptr = strstr(optname, "-default")) != NULL)
 	    *ptr = '\0';
 
