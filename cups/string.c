@@ -395,6 +395,16 @@ cupsFormatStringv(
 		bufptr += width;
 	      }
 	    }
+	    else if (width <= 1)
+	    {
+	      // Consume character from parameters...
+	      va_arg(ap, int);
+	    }
+	    else
+	    {
+	      // Consume character pointer from parameters...
+	      va_arg(ap, char *);
+	    }
 	    break;
 
 	case 's' : // String
