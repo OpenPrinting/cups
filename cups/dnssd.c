@@ -422,7 +422,7 @@ cupsDNSSDBrowseNew(
   if (count == 1)
     count ++;
 
-  for (i = 1; i < count; i ++)
+  for (i = 1; i < count && i < _CUPS_DNSSD_MAX; i ++)
   {
     subtype = (const char *)cupsArrayGetElement(tarray, i);
 
@@ -452,6 +452,8 @@ cupsDNSSDBrowseNew(
       return (NULL);
     }
   }
+
+  browse->num_browsers = i;
 
   cupsArrayDelete(tarray);
 
