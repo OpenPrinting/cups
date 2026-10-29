@@ -749,6 +749,8 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
     if (!s || slen <= 1)
       return (NULL);
 
+    httpInitialize();
+
     if (gethostname(s, (size_t)slen) < 0)
       cupsCopyString(s, "localhost", (size_t)slen);
 
