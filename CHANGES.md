@@ -42,6 +42,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed "job-media-sheets-completed" value (Issue #1758)
 - Fixed `ippValidateAttribute` not returning `0` for too-long URIs (Issue #1769)
 - Fixed `PassEnv` handling of comma separators (Issue #1770)
+- Fixed SNMP supply name escaping (Issue #1786)
 - Fixed ColorModel/print-color-mode precedence (Issue #1797)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
 - Fixed a scheduler issue with the encoding of "octetString" options for
