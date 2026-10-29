@@ -738,7 +738,7 @@ backend_init_supplies(
       {
         *ptr++ = ' ';
       }
-      else if (!_cups_iscntrl(*name_ptr))
+      else if (!iscntrl(*name_ptr & 255))
       {
 	*ptr++ = *name_ptr;
       }
