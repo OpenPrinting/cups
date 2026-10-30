@@ -21,7 +21,6 @@ static void	do_login(void);
 static void	do_logout(void);
 static void	do_redirect(const char *url);
 static void	do_search(char *query);
-static void	finish_login(void);
 static void	show_error(const char *title, const char *message, const char *error);
 
 
@@ -58,8 +57,6 @@ main(void)
     do_login();
   else if (cgiGetSize("LOGOUT"))
     do_logout();
-  else if (!cgiIsPOST() && (cgiGetSize("code") || cgiGetSize("error")))
-    finish_login();
   else
     do_dashboard();
 
@@ -88,27 +85,17 @@ do_dashboard(void)
 
 
 /*
- * 'do_login()' - Redirect to the OAuth server's authorization endpoint.
+ * 'do_login()' - Start or continue the OAuth device authorization flow.
  */
 
 static void
 do_login(void)
 {
-  const char	*oauth_uri = getenv("CUPS_OAUTH_SERVER"),
-					// OAuth authorization server URL
-		*referer = getenv("HTTP_REFERER"),
-					// Referer: header
-		*server_name = getenv("SERVER_NAME"),
-					// SERVER_NAME value
-		*server_port = getenv("SERVER_PORT"),
-					// SERVER_PORT value
-		*state = NULL;		// State string
-  char		*client_id = NULL,	// Client ID value
-		*code_verifier = NULL,	// Code verifier string
-		*nonce = NULL,		// Nonce string
-		redirect_uri[1024],	// redirect_uri value
-		*url = NULL;		// Authorization URL
-  cups_json_t	*metadata = NULL;	// OAuth metadata
+  const char    *oauth_uri = getenv("CUPS_OAUTH_SERVER");
+                                        // OAuth authorization server URL
+  cups_json_t   *metadata = NULL;      // OAuth metadata
+  const char    *devgrant_cookie;      // CUPS_DEVGRANT cookie value, if any
+  cups_json_t   *devgrant = NULL;      // Device grant JSON, if any
 
 
   fputs("DEBUG2: do_login()\n", stderr);
@@ -120,58 +107,102 @@ do_login(void)
     goto done;
   }
 
-  fprintf(stderr, "DEBUG2: do_login: oauth_uri=\"%s\"\n", oauth_uri);
+  // See if we have a pending device grant...
+  if ((devgrant_cookie = cgiGetCookie("CUPS_DEVGRANT")) != NULL && devgrant_cookie[0])
+    devgrant = cupsJSONImportString(devgrant_cookie);
 
-  // Get the redirect URL...
-  if (!strcmp(server_name, "localhost"))
-    snprintf(redirect_uri, sizeof(redirect_uri), "http://127.0.0.1:%s/", server_port);
-  else
-    snprintf(redirect_uri, sizeof(redirect_uri), "%s://%s:%s/", getenv("HTTPS") ? "https" : "http", server_name, server_port);
-
-  fprintf(stderr, "DEBUG2: do_login: redirect_uri=\"%s\"\n", redirect_uri);
-
-  // Get the client ID...
-  if ((client_id = cupsOAuthCopyClientId(oauth_uri, redirect_uri)) == NULL)
+  if (devgrant)
   {
-    // Nothing saved, try to dynamically register one...
-    if ((client_id = cupsOAuthGetClientId(oauth_uri, metadata, redirect_uri, /*logo_uri*/NULL, /*tos_uri*/NULL)) == NULL)
+    const char  *device_code;          // Device code
+
+    if ((device_code = cupsJSONGetString(cupsJSONFind(devgrant, CUPS_ODEVGRANT_DEVICE_CODE))) != NULL)
     {
-      // Nope, show an error...
-      show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization URL")), cgiText(_("No client ID configured for this server.")));
-      goto done;
+      char      *bearer;                // Access token
+      time_t    access_expires;        // Expiration date
+
+      bearer = cupsOAuthGetTokens(oauth_uri, metadata, NULL, device_code, CUPS_OGRANT_DEVICE_CODE, NULL, &access_expires);
+
+      if (bearer)
+      {
+        // Got a token - save it, clear the grant cookie, and go home...
+        cgiSetCookie("CUPS_DEVGRANT", "", NULL, NULL, time(NULL) - 1, 0);
+        cgiSetCookie("CUPS_BEARER", bearer, NULL, NULL, access_expires, getenv("HTTPS") ? 1 : 0);
+
+        free(bearer);
+
+        do_redirect("/");
+        goto done;
+      }
+      else if (access_expires == 0)
+      {
+        // Hard failure - discard this grant, fall through to request a new one...
+        cupsJSONDelete(devgrant);
+        devgrant = NULL;
+      }
+      // else: still pending ("authorization_pending"/"slow_down") - fall
+      // through to show the same grant again...
+    }
+    else
+    {
+      // Malformed grant JSON - discard and fall through...
+      cupsJSONDelete(devgrant);
+      devgrant = NULL;
     }
   }
 
-  fprintf(stderr, "DEBUG2: do_login: client_id=\"%s\"\n", client_id);
-
-  // Make state and code verification strings...
-  code_verifier = cupsOAuthMakeBase64Random(128);
-  nonce         = cupsOAuthMakeBase64Random(16);
-  state         = cgiGetCookie(CUPS_SID);
-
-  // Get the authorization URL
-  if ((url = cupsOAuthMakeAuthorizationURL(oauth_uri, metadata, /*resource_uri*/NULL, getenv("CUPS_OAUTH_SCOPES"), client_id, code_verifier, nonce, redirect_uri, state)) == NULL)
+  if (!devgrant)
   {
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization URL")), cupsGetErrorString());
-    goto done;
+    char        *temp;                  // JSON string
+
+    if (!cgiIsPOST())
+    {
+      // No pending grant, and this wasn't a POST (e.g. a stray GET to
+      // "/?LOGIN=...") - don't silently start a new authorization request
+      // against the OAuth server, just show the dashboard...
+      do_dashboard();
+      goto done;
+    }
+
+    // Request a new device grant...
+    if ((devgrant = cupsOAuthGetDeviceGrant(oauth_uri, metadata, NULL, getenv("CUPS_OAUTH_SCOPES"))) == NULL)
+    {
+      show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization URL")), cupsGetErrorString());
+      goto done;
+    }
+
+    if ((temp = cupsJSONExportString(devgrant)) != NULL)
+    {
+      cgiSetCookie("CUPS_DEVGRANT", temp, NULL, NULL, time(NULL) + (time_t)cupsJSONGetNumber(cupsJSONFind(devgrant, CUPS_ODEVGRANT_EXPIRES_IN)), 0);
+      free(temp);
+    }
   }
 
-  // Redirect...
-  cgiSetCookie("CUPS_OAUTH_STATE", state, /*path*/NULL, /*domain*/NULL, time(NULL) + 300, /*secure*/0);
+  // Show the authorization page...
+  {
+    const char  *user_code = cupsJSONGetString(cupsJSONFind(devgrant, CUPS_ODEVGRANT_USER_CODE));
+    const char  *verification_uri = cupsJSONGetString(cupsJSONFind(devgrant, CUPS_ODEVGRANT_VERIFICATION_URI));
+    double      interval = cupsJSONGetNumber(cupsJSONFind(devgrant, CUPS_ODEVGRANT_INTERVAL));
+    char        refresh[32];            // Refresh value
 
-  if (referer)
-    cgiSetCookie("CUPS_REFERRER", referer, /*path*/NULL, /*domain*/NULL, time(NULL) + 300, /*secure*/0);
+    snprintf(refresh, sizeof(refresh), "%d;URL=/?LOGIN=Login", interval > 0.0 ? (int)interval : 5);
+    cgiSetVariable("REFRESH_PAGE", refresh);
 
-  do_redirect(url);
+    cgiSetVariable("USER_CODE", user_code ? user_code : "");
+
+    if (verification_uri && (!strncmp(verification_uri, "http://", 7) || !strncmp(verification_uri, "https://", 8)))
+      cgiSetVariable("VERIFICATION_URI", verification_uri);
+    else
+      cgiSetVariable("VERIFICATION_URI", "");
+
+    cgiStartHTML(cgiText(_("Authorize Access")));
+    cgiCopyTemplateLang("oauth-login.tmpl");
+    cgiEndHTML();
+  }
 
   done:
 
-  // Free memory...
-  free(client_id);
-  free(code_verifier);
+  cupsJSONDelete(devgrant);
   cupsJSONDelete(metadata);
-  free(nonce);
-  free(url);
 }
 
 
@@ -182,10 +213,19 @@ do_login(void)
 static void
 do_logout(void)
 {
-  // Clear the CUPS_BEARER cookie...
-  cgiSetCookie("CUPS_BEARER", "", /*path*/NULL, /*domain*/NULL, time(NULL) - 1, /*secure*/0);
+  const char    *oauth_uri = getenv("CUPS_OAUTH_SERVER");
+                                        // OAuth authorization server URL
 
-  // Redirect back to the referrer...
+  // Clear the CUPS_BEARER cookie...
+  cgiSetCookie("CUPS_BEARER", "", NULL, NULL, time(NULL) - 1, 0);
+
+  // Clear any pending device grant cookie...
+  cgiSetCookie("CUPS_DEVGRANT", "", NULL, NULL, time(NULL) - 1, 0);
+
+  // Clear the stored OAuth tokens server-side as well...
+  cupsOAuthClearTokens(oauth_uri, NULL);
+
+  // Redirect back to the dashboard...
   do_redirect("/");
 }
 
@@ -228,107 +268,6 @@ static void
 do_search(char *query)			/* I - Search string */
 {
   (void)query;
-}
-
-
-//
-// 'finish_login()' - Finish OAuth login and then redirect back to the original page.
-//
-
-static void
-finish_login(void)
-{
-  const char	*oauth_uri = getenv("CUPS_OAUTH_SERVER"),
-					// OAuth authorization server URL
-		*referer = getenv("CUPS_REFERER"),
-					// Referring URL
-		*server_name = getenv("SERVER_NAME"),
-					// SERVER_NAME value
-		*server_port = getenv("SERVER_PORT");
-					// SERVER_PORT value
-  char		*bearer = NULL,		// Bearer token
-		*client_id = NULL,	// Client ID value
-		*error,			// Error string
-		redirect_uri[1024];	// redirect_uri value
-  const char	*code;			// Authorization code
-  cups_json_t	*metadata = NULL;	// OAuth metadata
-  time_t	access_expires;		// When the bearer token expires
-  char		scheme[32],		// Referer scheme
-		userpass[256],		// Referer username:password
-		host[256],		// Referer host
-		resource[1024];		// Referer resource
-  int		port;			// Referer port
-
-
-  // Show any error from authorization...
-  if ((error = cgiGetVariable("error_description")) == NULL)
-    error = cgiGetVariable("error");
-
-  if (error)
-  {
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to authorize access")), error);
-    return;
-  }
-
-  // Get the metadata...
-  if ((metadata = cupsOAuthGetMetadata(oauth_uri)) == NULL)
-  {
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to get authorization server information")), cupsGetErrorString());
-    goto done;
-  }
-
-  // Get the redirect URL...
-  if (!server_name || !strcmp(server_name, "localhost"))
-    snprintf(redirect_uri, sizeof(redirect_uri), "http://127.0.0.1%s%s/", server_port ? ":" : "", server_port ? server_port : "");
-  else
-    snprintf(redirect_uri, sizeof(redirect_uri), "%s://%s%s%s/", getenv("HTTPS") ? "https" : "http", server_name, server_port ? ":" : "", server_port ? server_port : "");
-
-  fprintf(stderr, "DEBUG2: finish_login: redirect_uri=\"%s\"\n", redirect_uri);
-
-  // Get the client ID...
-  if ((client_id = cupsOAuthCopyClientId(oauth_uri, redirect_uri)) == NULL)
-  {
-    // Nope, show an error...
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to authorize access")), cgiText(_("No client ID configured for this server.")));
-    goto done;
-  }
-
-  fprintf(stderr, "DEBUG2: finish_login: client_id=\"%s\"\n", client_id);
-
-  // Get the code string...
-  code = cgiGetVariable("code");
-
-  // Get the access token...
-  if ((bearer = cupsOAuthGetTokens(oauth_uri, metadata, /*resource_uri*/NULL, code, CUPS_OGRANT_AUTHORIZATION_CODE, redirect_uri, &access_expires)) == NULL)
-  {
-    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to authorize access")), cupsGetErrorString());
-    goto done;
-  }
-
-  fprintf(stderr, "DEBUG2: finish_login: access_token=\"%s\", access_expires=%ld\n", bearer, (long)access_expires);
-
-  // Save it as a cookie...
-  cgiSetCookie("CUPS_BEARER", bearer, /*path*/NULL, /*domain*/NULL, access_expires, /*secure*/0);
-
-  // Redirect...
-  if (referer && server_name && server_port)
-  {
-    // Validate refererring URL value - must be http: or https:, use the server
-    // name or localhost addresses, and use the same port...
-    if (httpSeparateURI(HTTP_URI_CODING_ALL, referer, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK || (strcmp(scheme, "http") && strcmp(scheme, "https")) || (strcasecmp(host, server_name) && strcmp(host, "127.0.0.1") && strcmp(host, "[::1]")) || port != atoi(server_port))
-      referer = NULL;
-  }
-
-  do_redirect(referer ? referer : "/");
-
-  fputs("DEBUG2: finish_login: After redirect.\n", stderr);
-
-  done:
-
-  // Free memory...
-  free(bearer);
-  free(client_id);
-  cupsJSONDelete(metadata);
 }
 
 
