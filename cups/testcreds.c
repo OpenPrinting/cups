@@ -425,6 +425,17 @@ do_unit_tests(void)
     "ecdsa-p384",
     "ecdsa-p521"
   };
+  static const char * const badcn_request =
+					// CSR for CN=badprinter, DNS:altprinter
+    "-----BEGIN CERTIFICATE REQUEST-----\n"
+    "MIIBHjCBxAIBADAVMRMwEQYDVQQDDApiYWRwcmludGVyMFkwEwYHKoZIzj0CAQYI\n"
+    "KoZIzj0DAQcDQgAE4DPBo9+csGwv9kthG3ZrrKg2GkxaKFsgJZa29RhM13vYa4jO\n"
+    "fpcT5aGad0spacNRwqX6GdiQjlQqp6YFdt4YFKBNMEsGCSqGSIb3DQEJDjE+MDww\n"
+    "FQYDVR0RBA4wDIIKYWx0cHJpbnRlcjAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAww\n"
+    "CgYIKwYBBQUHAwEwCgYIKoZIzj0EAwIDSQAwRgIhAM+MG8suwyzesdEF+33wU7CG\n"
+    "qVydDfe8KEn/S5FenVMlAiEAzHItj++UctdqVHD4c8Uv2Du0exSxQ4RvKUoNb7At\n"
+    "a4I=\n"
+    "-----END CERTIFICATE REQUEST-----\n";
 
 
   for (type = CUPS_CREDTYPE_DEFAULT; type <= CUPS_CREDTYPE_ECDSA_P521_SHA256; type ++)
@@ -620,6 +631,13 @@ do_unit_tests(void)
       testEndMessage(false, "%s", cupsGetErrorString());
     }
   }
+
+  // A request whose subject CN names another host must not be signed...
+  testBegin("cupsSignCredentialsRequest(altprinter w/CN=badprinter)");
+  if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", badcn_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
+    testEndMessage(false, "Expected a failure");
+  else
+    testEndMessage(true, "%s", cupsGetErrorString());
 
   return (testsPassed ? 0 : 1);
 }
