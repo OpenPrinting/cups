@@ -239,6 +239,7 @@ testserver:	all unittests
 
 
 check test:	all unittests
+	cd backend; make test
 	cd cups; make test
 	cd scheduler; make test
 	echo Running CUPS test suite...

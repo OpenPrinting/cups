@@ -12,6 +12,7 @@
 #include <cups/cups-private.h>
 #include <cups/ppd-private.h>
 #include <cups/dir.h>
+#include <cups/dnssd.h>
 #include <pthread.h>
 #include <sys/select.h>
 #include <sys/types.h>
@@ -112,6 +113,13 @@ typedef struct usb_quirk_s		/* USB "quirk" information */
   unsigned	quirks;			/* Quirks bitfield */
 } usb_quirk_t;
 
+typedef struct ipp_usb_s                 /* Local IPP-USB discovery results */
+{
+  cups_array_t          *devices;        /* Bus/device address strings */
+  pthread_mutex_t       mutex;           /* Protect callback data */
+  int                   failed;         /* DNS-SD lookup failed? */
+} ipp_usb_t;
+
 
 
 
@@ -131,6 +139,10 @@ libusb_device		**all_list;	/* List of connected USB devices */
 static int		close_device(usb_printer_t *printer);
 static int		compare_quirks(usb_quirk_t *a, usb_quirk_t *b, void *data);
 static usb_printer_t	*find_device(usb_cb_t cb, const void *data);
+static cups_array_t      *find_ipp_usb_devices(void);
+static int              has_ipp_usb_interface(libusb_device *device, const struct libusb_device_descriptor *devdesc);
+static void             ipp_usb_browse_cb(cups_dnssd_browse_t *browse, void *data, cups_dnssd_flags_t flags, uint32_t if_index, const char *name, const char *regtype, const char *domain);
+static void             ipp_usb_error_cb(void *data, const char *message);
 static unsigned		find_quirks(int vendor_id, int product_id);
 static int		get_device_id(usb_printer_t *printer, char *buffer,
 			              size_t bufsize);
@@ -854,6 +866,15 @@ find_device(usb_cb_t   cb,		/* I - Callback function */
 			device_uri[1024];
 					/* Device URI */
   static usb_printer_t	printer;	/* Current printer */
+  cups_array_t          *ipp_usb;        /* Devices served by ipp-usb */
+
+
+ /*
+  * Browse before touching USB devices. Only discovery should filter out
+  * IPP-USB devices; existing queues must still be able to print directly.
+  */
+
+  ipp_usb = cb == list_cb ? find_ipp_usb_devices() : NULL;
 
 
  /*
@@ -864,6 +885,7 @@ find_device(usb_cb_t   cb,		/* I - Callback function */
   if (err)
   {
     fprintf(stderr, "ERROR: Unable to initialize USB access via libusb, libusb error %i (%s)\n", (int)err, libusb_strerror((int)err));
+    cupsArrayDelete(ipp_usb);
     return (NULL);
   }
 
@@ -899,6 +921,23 @@ find_device(usb_cb_t   cb,		/* I - Callback function */
 
       if (printer.quirks & USB_QUIRK_BLACKLIST)
         continue;
+
+     /*
+      * Check all configurations before opening a legacy interface: the
+      * IPP-USB interface can appear after it in the descriptors.
+      */
+
+      if (ipp_usb)
+      {
+        char address[5];                /* Two hexadecimal bus/device bytes */
+
+        snprintf(address, sizeof(address), "%02X%02X", libusb_get_bus_number(device), libusb_get_device_address(device));
+        if (cupsArrayFind(ipp_usb, address) && has_ipp_usb_interface(device, &devdesc))
+        {
+          fprintf(stderr, "DEBUG: Skipping USB device %s served by ipp-usb.\n", address);
+          continue;
+        }
+      }
 
       for (conf = 0; conf < devdesc.bNumConfigurations; conf ++)
       {
@@ -1016,6 +1055,7 @@ find_device(usb_cb_t   cb,		/* I - Callback function */
 			  "kernel module to be re-attached after job\n");
 		}
 		libusb_free_config_descriptor(confptr);
+		cupsArrayDelete(ipp_usb);
 		return (&printer);
               }
 
@@ -1039,8 +1079,177 @@ find_device(usb_cb_t   cb,		/* I - Callback function */
   if (numdevs >= 0)
     libusb_free_device_list(list, 1);
   libusb_exit(NULL);
+  cupsArrayDelete(ipp_usb);
 
   return (NULL);
+}
+
+
+/*
+ * 'find_ipp_usb_devices()' - Snapshot locally advertised IPP-USB devices.
+ */
+
+static cups_array_t *                   /* O - Addresses, or NULL on error */
+find_ipp_usb_devices(void)
+{
+  cups_dnssd_t  *dnssd;                 /* DNS-SD context */
+  ipp_usb_t     data;                   /* Callback data */
+
+
+  if ((data.devices = cupsArrayNewStrings(NULL, ' ')) == NULL)
+    return (NULL);
+
+  data.failed = 0;
+  pthread_mutex_init(&data.mutex, NULL);
+
+  if ((dnssd = cupsDNSSDNew(ipp_usb_error_cb, &data)) != NULL)
+  {
+    if (cupsDNSSDBrowseNew(dnssd, CUPS_DNSSD_IF_INDEX_LOCAL, "_ipp-usb._tcp", "local.", ipp_usb_browse_cb, &data))
+    {
+     /* One bounded wait for local advertisements, not one per USB device. */
+      sleep(1);
+    }
+    else
+    {
+      pthread_mutex_lock(&data.mutex);
+      data.failed = 1;
+      pthread_mutex_unlock(&data.mutex);
+    }
+
+   /* Stop callbacks before reading or freeing the snapshot. */
+    cupsDNSSDDelete(dnssd);
+  }
+  else
+  {
+    data.failed = 1;
+  }
+
+  pthread_mutex_destroy(&data.mutex);
+
+  if (data.failed)
+  {
+    cupsArrayDelete(data.devices);
+    return (NULL);
+  }
+
+  return (data.devices);
+}
+
+
+/*
+ * 'has_ipp_usb_interface()' - Look for a printer-class IPP-USB interface.
+ */
+
+static int                              /* O - 1 if IPP-USB is supported */
+has_ipp_usb_interface(
+    libusb_device *device,              /* I - USB device */
+    const struct libusb_device_descriptor *devdesc)
+                                        /* I - Device descriptor */
+{
+  int           conf, iface, altset;    /* Descriptor indices */
+  struct libusb_config_descriptor *config;
+                                        /* Configuration descriptor */
+  const struct libusb_interface_descriptor *alt;
+                                        /* Alternate interface descriptor */
+
+
+  for (conf = 0; conf < devdesc->bNumConfigurations; conf ++)
+  {
+    if (libusb_get_config_descriptor(device, (uint8_t)conf, &config) < 0)
+      continue;
+
+    for (iface = 0; iface < config->bNumInterfaces; iface ++)
+    {
+      for (altset = 0; altset < config->interface[iface].num_altsetting; altset ++)
+      {
+        alt = config->interface[iface].altsetting + altset;
+        if (alt->bInterfaceClass == LIBUSB_CLASS_PRINTER && alt->bInterfaceSubClass == 1 && alt->bInterfaceProtocol == 4)
+        {
+          libusb_free_config_descriptor(config);
+          return (1);
+        }
+      }
+    }
+
+    libusb_free_config_descriptor(config);
+  }
+
+  return (0);
+}
+
+
+/*
+ * 'ipp_usb_browse_cb()' - Track IPP-USB service additions and removals.
+ */
+
+static void
+ipp_usb_browse_cb(
+    cups_dnssd_browse_t *browse,         /* I - Browser (unused) */
+    void               *data,           /* I - Callback data */
+    cups_dnssd_flags_t  flags,          /* I - Browse flags */
+    uint32_t           if_index,       /* I - Interface (unused) */
+    const char         *name,           /* I - Bus/device address */
+    const char         *regtype,        /* I - Service type (unused) */
+    const char         *domain)         /* I - Domain (unused) */
+{
+  ipp_usb_t     *info = (ipp_usb_t *)data;
+                                        /* Discovery results */
+  char          address[5];             /* Canonical address */
+  int           i;                      /* Character index */
+
+
+  (void)browse;
+  (void)if_index;
+  (void)regtype;
+  (void)domain;
+
+  if (flags & CUPS_DNSSD_FLAGS_ERROR)
+  {
+    ipp_usb_error_cb(data, "Unable to browse local IPP-USB services.");
+    return;
+  }
+
+  if (!name || strlen(name) != 4)
+    return;
+
+  for (i = 0; i < 4; i ++)
+  {
+    if (!isxdigit((unsigned char)name[i]))
+      return;
+    address[i] = (char)toupper((unsigned char)name[i]);
+  }
+  address[4] = '\0';
+
+  pthread_mutex_lock(&info->mutex);
+  if (flags & CUPS_DNSSD_FLAGS_ADD)
+  {
+    if (!cupsArrayAdd(info->devices, address))
+      info->failed = 1;
+  }
+  else
+  {
+    cupsArrayRemove(info->devices, address);
+  }
+  pthread_mutex_unlock(&info->mutex);
+}
+
+
+/*
+ * 'ipp_usb_error_cb()' - Fall back to legacy discovery on DNS-SD errors.
+ */
+
+static void
+ipp_usb_error_cb(void *data,             /* I - Callback data */
+                 const char *message)   /* I - Error message */
+{
+  ipp_usb_t     *info = (ipp_usb_t *)data;
+                                        /* Discovery results */
+
+
+  fprintf(stderr, "DEBUG: IPP-USB discovery: %s\n", message);
+  pthread_mutex_lock(&info->mutex);
+  info->failed = 1;
+  pthread_mutex_unlock(&info->mutex);
 }
 
 
