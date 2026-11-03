@@ -594,10 +594,10 @@ ippFileRead(ipp_file_t      *file,	// I - IPP data file
 	break;
       }
 
-      if (!file->attr_cb || (*file->attr_cb)(file, file->cb_data, name))
+      if (file->attr_cb && !(*file->attr_cb)(file, file->cb_data, name))
       {
-        // Add this attribute...
-        attrs = file->attrs;
+        // Ignore this attribute...
+        attrs = ignored;
       }
       else if (!_cups_strcasecmp(token, "ATTR-IF-DEFINED"))
       {
