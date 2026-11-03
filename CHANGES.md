@@ -47,6 +47,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
 - Fixed a scheduler issue with the encoding of "octetString" options for
   filters.
+- Fixed the loading of the default DigestOptions value.
 
 
 v2.4.20 - 2026-10-05

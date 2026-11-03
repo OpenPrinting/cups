@@ -1,7 +1,7 @@
 /*
  * User, system, and password routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -1076,7 +1076,8 @@ _cupsSetDefaults(void)
 
   cups_finalize_client_conf(&cc);
 
-  cg->uatokens = cc.uatokens;
+  cg->uatokens      = cc.uatokens;
+  cg->digestoptions = cc.digestoptions;
 
   if (cg->encryption == (http_encryption_t)-1)
     cg->encryption = cc.encryption;
