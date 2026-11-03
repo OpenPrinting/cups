@@ -284,10 +284,13 @@ static ipp_uchar_t mixed[] =		// Mixed value buffer
 // Local functions...
 //
 
+bool	attr_cb(ipp_file_t *f, void *user_data, const char *name);
 void	print_attributes(ipp_t *ipp, int indent);
 ssize_t	read_cb(_ippdata_t *data, ipp_uchar_t *buffer, size_t bytes);
+bool	read_file_string(const char *s, ipp_fattr_cb_t cb, ipp_t *attrs);
 ssize_t	read_hex(cups_file_t *fp, ipp_uchar_t *buffer, size_t bytes);
 int	test_file(const char *color);
+int	test_file_attr_if(ipp_fattr_cb_t cb);
 bool	token_cb(ipp_file_t *f, void *user_data, const char *token);
 ssize_t	write_cb(_ippdata_t *data, ipp_uchar_t *buffer, size_t bytes);
 
@@ -919,6 +922,8 @@ main(int  argc,				// I - Number of command-line arguments
     // Test ippFile API...
     status |= test_file(/*color*/NULL);
     status |= test_file("blue");
+    status |= test_file_attr_if(/*cb*/NULL);
+    status |= test_file_attr_if(attr_cb);
 
     // Test ippDateToTime and ippTimeToDate
     testBegin("ippDateToTime(1970/01/02T00:00:00Z)");
@@ -1062,6 +1067,22 @@ main(int  argc,				// I - Number of command-line arguments
 
 
 //
+// 'attr_cb()' - Attribute callback for ASCII IPP data file parser.
+//
+
+bool					// O - `true` to add, `false` to ignore
+attr_cb(ipp_file_t *f,			// I - IPP file data
+        void       *user_data,		// I - User data pointer
+        const char *name)		// I - Attribute name
+{
+  (void)f;
+  (void)user_data;
+
+  return (strncmp(name, "filtered-", 9) != 0);
+}
+
+
+//
 // 'print_attributes()' - Print the attributes in a request...
 //
 
@@ -1118,6 +1139,44 @@ read_cb(_ippdata_t   *data,		// I - Data
 
   // Return the number of bytes read...
   return ((ssize_t)count);
+}
+
+
+//
+// 'read_file_string()' - Read attributes from an IPP data file string.
+//
+
+bool					// O - `true` on success, `false` on error
+read_file_string(const char     *s,	// I - IPP data file contents
+                 ipp_fattr_cb_t cb,	// I - Attribute callback or `NULL`
+                 ipp_t          *attrs)	// I - IPP attributes
+{
+  bool		ret = false;		// Return value
+  cups_file_t	*fp;			// Temporary file
+  char		filename[1024];		// Temporary filename
+  ipp_file_t	*file;			// IPP data file
+
+
+  if ((fp = cupsCreateTempFile("testipp", ".test", filename, sizeof(filename))) == NULL)
+    return (false);
+
+  cupsFilePuts(fp, s);
+  cupsFileClose(fp);
+
+  if ((file = ippFileNew(/*parent*/NULL, cb, /*error_cb*/NULL, /*cb_data*/NULL)) != NULL)
+  {
+    ippFileSetAttributes(file, attrs);
+    ippFileSetGroupTag(file, IPP_TAG_PRINTER);
+
+    if (ippFileOpen(file, filename, "r"))
+      ret = ippFileRead(file, token_cb, false);
+
+    ippFileDelete(file);
+  }
+
+  unlink(filename);
+
+  return (ret);
 }
 
 
@@ -1365,6 +1424,112 @@ test_file(const char *color)		// I - Media color or `NULL` for default
   }
 
   ippFileDelete(file);
+  ippDelete(attrs);
+
+  return (status);
+}
+
+
+//
+// 'test_file_attr_if()' - Test ATTR-IF-DEFINED and ATTR-IF-NOT-DEFINED.
+//
+
+int					// O - Status
+test_file_attr_if(ipp_fattr_cb_t cb)	// I - Attribute callback or `NULL`
+{
+  int		status = 0;		// Status
+  ipp_t		*attrs;			// IPP attributes
+  ipp_attribute_t *attr;		// Current attribute
+  size_t	i,			// Looping var
+		count,			// Number of values
+		num_attrs,		// Number of attributes
+		expected;		// Expected number of attributes
+  const char	*svalue;		// String value
+  static const char * const vars_test =	// Conditional attributes ("yes" = added)
+    "DEFINE defined yes\n"
+    "ATTR-IF-DEFINED defined keyword if-defined-defined yes\n"
+    "ATTR-IF-DEFINED undefined keyword if-defined-undefined no,no\n"
+    "ATTR-IF-NOT-DEFINED defined keyword if-not-defined-defined no\n"
+    "ATTR-IF-NOT-DEFINED undefined keyword if-not-defined-undefined yes,yes\n"
+    "ATTR-IF-DEFINED undefined keyword filtered-if-defined-undefined no\n"
+    "ATTR-IF-DEFINED defined keyword filtered-if-defined-defined yes\n"
+    "ATTR-IF-NOT-DEFINED undefined keyword filtered-if-not-defined-undefined yes\n";
+  static const char * const comma_test =	// Value after out-of-band attribute
+    "ATTR keyword job-sheets none\n"
+    "ATTR-IF-NOT-DEFINED undefined unknown job-sheets-col\n"
+    ",standard\n";
+
+
+  // ATTR-IF-DEFINED and ATTR-IF-NOT-DEFINED only add attributes when the
+  // variable test passes and the attribute callback accepts the name...
+  testBegin("ippFileRead(ATTR-IF-DEFINED/ATTR-IF-NOT-DEFINED%s)", cb ? ", attr_cb" : "");
+
+  attrs    = ippNew();
+  expected = cb ? 2 : 4;
+
+  if (!read_file_string(vars_test, cb, attrs))
+  {
+    testEndMessage(false, "ippFileRead failed");
+    status = 1;
+  }
+  else
+  {
+    for (attr = ippGetFirstAttribute(attrs), num_attrs = 0; attr; attr = ippGetNextAttribute(attrs), num_attrs ++)
+    {
+      for (i = 0, count = ippGetCount(attr); i < count; i ++)
+      {
+        if ((svalue = ippGetString(attr, i, NULL)) == NULL || strcmp(svalue, "yes"))
+          break;
+      }
+
+      if (i < count)
+        break;
+    }
+
+    if (attr)
+    {
+      testEndMessage(false, "Unexpected attribute '%s'", ippGetName(attr));
+      status = 1;
+    }
+    else if (num_attrs != expected)
+    {
+      testEndMessage(false, "Got %u attributes, expected %u", (unsigned)num_attrs, (unsigned)expected);
+      status = 1;
+    }
+    else
+    {
+      testEndMessage(true, "%u attributes", (unsigned)num_attrs);
+    }
+  }
+
+  ippDelete(attrs);
+
+  // A "," after an out-of-band ATTR-IF-DEFINED/ATTR-IF-NOT-DEFINED attribute
+  // must not add a value to the previous attribute...
+  testBegin("ippFileRead(',' after out-of-band ATTR-IF-NOT-DEFINED%s)", cb ? ", attr_cb" : "");
+
+  attrs = ippNew();
+
+  if (read_file_string(comma_test, cb, attrs))
+  {
+    testEndMessage(false, "ippFileRead succeeded, expected failure");
+    status = 1;
+  }
+  else if ((attr = ippFindAttribute(attrs, "job-sheets", IPP_TAG_KEYWORD)) == NULL)
+  {
+    testEndMessage(false, "missing job-sheets");
+    status = 1;
+  }
+  else if (ippGetCount(attr) != 1)
+  {
+    testEndMessage(false, "Got %u job-sheets values, expected 1", (unsigned)ippGetCount(attr));
+    status = 1;
+  }
+  else
+  {
+    testEnd(true);
+  }
+
   ippDelete(attrs);
 
   return (status);
