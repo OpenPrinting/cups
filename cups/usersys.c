@@ -1120,7 +1120,8 @@ _cupsSetDefaults(void)
   // Finalize things so every client.conf value is set...
   cups_finalize_client_conf(&cc);
 
-  cg->uatokens = cc.uatokens;
+  cg->uatokens      = cc.uatokens;
+  cg->digestoptions = cc.digestoptions;
 
   if (cg->encryption == (http_encryption_t)-1)
     cg->encryption = cc.encryption;
