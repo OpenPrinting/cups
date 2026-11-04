@@ -780,13 +780,17 @@ clean_jobs(ippeve_printer_t *printer)	// I - Printer
   for (job = (ippeve_job_t *)cupsArrayGetFirst(printer->jobs);
        job;
        job = (ippeve_job_t *)cupsArrayGetNext(printer->jobs))
+  {
     if (job->completed && job->completed < cleantime)
     {
       cupsArrayRemove(printer->jobs, job);
       delete_job(job);
     }
     else
+    {
       break;
+    }
+  }
   cupsRWUnlock(&(printer->rwlock));
 }
 
@@ -3021,9 +3025,13 @@ ipp_cancel_job(ippeve_client_t *client)	// I - Client
 
 	if (job->state == IPP_JSTATE_PROCESSING ||
 	    (job->state == IPP_JSTATE_HELD && job->fd >= 0))
+        {
           job->cancel = 1;
+	}
 	else
 	{
+	  client->printer->active_job = NULL;
+
 	  job->state     = IPP_JSTATE_CANCELED;
 	  job->completed = time(NULL);
 	}
@@ -3064,6 +3072,8 @@ ipp_cancel_jobs(
       }
       else
       {
+        client->printer->active_job = NULL;
+
 	job->state     = IPP_JSTATE_CANCELED;
 	job->completed = time(NULL);
       }
