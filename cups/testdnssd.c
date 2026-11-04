@@ -285,12 +285,15 @@ browse_cb(
   char		fullname[1024];		// Full service name
 
 
-  snprintf(message, sizeof(message), "B flags=%02X if_index=%u name=\"%s\" regtype=\"%s\" domain=\"%s\"", flags, if_index, name, regtype, domain);
+  cupsFormatString(message, sizeof(message), "B flags=%02X if_index=%u name=\"%s\" regtype=\"%s\" domain=\"%s\"", flags, if_index, name, regtype, domain);
 
-  cupsDNSSDResolveNew(cupsDNSSDBrowseGetContext(browse), CUPS_DNSSD_IF_INDEX_ANY, name, regtype, domain, resolve_cb, cb_data);
+  if (!(flags & CUPS_DNSSD_FLAGS_ERROR))
+  {
+    cupsDNSSDResolveNew(cupsDNSSDBrowseGetContext(browse), CUPS_DNSSD_IF_INDEX_ANY, name, regtype, domain, resolve_cb, cb_data);
 
-  cupsDNSSDAssembleFullName(fullname, sizeof(fullname), name, regtype, domain);
-  cupsDNSSDQueryNew(cupsDNSSDBrowseGetContext(browse), CUPS_DNSSD_IF_INDEX_ANY, fullname, CUPS_DNSSD_RRTYPE_TXT, query_cb, cb_data);
+    cupsDNSSDAssembleFullName(fullname, sizeof(fullname), name, regtype, domain);
+    cupsDNSSDQueryNew(cupsDNSSDBrowseGetContext(browse), CUPS_DNSSD_IF_INDEX_ANY, fullname, CUPS_DNSSD_RRTYPE_TXT, query_cb, cb_data);
+  }
 
   cupsMutexLock(&data->mutex);
   cupsArrayAdd(data->messages, message);
@@ -376,8 +379,8 @@ query_cb(
 
   (void)query;
 
-  snprintf(message, sizeof(message), "Q flags=%02X if_index=%u fullname=\"%s\" rrtype=%u qlen=%u qdata=<", flags, if_index, fullname, rrtype, qlen);
-  for (mptr = message + strlen(message), i = 0, qptr = (const unsigned char *)qdata; i < qlen; i ++, mptr += strlen(mptr), qptr ++)
+  cupsFormatString(message, sizeof(message), "Q flags=%02X if_index=%u fullname=\"%s\" rrtype=%u qlen=%u qdata=<", flags, if_index, fullname, rrtype, qlen);
+  for (mptr = message + strlen(message), i = 0, qptr = (const unsigned char *)qdata; i < qlen && mptr < (message + sizeof(message) - 3); i ++, mptr += strlen(mptr), qptr ++)
     snprintf(mptr, sizeof(message) - (size_t)(mptr - message), "%02X", *qptr);
   if (mptr < (message + sizeof(message) - 1))
   {
@@ -421,10 +424,10 @@ resolve_cb(
 
   (void)res;
 
-  snprintf(message, sizeof(message), "R flags=%02X if_index=%u fullname=\"%s\" host=\"%s\" port=%u num_txt=%u", flags, if_index, fullname, host, port, (unsigned)num_txt);
-  for (mptr = message + strlen(message), i = 0; i < num_txt; i ++, mptr += strlen(mptr))
+  cupsFormatString(message, sizeof(message), "R flags=%02X if_index=%u fullname=\"%s\" host=\"%s\" port=%u num_txt=%u", flags, if_index, fullname, host, port, (unsigned)num_txt);
+  for (mptr = message + strlen(message), i = 0; i < num_txt && mptr < (message + sizeof(message) - 4); i ++, mptr += strlen(mptr))
   {
-    snprintf(mptr, sizeof(message) - (size_t)(mptr - message), "%s\"%s=%s\"", prefix, txt[i].name, txt[i].value);
+    cupsFormatString(mptr, sizeof(message) - (size_t)(mptr - message), "%s\"%s=%s\"", prefix, txt[i].name, txt[i].value);
     prefix = ",";
   }
 
@@ -435,19 +438,19 @@ resolve_cb(
   if (!cupsDNSSDSeparateFullName(fullname, name, sizeof(name), regtype, sizeof(regtype), domain, sizeof(domain)))
   {
     // Separation failed...
-    snprintf(message, sizeof(message), "R ==== ERROR: Unable to separate fullname \"%s\" into components ====", fullname);
+    cupsFormatString(message, sizeof(message), "R ==== ERROR: Unable to separate fullname \"%s\" into components ====", fullname);
     cupsArrayAdd(data->messages, message);
   }
   else if (!strcmp(regtype, "_testdnssd._tcp"))
   {
     if (strcmp(name, data->name))
     {
-      snprintf(message, sizeof(message), "R ==== ERROR: Expected name \"%s\", got \"%s\" ====", data->name, name);
+      cupsFormatString(message, sizeof(message), "R ==== ERROR: Expected name \"%s\", got \"%s\" ====", data->name, name);
       cupsArrayAdd(data->messages, message);
     }
     else if (port != 54321)
     {
-      snprintf(message, sizeof(message), "R ==== ERROR: Expected port 54321, got %u ====", port);
+      cupsFormatString(message, sizeof(message), "R ==== ERROR: Expected port 54321, got %u ====", port);
       cupsArrayAdd(data->messages, message);
     }
     else
@@ -475,7 +478,7 @@ service_cb(
   char		message[1024];		// Message string
 
 
-  snprintf(message, sizeof(message), "S flags=%02X name=\"%s\"", flags, cupsDNSSDServiceGetName(service));
+  cupsFormatString(message, sizeof(message), "S flags=%02X name=\"%s\"", flags, cupsDNSSDServiceGetName(service));
 
   cupsMutexLock(&data->mutex);
   cupsArrayAdd(data->messages, message);
