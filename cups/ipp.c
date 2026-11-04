@@ -4355,19 +4355,7 @@ ippWriteIO(void        *dst,		// I - Destination
 	    memcpy(bufptr, attr->name, (size_t)n);
 	    bufptr += n;
 
-            if (attr->value_tag > 0xff)
-            {
-              *bufptr++ = IPP_TAG_EXTENSION;
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 24);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 16);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 8);
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-            }
-            else
-            {
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-	    }
-
+	    *bufptr++ = (ipp_uchar_t)attr->value_tag;
             *bufptr++ = 0;
             *bufptr++ = 0;
 	  }
@@ -4822,10 +4810,9 @@ ippWriteIO(void        *dst,		// I - Destination
 		    *bufptr++ = 0;
 		  }
 
-		  // An unknown value might some new value that a
-		  // vendor has come up with. It consists of a
-		  // 2-byte length and the bytes in the unknown
-		  // value buffer.
+		  // An unknown value might some new syntax that a vendor has
+		  // come up with. It consists of a 2-byte length and the bytes
+		  // in the unknown value buffer.
                   n = value->unknown.length;
 
                   if (n > (IPP_BUF_SIZE - 2))
@@ -5260,11 +5247,7 @@ ipp_length(ipp_t *ipp,			// I - IPP message or collection
 
     DEBUG_printf("5ipp_length: attr->name=\"%s\", attr->num_values=%d, bytes=" CUPS_LLFMT, attr->name, attr->num_values, CUPS_LLCAST bytes);
 
-    if ((attr->value_tag & ~IPP_TAG_CUPS_CONST) < IPP_TAG_EXTENSION)
-      bytes += (size_t)attr->num_values;// Value tag for each value
-    else
-      bytes += (size_t)(5 * attr->num_values);
-					// Value tag for each value
+    bytes += (size_t)attr->num_values;	// Value tag for each value
     bytes += (size_t)(2 * attr->num_values);
 					// Name lengths
     bytes += strlen(attr->name);	// Name

@@ -279,6 +279,26 @@ static ipp_uchar_t mixed[] =		// Mixed value buffer
 		  IPP_TAG_END		// end tag
 		};
 
+static ipp_uchar_t extension[] =	// Extension value buffer
+		{
+		  0x02, 0x00,		// IPP version
+		  0x00, 0x0b,		// Get-Printer-Attributes operation
+		  0x00, 0x00, 0x00, 0x01,
+					// Request ID
+
+		  IPP_TAG_OPERATION,
+
+		  IPP_TAG_EXTENSION,	// extension tag
+		  0x00, 0x05,		// Name length + name
+		  'x', '-', 'e', 'x', 't',
+		  0x00, 0x06,		// Value length + value
+		  0x40, 0x00, 0x00, 0x01,
+					// Extension tag identifier
+		  'h', 'i',		// Extension tag value
+
+		  IPP_TAG_END		// end tag
+		};
+
 
 //
 // Local functions...
@@ -703,6 +723,79 @@ main(int  argc,				// I - Number of command-line arguments
     else
     {
       testEnd(true);
+    }
+
+    ippDelete(request);
+
+    // Read the extension data and confirm ippGetLength() matches...
+    testBegin("Read Extension Value from Memory");
+
+    request = ippNew();
+    data.rpos    = 0;
+    data.wused   = sizeof(extension);
+    data.wsize   = sizeof(extension);
+    data.wbuffer = extension;
+
+    while ((state = ippReadIO(&data, (ipp_io_cb_t)read_cb, 1, NULL, request)) != IPP_STATE_DATA)
+    {
+      if (state == IPP_STATE_ERROR)
+	break;
+    }
+
+    length = ippGetLength(request);
+
+    if (state != IPP_STATE_DATA)
+    {
+      testEndMessage(false, "%d bytes read", (int)data.rpos);
+      status = 1;
+    }
+    else if (length != sizeof(extension))
+    {
+      testEndMessage(false, "wrong ippGetLength(), %d instead of %d bytes", (int)length, (int)sizeof(extension));
+      print_attributes(request, 8);
+      status = 1;
+    }
+    else
+    {
+      testEnd(true);
+    }
+
+    testBegin("ippFind(x-ext, IPP_TAG_ZERO)");
+    testEnd(ippFindAttribute(request, "x-ext", IPP_TAG_ZERO) != NULL);
+
+    testBegin("ippFind(x-ext, IPP_TAG_EXTENSION)");
+    if ((attr = ippFindAttribute(request, "x-ext", IPP_TAG_EXTENSION)) != NULL)
+    {
+      unsigned char	*data;		// Value
+      size_t		datalen;	// Length of value
+
+      if (ippGetCount(attr) != 1)
+      {
+        testEndMessage(false, "got %u values, expected 1)", (unsigned)ippGetCount(attr));
+      }
+      else if ((data = ippGetOctetString(attr, 0, &datalen)) != NULL && datalen == 6)
+      {
+        unsigned exttag = (unsigned)(data[0] << 24) | (unsigned)(data[1] << 16) | (unsigned)(data[2] << 8) | data[3];
+
+	if (exttag != 0x40000001)
+	  testEndMessage(false, "got extension 0x%08x, expected 0x40000001", exttag);
+	else if (data[4] != 'h' || data[5] != 'i')
+	  testEndMessage(false, "got '%c%c', expected 'hi'", data[4], data[5]);
+	else
+	  testEnd(true);
+      }
+      else if (data == NULL)
+      {
+        testEndMessage(false, "no data");
+      }
+      else
+      {
+        testEndMessage(false, "got %u bytes of data, expected 6", (unsigned)datalen);
+      }
+    }
+    else
+    {
+      testEnd(false);
     }
 
     // Attribute validation tests...
