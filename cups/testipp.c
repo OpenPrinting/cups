@@ -767,7 +767,7 @@ main(int  argc,				// I - Number of command-line arguments
     if ((attr = ippFindAttribute(request, "x-ext", IPP_TAG_EXTENSION)) != NULL)
     {
       unsigned char	*data;		// Value
-      size_t		datalen;	// Length of value
+      int		datalen;	// Length of value
 
       if (ippGetCount(attr) != 1)
       {
