@@ -1,7 +1,7 @@
 /*
  * IPP Everywhere printer application for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2020 by the IEEE-ISTO Printer Working Group.
  * Copyright © 2010-2021 by Apple Inc.
  *
@@ -865,13 +865,17 @@ clean_jobs(ippeve_printer_t *printer)	/* I - Printer */
   for (job = (ippeve_job_t *)cupsArrayFirst(printer->jobs);
        job;
        job = (ippeve_job_t *)cupsArrayNext(printer->jobs))
+  {
     if (job->completed && job->completed < cleantime)
     {
       cupsArrayRemove(printer->jobs, job);
       delete_job(job);
     }
     else
+    {
       break;
+    }
+  }
   _cupsRWUnlock(&(printer->rwlock));
 }
 
@@ -3217,9 +3221,13 @@ ipp_cancel_job(ippeve_client_t *client)	/* I - Client */
 
 	if (job->state == IPP_JSTATE_PROCESSING ||
 	    (job->state == IPP_JSTATE_HELD && job->fd >= 0))
+        {
           job->cancel = 1;
+	}
 	else
 	{
+	  client->printer->active_job = NULL;
+
 	  job->state     = IPP_JSTATE_CANCELED;
 	  job->completed = time(NULL);
 	}
@@ -3267,6 +3275,8 @@ ipp_cancel_my_jobs(
       }
       else
       {
+	client->printer->active_job = NULL;
+
 	job->state     = IPP_JSTATE_CANCELED;
 	job->completed = time(NULL);
       }
@@ -7884,7 +7894,7 @@ show_media(ippeve_client_t  *client)	/* I - Client connection */
  /*
   * Make sure the number of trays is consistent.
   */
- 
+
   if (num_sources != ippGetCount(input_tray))
   {
     html_printf(client, "<p>Error: Different number of trays in media-source-supported and printer-input-tray defined for printer.</p>\n");
