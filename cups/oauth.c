@@ -128,6 +128,9 @@ typedef enum _cups_otype_e		// OAuth data type
 #define _CUPS_OAUTH_REDIRECT_PATHLEN	2
 					// Redirect URI request path length
 
+#define _CUPS_OAUTH_USERID_TIMEOUT	300
+					// Default user ID cache lifetime in seconds
+
 #ifdef DEBUG
 static const char * const cups_otypes[_CUPS_OTYPE_MAX] =
 {					// OAuth data types...
@@ -169,7 +172,7 @@ static char	*oauth_make_access_uri(const char *access_token);
 static char	*oauth_make_path(char *buffer, size_t bufsize, const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, bool use_sysconfig);
 static char	*oauth_make_software_id(char *buffer, size_t bufsize);
 static bool	oauth_metadata_contains(cups_json_t *metadata, const char *parameter, const char *value);
-static void	oauth_save_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, const char *value);
+static void	oauth_save_value(const char *auth_uri, const char *secondary_uri, _cups_otype_t otype, const char *value, time_t expires);
 static bool	oauth_set_error(cups_json_t *json, size_t num_form, cups_option_t *form);
 
 
@@ -187,11 +190,11 @@ cupsOAuthClearTokens(
     const char *auth_uri,		// I - Authorization server URI
     const char *resource_uri)		// I - Resource server URI
 {
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, /*value*/NULL);
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, NULL);
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, /*value*/NULL);
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, NULL);
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH, /*value*/NULL);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, /*value*/NULL, /*expires*/0);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, NULL, /*expires*/0);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, /*value*/NULL, /*expires*/0);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, NULL, /*expires*/0);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH, /*value*/NULL, /*expires*/0);
 }
 
 
@@ -453,7 +456,7 @@ cupsOAuthGetAuthorizationCode(
   resourcelen = strlen(resource);
 
   // Point redirection to the local port...
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI, redirect_uri);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REDIRECT_URI, redirect_uri, /*expires*/0);
 
   // Make state and code verification strings...
   if (oauth_metadata_contains(metadata, "code_challenge_methods_supported", "S256"))
@@ -791,8 +794,8 @@ cupsOAuthGetClientId(
     if ((client_id = strdup(value)) != NULL)
     {
       // Save client_id and optional client_secret...
-      oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, value);
-      oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, cupsJSONGetString(cupsJSONFind(response, "client_secret")));
+      oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, value, /*expires*/0);
+      oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, cupsJSONGetString(cupsJSONFind(response, "client_secret")), /*expires*/0);
     }
   }
 
@@ -1033,7 +1036,7 @@ cupsOAuthGetJWKS(const char  *auth_uri,	// I - Authorization server URI
     char *s = cupsJSONExportString(jwks);
 					// JSON string
 
-    oauth_save_value(auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, s);
+    oauth_save_value(auth_uri, /*secondary_uri*/NULL, _CUPS_OTYPE_JWKS, s, /*expires*/0);
     free(s);
   }
 
@@ -1480,8 +1483,8 @@ cupsOAuthGetTokens(
   done:
 
   // Clear code_verifier and nonce values...
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*value*/NULL);
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*value*/NULL);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, /*value*/NULL, /*expires*/0);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, /*value*/NULL, /*expires*/0);
 
   cupsJSONDelete(response);
   cupsJWTDelete(jwt);
@@ -1496,8 +1499,10 @@ cupsOAuthGetTokens(
 // 'cupsOAuthGetUserId()' - Get the user ID token associated with the given access token.
 //
 // This function retrieves the user ID token associated with a given access
-// token.  The user ID information is cached until the token expires to minimize
-// the overhead of communicating with the Authorization Server.
+// token.  The user ID information is cached until the token expires, as saved
+// by @link cupsOAuthSaveTokens@, or for 5 minutes when retreived from the
+// Authorization Server to minimize communication overhead.  Only user
+// information containing a subject ("sub") is returned or cached.
 //
 // @since CUPS 2.5@
 //
@@ -1508,8 +1513,10 @@ cupsOAuthGetUserId(
     cups_json_t *metadata,		// I - Authorization Server metadata
     const char  *access_token)		// I - Access (Bearer) token
 {
+  http_t	*http = NULL;		// Connection to endpoint
   char		*access_uri,		// Access token URI
-		*user_id_value;		// String value of user ID
+		*user_id_value,		// String value of user ID
+		*expires_ptr;		// Pointer to expiration time
   cups_jwt_t	*user_id = NULL;	// User ID JWT
   const char	*userinfo_ep;		// userinfo_endpoint value
 
@@ -1523,10 +1530,49 @@ cupsOAuthGetUserId(
     return (NULL);
 
   // See if we have this token cached already...
-  if ((user_id_value = oauth_load_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*try_sysconfig*/false)) == NULL && (userinfo_ep = cupsJSONGetString(cupsJSONFind(metadata, "userinfo_endpoint"))) != NULL)
+  if ((user_id_value = oauth_load_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*try_sysconfig*/false)) != NULL)
   {
-    // No, try to get the information from the Authorization Server...
-    http_t	*http;			// Connection to endpoint
+    // Yes, use it only if it hasn't expired...
+    if ((expires_ptr = strchr(user_id_value, '\n')) != NULL && strtol(expires_ptr + 1, NULL, 10) > time(NULL))
+    {
+      *expires_ptr = '\0';
+
+      if (*user_id_value == '{')
+      {
+        // Claims from the userinfo endpoint...
+        cups_json_t *claims = cupsJSONImportString(user_id_value);
+					// Cached claims
+
+        if (claims && (user_id = cupsJWTNew(/*type*/NULL, claims)) == NULL)
+          cupsJSONDelete(claims);
+      }
+      else
+      {
+        // ID token from cupsOAuthSaveTokens...
+        user_id = cupsJWTImportString(user_id_value, CUPS_JWS_FORMAT_COMPACT);
+      }
+
+      if (user_id && !cupsJWTGetClaimString(user_id, CUPS_JWT_SUB))
+      {
+        // No subject...
+        cupsJWTDelete(user_id);
+        user_id = NULL;
+      }
+    }
+
+    free(user_id_value);
+    user_id_value = NULL;
+
+    if (user_id)
+      goto done;
+
+    // Remove the expired or unusable user ID...
+    oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*value*/NULL, /*expires*/0);
+  }
+
+  if ((userinfo_ep = cupsJSONGetString(cupsJSONFind(metadata, "userinfo_endpoint"))) != NULL)
+  {
+    // Try to get the information from the Authorization Server...
     char	host[256],		// Endpoint hostname
 		resource[1024];		// Endpoint resource
     int		port;			// Endpoint port
@@ -1537,7 +1583,7 @@ cupsOAuthGetUserId(
 
     // Connect to the endpoint...
     if ((http = httpConnectURI(userinfo_ep, host, sizeof(host), &port, resource, sizeof(resource), /*blocking*/true, /*msec*/30000, /*cancel*/NULL, /*require_ca*/true)) == NULL)
-      return (NULL);
+      goto done;
 
     // Send a GET request with the access token...
     httpSetAuthString(http, "Bearer", access_token);
@@ -1563,25 +1609,35 @@ cupsOAuthGetUserId(
     user_id_claims = cupsJSONImportString(user_id_value);
 
     // Verify that the access token hasn't expired...
-    if (cupsJSONFind(user_id_claims, "error"))
+    if (status != HTTP_STATUS_OK || cupsJSONFind(user_id_claims, "error"))
     {
-      // Expired or bad access token, get rid of this one...
+      // Expired or bad access token...
       const char *error_desc = cupsJSONGetString(cupsJSONFind(user_id_claims, "error_description"));
 					// Description of error
 
-      DEBUG_printf("1cupsOAuthGetUserId: Error from userinfo - %s, %s.", cupsJSONGetString(cupsJSONFind(user_id_claims, "error")), error_desc);
+      DEBUG_printf("1cupsOAuthGetUserId: Error from userinfo - %d, %s, %s.", status, cupsJSONGetString(cupsJSONFind(user_id_claims, "error")), error_desc);
+
+      if (!error_desc && status != HTTP_STATUS_OK)
+        error_desc = httpStatusString(status);
+
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, error_desc, false);
 
       cupsJSONDelete(user_id_claims);
-      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, /*value*/NULL);
+    }
+    else if (!cupsJSONGetString(cupsJSONFind(user_id_claims, "sub")))
+    {
+      // No subject in the user information...
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Missing subject in user information."), true);
+
+      cupsJSONDelete(user_id_claims);
     }
     else if ((user_id = cupsJWTNew(/*type*/NULL, user_id_claims)) != NULL)
     {
-      // Created a new JWT with the JSON user information, save it for future use...
+      // Created a new JWT with the JSON user information, save the claims for future use...
       free(user_id_value);
 
       user_id_value = cupsJWTExportString(user_id, CUPS_JWS_FORMAT_COMPACT);
-      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id_value);
+      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id_value, time(NULL) + _CUPS_OAUTH_USERID_TIMEOUT);
     }
     else
     {
@@ -1589,13 +1645,11 @@ cupsOAuthGetUserId(
       cupsJSONDelete(user_id_claims);
     }
   }
-  else if (user_id_value)
-  {
-    // Convert the string to a JWT...
-    user_id = cupsJWTImportString(user_id_value, CUPS_JWS_FORMAT_COMPACT);
-  }
 
   done:
+
+  // Close any open connection...
+  httpClose(http);
 
   // Free strings and return...
   free(access_uri);
@@ -1693,14 +1747,14 @@ cupsOAuthMakeAuthorizationURL(
     num_vars = cupsAddOption("code_challenge", code_challenge, num_vars, &vars);
     num_vars = cupsAddOption("code_challenge_method", "S256", num_vars, &vars);
 
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, code_verifier);
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_CODE_VERIFIER, code_verifier, /*expires*/0);
   }
 
   if (nonce && oauth_metadata_contains(metadata, "scopes_supported", "openid"))
   {
     num_vars = cupsAddOption("nonce", nonce, num_vars, &vars);
 
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, nonce);
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_NONCE, nonce, /*expires*/0);
   }
 
   if (resource_uri)
@@ -1791,8 +1845,8 @@ cupsOAuthSaveClientData(
     const char *client_id,		// I - client_id or `NULL` to delete
     const char *client_secret)		// I - client_secret value or `NULL` for none
 {
-  oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, client_id);
-  oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, client_secret);
+  oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_ID, client_id, /*expires*/0);
+  oauth_save_value(auth_uri, redirect_uri, _CUPS_OTYPE_CLIENT_SECRET, client_secret, /*expires*/0);
 }
 
 
@@ -1816,9 +1870,6 @@ cupsOAuthSaveTokens(
     const char *user_id,		// I - User ID or `NULL` to delete
     const char *refresh_token)		// I - Refresh token or `NULL` to delete
 {
-  char		temp[16384];		// Temporary string
-
-
   DEBUG_printf("cupsOAuthSaveTokens(auth_uri=\"%s\", resource_uri=\"%s\", access_token=\"%s\", access_expires=%ld, user_id=\"%s\", refresh_token=\"%s\")", auth_uri, resource_uri, access_token, (long)access_expires, user_id, refresh_token);
 
   // Access token...
@@ -1827,26 +1878,28 @@ cupsOAuthSaveTokens(
     // Save access token...
     char	*access_uri;		// Access token URI
 
-    snprintf(temp, sizeof(temp), "%s\n%ld\n", access_token, (long)access_expires);
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, temp);
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, access_token, access_expires);
 
     if ((access_uri = oauth_make_access_uri(access_token)) != NULL)
     {
-      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id);
+      oauth_save_value(auth_uri, access_uri, _CUPS_OTYPE_USER_ID, user_id, access_expires);
       free(access_uri);
     }
   }
   else
   {
     // Remove access token
-    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, NULL);
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_ACCESS, NULL, /*expires*/0);
   }
 
   // User ID...
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, user_id);
+  if (access_expires > 0)
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, user_id, access_expires);
+  else
+    oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_USER_ID, user_id, time(NULL) + _CUPS_OAUTH_USERID_TIMEOUT);
 
   // Refresh token...
-  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH, refresh_token);
+  oauth_save_value(auth_uri, resource_uri, _CUPS_OTYPE_REFRESH, refresh_token, /*expires*/0);
 }
 
 
@@ -2263,6 +2316,9 @@ oauth_make_path(
 
   if (secondary_uri)
   {
+    const char	*hashdata = secondary_temp;
+					// Data to hash
+
     if (!strncmp(secondary_uri, "http://", 7))
     {
       // HTTP URI
@@ -2281,7 +2337,7 @@ oauth_make_path(
       if (!strchr(secondary_temp, ':'))	// Add :443 if no port is present
         cupsConcatString(secondary_temp, ":443", sizeof(secondary_temp));
     }
-    else
+    else if (!strncmp(secondary_uri, "ipps://", 7))
     {
       // IPPS URI
       cupsCopyString(secondary_temp, secondary_uri + 7, sizeof(secondary_temp));
@@ -2290,8 +2346,13 @@ oauth_make_path(
       if (!strchr(secondary_temp, ':'))	// Add :631 if no port is present
         cupsConcatString(secondary_temp, ":631", sizeof(secondary_temp));
     }
+    else
+    {
+      // Some other URI, hash the whole thing...
+      hashdata = secondary_uri;
+    }
 
-    cupsHashData("sha2-256", secondary_temp, strlen(secondary_temp), secondary_hash, sizeof(secondary_hash));
+    cupsHashData("sha2-256", hashdata, strlen(hashdata), secondary_hash, sizeof(secondary_hash));
     cupsHashString(secondary_hash, sizeof(secondary_hash), secondary_temp, sizeof(secondary_temp));
   }
   else
@@ -2413,7 +2474,8 @@ oauth_save_value(
     const char    *auth_uri,		// I - Authorization Server URI
     const char    *secondary_uri,	// I - Resource or redirect URI
     _cups_otype_t otype,		// I - Type (_CUPS_OTYPE_xxx)
-    const char    *value)		// I - Value string or `NULL` to remove
+    const char    *value,		// I - Value string or `NULL` to remove
+    time_t        expires)		// I - Expiration time or 0 for none
 {
   char	filename[1024];			// Filename
   int	fd;				// File descriptor
@@ -2432,7 +2494,7 @@ oauth_save_value(
   };
 
 
-  DEBUG_printf("3oauth_save_value(auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, value=\"%s\")", auth_uri, secondary_uri, cups_otypes[otype], value);
+  DEBUG_printf("3oauth_save_value(auth_uri=\"%s\", secondary_uri=\"%s\", otype=%s, value=\"%s\", expires=%ld)", auth_uri, secondary_uri, cups_otypes[otype], value, (long)expires);
 
   // Try making the filename...
   if (!oauth_make_path(filename, sizeof(filename), auth_uri, secondary_uri, otype, /*use_sysconfig*/false))
@@ -2445,6 +2507,13 @@ oauth_save_value(
     {
       // Write the value and close...
       write(fd, value, strlen(value));
+      if (expires > 0)
+      {
+        char	expvalue[256];		// Expiration time
+
+        snprintf(expvalue, sizeof(expvalue), "\n%ld", (long)expires);
+        write(fd, expvalue, strlen(expvalue));
+      }
       close(fd);
     }
   }
