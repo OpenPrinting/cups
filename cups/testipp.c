@@ -343,6 +343,18 @@ main(int  argc,				// I - Number of command-line arguments
 
   if (argc == 1)
   {
+    // Test status name lookups...
+    testBegin("ippErrorString(IPP_STATUS_ERROR_NOT_FETCHABLE)");
+    if (!strcmp(ippErrorString(IPP_STATUS_ERROR_NOT_FETCHABLE), "client-error-not-fetchable"))
+    {
+      testEnd(true);
+    }
+    else
+    {
+      testEndMessage(false, "got \"%s\"", ippErrorString(IPP_STATUS_ERROR_NOT_FETCHABLE));
+      status = 1;
+    }
+
     // Test request generation code...
     testBegin("Create Sample Request");
 

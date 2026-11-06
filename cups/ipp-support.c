@@ -2287,7 +2287,7 @@ ippErrorString(ipp_status_t error)	// I - Error status
     return ("redirection-other-site");
   else if (error == IPP_STATUS_CUPS_SEE_OTHER)
     return ("cups-see-other");
-  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_ACCOUNT_AUTHORIZATION_FAILED)
+  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_NOT_FETCHABLE)
     return (ipp_status_400s[error - IPP_STATUS_ERROR_BAD_REQUEST]);
   else if (error >= IPP_STATUS_ERROR_INTERNAL && error <= IPP_STATUS_ERROR_TOO_MANY_DOCUMENTS)
     return (ipp_status_500s[error - IPP_STATUS_ERROR_INTERNAL]);
