@@ -414,6 +414,8 @@ main(int  argc,				/* I - Number of command-line arguments */
     putenv("LOCALEDIR=locale");
     putenv("SOFTWARE=CUPS");
 
+    status += do_preset_injection();
+
    /*
     * Do tests with test.ppd...
     */
