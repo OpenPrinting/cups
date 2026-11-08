@@ -28,6 +28,7 @@
  */
 
 static int	do_ppd_tests(const char *filename, int num_options, cups_option_t *options);
+static int	do_preset_injection(void);
 static int	do_ps_tests(void);
 static void	print_changes(cups_page_header2_t *header, cups_page_header2_t *expected);
 
@@ -288,6 +289,83 @@ static const char	*default2_code =
 
 
 /*
+ * 'do_preset_injection()' - A job-presets-supported text value with a
+ *                           newline must not become its own PPD statement.
+ *                           sides and a keyword member must still be written.
+ */
+
+static int				/* O - 0 on success, 1 on failure */
+do_preset_injection(void)
+{
+  ipp_t		*resp,			/* Printer attributes */
+		*preset;		/* One job preset */
+  char		buffer[1024];		/* PPD filename */
+  char		*result;		/* Returned filename */
+  char		*text = NULL;		/* PPD contents */
+  FILE		*fp;			/* PPD file */
+  long		len;			/* PPD length */
+  int		duplex, color, injected;
+
+
+  resp = ippNew();
+  ippAddString(resp, IPP_TAG_PRINTER, IPP_TAG_URI, "printer-uri-supported",
+               NULL, "ipp://localhost/ipp/print");
+  ippAddString(resp, IPP_TAG_PRINTER, IPP_TAG_MIMETYPE,
+               "document-format-supported", NULL, "application/pdf");
+  ippAddString(resp, IPP_TAG_PRINTER, IPP_TAG_KEYWORD, "media-supported",
+               NULL, "na_letter_8.5x11in");
+
+  preset = ippNew();
+  ippAddString(preset, IPP_TAG_ZERO, IPP_TAG_NAME, "preset-name", NULL, "Office");
+  ippAddString(preset, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "sides", NULL, "one-sided");
+  ippAddString(preset, IPP_TAG_ZERO, IPP_TAG_KEYWORD, "print-color-mode", NULL,
+               "monochrome");
+  ippAddString(preset, IPP_TAG_ZERO, IPP_TAG_TEXT, "evil-option", NULL,
+               "ok\n*INJECTED-DIRECTIVE evil");
+  ippAddCollection(resp, IPP_TAG_PRINTER, "job-presets-supported", preset);
+  ippDelete(preset);
+
+  result = _ppdCreateFromIPP(buffer, sizeof(buffer), resp);
+
+  if (result && (fp = fopen(result, "rb")) != NULL)
+  {
+    if (fseek(fp, 0, SEEK_END) == 0 && (len = ftell(fp)) >= 0 &&
+        fseek(fp, 0, SEEK_SET) == 0 && (text = malloc((size_t)len + 1)) != NULL)
+    {
+      if (fread(text, 1, (size_t)len, fp) == (size_t)len)
+        text[len] = '\0';
+      else
+      {
+        free(text);
+        text = NULL;
+      }
+    }
+
+    fclose(fp);
+    unlink(result);
+  }
+
+  ippDelete(resp);
+
+  duplex   = text && strstr(text, "*Duplex None\n") != NULL;
+  color    = text && strstr(text, "*print-color-mode monochrome\n") != NULL;
+  injected = text && strstr(text, "INJECTED-DIRECTIVE") != NULL;
+
+  printf("preset text newline is not a new PPD directive: %s "
+         "(duplex=%d color=%d injected=%d)\n",
+         text && duplex && color && !injected ? "PASS" : "FAIL",
+         duplex, color, injected);
+
+  if (!result)
+    printf("preset generator returned NULL: %s\n", cupsGetErrorString());
+
+  free(text);
+
+  return (text && duplex && color && !injected ? 0 : 1);
+}
+
+
+/*
  * 'main()' - Main entry.
  */
 
@@ -314,6 +392,9 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
   status = 0;
+
+  if (argc == 2 && !strcmp(argv[1], "--preset-injection"))
+    return (do_preset_injection());
 
   if (argc == 1)
   {
