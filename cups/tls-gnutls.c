@@ -21,6 +21,7 @@
 static gnutls_x509_privkey_t gnutls_create_key(cups_credtype_t type);
 static void		gnutls_free_certs(unsigned num_certs, gnutls_x509_crt_t *certs);
 static ssize_t		gnutls_http_read(gnutls_transport_ptr_t ptr, void *data, size_t length);
+static int		gnutls_http_timeout(gnutls_transport_ptr_t ptr, unsigned int ms);
 static ssize_t		gnutls_http_write(gnutls_transport_ptr_t ptr, const void *data, size_t length);
 static gnutls_x509_crt_t gnutls_import_certs(const char *credentials, unsigned *num_certs, gnutls_x509_crt_t *certs);
 static void		gnutls_load_crl(void);
@@ -1957,7 +1958,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   gnutls_transport_set_ptr(http->tls, (gnutls_transport_ptr_t)http);
   gnutls_transport_set_pull_function(http->tls, gnutls_http_read);
 #ifdef HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION
-  gnutls_transport_set_pull_timeout_function(http->tls, (gnutls_pull_timeout_func)httpWait);
+  gnutls_transport_set_pull_timeout_function(http->tls, gnutls_http_timeout);
 #endif // HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION
   gnutls_transport_set_push_function(http->tls, gnutls_http_write);
 
@@ -2182,6 +2183,30 @@ gnutls_http_read(
   bytes = recv(http->fd, data, length, 0);
   DEBUG_printf("5gnutls_http_read: bytes=%d", (int)bytes);
   return (bytes);
+}
+
+
+//
+// 'gnutls_http_timeout()' - Pull timeout function for the GNU TLS library.
+//
+
+static int				// O - 1 if data is available, 0 if not
+gnutls_http_timeout(
+    gnutls_transport_ptr_t ptr,		// I - Connection to server
+    unsigned int           ms)		// I - Number of milliseconds to wait
+{
+  http_t	*http;			// HTTP connection
+
+
+  DEBUG_printf("5gnutls_http_timeout(ptr=%p, ms=%u)", ptr, ms);
+
+  http = (http_t *)ptr;
+
+  // Just poll the raw socket for readability - this must not have any side
+  // effects (like flushing pending writes, which httpWait() does), since
+  // GnuTLS can call this at any point to decide whether it's safe to call
+  // the pull function without blocking.
+  return (_httpWait(http, (int)ms, 0));
 }
 
 
