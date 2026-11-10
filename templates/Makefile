@@ -51,6 +51,7 @@ FILES	=	\
 		modify-class.tmpl \
 		modify-printer.tmpl \
 		norestart.tmpl \
+		oauth-login.tmpl \
 		option-boolean.tmpl \
 		option-conflict.tmpl \
 		option-header.tmpl \
