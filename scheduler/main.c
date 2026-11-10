@@ -1451,7 +1451,11 @@ process_children(void)
 	      job->status = -status;	/* Backend failed */
 
 	      if (job->current_file < job->num_files)
-	        cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
+        {
+          cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
+          if ((job = cupsdFindJob(job_id)) == NULL)
+            continue;
+	      }
 	    }
           }
 
