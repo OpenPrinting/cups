@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "cgi-private.h"
 #include <cups/dir.h>
 
@@ -300,7 +296,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 	  if ((ptr = strchr(line, ' ')) == NULL)
             break;
 
-	  while (isspace(*ptr & 255))
+	  while (_cups_isspace(*ptr))
             *ptr++ = '\0';
 
 	  if ((anchor = strrchr(filename, '#')) != NULL)
@@ -314,7 +310,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 	  offset = strtoll(ptr, &ptr, 10);
 	  length = (size_t)strtoll(ptr, &ptr, 10);
 
-	  while (isspace(*ptr & 255))
+	  while (_cups_isspace(*ptr))
             ptr ++;
 
           if (!anchor)
@@ -339,7 +335,7 @@ helpLoadIndex(const char *hifile,	/* I - Index filename */
 
             cupsCopyString(section, sectptr, sizeof(section));
 
-	    while (isspace(*ptr & 255))
+	    while (_cups_isspace(*ptr))
               ptr ++;
           }
           else
@@ -878,7 +874,7 @@ help_load_file(
       * Got section line, copy it!
       */
 
-      for (ptr += 13; isspace(*ptr & 255); ptr ++);
+      for (ptr += 13; _cups_isspace(*ptr); ptr ++);
 
       cupsCopyString(section, ptr, sizeof(section));
       if ((ptr = strstr(section, "-->")) != NULL)
@@ -893,7 +889,7 @@ help_load_file(
           * Strip trailing whitespace before "-->"...
           */
 
-          if (isspace(ptr[-1] & 255))
+          if (_cups_isspace(ptr[-1]))
             ptr --;
           else
             break;
@@ -955,7 +951,7 @@ help_load_file(
 
           anchor = ptr + 1;
 
-	  for (ptr = anchor; *ptr && *ptr != '>' && !isspace(*ptr & 255); ptr ++);
+	  for (ptr = anchor; *ptr && *ptr != '>' && !_cups_isspace(*ptr); ptr ++);
 
 	  if (*ptr != '>')
 	    *ptr++ = '\0';
@@ -1051,9 +1047,9 @@ help_load_file(
       */
 
       for (ptr = node->text, text = node->text; *ptr;)
-	if (isspace(*ptr & 255))
+	if (_cups_isspace(*ptr))
 	{
-	  while (isspace(*ptr & 255))
+	  while (_cups_isspace(*ptr))
 	    ptr ++;
 
 	  *text++ = ' ';
@@ -1140,14 +1136,14 @@ help_load_file(
 
 	  continue;
 	}
-	else if (!isalnum(*ptr & 255))
+	else if (!_cups_isalnum(*ptr))
           continue;
 
        /*
 	* Found the start of a word, search until we find the end...
 	*/
 
-	for (text = ptr, ptr ++; *ptr && isalnum(*ptr & 255); ptr ++);
+	for (text = ptr, ptr ++; *ptr && _cups_isalnum(*ptr); ptr ++);
 
 	wordlen = (size_t)(ptr - text);
 

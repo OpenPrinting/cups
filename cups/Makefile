@@ -1,7 +1,7 @@
 #
 # Library Makefile for CUPS.
 #
-# Copyright © 2022-2024 by OpenPrinting.
+# Copyright © 2022-2026 by OpenPrinting.
 # Copyright © 2007-2021 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products, all rights reserved.
 #
@@ -246,6 +246,7 @@ libs:		$(LIBTARGETS)
 #
 
 test:		unittests
+	$(RM) -rf test.log test-debug.log .testssl
 	echo "Tests started at $$(date)..." >test.log
 	echo Running array API tests...
 	./testarray 2>>test.log
@@ -314,7 +315,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' -e '1,$$s/..\/cups\///g' | grep -e '^  \\$$' -v >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >Dependencies
 
 
 #
@@ -764,7 +765,7 @@ testlang:	testlang.o $(LIBCUPSSTATIC)
 # testoauth (dependency on static libraries is intentional)
 #
 
-testoauth:	testoauth.o $(LIBCUPS_STATIC)
+testoauth:	testoauth.o $(LIBCUPSSTATIC)
 	echo Linking $@...
 	$(LD_CC) $(ARCHFLAGS) $(ALL_LDFLAGS) -o $@ testoauth.o $(LINKCUPSSTATIC)
 	$(CODE_SIGN) -s "$(CODE_SIGN_IDENTITY)" $@

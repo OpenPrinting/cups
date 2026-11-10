@@ -1,7 +1,7 @@
 //
 // User, system, and password routines for CUPS.
 //
-// Copyright © 2021-2025 by OpenPrinting.
+// Copyright © 2021-2026 by OpenPrinting.
 // Copyright © 2007-2019 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -575,8 +575,7 @@ cupsSetServer(const char *server)	// I - Server name
     else
       cg->server_version = 20;
 
-    if (cg->server[0] != '/' && (port = strrchr(cg->server, ':')) != NULL &&
-        !strchr(port, ']') && isdigit(port[1] & 255))
+    if (cg->server[0] != '/' && (port = strrchr(cg->server, ':')) != NULL && !strchr(port, ']') && _cups_isdigit(port[1]))
     {
       *port++ = '\0';
 
@@ -898,8 +897,10 @@ _cupsGetPassword(const char *prompt)	// I - Prompt string
       passptr = cg->password;
       break;
     }
-    else if ((passch & 255) < 0x20 || passptr >= passend)
+    else if (_cups_iscntrl(passch) || passptr >= passend)
+    {
       putchar(0x07);
+    }
     else
     {
       *passptr++ = passch;
@@ -1014,8 +1015,10 @@ _cupsGetPassword(const char *prompt)	// I - Prompt string
       passptr = cg->password;
       break;
     }
-    else if ((passch & 255) < 0x20 || passptr >= passend)
+    else if (_cups_iscntrl(passch) || passptr >= passend)
+    {
       putchar(0x07);
+    }
     else
     {
       *passptr++ = passch;
@@ -1117,7 +1120,8 @@ _cupsSetDefaults(void)
   // Finalize things so every client.conf value is set...
   cups_finalize_client_conf(&cc);
 
-  cg->uatokens = cc.uatokens;
+  cg->uatokens      = cc.uatokens;
+  cg->digestoptions = cc.digestoptions;
 
   if (cg->encryption == (http_encryption_t)-1)
     cg->encryption = cc.encryption;

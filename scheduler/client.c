@@ -646,6 +646,14 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 
       return;
     }
+
+   /*
+    * Return if we don't have a request pending - browsers like to open extra
+    * connections...
+    */
+
+    if (!httpGetReady(con->http))
+      return;
   }
 
   switch (httpGetState(con->http))

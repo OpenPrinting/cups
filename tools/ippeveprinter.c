@@ -541,7 +541,7 @@ main(int  argc,				// I - Number of command-line args
 
 	  case 'p' : // -p port
 	      i ++;
-	      if (i >= argc || !isdigit(argv[i][0] & 255))
+	      if (i >= argc || !_cups_isdigit(argv[i][0]))
 	        usage(1);
 
 	      serverport = atoi(argv[i]);
@@ -702,7 +702,7 @@ authenticate_request(
   }
 
   authorization += 5;
-  while (isspace(*authorization & 255))
+  while (_cups_isspace(*authorization))
     authorization ++;
 
   userlen = sizeof(data.username);
@@ -780,13 +780,17 @@ clean_jobs(ippeve_printer_t *printer)	// I - Printer
   for (job = (ippeve_job_t *)cupsArrayGetFirst(printer->jobs);
        job;
        job = (ippeve_job_t *)cupsArrayGetNext(printer->jobs))
+  {
     if (job->completed && job->completed < cleantime)
     {
       cupsArrayRemove(printer->jobs, job);
       delete_job(job);
     }
     else
+    {
       break;
+    }
+  }
   cupsRWUnlock(&(printer->rwlock));
 }
 
@@ -1194,15 +1198,15 @@ create_job_file(
 
   for (nameptr = name; *job_name && nameptr < (name + sizeof(name) - 1); job_name ++)
   {
-    if (isalnum(*job_name & 255) || *job_name == '-')
+    if (_cups_isalnum(*job_name) || *job_name == '-')
     {
-      *nameptr++ = (char)tolower(*job_name & 255);
+      *nameptr++ = (char)_cups_tolower(*job_name);
     }
     else
     {
       *nameptr++ = '_';
 
-      while (job_name[1] && !isalnum(job_name[1] & 255) && job_name[1] != '-')
+      while (job_name[1] && !_cups_isalnum(job_name[1]) && job_name[1] != '-')
         job_name ++;
     }
   }
@@ -2248,7 +2252,7 @@ find_job(ippeve_client_t *client)		// I - Client
     const char *uriptr = strrchr(uri, '/');
 					// Pointer to the last slash in the URI
 
-    if (uriptr && isdigit(uriptr[1] & 255))
+    if (uriptr && _cups_isdigit(uriptr[1]))
       key.id = atoi(uriptr + 1);
     else
       return (NULL);
@@ -2816,7 +2820,7 @@ html_printf(ippeve_client_t *client,	// I - Client
       {
 	width = 0;
 
-	while (isdigit(*format & 255))
+	while (_cups_isdigit(*format))
 	{
 	  if (tptr < (tformat + sizeof(tformat) - 1))
 	    *tptr++ = *format;
@@ -2845,7 +2849,7 @@ html_printf(ippeve_client_t *client,	// I - Client
 	{
 	  prec = 0;
 
-	  while (isdigit(*format & 255))
+	  while (_cups_isdigit(*format))
 	  {
 	    if (tptr < (tformat + sizeof(tformat) - 1))
 	      *tptr++ = *format;
@@ -3021,9 +3025,13 @@ ipp_cancel_job(ippeve_client_t *client)	// I - Client
 
 	if (job->state == IPP_JSTATE_PROCESSING ||
 	    (job->state == IPP_JSTATE_HELD && job->fd >= 0))
+        {
           job->cancel = 1;
+	}
 	else
 	{
+	  client->printer->active_job = NULL;
+
 	  job->state     = IPP_JSTATE_CANCELED;
 	  job->completed = time(NULL);
 	}
@@ -3064,6 +3072,8 @@ ipp_cancel_jobs(
       }
       else
       {
+        client->printer->active_job = NULL;
+
 	job->state     = IPP_JSTATE_CANCELED;
 	job->completed = time(NULL);
       }
@@ -5658,8 +5668,7 @@ process_http(ippeve_client_t *client)	// I - Client connection
   if ((ptr = strstr(client->host_field, ".local")) == NULL)
     ptr = strrchr(client->host_field, '.');
 
-  if (!isdigit(client->host_field[0] & 255) && client->host_field[0] != '[' && strcmp(client->host_field, client->printer->hostname) && strcmp(client->host_field, "localhost") &&
-      (!ptr || (strcmp(ptr, ".local") && strcmp(ptr, ".local."))))
+  if (!_cups_isdigit(client->host_field[0]) && client->host_field[0] != '[' && strcmp(client->host_field, client->printer->hostname) && strcmp(client->host_field, "localhost") && (!ptr || (strcmp(ptr, ".local") && strcmp(ptr, ".local."))))
   {
     fprintf(stderr, "%s Bad Host: header '%s'.\n", client->hostname, client->host_field);
     respond_http(client, HTTP_STATUS_BAD_REQUEST, NULL, NULL, 0);
@@ -6268,7 +6277,7 @@ process_job(ippeve_job_t *job)		// I - Job
         if (*name == '-')
 	  *valptr++ = '_';
 	else
-	  *valptr++ = (char)toupper(*name & 255);
+	  *valptr++ = (char)_cups_toupper(*name);
 
 	name ++;
       }
@@ -6298,7 +6307,7 @@ process_job(ippeve_job_t *job)		// I - Job
         if (*name == '-')
 	  *valptr++ = '_';
 	else
-	  *valptr++ = (char)toupper(*name & 255);
+	  *valptr++ = (char)_cups_toupper(*name);
 
 	name ++;
       }
@@ -7597,6 +7606,11 @@ show_supplies(
       {
         level = atoi(val);      // New level
 
+        if (level < 0)
+          level = 0;
+        else if (level > 100)
+          level = 100;
+
         snprintf(supply_text, sizeof(supply_text), printer_supply[i], level);
         if (supply)
           ippSetOctetString(printer->attrs, &supply, ippGetCount(supply), supply_text, strlen(supply_text));
@@ -7640,6 +7654,11 @@ show_supplies(
       level = atoi(supply_ptr + 6);
     else
       level = 50;
+
+    if (level < 0)
+      level = 0;
+    else if (level > 100)
+      level = 100;
 
     if (printer->web_forms)
       html_printf(client, "<tr><th>%s:</th><td><input name=\"supply%u\" size=\"3\" value=\"%d\"></td>", ippGetString(supply_desc, i, NULL), (unsigned)i, level);

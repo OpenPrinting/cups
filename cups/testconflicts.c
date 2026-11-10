@@ -1,14 +1,11 @@
 /*
  * PPD constraint test program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2008-2012 by Apple Inc.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2008-2012 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "cups.h"
@@ -94,11 +91,11 @@ main(int  argc,				/* I - Number of command-line arguments */
     if (!fgets(line, sizeof(line), stdin) || line[0] == '\n')
       break;
 
-    for (ptr = line; isspace(*ptr & 255); ptr ++);
+    for (ptr = line; _cups_isspace(*ptr); ptr ++);
     for (optr = ptr; *ptr && *ptr != '='; ptr ++);
     if (!*ptr)
       break;
-    for (*ptr++ = '\0', cptr = ptr; *ptr && !isspace(*ptr & 255); ptr ++);
+    for (*ptr++ = '\0', cptr = ptr; *ptr && !_cups_isspace(*ptr); ptr ++);
     if (!*ptr)
       break;
     *ptr++ = '\0';

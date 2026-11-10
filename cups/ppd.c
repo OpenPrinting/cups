@@ -1,7 +1,7 @@
 /*
  * PPD file routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1208,9 +1208,9 @@ _ppdOpen(
       * CUPS STR #3421: Check for "*JobPatchFile: int: string"
       */
 
-      if (isdigit(*string & 255))
+      if (_cups_isdigit(*string))
       {
-        for (sptr = string + 1; isdigit(*sptr & 255); sptr ++);
+        for (sptr = string + 1; _cups_isdigit(*sptr); sptr ++);
 
         if (*sptr == ':')
         {
@@ -2541,38 +2541,25 @@ ppd_decode(char *string)		/* I - String to decode */
 {
   char	*inptr,				/* Input pointer */
 	*outptr;			/* Output pointer */
+  int	x1, x2;				/* Hex digit values */
 
 
   inptr  = string;
   outptr = string;
 
   while (*inptr != '\0')
-    if (*inptr == '<' && isxdigit(inptr[1] & 255))
+  {
+    if (*inptr == '<' && _cups_isxdigit(inptr[1]))
     {
      /*
       * Convert hex to 8-bit values...
       */
 
       inptr ++;
-      while (isxdigit(*inptr & 255))
+      while ((x1 = _cups_xdigit(inptr[0])) >= 0 && (x2 = _cups_xdigit(inptr[1])) >= 0)
       {
-	if (_cups_isalpha(*inptr))
-	  *outptr = (char)((tolower(*inptr) - 'a' + 10) << 4);
-	else
-	  *outptr = (char)((*inptr - '0') << 4);
-
-	inptr ++;
-
-        if (!isxdigit(*inptr & 255))
-	  break;
-
-	if (_cups_isalpha(*inptr))
-	  *outptr |= (char)(tolower(*inptr) - 'a' + 10);
-	else
-	  *outptr |= (char)(*inptr - '0');
-
-	inptr ++;
-	outptr ++;
+	*outptr++ = (char)((x1 << 4) | x2);
+	inptr += 2;
       }
 
       while (*inptr != '>' && *inptr != '\0')
@@ -2581,7 +2568,10 @@ ppd_decode(char *string)		/* I - String to decode */
 	inptr ++;
     }
     else
+    {
       *outptr++ = *inptr++;
+    }
+  }
 
   *outptr = '\0';
 

@@ -281,17 +281,19 @@ cupsdCheckJobs(void)
 	* the job so we can start printing...
 	*/
 
-        cupsd_client_t	*con;		/* Current client connection */
+	if (curtime < job->pending_timeout)
+	{
+	  cupsd_client_t	*con;	/* Current client connection */
 
-	for (con = (cupsd_client_t *)cupsArrayFirst(Clients);
-	     con;
-	     con = (cupsd_client_t *)cupsArrayNext(Clients))
-	  if (con->request &&
-	      con->request->request.op_status == IPP_OP_SEND_DOCUMENT)
-	    break;
+	  for (con = (cupsd_client_t *)cupsArrayFirst(Clients); con; con = (cupsd_client_t *)cupsArrayNext(Clients))
+	  {
+	    if (con->request && con->request->request.op_status == IPP_OP_SEND_DOCUMENT)
+	      break;
+	  }
 
-        if (con)
-	  continue;
+	  if (con)
+	    continue;
+	}
 
         if (cupsdTimeoutJob(job))
 	  continue;
@@ -300,7 +302,9 @@ cupsdCheckJobs(void)
 	cupsdLogJob(job, CUPSD_LOG_ERROR, "Job submission timed out.");
       }
       else
+      {
 	cupsdSetJobState(job, IPP_JSTATE_PENDING, CUPSD_JOB_DEFAULT, "Job hold expired.");
+      }
     }
 
    /*
@@ -4136,7 +4140,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
               {
                 int length = attr->values[i].unknown.length;
 
-		for (valptr = attr->values[i].unknown.data; length > 0; length --)
+		for (valptr = attr->values[i].unknown.data; length > 0; valptr ++, length --)
 		{
 		  if ((*valptr & 255) < 0x20 || *valptr == 0x7f)
 		    break;
@@ -4319,10 +4323,10 @@ ipp_length(ipp_t *ipp)			/* I - IPP request */
       case IPP_TAG_RESOLUTION :
          /*
 	  * A resolution is two signed integers separated by an "x" and
-	  * suffixed by the units, or 26 characters max.
+	  * suffixed by the units, or 27 characters max.
 	  */
 
-	  bytes += (size_t)attr->num_values * 26;
+	  bytes += (size_t)attr->num_values * 27;
 	  break;
 
       case IPP_TAG_STRING :
@@ -5281,12 +5285,18 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
 
       if (job->sheets)
       {
+        int copies = ippGetInteger(ippFindAttribute(job->attrs, "copies", IPP_TAG_INTEGER), 0);
+					/* Number of copies */
 	const char *sides = ippGetString(ippFindAttribute(job->attrs, "sides", IPP_TAG_KEYWORD), 0, NULL);
+					/* Duplex mode, if any */
+
+	if (copies <= 0)
+	  copies = 1;
 
         if (sides && strcmp(sides, "one-sided"))
-          ippSetInteger(job->attrs, &job->sheets, 0, impressions / 2);
+          ippSetInteger(job->attrs, &job->sheets, 0, (impressions + 1) / 2 * copies);
 	else
-          ippSetInteger(job->attrs, &job->sheets, 0, impressions);
+          ippSetInteger(job->attrs, &job->sheets, 0, impressions * copies);
 
 	cupsdAddEvent(CUPSD_EVENT_JOB_PROGRESS, job->printer, job, "Printed %d page(s).", ippGetInteger(job->sheets, 0));
       }
@@ -5496,7 +5506,7 @@ update_job(cupsd_job_t *job)		/* I - Job to check */
         * Filter out "special" PPD keywords...
         */
 
-        if (_cups_strcasecmp(keyword->name, "cupsFilter") && _cups_strcasecmp(keyword->name, "cupsFilter2") && _cups_strcasecmp(keyword->name, "cupsFinishingTemplate") && _cups_strcasecmp(keyword->name, "cupsIPPFinishings") && _cups_strcasecmp(keyword->name, "cupsIPPReason") && _cups_strcasecmp(keyword->name, "cupsMarkerName") && _cups_strcasecmp(keyword->name, "cupsMaxSize") && strncmp(keyword->name, "cupsMediaQualifier", 18) && _cups_strcasecmp(keyword->name, "cupsMinSize") && _cups_strcasecmp(keyword->name, "cupsPageSizeCategory") && _cups_strcasecmp(keyword->name, "cupsPortMonitor") && _cups_strcasecmp(keyword->name, "cupsPreFilter") && _cups_strcasecmp(keyword->name, "cupsPrintQuality") && _cups_strcasecmp(keyword->name, "APPrinterPreset"))
+        if (_cups_strcasecmp(keyword->name, "cupsFilter") && _cups_strcasecmp(keyword->name, "cupsFilter2") && _cups_strcasecmp(keyword->name, "cupsFinishingTemplate") && _cups_strcasecmp(keyword->name, "cupsIPPFinishings") && _cups_strcasecmp(keyword->name, "cupsIPPReason") && _cups_strcasecmp(keyword->name, "cupsMarkerName") && _cups_strcasecmp(keyword->name, "cupsMaxSize") && strncmp(keyword->name, "cupsMediaQualifier", 18) && _cups_strcasecmp(keyword->name, "cupsMinSize") && _cups_strcasecmp(keyword->name, "cupsPageSizeCategory") && _cups_strcasecmp(keyword->name, "cupsPortMonitor") && _cups_strcasecmp(keyword->name, "cupsPreFilter") && _cups_strcasecmp(keyword->name, "cupsPrintQuality") && _cups_strcasecmp(keyword->name, "APPrinterPreset") && _cups_strncasecmp(keyword->name, "Foomatic", 8))
           job->num_keywords = cupsAddOption(keyword->name, keyword->value, job->num_keywords, &job->keywords);
       }
 

@@ -1,0 +1,15 @@
+<H1 CLASS="title">Aggiungi Stampante {printer_name}</H1>
+
+<P>La stampante <A HREF="/printers/{printer_name}">{printer_name}</A> è stata aggiunta.
+
+<blockquote>
+<b>Nota:</b> I driver della stampante e le code raw sono deprecati e non funzioneranno più in una futura versione di CUPS. Usare invece i driver IPP Everywhere
+(scegliere "everywhere" come modello) oppure le Applicazioni Stampante. Vedere la <a href="https://github.com/OpenPrinting/cups/issues/103">issue #103</a> per ulteriori informazioni.
+</blockquote>
+
+<FORM ACTION="admin/" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="set-printer-options">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<INPUT TYPE="SUBMIT" VALUE="Imposta le Opzioni della Stampante">
+</FORM>

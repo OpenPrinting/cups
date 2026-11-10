@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2025-09-09 14:16+0000\n"
 "Last-Translator: marcelocripe <marcelocripe@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/cups/"
@@ -1269,6 +1269,10 @@ msgstr "%s (Sem borda, %s, %s)"
 #, c-format
 msgid "%s accepting requests since %s"
 msgstr "O %s está aceitando as requisições desde %s"
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
 
 #, c-format
 msgid "%s cannot be changed."
@@ -3605,6 +3609,9 @@ msgstr "O CloseUI/JCLCloseUI não é válido"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "O ponteiro do destino NULO não é válido"
 
@@ -3635,15 +3642,14 @@ msgstr "O UIConstraints não é válido"
 msgid "Bad URI."
 msgstr "O URI não é válido."
 
+msgid "Bad Unicode escape."
+msgstr ""
+
 msgid "Bad arguments to function"
 msgstr "Os argumentos para a função não são válidos"
 
 msgid "Bad certificate."
 msgstr "O certificado não é válido."
-
-#, c-format
-msgid "Bad copies value %d."
-msgstr "O valor da quantidade de cópias %d não é válido."
 
 msgid "Bad custom parameter"
 msgstr "O parâmetro personalizado não é válido"
@@ -3675,24 +3681,8 @@ msgstr "O nome do arquivo do buffer não é válido"
 msgid "Bad hostname/address in URI"
 msgstr "O nome da máquina ou o endereço do URI não são válidos"
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr "O valor do job-name (nome do trabalho) %s não é válido"
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr ""
-"O valor do job-name (nome do trabalho) para a quantidade ou o tipo não são "
-"válidos."
-
 msgid "Bad job-priority value."
 msgstr "O valor do job-priority (trabalho prioritário) não é válido."
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr "O valor do job-sheets (folhas de trabalho) \"%s\" não é válido."
-
-msgid "Bad job-sheets value type."
-msgstr "O tipo do valor do job-sheets (folhas de trabalho) não é válido."
 
 msgid "Bad job-state value."
 msgstr "O valor do job-state (estado do trabalho) não é válido."
@@ -3723,14 +3713,6 @@ msgstr ""
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
 "O notify-user-data (notificador de dados do usuário) \"%s\" não é válido."
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "O number-up (número acima) %d não é válido."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "O page-ranges (intervalo das páginas) %d de %d não é válido."
 
 msgid "Bad port number in URI"
 msgstr "O número da porta do URI não é válido"
@@ -3810,6 +3792,12 @@ msgstr ""
 msgid "Cannot share a remote Kerberized printer."
 msgstr ""
 "Não foi possível compartilhar uma impressora remota por meio do Kerberos."
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
+msgstr ""
 
 msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
@@ -3893,9 +3881,8 @@ msgstr "As credenciais não são assinadas pelo CA."
 msgid "Credentials are unknown/new."
 msgstr "As credenciais não são conhecidas ou são novas."
 
-msgid "Credentials do not validate against site CA certificate."
+msgid "Credentials do not validate against CA certificates."
 msgstr ""
-"As credenciais não são válidas para o certificado CA da página eletrônica."
 
 msgid "Credentials have been renewed."
 msgstr "As credenciais foram renovadas."
@@ -4520,9 +4507,6 @@ msgstr "Protocolo de Impressão na Internet (IPP)"
 
 msgid "Invalid JSON data."
 msgstr "Os dados do JSON não são válidos."
-
-msgid "Invalid JSON web token."
-msgstr "A chave do portador do JSON para internet não é válida."
 
 msgid "Invalid form data."
 msgstr "Os dados do formulário não são válidos."
@@ -5524,10 +5508,6 @@ msgid "Too many active jobs."
 msgstr "Existem muitos trabalhos ativos."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr "Existem muitos valores no job-sheets (%d > 2)."
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Existem muitos valores no printer-state-reasons (%d > %d)."
 
@@ -5584,6 +5564,9 @@ msgstr "Carta Grande com a Borda Maior dos EUA"
 
 msgid "US Letter Small"
 msgstr "Carta pequena dos EUA"
+
+msgid "Unable allocate memory for signature."
+msgstr ""
 
 msgid "Unable to access cupsd.conf file"
 msgstr "Não foi possível acessar o arquivo cupsd.conf"
@@ -5703,6 +5686,21 @@ msgstr "Não foi possível criar o diretório \"%s\" do spool %s"
 msgid "Unable to create temporary file"
 msgstr "Não foi possível criar o arquivo temporário"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Não foi possível excluir a classe"
 
@@ -5720,6 +5718,15 @@ msgstr ""
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Não foi possível executar o comando \"%s\" de %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Não foi possível encontrar o destino do trabalho"
@@ -5965,6 +5972,10 @@ msgstr "O valor da opção \"%s\" da versão não é conhecida."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
+msgid "Unsupported '%s' value."
 msgstr ""
 
 #, c-format
@@ -16646,8 +16657,47 @@ msgstr ""
 #~ msgid "Attribute \"%s\" has empty value."
 #~ msgstr "O atributo \"%s\" tem uma valor vazio."
 
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "O valor da quantidade de cópias %d não é válido."
+
+#, c-format
+#~ msgid "Bad job-name value: %s"
+#~ msgstr "O valor do job-name (nome do trabalho) %s não é válido"
+
+#~ msgid "Bad job-name value: Wrong type or count."
+#~ msgstr ""
+#~ "O valor do job-name (nome do trabalho) para a quantidade ou o tipo não "
+#~ "são válidos."
+
+#, c-format
+#~ msgid "Bad job-sheets value \"%s\"."
+#~ msgstr "O valor do job-sheets (folhas de trabalho) \"%s\" não é válido."
+
+#~ msgid "Bad job-sheets value type."
+#~ msgstr "O tipo do valor do job-sheets (folhas de trabalho) não é válido."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "O number-up (número acima) %d não é válido."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "O page-ranges (intervalo das páginas) %d de %d não é válido."
+
 #~ msgid "Commands:"
 #~ msgstr "Comandos:"
+
+#~ msgid "Credentials do not validate against site CA certificate."
+#~ msgstr ""
+#~ "As credenciais não são válidas para o certificado CA da página eletrônica."
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "A chave do portador do JSON para internet não é válida."
+
+#, c-format
+#~ msgid "Too many job-sheets values (%d > 2)."
+#~ msgstr "Existem muitos valores no job-sheets (%d > 2)."
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "Não foi possível realocar o valor do atributo do IPP."

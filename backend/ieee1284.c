@@ -1,16 +1,12 @@
 /*
  * IEEE-1284 support functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
  * information.
- */
-
-/*
- * Include necessary headers.
  */
 
 #include "backend-private.h"
@@ -235,13 +231,17 @@ backendGetDeviceID(
   */
 
   for (ptr = device_id; *ptr; ptr ++)
+  {
     if (_cups_isspace(*ptr))
+    {
       *ptr = ' ';
-    else if ((*ptr & 255) < ' ' || *ptr == 127)
+    }
+    else if (_cups_iscntrl(*ptr))
     {
       *device_id = '\0';
       break;
     }
+  }
 
   if (scheme && uri)
     *uri = '\0';
@@ -311,7 +311,7 @@ backendGetDeviceID(
     {
       mdl += strlen(mfg);
 
-      while (isspace(*mdl & 255))
+      while (_cups_isspace(*mdl))
         mdl ++;
     }
 
@@ -417,9 +417,9 @@ backendGetMakeModel(
 
       for (ptr = des, letters = 0, spaces = 0; *ptr; ptr ++)
       {
-	if (isspace(*ptr & 255))
+	if (_cups_isspace(*ptr))
 	  spaces ++;
-	else if (isalpha(*ptr & 255))
+	else if (_cups_isalpha(*ptr))
 	  letters ++;
 
 	if (spaces && letters)

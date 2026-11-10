@@ -1,7 +1,7 @@
 #
 # Scheduler Makefile for CUPS.
 #
-# Copyright © 2020-2023 by OpenPrinting
+# Copyright © 2020-2026 by OpenPrinting
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 #
@@ -115,8 +115,8 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
-	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >>Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(COBJS:.o=.c) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >Dependencies
+	$(CXX) -MM $(ALL_CXXFLAGS) $(CXXOBJS:.o=.cxx) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >>Dependencies
 
 
 #

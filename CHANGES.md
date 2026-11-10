@@ -45,6 +45,7 @@ v2.5b1 - YYYY-MM-DD
 - Added Chinese media sizes (Issue #1635)
 - Added language code validation to nameWithLanguage and textWithLanguage
   values (Issue #1653)
+- Removed support for the deprecated job ticket comment functionality.
 - Updated documentation (Issue #984, Issue #1086, Issue #1182)
 - Updated translations (Issue #1146, Issue #1161, Issue #1164, Issue #1535)
 - Updated the configure script to default to installing to /usr/local.
@@ -191,6 +192,7 @@ v2.5b1 - YYYY-MM-DD
 - Fixed renewal of expired self-signed certificates (Issue #1590)
 - Fixed potential crash bug in `cupsCheckDestSupported` function.
 - Fixed validation of "job-hold-until" time values (Issue #1708)
+- Fixed saving of empty "marker-message" values to "printers.conf" (Issue #1757)
 - Removed hash support for SHA2-512-224 and SHA2-512-256.
 - Removed `mantohtml` script for generating html pages (use
   `https://www.msweet.org/mantohtml/`)

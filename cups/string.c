@@ -1,7 +1,7 @@
 /*
  * String functions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products.
  *
@@ -239,7 +239,7 @@ cupsFormatStringv(
       {
 	width = 0;
 
-	while (isdigit(*format & 255))
+	while (_cups_isdigit(*format))
 	{
 	  if (tptr < (tformat + sizeof(tformat) - 1))
 	    *tptr++ = *format;
@@ -268,7 +268,7 @@ cupsFormatStringv(
 	{
 	  prec = 0;
 
-	  while (isdigit(*format & 255))
+	  while (_cups_isdigit(*format))
 	  {
 	    if (tptr < (tformat + sizeof(tformat) - 1))
 	      *tptr++ = *format;
@@ -395,6 +395,16 @@ cupsFormatStringv(
 		bufptr += width;
 	      }
 	    }
+	    else if (width <= 1)
+	    {
+	      // Consume character from parameters...
+	      va_arg(ap, int);
+	    }
+	    else
+	    {
+	      // Consume character pointer from parameters...
+	      va_arg(ap, char *);
+	    }
 	    break;
 
 	case 's' : // String
@@ -446,7 +456,7 @@ cupsFormatStringv(
 		  *bufptr++ = '\"';
 		bytes += 2;
 	      }
-	      else if ((*s & 255) < ' ')
+	      else if (_cups_iscntrl(*s))
 	      {
 	        *bufptr++ = '\\';
 	        if (bufptr < bufend)
@@ -870,7 +880,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
   if (*buf == '-' || *buf == '+')
     *tempptr++ = *buf++;
 
-  while (isdigit(*buf & 255))
+  while (_cups_isdigit(*buf))
     if (tempptr < (temp + sizeof(temp) - 1))
       *tempptr++ = *buf++;
     else
@@ -904,7 +914,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
       return (0.0);
     }
 
-    while (isdigit(*buf & 255))
+    while (_cups_isdigit(*buf))
       if (tempptr < (temp + sizeof(temp) - 1))
 	*tempptr++ = *buf++;
       else
@@ -945,7 +955,7 @@ _cupsStrScand(const char   *buf,	/* I - Pointer to number */
       }
     }
 
-    while (isdigit(*buf & 255))
+    while (_cups_isdigit(*buf))
       if (tempptr < (temp + sizeof(temp) - 1))
 	*tempptr++ = *buf++;
       else
@@ -1116,7 +1126,7 @@ compare_sp_items(_cups_sp_item_t *a,	/* I - First item */
                  void            *data)         /* I - Unused */
 {
   (void)data;
- 
+
  return (strcmp(a->str, b->str));
 }
 

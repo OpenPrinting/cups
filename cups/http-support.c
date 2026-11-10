@@ -182,7 +182,7 @@ httpAssembleURI(
     // too...
     for (hostptr = host, have_ipv6 = strchr(host, ':') && !strstr(host, "._tcp"); *hostptr && have_ipv6; hostptr ++)
     {
-      if (*hostptr != ':' && !isxdigit(*hostptr & 255))
+      if (*hostptr != ':' && !_cups_isxdigit(*hostptr))
       {
         have_ipv6 = *hostptr == '%';
         break;
@@ -536,7 +536,7 @@ httpDecode64_3(char       *out,		// I  - String to write to
       base64 = 63;
     else if (*in == '=')
       break;
-    else if (isspace(*in & 255))
+    else if (_cups_isspace(*in))
       continue;
     else
       break;
@@ -776,7 +776,10 @@ httpGetDateTime(const char *s)		// I - Date/time string
   DEBUG_printf("4httpGetDateTime: day=%d, mon=\"%s\", year=%d, hour=%d, min=%d, sec=%d", day, mon, year, hour, min, sec);
 
   // Check for invalid year (RFC 7231 says it's 4DIGIT)
-  if (year > 9999)
+  if (year < 0 || year > 9999)
+    return (0);
+
+  if (day < 1 || day > 31 || hour < 0 || hour > 23 || min < 0 || min > 59 || sec < 0 || sec > 60)
     return (0);
 
   // Convert the month name to a number from 0 to 11.
@@ -992,7 +995,7 @@ httpSeparateURI(
         // Skip IPvFuture ("vXXXX.") prefix...
         uri ++;
 
-        while (isxdigit(*uri & 255))
+        while (_cups_isxdigit(*uri))
           uri ++;
 
         if (*uri != '.')
@@ -1034,7 +1037,7 @@ httpSeparateURI(
 	  // Stop at zone separator (RFC 6874)
 	  break;
 	}
-	else if (*ptr != ':' && *ptr != '.' && !isxdigit(*ptr & 255))
+	else if (*ptr != ':' && *ptr != '.' && !_cups_isxdigit(*ptr))
 	{
 	  *host = '\0';
 	  return (HTTP_URI_STATUS_BAD_HOSTNAME);
@@ -1064,7 +1067,7 @@ httpSeparateURI(
       // Then copy the hostname or IPv4 address to the buffer...
       uri = http_copy_decode(host, uri, (size_t)hostlen, ":?/", decoding & HTTP_URI_CODING_HOSTNAME);
 
-      if (!uri)
+      if (!uri || *host == '/')
       {
         *host = '\0';
         return (HTTP_URI_STATUS_BAD_HOSTNAME);
@@ -1083,19 +1086,23 @@ httpSeparateURI(
     if (*uri == ':')
     {
       // Yes, collect the port number...
-      if (!isdigit(uri[1] & 255))
+      long	portnum;		// Port number
+
+      if (!_cups_isdigit(uri[1]))
       {
         *port = 0;
         return (HTTP_URI_STATUS_BAD_PORT);
       }
 
-      *port = (int)strtol(uri + 1, (char **)&uri, 10);
+      portnum = (int)strtol(uri + 1, (char **)&uri, 10);
 
-      if (*port <= 0 || *port > 65535)
+      if (portnum <= 0 || portnum > 65535)
       {
         *port = 0;
         return (HTTP_URI_STATUS_BAD_PORT);
       }
+
+      *port = (int)portnum;
 
       if (*uri != '/' && *uri)
       {
@@ -1730,7 +1737,6 @@ http_copy_decode(char       *dst,	// O - Destination buffer
 {
   char	*ptr,				// Pointer into buffer
 	*end;				// End of buffer
-  int	quoted;				// Quoted character
 
 
  /*
@@ -1738,34 +1744,15 @@ http_copy_decode(char       *dst,	// O - Destination buffer
   * or the end of the string.
   */
 
-  for (ptr = dst, end = dst + dstsize - 1;
-       *src && (!term || !strchr(term, *src));
-       src ++)
+  for (ptr = dst, end = dst + dstsize - 1; *src && (!term || !strchr(term, *src)); src ++)
+  {
     if (ptr < end)
     {
       if (*src == '%' && decode)
       {
-        if (isxdigit(src[1] & 255) && isxdigit(src[2] & 255))
-	{
-	 /*
-	  * Grab a hex-encoded character...
-	  */
+        int	x1, x2;			// Hex digit values
 
-          src ++;
-	  if (isalpha(*src))
-	    quoted = (tolower(*src) - 'a' + 10) << 4;
-	  else
-	    quoted = (*src - '0') << 4;
-
-          src ++;
-	  if (isalpha(*src))
-	    quoted |= tolower(*src) - 'a' + 10;
-	  else
-	    quoted |= *src - '0';
-
-          *ptr++ = (char)quoted;
-	}
-	else
+        if ((x1 = _cups_xdigit(src[1])) < 0 || (x2 = _cups_xdigit(src[2])) < 0)
 	{
 	 /*
 	  * Bad hex-encoded character...
@@ -1774,15 +1761,31 @@ http_copy_decode(char       *dst,	// O - Destination buffer
 	  *ptr = '\0';
 	  return (NULL);
 	}
+	else
+	{
+	 /*
+	  * Grab a hex-encoded character...
+	  */
+
+	  *ptr++ = (char)((x1 << 4) | x2);
+	  src += 2;
+	}
       }
       else if ((*src & 255) <= 0x20 || (*src & 255) >= 0x7f)
       {
+       /*
+        * Bad control character...
+        */
+
         *ptr = '\0';
         return (NULL);
       }
       else
+      {
 	*ptr++ = *src;
+      }
     }
+  }
 
   *ptr = '\0';
 

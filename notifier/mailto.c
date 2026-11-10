@@ -254,13 +254,14 @@ copy_validate_address(
 
       saw_at = true;
     }
-    else if (*bufptr == '.' && (bufptr == buffer || bufptr[-1] == '.' || bufptr[-1] == '@'))
+    else if (*bufptr == '.')
     {
      /*
       * dot-atom-text doesn't allow consecutive periods...
       */
 
-      goto bad_address;
+      if (bufptr == buffer || bufptr[-1] == '.' || bufptr[-1] == '@')
+        goto bad_address;
     }
     else if (!strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
                      "0123456789!#$%&\'*+-/=?^_`{|}~", *bufptr))

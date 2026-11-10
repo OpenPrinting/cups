@@ -1,7 +1,7 @@
 /*
  * PWG media name API implementation for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2009-2019 by Apple Inc.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -745,7 +745,7 @@ pwgMediaForPPD(const char *ppd)		/* I - PPD size name */
     */
 
     units = strchr(ptr, '.');
-    while (units && isdigit(units[1] & 255))
+    while (units && _cups_isdigit(units[1]))
       units = strchr(units + 1, '.');
 
     if (units)
@@ -755,7 +755,7 @@ pwgMediaForPPD(const char *ppd)		/* I - PPD size name */
 
     if (units > ptr)
     {
-      if (isdigit(*units & 255) || *units == '.')
+      if (_cups_isdigit(*units) || *units == '.')
         units ++;
 
       if (!_cups_strncasecmp(units, "cm", 2))
@@ -1212,10 +1212,14 @@ pwg_scan_measurement(
   * Scan integer portion...
   */
 
-  while (*buf >= '0' && *buf <= '9')
+  while (*buf >= '0' && *buf <= '9' && value < 100000)
     value = value * 10 + (*buf++) - '0';
 
-  if (*buf == '.')
+  if (*buf >= '0' && *buf <= '9')
+  {
+    return (INT_MAX);
+  }
+  else if (*buf == '.')
   {
    /*
     * Scan fractional portion...

@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CUPS 2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/openprinting/cups/issues\n"
-"POT-Creation-Date: 2026-06-25 14:51-0400\n"
+"POT-Creation-Date: 2026-10-18 16:52-0400\n"
 "PO-Revision-Date: 2026-07-22 21:01+0000\n"
 "Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/cups/cups/de/>\n"
@@ -1139,6 +1139,10 @@ msgstr "%s (Randlos, %s, %s)"
 #, c-format
 msgid "%s accepting requests since %s"
 msgstr "%s akzeptiert Anfragen seit %s"
+
+#, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
 
 #, c-format
 msgid "%s cannot be changed."
@@ -3219,6 +3223,9 @@ msgstr "Ungültiger Wert CloseUI/JCLCloseUI"
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Ungültiger NULL-Dests-Zeiger"
 
@@ -3249,15 +3256,14 @@ msgstr "Ungültige UIConstraints"
 msgid "Bad URI."
 msgstr "Ungültige URI."
 
+msgid "Bad Unicode escape."
+msgstr ""
+
 msgid "Bad arguments to function"
 msgstr "Ungültige Argumente an Funktion"
 
 msgid "Bad certificate."
 msgstr "Falsches Zertifikat."
-
-#, c-format
-msgid "Bad copies value %d."
-msgstr "Ungültiger Wert der Kopien %d."
 
 msgid "Bad custom parameter"
 msgstr "Ungültiger angepasster Parameter"
@@ -3287,22 +3293,8 @@ msgstr "Ungültiger Dateinamenpuffer"
 msgid "Bad hostname/address in URI"
 msgstr "Ungültiger Hostname/Adresse in URI"
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr "Ungültiger Auftragsnamenwert: %s"
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr "Ungültiger Auftragsnamenwert: Falscher Typ oder Anzahl."
-
 msgid "Bad job-priority value."
 msgstr "Ungültiger Auftragsprioritätwert."
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr "Ungültiger Wert für job-sheets \"%s\"."
-
-msgid "Bad job-sheets value type."
-msgstr "Ungültiger Werttyp für job-sheets."
 
 msgid "Bad job-state value."
 msgstr "Ungültiger Auftragsstatuswert."
@@ -3329,14 +3321,6 @@ msgstr ""
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr "Ungültige notify-user-data \"%s\"."
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "Ungültiger number-up-Wert %d."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "Ungültige Seitenbereichswerte %d-%d."
 
 msgid "Bad port number in URI"
 msgstr "Ungültige Port-Nummer in URI"
@@ -3412,6 +3396,12 @@ msgstr "Kann für entfernte Warteschlangen die Mitbenutzung nicht ändern."
 
 msgid "Cannot share a remote Kerberized printer."
 msgstr "Freigabe eines entfernten kerberisierten Druckers nicht möglich"
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
+msgstr ""
 
 msgid ""
 "Cannot specify both notify-pull-method and notify-recipient-uri in the same "
@@ -3495,8 +3485,8 @@ msgstr "Anmeldedaten sind nicht CA-signiert."
 msgid "Credentials are unknown/new."
 msgstr "Anmeldedaten sind unbekannt/neu."
 
-msgid "Credentials do not validate against site CA certificate."
-msgstr "Anmeldedaten validieren nicht gegen das CA-Zertifikat der Seite"
+msgid "Credentials do not validate against CA certificates."
+msgstr ""
 
 msgid "Credentials have been renewed."
 msgstr "Anmeldedaten sind erneuert worden."
@@ -4111,9 +4101,6 @@ msgstr "Internet Printing Protocol"
 
 msgid "Invalid JSON data."
 msgstr "Ungültige JSON-Daten."
-
-msgid "Invalid JSON web token."
-msgstr "Ungültiges JSON-Web-Token."
 
 msgid "Invalid form data."
 msgstr "Ungültige Formulardaten."
@@ -5109,10 +5096,6 @@ msgid "Too many active jobs."
 msgstr "Zu viele aktive Druckaufträge."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr "Zu viele job-sheets-Werte (%d > 2)."
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr "Zu viele printer-state-reasons-Werte (%d > %d)."
 
@@ -5169,6 +5152,9 @@ msgstr "US Letter übergroß, lange Seite"
 
 msgid "US Letter Small"
 msgstr "US Letter klein"
+
+msgid "Unable allocate memory for signature."
+msgstr ""
 
 msgid "Unable to access cupsd.conf file"
 msgstr "Kein Zugriff auf die Datei cupsd.conf"
@@ -5289,6 +5275,21 @@ msgstr "Anlegen des spool-Verzeichnisses \"%s\" nicht möglich: %s"
 msgid "Unable to create temporary file"
 msgstr "Temporäre Datei konnte nicht erstellt werden"
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Die Klasse konnte nicht gelöscht werden"
 
@@ -5304,6 +5305,15 @@ msgstr "cupsd.conf-Dateien größer als 1MB können nicht bearbeitet werden"
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
 msgstr "Befehl \"%s\" kann nicht ausgeführt werden: %s"
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
+msgstr ""
 
 msgid "Unable to find destination for job"
 msgstr "Das Ziel für den Auftrag kann nicht gefunden werden"
@@ -5548,6 +5558,10 @@ msgstr "Unbekannter Versionsoption: \"%s\"."
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
+msgid "Unsupported '%s' value."
 msgstr ""
 
 #, c-format
@@ -16066,8 +16080,44 @@ msgstr ""
 #~ msgid "Attribute \"%s\" has empty value."
 #~ msgstr "Attribut „%s“ hat leeren Wert."
 
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "Ungültiger Wert der Kopien %d."
+
+#, c-format
+#~ msgid "Bad job-name value: %s"
+#~ msgstr "Ungültiger Auftragsnamenwert: %s"
+
+#~ msgid "Bad job-name value: Wrong type or count."
+#~ msgstr "Ungültiger Auftragsnamenwert: Falscher Typ oder Anzahl."
+
+#, c-format
+#~ msgid "Bad job-sheets value \"%s\"."
+#~ msgstr "Ungültiger Wert für job-sheets \"%s\"."
+
+#~ msgid "Bad job-sheets value type."
+#~ msgstr "Ungültiger Werttyp für job-sheets."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "Ungültiger number-up-Wert %d."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "Ungültige Seitenbereichswerte %d-%d."
+
 #~ msgid "Commands:"
 #~ msgstr "Befehle:"
+
+#~ msgid "Credentials do not validate against site CA certificate."
+#~ msgstr "Anmeldedaten validieren nicht gegen das CA-Zertifikat der Seite"
+
+#~ msgid "Invalid JSON web token."
+#~ msgstr "Ungültiges JSON-Web-Token."
+
+#, c-format
+#~ msgid "Too many job-sheets values (%d > 2)."
+#~ msgstr "Zu viele job-sheets-Werte (%d > 2)."
 
 #~ msgid "Unable to reallocate IPP attribute value."
 #~ msgstr "IPP-Attributwert kann nicht neu zugewiesen werden."

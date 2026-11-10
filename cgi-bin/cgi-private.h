@@ -24,4 +24,5 @@
  * Limits...
  */
 
+#define CUPS_MAX_ARRAY	100000		/* Maximum number of array elements */
 #define CUPS_PAGE_MAX	100		/* Maximum items per page */

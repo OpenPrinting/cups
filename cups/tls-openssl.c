@@ -12,6 +12,7 @@
 //
 
 #include <openssl/x509v3.h>
+#include <openssl/x509_vfy.h>
 #include <openssl/evp.h>
 #include <openssl/objects.h>
 #include <openssl/obj_mac.h>
@@ -33,9 +34,10 @@ static X509_NAME	*openssl_create_name(const char *organization, const char *org_
 static EVP_PKEY		*openssl_create_key(cups_credtype_t type);
 static X509_EXTENSION	*openssl_create_san(const char *common_name, size_t num_alt_names, const char * const *alt_names);
 static time_t		openssl_get_date(X509 *cert, int which);
-//static void		openssl_load_crl(void);
 static STACK_OF(X509 *)	openssl_load_x509(const char *credentials);
+static BIO		*openssl_open_file(const char *filename, int mode);
 static bool		openssl_validate_name(X509 *cert, const char *common_name);
+static int		openssl_verify_cb(int ok, X509_STORE_CTX *ctx);
 
 
 //
@@ -370,7 +372,7 @@ cupsCreateCredentials(
   http_make_path(keyfile, sizeof(keyfile), path, common_name, "key");
   http_make_path(pubfile, sizeof(pubfile), path, common_name, "pub");
 
-  if ((bio = BIO_new_file(keyfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(keyfile, 0600)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -385,7 +387,7 @@ cupsCreateCredentials(
 
   BIO_free(bio);
 
-  if ((bio = BIO_new_file(pubfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(pubfile, 0644)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -400,7 +402,7 @@ cupsCreateCredentials(
 
   BIO_free(bio);
 
-  if ((bio = BIO_new_file(crtfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(crtfile, 0644)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -606,7 +608,7 @@ cupsCreateCredentialsRequest(
   sk_X509_EXTENSION_pop_free(exts, X509_EXTENSION_free);
 
   // Save them...
-  if ((bio = BIO_new_file(keyfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(keyfile, 0600)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -621,7 +623,7 @@ cupsCreateCredentialsRequest(
 
   BIO_free(bio);
 
-  if ((bio = BIO_new_file(pubfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(pubfile, 0644)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -636,7 +638,7 @@ cupsCreateCredentialsRequest(
 
   BIO_free(bio);
 
-  if ((bio = BIO_new_file(csrfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(csrfile, 0644)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -721,7 +723,9 @@ cupsGetCredentialsInfo(
     const char		*sigalg;	// Signature algorithm
     unsigned char	md5_digest[16];	// MD5 result
 
+    DEBUG_printf("2cupsGetCredentialsInfo: certs=%p(%d certificates)", certs, sk_X509_num(certs));
     cert = sk_X509_value(certs, 0);
+    DEBUG_printf("2cupsGetCredentialsInfo: cert=%p", cert);
 
     if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, name, sizeof(name)) < 0)
       cupsCopyString(name, "unknown", sizeof(name));
@@ -848,10 +852,7 @@ cupsGetCredentialsTrust(
   cert = sk_X509_shift(certs);
 
   if (!cg->client_conf_loaded)
-  {
     _cupsSetDefaults();
-//    openssl_load_crl();
-  }
 
   // Look this common name up in the default keychains...
   if (sk_X509_num(certs) == 0 && (tcreds = cupsCopyCredentials(path, common_name)) != NULL)
@@ -908,61 +909,64 @@ cupsGetCredentialsTrust(
   }
   else if (sk_X509_num(certs) > 0)
   {
+    X509_STORE *roots;		// Root certificates
+
     trust = HTTP_TRUST_INVALID;
 
-    if ((tcreds = http_check_roots(credentials)) != NULL)
-    {
-      trust = HTTP_TRUST_OK;
-    }
-    else
-    {
-      // See if we have a site CA certificate we can compare...
-      if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
-      {
-	size_t	credslen,		// Length of credentials
-		tcredslen;		// Length of trust root
+    DEBUG_puts("1cupsGetCredentialsTrust: Verifying certificate chain.");
 
-	// Do a tail comparison of the root...
-	credslen  = strlen(credentials);
-	tcredslen = strlen(tcreds);
-	if (credslen > tcredslen && !strcmp(credentials + (credslen - tcredslen), tcreds))
-	{
-	  // Certificate is signed by the site CA cert...
+    if ((roots = X509_STORE_new()) != NULL)
+    {
+      // Create an in-memory certificate store of known system root certs...
+      X509_STORE_CTX	*ctx;		// Verification context
+      char		sitepath[1024];	// _site_ certificate path
+
+      http_make_path(sitepath, sizeof(sitepath), path, "_site_", "crt");
+      if (!access(sitepath, R_OK))
+      {
+        DEBUG_printf("1cupsGetCredentialsTrust: Adding site certificate '%s'.", sitepath);
+        X509_STORE_load_locations(roots, sitepath, /*dir*/NULL);
+      }
+
+      X509_STORE_set_default_paths(roots);
+      X509_STORE_set_trust(roots, X509_TRUST_MAX);
+
+      if ((ctx = X509_STORE_CTX_new()) != NULL)
+      {
+        // Verify the certificate chain signatures against the trusted root...
+        char		*sitecreds;	// Site credentials
+        STACK_OF(X509)	*sitecerts = NULL;
+					// Site certificate(s)
+
+	X509_STORE_CTX_init(ctx, roots, cert, certs);
+	X509_STORE_CTX_set_verify_cb(ctx, openssl_verify_cb);
+
+        if ((sitecreds = http_copy_file(path, "_site_", "crt")) != NULL)
+        {
+          if ((sitecerts = openssl_load_x509(sitecreds)) != NULL)
+            X509_STORE_CTX_set_ex_data(ctx, 0, sk_X509_value(sitecerts, 0));
+
+          free(sitecreds);
+        }
+
+#ifdef DEBUG
+	char	temp[1024];
+
+	DEBUG_printf("1cupsGetCredentialsTrust: Verifying '%s' with %d chained certs.", X509_NAME_oneline(X509_get_subject_name(cert), temp, (int)sizeof(temp)), sk_X509_num(certs));
+	DEBUG_printf("1cupsGetCredentialsTrust: issuer: '%s'", X509_NAME_oneline(X509_get_issuer_name(cert), temp, (int)sizeof(temp)));
+	DEBUG_printf("1cupsGetCredentialsTrust: chain subjectName: '%s'\n", X509_NAME_oneline(X509_get_subject_name(sk_X509_value(certs, sk_X509_num(certs) - 1)), temp, (int)sizeof(temp)));
+#endif // DEBUG
+
+        if (X509_verify_cert(ctx) == 1)
 	  trust = HTTP_TRUST_OK;
-	}
-      }
-    }
 
-    if (trust == HTTP_TRUST_OK && *tcreds)
-    {
-      // Verify the full certificate chain...
-      X509_STORE_CTX	*ctx = X509_STORE_CTX_new();
-					// Context for certificate store
-      X509_STORE	*store = X509_STORE_new();
-					// Certificate store
-
-      if (!ctx || !store)
-      {
-        // Unable to create store...
-        trust = HTTP_TRUST_INVALID;
-      }
-      else
-      {
-        // Verify the certificate chain signatures...
-	X509_STORE_add_cert(store, cert);
-	X509_STORE_CTX_init(ctx, store, cert, certs);
-
-	if (X509_verify_cert(ctx) != 1)
-	  trust = HTTP_TRUST_INVALID;
-      }
-
-      if (ctx)
         X509_STORE_CTX_free(ctx);
-      if (store)
-        X509_STORE_free(store);
-    }
+        if (sitecerts)
+          sk_X509_free(sitecerts);
+      }
 
-    free(tcreds);
+      X509_STORE_free(roots);
+    }
 
     if (trust != HTTP_TRUST_OK)
       _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials do not validate against CA certificates."), 1);
@@ -1076,6 +1080,7 @@ cupsSignCredentialsRequest(
   bool		result = false;		// Return value
   X509		*cert = NULL;		// Certificate
   X509_REQ	*crq = NULL;		// Certificate request
+  const X509_NAME *subject;		// Subject name of request
   X509		*root_cert = NULL;	// Root certificate, if any
   EVP_PKEY	*root_key = NULL;	// Root private key, if any
   char		defpath[1024],		// Default path
@@ -1128,10 +1133,29 @@ cupsSignCredentialsRequest(
     return (false);
   }
 
-  if (X509_REQ_verify(crq, X509_REQ_get_pubkey(crq)) < 0)
+  if (X509_REQ_verify(crq, X509_REQ_get_pubkey(crq)) <= 0)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Unable to verify X.509 certificate request."), 1);
     goto done;
+  }
+
+  // Verify that any commonName values match the common name we are signing for...
+  subject = X509_REQ_get_subject_name(crq);
+
+  for (i = -1; (i = X509_NAME_get_index_by_NID(subject, NID_commonName, i)) >= 0;)
+  {
+    const ASN1_STRING *cn = X509_NAME_ENTRY_get_data(X509_NAME_get_entry(subject, i));
+					// commonName value
+    size_t	cnlen = (size_t)ASN1_STRING_length(cn);
+					// Length of commonName value
+
+    // The ASN.1 data is not necessarily nul-terminated, so compare only the
+    // encoded length and never read past it...
+    if (cnlen != strlen(common_name) || _cups_strncasecmp((const char *)ASN1_STRING_get0_data(cn), common_name, cnlen))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Validation of commonName in X.509 certificate request failed."), 1);
+      goto done;
+    }
   }
 
   // Create the X.509 certificate...
@@ -1179,8 +1203,8 @@ cupsSignCredentialsRequest(
     int			datalen;		// Length of extension data
 
     ext     = sk_X509_EXTENSION_value(exts, i);
-    obj     = X509_EXTENSION_get_object(ext);
-    extdata = X509_EXTENSION_get_data(ext);
+    obj     = (ASN1_OBJECT *)X509_EXTENSION_get_object(ext);
+    extdata = (ASN1_OCTET_STRING *)X509_EXTENSION_get_data(ext);
     datalen = i2d_ASN1_OCTET_STRING(extdata, &data);
 
 #ifdef DEBUG
@@ -1299,9 +1323,9 @@ cupsSignCredentialsRequest(
           // Parse the SAN values (there should be an easier/standard OpenSSL API to do this!)
           for (j = 4; j < datalen; j += data[j + 1] + 2)
           {
-            // Stop if the element header or value runs past the extension data...
-            if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
-              break;
+	    // Stop if the element header or value runs past the extension data...
+	    if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
+	      break;
 
             if (data[j] == 0x82 && data[j + 1])
             {
@@ -1401,7 +1425,7 @@ cupsSignCredentialsRequest(
   // Save the certificate...
   http_make_path(crtfile, sizeof(crtfile), path, common_name, "crt");
 
-  if ((bio = BIO_new_file(crtfile, "wb")) == NULL)
+  if ((bio = openssl_open_file(crtfile, 0644)) == NULL)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
     goto done;
@@ -1828,7 +1852,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	}
       }
 
-      if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+      if (_cups_isdigit(hostname[0]) || hostname[0] == '[')
 	hostname[0] = '\0';		// Don't allow numeric addresses
 
       if (hostname[0])
@@ -2050,9 +2074,10 @@ _httpTLSWrite(http_t     *http,		// I - Connection to server
 	      const char *buf,		// I - Buffer holding data
 	      int        len)		// I - Length of buffer
 {
-  int bytes;
+  int bytes = SSL_write(http->tls, buf, len);
+					// Bytes written
 
-  bytes = SSL_write(http->tls, buf, len);
+  DEBUG_printf("7_httpTLSWrite(http=%p, buf=%p, len=%d) got %d", (void *)http, (void *)buf, len, bytes);
 
   if (bytes > 0)
     return (bytes);
@@ -2294,7 +2319,7 @@ openssl_create_key(
   {
     case CUPS_CREDTYPE_ECDSA_P256_SHA256 :
         algid   = EVP_PKEY_EC;
-        curveid = NID_secp256k1;
+        curveid = NID_X9_62_prime256v1;
 	break;
 
     case CUPS_CREDTYPE_ECDSA_P384_SHA256 :
@@ -2451,103 +2476,6 @@ openssl_get_date(X509 *cert,		// I - Certificate
 }
 
 
-#if 0
-//
-// 'openssl_load_crl()' - Load the certificate revocation list, if any.
-//
-
-static void
-openssl_load_crl(void)
-{
-  cupsMutexLock(&tls_mutex);
-
-  if (!openssl_x509_crl_init(&tls_crl))
-  {
-    cups_file_t		*fp;		// CRL file
-    char		filename[1024],	// site.crl
-			line[256];	// Base64-encoded line
-    unsigned char	*data = NULL;	// Buffer for cert data
-    size_t		alloc_data = 0,	// Bytes allocated
-			num_data = 0;	// Bytes used
-    int			decoded;	// Bytes decoded
-    openssl_datum_t	datum;		// Data record
-
-
-    http_make_path(filename, sizeof(filename), CUPS_SERVERROOT, "site", "crl");
-
-    if ((fp = cupsFileOpen(filename, "r")) != NULL)
-    {
-      while (cupsFileGets(fp, line, sizeof(line)))
-      {
-	if (!strcmp(line, "-----BEGIN X509 CRL-----"))
-	{
-	  if (num_data)
-	  {
-	   /*
-	    * Missing END X509 CRL...
-	    */
-
-	    break;
-	  }
-	}
-	else if (!strcmp(line, "-----END X509 CRL-----"))
-	{
-	  if (!num_data)
-	  {
-	   /*
-	    * Missing data...
-	    */
-
-	    break;
-	  }
-
-          datum.data = data;
-	  datum.size = num_data;
-
-	  openssl_x509_crl_import(tls_crl, &datum, GNUTLS_X509_FMT_PEM);
-
-	  num_data = 0;
-	}
-	else
-	{
-	  if (alloc_data == 0)
-	  {
-	    data       = malloc(2048);
-	    alloc_data = 2048;
-
-	    if (!data)
-	      break;
-	  }
-	  else if ((num_data + strlen(line)) >= alloc_data)
-	  {
-	    unsigned char *tdata = realloc(data, alloc_data + 1024);
-					    // Expanded buffer
-
-	    if (!tdata)
-	      break;
-
-	    data       = tdata;
-	    alloc_data += 1024;
-	  }
-
-	  decoded = alloc_data - num_data;
-	  httpDecode64((char *)data + num_data, &decoded, line, NULL);
-	  num_data += (size_t)decoded;
-	}
-      }
-
-      cupsFileClose(fp);
-
-      if (data)
-	free(data);
-    }
-  }
-
-  cupsMutexUnlock(&tls_mutex);
-}
-#endif // 0
-
-
 //
 // 'openssl_load_x509()' - Load a stack of X.509 certificates.
 //
@@ -2597,6 +2525,28 @@ openssl_load_x509(
   BIO_free(bio);
 
   return (certs);
+}
+
+
+//
+// 'openssl_open_file()' - Create a file for writing with the given permissions.
+//
+
+static BIO *				// O - File BIO or `NULL` on error
+openssl_open_file(const char *filename,	// I - Filename
+                  int        mode)	// I - Permissions
+{
+  int	fd;				// File descriptor
+  BIO	*bio;				// File BIO
+
+
+  if ((fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, mode)) < 0)
+    return (NULL);
+
+  if ((bio = BIO_new_fd(fd, BIO_CLOSE)) == NULL)
+    close(fd);
+
+  return (bio);
 }
 
 
@@ -2678,4 +2628,42 @@ openssl_validate_name(
   }
 
   return (result);
+}
+
+
+//
+// 'openssl_verify_cb()' - Handle verification issues...
+//
+
+static int				// O - 1 to continue, 0 to stop
+openssl_verify_cb(int            ok,	// I - Default return value
+                  X509_STORE_CTX *ctx)	// I - Verification context
+{
+  DEBUG_printf("4openssl_verify_cb(ok=%d, ctx=%p), error=%d (%s)", ok, (void *)ctx, X509_STORE_CTX_get_error(ctx), X509_verify_cert_error_string(X509_STORE_CTX_get_error(ctx)));
+
+  if (!ok && X509_STORE_CTX_get_error(ctx) == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY)
+  {
+    // See if the issuer is "_site_"...
+    // TODO: Spend more time figuring out why OpenSSL can't find a "_site_" cert in the X509_STORE
+    X509	*cert = X509_STORE_CTX_get_current_cert(ctx);
+					// Problematic certificate
+    char	issuer[256];		// Issuer name
+
+    DEBUG_printf("5openssl_verify_cb: Unable to get local issuer for certificate '%s'.", X509_NAME_oneline(X509_get_subject_name(cert), issuer, (int)sizeof(issuer)));
+    DEBUG_printf("5openssl_verify_cb: Issuer identified as '%s'.", X509_NAME_oneline(X509_get_issuer_name(cert), issuer, (int)sizeof(issuer)));
+
+    if (X509_NAME_get_text_by_NID(X509_get_issuer_name(cert), NID_commonName, issuer, sizeof(issuer)) >= 0 && !strcmp(issuer, "_site_"))
+    {
+      // Yes, verify we have a local _site_ certificate...
+      DEBUG_puts("5openssl_verify_cb: Issuer is '_site_'.");
+
+      if (X509_STORE_CTX_get_ex_data(ctx, 0))
+      {
+	DEBUG_puts("5openssl_verify_cb: Local site certificate, OK.");
+	ok = 1;
+      }
+    }
+  }
+
+  return (ok);
 }

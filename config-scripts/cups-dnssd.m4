@@ -96,6 +96,10 @@ AS_IF([test $with_dnssd = avahi -o $with_dnssd = yes], [
     ])
 ])
 
+AS_IF([test "x$DNSSD_BACKEND" = x], [
+    AC_MSG_ERROR([A DNS-SD library is required.])
+], [])
+
 AC_SUBST([DNSSDLIBS])
 AC_SUBST([DNSSD_BACKEND])
 AC_SUBST([IPPFIND_BIN])

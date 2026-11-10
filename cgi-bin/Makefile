@@ -1,7 +1,7 @@
 #
 # CGI makefile for CUPS.
 #
-# Copyright © 2020-2025 by OpenPrinting.
+# Copyright © 2020-2026 by OpenPrinting.
 # Copyright © 2007-2019 by Apple Inc.
 # Copyright © 1997-2006 by Easy Software Products.
 #
@@ -83,7 +83,7 @@ clean:
 #
 
 depend:
-	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -e '1,$$s/ \/usr\/include\/[^ ]*//g' -e '1,$$s/ \/usr\/local\/include\/[^ ]*//g' >Dependencies
+	$(CC) -MM $(ALL_CFLAGS) $(OBJS:.o=.c) | sed -E -e '1,$$s/ \/[^ ]+//g' | grep -e '^   \\$$' -v | grep -e '^  \\$$' -v >Dependencies
 
 
 #

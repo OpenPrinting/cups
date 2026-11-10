@@ -1015,6 +1015,10 @@ msgid "%s accepting requests since %s"
 msgstr ""
 
 #, c-format
+msgid "%s attributes cannot be supplied in a job creation request."
+msgstr ""
+
+#, c-format
 msgid "%s cannot be changed."
 msgstr "%s nelze změnit."
 
@@ -3026,6 +3030,9 @@ msgstr ""
 msgid "Bad JOB_PRINTER_URI variable."
 msgstr ""
 
+msgid "Bad JWT signature."
+msgstr ""
+
 msgid "Bad NULL dests pointer"
 msgstr "Neplatný ukazatel NULL"
 
@@ -3056,15 +3063,14 @@ msgstr "Chybný UIConstraints"
 msgid "Bad URI."
 msgstr ""
 
+msgid "Bad Unicode escape."
+msgstr ""
+
 msgid "Bad arguments to function"
 msgstr ""
 
 msgid "Bad certificate."
 msgstr ""
-
-#, c-format
-msgid "Bad copies value %d."
-msgstr "Chybný počet kopií %d."
 
 msgid "Bad custom parameter"
 msgstr "Chybný uživatelský parametr"
@@ -3094,21 +3100,7 @@ msgstr ""
 msgid "Bad hostname/address in URI"
 msgstr ""
 
-#, c-format
-msgid "Bad job-name value: %s"
-msgstr ""
-
-msgid "Bad job-name value: Wrong type or count."
-msgstr ""
-
 msgid "Bad job-priority value."
-msgstr ""
-
-#, c-format
-msgid "Bad job-sheets value \"%s\"."
-msgstr ""
-
-msgid "Bad job-sheets value type."
 msgstr ""
 
 msgid "Bad job-state value."
@@ -3136,14 +3128,6 @@ msgstr ""
 #, c-format
 msgid "Bad notify-user-data \"%s\"."
 msgstr ""
-
-#, c-format
-msgid "Bad number-up value %d."
-msgstr "Chybná hodnota %d."
-
-#, c-format
-msgid "Bad page-ranges values %d-%d."
-msgstr "Chybný rozsah stránek %d-%d."
 
 msgid "Bad port number in URI"
 msgstr ""
@@ -3217,6 +3201,12 @@ msgid "Cannot change printer-is-shared for remote queues."
 msgstr ""
 
 msgid "Cannot share a remote Kerberized printer."
+msgstr ""
+
+msgid "Cannot specify both 'finishings' and 'finishings-col'."
+msgstr ""
+
+msgid "Cannot specify both 'media' and 'media-col'."
 msgstr ""
 
 msgid ""
@@ -3298,7 +3288,7 @@ msgstr ""
 msgid "Credentials are unknown/new."
 msgstr ""
 
-msgid "Credentials do not validate against site CA certificate."
+msgid "Credentials do not validate against CA certificates."
 msgstr ""
 
 msgid "Credentials have been renewed."
@@ -3900,9 +3890,6 @@ msgid "Internet Printing Protocol"
 msgstr "Internetový tiskový protokol"
 
 msgid "Invalid JSON data."
-msgstr ""
-
-msgid "Invalid JSON web token."
 msgstr ""
 
 msgid "Invalid form data."
@@ -4872,10 +4859,6 @@ msgid "Too many active jobs."
 msgstr "Příliš mnoho aktivních úloh."
 
 #, c-format
-msgid "Too many job-sheets values (%d > 2)."
-msgstr ""
-
-#, c-format
 msgid "Too many printer-state-reasons values (%d > %d)."
 msgstr ""
 
@@ -4931,6 +4914,9 @@ msgid "US Letter Oversize Long Edge"
 msgstr ""
 
 msgid "US Letter Small"
+msgstr ""
+
+msgid "Unable allocate memory for signature."
 msgstr ""
 
 msgid "Unable to access cupsd.conf file"
@@ -5048,6 +5034,21 @@ msgstr ""
 msgid "Unable to create temporary file"
 msgstr ""
 
+msgid "Unable to decode JOSE header."
+msgstr ""
+
+msgid "Unable to decode JWT claims."
+msgstr ""
+
+msgid "Unable to decode JWT payload data."
+msgstr ""
+
+msgid "Unable to decode JWT protected data."
+msgstr ""
+
+msgid "Unable to decode JWT signature."
+msgstr ""
+
 msgid "Unable to delete class"
 msgstr "Nelze vymazat třídu"
 
@@ -5062,6 +5063,15 @@ msgstr ""
 
 #, c-format
 msgid "Unable to execute command \"%s\": %s"
+msgstr ""
+
+msgid "Unable to find JWT payload data."
+msgstr ""
+
+msgid "Unable to find JWT protected data."
+msgstr ""
+
+msgid "Unable to find JWT signature."
 msgstr ""
 
 msgid "Unable to find destination for job"
@@ -5305,6 +5315,10 @@ msgstr ""
 
 #, c-format
 msgid "Unsupported \"attributes-charset\" value '%s'."
+msgstr ""
+
+#, c-format
+msgid "Unsupported '%s' value."
 msgstr ""
 
 #, c-format
@@ -15740,3 +15754,15 @@ msgstr ""
 
 msgid "~/.cups/lpoptions file names default destination that does not exist."
 msgstr ""
+
+#, c-format
+#~ msgid "Bad copies value %d."
+#~ msgstr "Chybný počet kopií %d."
+
+#, c-format
+#~ msgid "Bad number-up value %d."
+#~ msgstr "Chybná hodnota %d."
+
+#, c-format
+#~ msgid "Bad page-ranges values %d-%d."
+#~ msgstr "Chybný rozsah stránek %d-%d."

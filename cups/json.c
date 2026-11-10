@@ -256,7 +256,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
   while (current)
   {
-    if (current->parent && current->parent->value.child != current)
+    if (current != json && current->parent && current->parent->value.child != current)
       length ++;			// Comma or colon separator
 
     switch (current->type)
@@ -287,7 +287,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
           {
 	    if (strchr("\\\"\b\f\n\r\t", *value))
 	      length += 2;		// Simple escaped char
-            else if ((*value & 255) < ' ')
+            else if (_cups_iscntrl(*value))
               length += 6;		// Worst case for control char
 	    else
 	      length ++;		// Literal char
@@ -301,6 +301,11 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       // Descend
       current = current->value.child;
     }
+    else if (current == json)
+    {
+      // Done with the node being exported...
+      current = NULL;
+    }
     else if (current->sibling)
     {
       // Visit sibling
@@ -312,7 +317,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       current = current->parent;
       while (current)
       {
-        if (current->sibling)
+        if (current == json)
+        {
+          current = NULL;
+          break;
+        }
+        else if (current->sibling)
 	{
 	  current = current->sibling;
 	  break;
@@ -341,7 +351,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 
   while (current)
   {
-    if (current->parent && current->parent->value.child != current)
+    if (current != json && current->parent && current->parent->value.child != current)
     {
       // Add separator
       if (current->type == CUPS_JTYPE_KEY || current->parent->type == CUPS_JTYPE_ARRAY)
@@ -420,7 +430,7 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 	      *ptr++ = '\\';
 	      *ptr++ = 't';
 	    }
-            else if ((*value & 255) < ' ')
+            else if (_cups_iscntrl(*value))
             {
               snprintf(ptr, length - (size_t)(ptr - s), "\\u%04x", *value);
               ptr += 6;
@@ -449,7 +459,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
       else if (current->type == CUPS_JTYPE_OBJECT)
         *ptr++ = '}';
 
-      if (current->sibling)
+      if (current == json)
+      {
+	// Done with the node being exported...
+	current = NULL;
+      }
+      else if (current->sibling)
       {
 	// Visit sibling
 	current = current->sibling;
@@ -465,7 +480,12 @@ cupsJSONExportString(cups_json_t *json)	// I - JSON root node
 	  else if (current->type == CUPS_JTYPE_OBJECT)
 	    *ptr++ = '}';
 
-	  if (current->sibling)
+	  if (current == json)
+	  {
+	    current = NULL;
+	    break;
+	  }
+	  else if (current->sibling)
 	  {
 	    current = current->sibling;
 	    break;
@@ -755,7 +775,7 @@ cupsJSONImportString(const char *s)	// I - JSON string
   if (s)
   {
     // Skip leading whitespace...
-    while (*s && isspace(*s & 255))
+    while (*s && _cups_isspace(*s))
       s ++;
   }
 
@@ -782,68 +802,75 @@ cupsJSONImportString(const char *s)	// I - JSON string
   while (*s)
   {
     // Skip leading whitespace/separators
-    while (*s && isspace(*s & 255))
+    while (*s && _cups_isspace(*s))
       s ++;
 
     if (parent->type == CUPS_JTYPE_ARRAY)
     {
-      // Arrays can have multiple values separated by commas and whitespace...
-      if (*s == ',')
+      // Require a comma between array values...
+      if (count && *s != ']')
       {
-	// Comma (value) separator...
-	if (!parent->value.child)
+	if (*s != ',')
 	{
-	  // Cannot have a comma here
-          DEBUG_puts("2cupsJSONImportString: Unexpected comma.");
+	  DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
+
+	if (*s == ']')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing array value.");
+	  goto invalid;
+	}
       }
     }
     else
     {
       // Objects have colons between key and value and commas between key/value
       // pairs...
-      if (*s == ',')
+      if (count & 1)
       {
-	// Comma (value) separator...
-	if (!parent->value.child || (count & 1))
+	if (*s != ':')
 	{
-	  // Cannot have a comma here
-          DEBUG_puts("2cupsJSONImportString: Unexpected comma.");
+	  DEBUG_puts("2cupsJSONImportString: Missing colon.");
 	  goto invalid;
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
+
+	if (*s == '}')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing object value.");
+	  goto invalid;
+	}
       }
-      else if (*s == ':')
+      else if (count && *s != '}')
       {
-        if (!parent->value.child || !(count & 1))
-        {
-	  // Cannot have a colon here
-          DEBUG_puts("2cupsJSONImportString: Unexpected colon.");
+	if (*s != ',')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing comma.");
 	  goto invalid;
 	}
 
 	s ++;
-	while (*s && isspace(*s & 255))
+	while (*s && _cups_isspace(*s))
 	  s ++;
-      }
-      else if (count & 1)
-      {
-        // Missing colon...
-	DEBUG_puts("2cupsJSONImportString: Missing colon.");
-	goto invalid;
+
+	if (*s == '}')
+	{
+	  DEBUG_puts("2cupsJSONImportString: Missing object key.");
+	  goto invalid;
+	}
       }
 
       if (!(count & 1) && *s != '\"' && *s != '}')
       {
-        // Need a key string here...
+	// Need a key string here...
 	DEBUG_puts("2cupsJSONImportString: Missing key string.");
 	goto invalid;
       }
@@ -869,13 +896,13 @@ cupsJSONImportString(const char *s)	// I - JSON string
 	    DEBUG_printf("2cupsJSONImportString: Bad escape '\\%c'.", *s);
             goto invalid;
           }
-          else if (*s == 'u' && (!isxdigit(s[1] & 255) || !isxdigit(s[2] & 255) || !isxdigit(s[3] & 255) || !isxdigit(s[4] & 255)))
+          else if (*s == 'u' && (!_cups_isxdigit(s[1]) || !_cups_isxdigit(s[2]) || !_cups_isxdigit(s[3]) || !_cups_isxdigit(s[4])))
           {
 	    DEBUG_printf("2cupsJSONImportString: Bad escape '\\%s'.", s);
             goto invalid;
           }
         }
-        else if ((*s & 255) < ' ')
+        else if (_cups_iscntrl(*s))
         {
           // Control characters are not allowed in a string...
 	  DEBUG_printf("2cupsJSONImportString: Bad control character 0x%02x in string.", *s);
@@ -948,20 +975,64 @@ cupsJSONImportString(const char *s)	// I - JSON string
           {
             // Unicode character
             int ch,			// Unicode character
-		digit;			// Current digit
+		digit,			// Current digit
+		x;			// Current hex digit value
 
             // Convert hex digits to a 16-bit Unicode character
             for (ch = 0, digit = 0; digit < 4; digit ++)
             {
               s ++;
-              ch <<= 4;
-              if (isdigit(*s))
-                ch |= *s - '0';
+
+              if ((x = _cups_xdigit(*s)) < 0)
+              {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+              }
               else
-                ch |= tolower(*s) - 'a' + 10;
+              {
+		ch = (ch << 4) | x;
+              }
             }
 
-            // Convert 16-bit Unicode character to UTF-8...
+            if (ch >= 0xd800 && ch <= 0xdbff)
+            {
+              // Handle UTF-16 surrogate pairs because of course you'd want to
+              // embed plane N Unicode characters in 12 bytes instead of 4...
+              int	lch;		// "Lower" surrogate
+
+              if (strncmp(s + 1, "\\u", 2) || !_cups_isxdigit(s[3]) || !_cups_isxdigit(s[4]) || !_cups_isxdigit(s[5]) || !_cups_isxdigit(s[6]))
+              {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+              }
+
+              // Grab the second escaped Unicode character...
+              for (s += 2, lch = 0, digit = 0; digit < 4; digit ++)
+              {
+                // Already know we have "\uXXXX"...
+                s ++;
+                lch = (lch << 4) | _cups_xdigit(*s);
+              }
+
+	      // Make sure the second escape character is the surrogate...
+	      if (lch < 0xdc00 || lch > 0xdfff)
+	      {
+		_cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+		goto error;
+	      }
+
+	      // Combine to form a single 20-bit Unicode character...
+	      ch = 0x10000 + (((ch - 0xd800) << 10) | (lch - 0xdc00));
+	    }
+
+	    // Validate the Unicode character...
+	    if (ch == 0 || (ch >= 0xd800 && ch <= 0xdfff) || ch == 0xfeff)
+	    {
+	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad Unicode escape."), true);
+	      goto error;
+	    }
+
+            // Convert Unicode character to UTF-8...
             if (ch < 0x80)
             {
               // ASCII
@@ -973,10 +1044,18 @@ cupsJSONImportString(const char *s)	// I - JSON string
               *ptr++ = (char)(0xc0 | (ch >> 6));
               *ptr++ = (char)(0x80 | (ch & 0x3f));
             }
-            else
+            else if (ch < 0x10000)
             {
               // 3-byte UTF-8
               *ptr++ = (char)(0xe0 | (ch >> 12));
+              *ptr++ = (char)(0x80 | ((ch >> 6) & 0x3f));
+              *ptr++ = (char)(0x80 | (ch & 0x3f));
+            }
+            else
+            {
+              // 4-byte UTF-8
+              *ptr++ = (char)(0xf0 | (ch >> 18));
+              *ptr++ = (char)(0x80 | ((ch >> 12) & 0x3f));
               *ptr++ = (char)(0x80 | ((ch >> 6) & 0x3f));
               *ptr++ = (char)(0x80 | (ch & 0x3f));
             }
@@ -1135,6 +1214,17 @@ cupsJSONImportString(const char *s)	// I - JSON string
     goto invalid;
   }
 
+  // Only whitespace can follow the root object...
+  s ++;
+  while (*s && _cups_isspace(*s))
+    s ++;
+
+  if (*s)
+  {
+    DEBUG_puts("2cupsJSONImportString: Unexpected data after root object.");
+    goto invalid;
+  }
+
   DEBUG_printf("3cupsJSONImportString: Returning %p (%u children)", (void *)json, (unsigned)cupsJSONGetCount(json));
 
   return (json);
@@ -1193,6 +1283,7 @@ cupsJSONImportURL(
 		*dataptr,		// Pointer into data
 		*dataend;		// Pointer to end of data (less nul byte)
   cups_json_t	*json = NULL;		// Root JSON node
+  time_t	modified = 0;		// Last-Modified value for a successful load
 
 
   // Range check input...
@@ -1303,9 +1394,8 @@ cupsJSONImportURL(
 
   if (status == HTTP_STATUS_OK)
   {
-    // Save the content date...
-    if (last_modified)
-      *last_modified = httpGetDateTime(httpGetField(http, HTTP_FIELD_LAST_MODIFIED));
+    // Keep the content date until the JSON has been loaded successfully...
+    modified = httpGetDateTime(httpGetField(http, HTTP_FIELD_LAST_MODIFIED));
 
     // Allocate memory for string...
     if ((length = (size_t)httpGetLength(http)) == 0 || length > 65536)
@@ -1340,6 +1430,9 @@ cupsJSONImportURL(
     json = cupsJSONImportString(data);
     free(data);
   }
+
+  if (json && last_modified)
+    *last_modified = modified;
 
   return (json);
 }
@@ -1411,7 +1504,7 @@ cupsJSONNewKey(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root
 
 cups_json_t *				// O - JSON node
 cupsJSONNewNumber(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root node
-		  cups_json_t  *after,	// I - Previous sibling node or `NULL` to append to the end
+		  cups_json_t *after,	// I - Previous sibling node or `NULL` to append to the end
                   double      value)	// I - Number value
 {
   cups_json_t	*node;			// JSON node
@@ -1432,14 +1525,17 @@ cupsJSONNewNumber(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a r
 
 cups_json_t *				// O - JSON node
 cupsJSONNewString(cups_json_t *parent,	// I - Parent JSON node or `NULL` for a root node
-		  cups_json_t  *after,	// I - Previous sibling node or `NULL` to append to the end
+		  cups_json_t *after,	// I - Previous sibling node or `NULL` to append to the end
 		  const char  *value)	// I - String value
 {
   cups_json_t	*node;			// JSON node
-  char		*s = strdup(value);	// String value
+  char		*s;			// String value
 
 
-  if (!s)
+  if (!value)
+    return (NULL);
+
+  if ((s = strdup(value)) == NULL)
     return (NULL);
 
   if ((node = cupsJSONNew(parent, after, CUPS_JTYPE_STRING)) != NULL)

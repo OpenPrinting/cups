@@ -1,7 +1,7 @@
 //
 // JSON API unit tests for CUPS.
 //
-// Copyright © 2022-2025 by OpenPrinting.
+// Copyright © 2022-2026 by OpenPrinting.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
 // information.
@@ -46,6 +46,48 @@ main(int  argc,				// I - Number of command-line arguments
       "CUPS_JTYPE_OBJECT",		// Object value
       "CUPS_JTYPE_KEY"			// Object key (string)
     };
+    static const struct			// JSON syntax parsing tests
+    {
+      bool	valid;			// Should this be valid?
+      const char *data;			// JSON data
+    } syntax_tests[] =
+    {
+      { true,  "{}" },
+      { true,  " { \"a\" : 1, \"b\" : [2, 3] } \n\t" },
+      { true,  "{\"a\":[],\"b\":{},\"c\":[{},[],[1,2],3]}" },
+      { true,  "{\"a\":[true,false,null,\"text\",1.5e2]}" },
+      { true,  "{\"a\":{\"b\":1},\"c\":2}" },
+      { false, "{\"a\":1 \"b\":2}" },
+      { false, "{\"a\":[1 2]}" },
+      { false, "{\"a\":[{} {}]}" },
+      { false, "{\"a\":{} \"b\":[]}" },
+      { false, "{\"a\":1,}" },
+      { false, "{\"a\":[1,]}" },
+      { false, "{\"a\":[{},]}" },
+      { false, "{\"a\":}" },
+      { false, "{\"a\":{\"b\":}}" },
+      { false, "{\"a\" 1}" },
+      { false, "{,\"a\":1}" },
+      { false, "{\"a\":[,1]}" },
+      { false, "{\"a\":1,,\"b\":2}" },
+      { false, "{}{}" },
+      { false, "{} trailing text" },
+      { false, "{\"a\":[1,2]" }
+    };
+
+    for (i = 0; i < (int)(sizeof(syntax_tests) / sizeof(syntax_tests[0])); i ++)
+    {
+      testBegin("cupsJSONImportString(%s '%s')", syntax_tests[i].valid ? "good" : "bad", syntax_tests[i].data);
+
+      json = cupsJSONImportString(syntax_tests[i].data);
+
+      if ((json != NULL) == syntax_tests[i].valid)
+        testEndMessage(true, syntax_tests[i].valid ? "loaded" : "rejected");
+      else
+        testEndMessage(false, syntax_tests[i].valid ? "rejected" : "loaded");
+
+      cupsJSONDelete(json);
+    }
 
     testBegin("cupsJSONNew(root object)");
     json = cupsJSONNew(NULL, NULL, CUPS_JTYPE_OBJECT);
@@ -243,6 +285,47 @@ main(int  argc,				// I - Number of command-line arguments
     testBegin("cupsJSONDelete(root)");
     cupsJSONDelete(json);
     testEnd(true);
+
+    testBegin("cupsJSONImportString('{\"a\":\"\\uD834\\uDD1E\"}')");
+    if ((json = cupsJSONImportString("{\"a\":\"\\uD834\\uDD1E\"}")) != NULL)
+    {
+      if ((s = (char *)cupsJSONGetString(cupsJSONFind(json, "a"))) == NULL)
+      {
+        testEndMessage(false, "no string imported");
+      }
+      else if (strcmp(s, "\xf0\x9d\x84\x9e"))
+      {
+        testEndMessage(false, "wrong string imported");
+      }
+      else
+      {
+        testEndMessage(true, "got treble chef");
+      }
+
+      cupsJSONDelete(json);
+    }
+    else
+    {
+      testEndMessage(false, "unable to load Unicode surrogate escapes");
+    }
+
+    testBegin("cupsJSONExportString(child object)");
+    if ((json = cupsJSONImportString("{\"a\":{\"b\":[1,2],\"c\":{\"d\":true}},\"e\":null}")) != NULL)
+    {
+      if ((s = cupsJSONExportString(cupsJSONFind(json, "a"))) == NULL)
+        testEndMessage(false, "%s", cupsGetErrorString());
+      else if (strcmp(s, "{\"b\":[1,2],\"c\":{\"d\":true}}"))
+        testEndMessage(false, "got '%s'", s);
+      else
+        testEndMessage(true, "%s", s);
+
+      free(s);
+      cupsJSONDelete(json);
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+    }
 
     testBegin("cupsJSONImportURL('https://accounts.google.com/.well-known/openid-configuration', no last modified)");
     json = cupsJSONImportURL("https://accounts.google.com/.well-known/openid-configuration", &last_modified);

@@ -1,7 +1,7 @@
 /*
  * Backend functions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2015 by Apple Inc.
  * Copyright © 2006 by Easy Software Products.
  *
@@ -119,7 +119,7 @@ quote_string(const char *s)		/* I - String to write */
       if (*s == '\\' || *s == '\"')
 	putchar('\\');
 
-      if (((*s & 255) < ' ' && *s != '\t') || *s == 0x7f)
+      if (_cups_iscntrl(*s) && *s != '\t')
         putchar(' ');
       else
         putchar(*s);

@@ -94,7 +94,6 @@ static void	move_job(cupsd_client_t *con, ipp_attribute_t *uri);
 static int	ppd_parse_line(const char *line, char *option, int olen,
 		               char *choice, int clen);
 static void	print_job(cupsd_client_t *con, ipp_attribute_t *uri);
-static void	read_job_ticket(cupsd_client_t *con);
 static void	reject_jobs(cupsd_client_t *con, ipp_attribute_t *uri);
 static void	release_held_new_jobs(cupsd_client_t *con,
 		                      ipp_attribute_t *uri);
@@ -970,6 +969,8 @@ add_class(cupsd_client_t  *con,		/* I - Client connection */
     if (pclass->num_printers > 0)
     {
       free(pclass->printers);
+
+      pclass->printers     = NULL;
       pclass->num_printers = 0;
     }
 
@@ -2017,10 +2018,9 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 
     if (!(printer->type & CUPS_PTYPE_REMOTE))
     {
-      cupsdLogJob(job, CUPSD_LOG_INFO, "Adding start banner page \"%s\".",
-		  attr->values[0].string.text);
+      cupsdLogJob(job, CUPSD_LOG_INFO, "Adding start banner page \"%s\".", job_sheets);
 
-      if ((kbytes = copy_banner(con, job, attr->values[0].string.text)) < 0)
+      if ((kbytes = copy_banner(con, job, job_sheets)) < 0)
       {
         cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_PURGE,
 	                 "Aborting job because the start banner could not be "
@@ -2031,9 +2031,10 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
       cupsdUpdateQuota(printer, job->username, 0, kbytes);
     }
   }
-  else if ((attr = ippFindAttribute(job->attrs, "job-sheets",
-                                    IPP_TAG_ZERO)) != NULL)
+  else if ((attr = ippFindAttribute(job->attrs, "job-sheets", IPP_TAG_ZERO)) != NULL)
+  {
     job->job_sheets = attr;
+  }
 
  /*
   * Fill in the response info...
@@ -2115,8 +2116,7 @@ add_job_subscriptions(
 
     while (attr && attr->group_tag != IPP_TAG_ZERO)
     {
-      if (!strcmp(attr->name, "notify-recipient-uri") &&
-          attr->value_tag == IPP_TAG_URI)
+      if (!strcmp(attr->name, "notify-recipient-uri"))
       {
        /*
         * Validate the recipient scheme against the ServerBin/notifier
@@ -2131,38 +2131,34 @@ add_job_subscriptions(
         int	port;			/* Port portion of URI */
         struct stat info;		/* File information */
 
+        if (attr->value_tag != IPP_TAG_URI || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         recipient = attr->values[0].string.text;
 
-	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient,
-	                    scheme, sizeof(scheme), userpass, sizeof(userpass),
-			    host, sizeof(host), &port,
-			    resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
+	if (httpSeparateURI(HTTP_URI_CODING_ALL, recipient, scheme, sizeof(scheme), userpass, sizeof(userpass), host, sizeof(host), &port, resource, sizeof(resource)) < HTTP_URI_STATUS_OK)
         {
-          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE,
-	                  _("Bad notify-recipient-uri \"%s\"."), recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad notify-recipient-uri \"%s\"."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
 	  return;
 	}
 
         snprintf(notifier, sizeof(notifier), "%s/notifier/%s", ServerBin, scheme);
         if (access(notifier, X_OK) || stat(notifier, &info) || !S_ISREG(info.st_mode))
 	{
-          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE,
-	                  _("notify-recipient-uri URI \"%s\" uses unknown "
-			    "scheme."), recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("notify-recipient-uri URI \"%s\" uses unknown scheme."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_URI_SCHEME);
 	  return;
 	}
 
         if (!strcmp(scheme, "rss") && !check_rss_recipient(recipient))
 	{
-          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE,
-	                  _("notify-recipient-uri URI \"%s\" is already used."),
-			  recipient);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("notify-recipient-uri URI \"%s\" is already used."), recipient);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
 	else if (!strcmp(scheme, "rss") && strstr(resource, "../") != NULL)
@@ -2172,69 +2168,96 @@ add_job_subscriptions(
 	  return;
 	}
       }
-      else if (!strcmp(attr->name, "notify-pull-method") &&
-               attr->value_tag == IPP_TAG_KEYWORD)
+      else if (!strcmp(attr->name, "notify-pull-method"))
       {
-        pullmethod = attr->values[0].string.text;
+        if (attr->value_tag != IPP_TAG_KEYWORD || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
 
-        if (strcmp(pullmethod, "ippget"))
+	pullmethod = attr->values[0].string.text;
+
+	if (strcmp(pullmethod, "ippget"))
 	{
-          send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE,
-	                  _("Bad notify-pull-method \"%s\"."), pullmethod);
-	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM,
-	                "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad notify-pull-method \"%s\"."), pullmethod);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
       }
-      else if (!strcmp(attr->name, "notify-charset") &&
-               attr->value_tag == IPP_TAG_CHARSET &&
-	       strcmp(attr->values[0].string.text, "us-ascii") &&
-	       strcmp(attr->values[0].string.text, "utf-8"))
+      else if (!strcmp(attr->name, "notify-charset"))
       {
-        send_ipp_status(con, IPP_STATUS_ERROR_CHARSET,
-	                _("Character set \"%s\" not supported."),
-			attr->values[0].string.text);
-	return;
-      }
-      else if (!strcmp(attr->name, "notify-natural-language") &&
-               (attr->value_tag != IPP_TAG_LANGUAGE ||
-	        strcmp(attr->values[0].string.text, DefaultLanguage)))
-      {
-        send_ipp_status(con, IPP_STATUS_ERROR_CHARSET,
-	                _("Language \"%s\" not supported."),
-			attr->values[0].string.text);
-	return;
-      }
-      else if (!strcmp(attr->name, "notify-user-data") &&
-               attr->value_tag == IPP_TAG_STRING)
-      {
-        if (attr->num_values > 1 || attr->values[0].unknown.length > 63)
+        if (attr->value_tag != IPP_TAG_CHARSET || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
+	if (strcmp(attr->values[0].string.text, "us-ascii") && strcmp(attr->values[0].string.text, "utf-8"))
 	{
-          send_ipp_status(con, IPP_STATUS_ERROR_REQUEST_VALUE,
-	                  _("The notify-user-data value is too large "
-			    "(%d > 63 octets)."),
-			  attr->values[0].unknown.length);
+	  send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Character set \"%s\" not supported."), attr->values[0].string.text);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	  return;
 	}
+      }
+      else if (!strcmp(attr->name, "notify-natural-language"))
+      {
+        if (attr->value_tag != IPP_TAG_LANGUAGE || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
+        if (strcmp(attr->values[0].string.text, DefaultLanguage))
+	{
+	  send_ipp_status(con, IPP_STATUS_ERROR_CHARSET, _("Language \"%s\" not supported."), attr->values[0].string.text);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+	}
+      }
+      else if (!strcmp(attr->name, "notify-user-data"))
+      {
+        if (attr->value_tag != IPP_TAG_STRING || attr->num_values > 1 || attr->values[0].unknown.length > 63)
+	{
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
 
         user_data = attr;
       }
-      else if (!strcmp(attr->name, "notify-events") &&
-               attr->value_tag == IPP_TAG_KEYWORD)
+      else if (!strcmp(attr->name, "notify-events"))
       {
+        if (attr->value_tag != IPP_TAG_KEYWORD)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         for (i = 0; i < attr->num_values; i ++)
 	  mask |= cupsdEventValue(attr->values[i].string.text);
       }
       else if (!strcmp(attr->name, "notify-lease-duration"))
       {
-        send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
-	                _("The notify-lease-duration attribute cannot be "
-			  "used with job subscriptions."));
+        send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("The notify-lease-duration attribute cannot be used with job subscriptions."));
+	ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
 	return;
       }
-      else if (!strcmp(attr->name, "notify-time-interval") &&
-               attr->value_tag == IPP_TAG_INTEGER)
+      else if (!strcmp(attr->name, "notify-time-interval"))
+      {
+        if (attr->value_tag != IPP_TAG_INTEGER || attr->num_values != 1)
+        {
+	  send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad \"%s\" attribute."), attr->name);
+	  ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
+	  return;
+        }
+
         interval = attr->values[0].integer;
+      }
 
       attr = attr->next;
     }
@@ -2246,6 +2269,7 @@ add_job_subscriptions(
     else if (recipient && pullmethod)
     {
       send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Cannot specify both notify-pull-method and notify-recipient-uri in the same request."));
+      ippAddInteger(con->response, IPP_TAG_SUBSCRIPTION, IPP_TAG_ENUM, "notify-status-code", IPP_STATUS_ERROR_ATTRIBUTES_OR_VALUES);
       return;
     }
 
@@ -5360,7 +5384,7 @@ create_job(cupsd_client_t  *con,	/* I - Client connection */
   if ((job = add_job(con, printer, NULL)) == NULL)
     return;
 
-  job->pending_timeout = 1;
+  job->pending_timeout = time(NULL) + MultipleOperationTimeout;
 
  /*
   * Save and log the job...
@@ -5820,7 +5844,7 @@ create_local_printer(
 
   if (!device_uri_ptr || !device_uri_ptr[0] || (strncmp(device_uri_ptr, "dnssd://", 8) && strncmp(device_uri_ptr, "ipp://", 6) && strncmp(device_uri_ptr, "ipps://", 7)))
   {
-    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), ptr);
+    send_ipp_status(con, IPP_STATUS_ERROR_NOT_POSSIBLE, _("Bad device-uri \"%s\"."), device_uri_ptr ? device_uri_ptr : "");
 
     return;
   }
@@ -5882,11 +5906,11 @@ create_local_printer(
 
   if (nameptr)
   {
-    size_t host_len,
-        server_name_len;
+    size_t	host_len,		/* Length of hostname */
+		server_name_len;	/* Length of server name */
 
     /* Get host name of device URI */
-    httpSeparateURI(HTTP_URI_CODING_ALL, ptr,
+    httpSeparateURI(HTTP_URI_CODING_ALL, device_uri_ptr,
 		    scheme, sizeof(scheme), userpass, sizeof(userpass), host,
 		    sizeof(host), &port, resource, sizeof(resource));
 
@@ -5918,7 +5942,7 @@ create_local_printer(
     cupsdSetDeviceURI(printer, uri);
   }
   else
-    cupsdSetDeviceURI(printer, ptr);
+    cupsdSetDeviceURI(printer, device_uri_ptr);
 
   if (printer_geo_location)
     cupsdSetString(&printer->geo_location, ippGetString(printer_geo_location, 0, NULL));
@@ -8851,8 +8875,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     * Grab format from client...
     */
 
-    if (sscanf(format->values[0].string.text, "%15[^/]/%255[^;]", super,
-               type) != 2)
+    if (sscanf(format->values[0].string.text, "%15[^/]/%255[^;]", super, type) != 2 || !_cups_strcasecmp(super, "printer"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
                       _("Bad document-format \"%s\"."),
@@ -8868,7 +8891,7 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     * Use default document format...
     */
 
-    if (sscanf(default_format, "%15[^/]/%255[^;]", super, type) != 2)
+    if (sscanf(default_format, "%15[^/]/%255[^;]", super, type) != 2 || !_cups_strcasecmp(super, "printer"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
                       _("Bad document-format \"%s\"."),
@@ -8945,15 +8968,6 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   }
 
  /*
-  * Read any embedded job ticket info from PS files...
-  */
-
-  if (!_cups_strcasecmp(filetype->super, "application") &&
-      (!_cups_strcasecmp(filetype->type, "postscript") ||
-       !_cups_strcasecmp(filetype->type, "pdf")))
-    read_job_ticket(con);
-
- /*
   * Create the job object...
   */
 
@@ -9017,197 +9031,6 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
   */
 
   cupsdCheckJobs();
-}
-
-
-/*
- * 'read_job_ticket()' - Read a job ticket embedded in a print file.
- *
- * This function only gets called when printing a single PDF or PostScript
- * file using the Print-Job operation.  It doesn't work for Create-Job +
- * Send-File, since the job attributes need to be set at job creation
- * time for banners to work.  The embedded job ticket stuff is here
- * primarily to allow the Windows printer driver for CUPS to pass in JCL
- * options and IPP attributes which otherwise would be lost.
- *
- * The format of a job ticket is simple:
- *
- *     %cupsJobTicket: attr1=value1 attr2=value2 ... attrN=valueN
- *
- *     %cupsJobTicket: attr1=value1
- *     %cupsJobTicket: attr2=value2
- *     ...
- *     %cupsJobTicket: attrN=valueN
- *
- * Job ticket lines must appear immediately after the first line that
- * specifies PostScript (%!PS-Adobe-3.0) or PDF (%PDF) format, and CUPS
- * stops looking for job ticket info when it finds a line that does not begin
- * with "%cupsJobTicket:".
- *
- * The maximum length of a job ticket line, including the prefix, is
- * 255 characters to conform with the Adobe DSC.
- *
- * Read-only attributes are rejected with a notice to the error log in
- * case a malicious user tries anything.  Since the job ticket is read
- * prior to attribute validation in print_job(), job ticket attributes
- * will go through the same validation as IPP attributes...
- */
-
-static void
-read_job_ticket(cupsd_client_t *con)	/* I - Client connection */
-{
-  cups_file_t		*fp;		/* File to read from */
-  char			line[256];	/* Line data */
-  int			num_options;	/* Number of options */
-  cups_option_t		*options;	/* Options */
-  ipp_t			*ticket;	/* New attributes */
-  ipp_attribute_t	*attr,		/* Current attribute */
-			*attr2,		/* Job attribute */
-			*prev2;		/* Previous job attribute */
-
-
- /*
-  * First open the print file...
-  */
-
-  if ((fp = cupsFileOpen(con->filename, "rb")) == NULL)
-  {
-    cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to open print file for job ticket: %s", strerror(errno));
-    return;
-  }
-
- /*
-  * Skip the first line...
-  */
-
-  if (cupsFileGets(fp, line, sizeof(line)) == NULL)
-  {
-    cupsdLogClient(con, CUPSD_LOG_ERROR, "Unable to read from print file for job ticket: %s", strerror(errno));
-    cupsFileClose(fp);
-    return;
-  }
-
-  if (strncmp(line, "%!PS-Adobe-", 11) && strncmp(line, "%PDF-", 5))
-  {
-   /*
-    * Not a DSC-compliant file, so no job ticket info will be available...
-    */
-
-    cupsFileClose(fp);
-    return;
-  }
-
- /*
-  * Read job ticket info from the file...
-  */
-
-  num_options = 0;
-  options     = NULL;
-
-  while (cupsFileGets(fp, line, sizeof(line)))
-  {
-   /*
-    * Stop at the first non-ticket line...
-    */
-
-    if (strncmp(line, "%cupsJobTicket:", 15))
-      break;
-
-   /*
-    * Add the options to the option array...
-    */
-
-    num_options = cupsParseOptions(line + 15, num_options, &options);
-  }
-
- /*
-  * Done with the file; see if we have any options...
-  */
-
-  cupsFileClose(fp);
-
-  if (num_options == 0)
-    return;
-
- /*
-  * OK, convert the options to an attribute list, and apply them to
-  * the request...
-  */
-
-  if ((ticket = ippNew()) != NULL)
-  {
-    cupsEncodeOptions(ticket, num_options, options);
-
-   /*
-    * See what the user wants to change.
-    */
-
-    for (attr = ticket->attrs; attr; attr = attr->next)
-    {
-      if (attr->group_tag != IPP_TAG_JOB || !attr->name)
-	continue;
-
-      if (!strncmp(attr->name, "date-time-at-", 13) ||
-	  !strcmp(attr->name, "job-impressions-completed") ||
-	  !strcmp(attr->name, "job-media-sheets-completed") ||
-	  !strncmp(attr->name, "job-k-octets", 12) ||
-	  !strcmp(attr->name, "job-id") ||
-	  !strcmp(attr->name, "job-originating-host-name") ||
-	  !strcmp(attr->name, "job-originating-user-name") ||
-	  !strcmp(attr->name, "job-pages-completed") ||
-	  !strcmp(attr->name, "job-printer-uri") ||
-	  !strncmp(attr->name, "job-state", 9) ||
-	  !strcmp(attr->name, "job-uri") ||
-	  !strncmp(attr->name, "time-at-", 8))
-	continue; /* Read-only attrs */
-
-      if ((attr2 = ippFindAttribute(con->request, attr->name,
-				    IPP_TAG_ZERO)) != NULL)
-      {
-       /*
-	* Some other value; first free the old value...
-	*/
-
-	if (con->request->attrs == attr2)
-	{
-	  con->request->attrs = attr2->next;
-	  prev2               = NULL;
-	}
-	else
-	{
-	  for (prev2 = con->request->attrs; prev2; prev2 = prev2->next)
-	    if (prev2->next == attr2)
-	    {
-	      prev2->next = attr2->next;
-	      break;
-	    }
-	}
-
-	if (con->request->last == attr2)
-	  con->request->last = prev2;
-
-	ippDeleteAttribute(NULL, attr2);
-      }
-
-     /*
-      * Add new option by copying it...
-      */
-
-      ippCopyAttribute(con->request, attr, 0);
-    }
-
-   /*
-    * Free the temporary attribute list...
-    */
-
-    ippDelete(ticket);
-  }
-
- /*
-  * Free the option array...
-  */
-
-  cupsFreeOptions(num_options, options);
 }
 
 
@@ -10065,8 +9888,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     * Grab format from client...
     */
 
-    if (sscanf(format->values[0].string.text, "%15[^/]/%255[^;]",
-               super, type) != 2)
+    if (sscanf(format->values[0].string.text, "%15[^/]/%255[^;]", super, type) != 2 || !_cups_strcasecmp(super, "printer"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST, _("Bad document-format \"%s\"."),
 	              format->values[0].string.text);
@@ -10081,7 +9903,7 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
     * Use default document format...
     */
 
-    if (sscanf(default_format, "%15[^/]/%255[^;]", super, type) != 2)
+    if (sscanf(default_format, "%15[^/]/%255[^;]", super, type) != 2 || !_cups_strcasecmp(super, "printer"))
     {
       send_ipp_status(con, IPP_STATUS_ERROR_BAD_REQUEST,
                       _("Bad document-format-default \"%s\"."), default_format);
@@ -10697,28 +10519,46 @@ set_job_attrs(cupsd_client_t  *con,	/* I - Client connection */
 
     if (!strcmp(attr->name, "attributes-charset") ||
 	!strcmp(attr->name, "attributes-natural-language") ||
+	!strcmp(attr->name, "client-info") ||
 	!strncmp(attr->name, "date-time-at-", 13) ||
+	!strncmp(attr->name, "document-charset", 16) ||
 	!strncmp(attr->name, "document-compression", 20) ||
 	!strncmp(attr->name, "document-format", 15) ||
+	!strncmp(attr->name, "document-message", 16) ||
+	!strcmp(attr->name, "document-metadata") ||
+	!strcmp(attr->name, "errors-count") ||
+	!strcmp(attr->name, "ipp-attribute-fidelity") ||
 	!strcmp(attr->name, "job-detailed-status-messages") ||
 	!strcmp(attr->name, "job-document-access-errors") ||
 	!strcmp(attr->name, "job-id") ||
-	!strcmp(attr->name, "job-impressions-completed") ||
-	!strcmp(attr->name, "job-k-octets-completed") ||
-	!strcmp(attr->name, "job-media-sheets-completed") ||
-        !strcmp(attr->name, "job-originating-host-name") ||
-        !strcmp(attr->name, "job-originating-user-name") ||
-	!strcmp(attr->name, "job-pages-completed") ||
-	!strcmp(attr->name, "job-printer-up-time") ||
-	!strcmp(attr->name, "job-printer-uri") ||
-	!strcmp(attr->name, "job-sheets") ||
+	!strncmp(attr->name, "job-impressions", 15) ||
+	!strncmp(attr->name, "job-k-octets", 12) ||
+	!strcmp(attr->name, "job-mandatory-attributes") ||
+	!strncmp(attr->name, "job-media", 9) ||
+	!strcmp(attr->name, "job-more-info") ||
+        !strncmp(attr->name, "job-originating-", 16) ||
+	!strncmp(attr->name, "job-pages", 9) ||
+	!strncmp(attr->name, "job-printer-", 12) ||
+	!strcmp(attr->name, "job-processing-time") ||
+	!strcmp(attr->name, "job-release-action") ||
+	!strcmp(attr->name, "job-resource-ids") ||
+	!strncmp(attr->name, "job-sheet", 9) ||
 	!strcmp(attr->name, "job-state-message") ||
 	!strcmp(attr->name, "job-state-reasons") ||
+	!strcmp(attr->name, "job-storage") ||
 	!strcmp(attr->name, "job-uri") ||
+	!strcmp(attr->name, "job-uuid") ||
 	!strcmp(attr->name, "number-of-documents") ||
 	!strcmp(attr->name, "number-of-intervening-jobs") ||
-	!strcmp(attr->name, "output-device-assigned") ||
-	!strncmp(attr->name, "time-at-", 8))
+	!strcmp(attr->name, "original-requesting-user-name") ||
+	!strncmp(attr->name, "output-device-", 14) ||
+	!strncmp(attr->name, "sheet-completed-", 16) ||
+	!strncmp(attr->name, "time-at-", 8) ||
+	!strcmp(attr->name, "warnings-count") ||
+	strstr(attr->name, "-actual") ||
+	strstr(attr->name, "-detected") ||
+	strstr(attr->name, "-ready") ||
+	strstr(attr->name, "-supplied"))
     {
      /*
       * Read-only attrs!

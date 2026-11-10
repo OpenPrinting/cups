@@ -1,7 +1,7 @@
 //
 // Raster test page generator unit test for CUPS.
 //
-// Copyright © 2020-2023 by OpenPrinting
+// Copyright © 2020-2026 by OpenPrinting
 // Copyright © 2017-2019 by Apple Inc.
 //
 // Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -109,7 +109,7 @@ main(int  argc,				// I - Number of command-line arguments
 
             case 'c' : // -c NUM-COPIES
                 i ++;
-                if (i >= argc || !isdigit(argv[i][0] & 255))
+                if (i >= argc || !_cups_isdigit(argv[i][0]))
                 {
                   fputs("testtestpage: Expected number of copies after '-c'.\n", stderr);
                   usage();
@@ -133,7 +133,7 @@ main(int  argc,				// I - Number of command-line arguments
 
             case 'n' : // -n NUM-PAGES
                 i ++;
-                if (i >= argc || !isdigit(argv[i][0] & 255))
+                if (i >= argc || !_cups_isdigit(argv[i][0]))
                 {
                   fputs("testtestpage: Expected number of pages after '-p'.\n", stderr);
                   usage();

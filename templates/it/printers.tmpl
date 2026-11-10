@@ -1,0 +1,11 @@
+{#printer_name=0?:
+<TABLE CLASS="list" SUMMARY="Elenco Stampanti">
+<THEAD>
+<TR><TH>Nome coda</TH><TH>Descrizione</TH><TH>Ubicazione</TH><TH>Marca e Modello</TH><TH>Stato</TH></TR>
+</THEAD>
+<TBODY>
+{[printer_name]
+<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{printer_make_and_model}</TD><TD>{printer_state=3?Idle:{printer_state=4?Processing:Paused}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+}
+</TBODY>
+</TABLE></DIV>}

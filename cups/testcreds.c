@@ -404,7 +404,12 @@ static int				// O - Exit status
 do_unit_tests(void)
 {
   cups_credtype_t	type;		// Current credential type
-  char			*data;		// Cert data
+  char			*data,		// Cert data
+			*cadata,	// CA cert data
+			*chain;		// Cert chain data
+  size_t		chainlen;	// Length of cert chain data
+  http_trust_t		trust;		// Trust in credentials
+  struct stat		fileinfo;	// Key file information
   static const char * const alt_names[] =
   {					// subjectAltName values
     "printer.example.com",
@@ -420,12 +425,23 @@ do_unit_tests(void)
     "ecdsa-p384",
     "ecdsa-p521"
   };
+  static const char * const badcn_request =
+					// CSR for CN=badprinter, DNS:altprinter
+    "-----BEGIN CERTIFICATE REQUEST-----\n"
+    "MIIBHjCBxAIBADAVMRMwEQYDVQQDDApiYWRwcmludGVyMFkwEwYHKoZIzj0CAQYI\n"
+    "KoZIzj0DAQcDQgAE4DPBo9+csGwv9kthG3ZrrKg2GkxaKFsgJZa29RhM13vYa4jO\n"
+    "fpcT5aGad0spacNRwqX6GdiQjlQqp6YFdt4YFKBNMEsGCSqGSIb3DQEJDjE+MDww\n"
+    "FQYDVR0RBA4wDIIKYWx0cHJpbnRlcjAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAww\n"
+    "CgYIKwYBBQUHAwEwCgYIKoZIzj0EAwIDSQAwRgIhAM+MG8suwyzesdEF+33wU7CG\n"
+    "qVydDfe8KEn/S5FenVMlAiEAzHItj++UctdqVHD4c8Uv2Du0exSxQ4RvKUoNb7At\n"
+    "a4I=\n"
+    "-----END CERTIFICATE REQUEST-----\n";
 
 
   for (type = CUPS_CREDTYPE_DEFAULT; type <= CUPS_CREDTYPE_ECDSA_P521_SHA256; type ++)
   {
     testBegin("cupsCreateCredentials(_site_, %s, CA)", types[type]);
-    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "_site_", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
+    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_CA, "Organization", "Unit", "Locality", "Ontario", "CA", "_site_", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
     {
       testEnd(true);
 
@@ -438,6 +454,14 @@ do_unit_tests(void)
       data = cupsCopyCredentialsKey(TEST_CERT_PATH, "_site_");
       testEnd(data != NULL);
       free(data);
+
+      testBegin("_site_.key permissions");
+      if (stat(TEST_CERT_PATH "/_site_.key", &fileinfo))
+        testEndMessage(false, "%s", strerror(errno));
+      else if (fileinfo.st_mode & 077)
+        testEndMessage(false, "wrong permissions, got %03o expected %03o.", (unsigned)(fileinfo.st_mode & 0777), (unsigned)(fileinfo.st_mode & 0700));
+      else
+        testEnd(true);
     }
     else
     {
@@ -450,6 +474,62 @@ do_unit_tests(void)
     else
       testEndMessage(false, "%s", cupsGetErrorString());
 
+    testBegin("cupsGetCredentialsTrust(printer signed by CA cert, %s)", types[type]);
+    if ((data = cupsCopyCredentials(TEST_CERT_PATH, "printer")) != NULL)
+    {
+      trust = cupsGetCredentialsTrust(TEST_CERT_PATH, "printer", data, /*require_ca*/true);
+      free(data);
+
+      if (trust == HTTP_TRUST_OK)
+	testEnd(true);
+      else
+	testEndMessage(false, "%s", cupsGetErrorString());
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+    }
+
+    testBegin("cupsCreateCredentials(selfsigned, %s)", types[type]);
+    if (cupsCreateCredentials(TEST_CERT_PATH, true, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "selfsigned", /*email*/NULL, 0, NULL, NULL, time(NULL) + 30 * 86400))
+      testEnd(true);
+    else
+      testEndMessage(false, "%s", cupsGetErrorString());
+
+    testBegin("cupsGetCredentialsTrust(selfsigned with CA cert appended, %s)", types[type]);
+    if ((data = cupsCopyCredentials(TEST_CERT_PATH, "selfsigned")) != NULL && (cadata = cupsCopyCredentials(TEST_CERT_PATH, "_site_")) != NULL)
+    {
+      // A self-signed certificate with the (public) CA certificate appended is
+      // not signed by the CA and must not be trusted...
+      chainlen = strlen(data) + strlen(cadata) + 1;
+
+      if ((chain = malloc(chainlen)) != NULL)
+      {
+	cupsCopyString(chain, data, chainlen);
+	cupsConcatString(chain, cadata, chainlen);
+
+	trust = cupsGetCredentialsTrust(TEST_CERT_PATH, "selfsigned", chain, /*require_ca*/true);
+	free(chain);
+
+	if (trust != HTTP_TRUST_OK)
+	  testEnd(true);
+	else
+	  testEndMessage(false, "Expected a failure");
+      }
+      else
+      {
+	testEndMessage(false, "%s", strerror(errno));
+      }
+
+      free(data);
+      free(cadata);
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+      free(data);
+    }
+
     testBegin("cupsCreateCredentialsRequest(altprinter w/alt names, %s)", types[type]);
     if (cupsCreateCredentialsRequest(TEST_CERT_PATH, CUPS_CREDPURPOSE_SERVER_AUTH, type, CUPS_CREDUSAGE_DEFAULT_TLS, "Organization", "Unit", "Locality", "Ontario", "CA", "altprinter", "admin@example.com", sizeof(alt_names) / sizeof(alt_names[0]), alt_names))
     {
@@ -459,6 +539,14 @@ do_unit_tests(void)
       data = cupsCopyCredentialsKey(TEST_CERT_PATH, "altprinter");
       testEnd(data != NULL);
       free(data);
+
+      testBegin("altprinter.ktm permissions");
+      if (stat(TEST_CERT_PATH "/altprinter.ktm", &fileinfo))
+        testEndMessage(false, "%s", strerror(errno));
+      else if (fileinfo.st_mode & 077)
+        testEndMessage(false, "wrong permissions, got %03o expected %03o.", (unsigned)(fileinfo.st_mode & 0777), (unsigned)(fileinfo.st_mode & 0700));
+      else
+        testEnd(true);
 
       testBegin("cupsCopyCredentialsRequest(altprinter w/alt names)");
       data = cupsCopyCredentialsRequest(TEST_CERT_PATH, "altprinter");
@@ -543,6 +631,13 @@ do_unit_tests(void)
       testEndMessage(false, "%s", cupsGetErrorString());
     }
   }
+
+  // A request whose subject CN names another host must not be signed...
+  testBegin("cupsSignCredentialsRequest(altprinter w/CN=badprinter)");
+  if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", badcn_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
+    testEndMessage(false, "Expected a failure");
+  else
+    testEndMessage(true, "%s", cupsGetErrorString());
 
   return (testsPassed ? 0 : 1);
 }

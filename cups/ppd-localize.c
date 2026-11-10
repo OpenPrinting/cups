@@ -1,7 +1,7 @@
 /*
  * PPD localization routines for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -232,7 +232,6 @@ ppdLocalizeIPPReason(
 		*bufptr,		/* Pointer into buffer */
 		*bufend,		/* Pointer to end of buffer */
 		*valptr;		/* Pointer into value */
-  int		ch;			/* Hex-encoded character */
   size_t	schemelen;		/* Length of scheme name */
 
 
@@ -312,30 +311,20 @@ ppdLocalizeIPPReason(
         * Decode text: URI and add to the buffer...
 	*/
 
+	int x1, x2;			// Hex digit values
+
 	valptr += 5;
 
         while (*valptr && !_cups_isspace(*valptr) && bufptr < bufend)
 	{
-	  if (*valptr == '%' && isxdigit(valptr[1] & 255) &&
-	      isxdigit(valptr[2] & 255))
+	  if (*valptr == '%' && (x1 = _cups_xdigit(valptr[1])) >= 0 && (x2 = _cups_xdigit(valptr[2])) >= 0)
 	  {
 	   /*
 	    * Pull a hex-encoded character from the URI...
 	    */
 
-            valptr ++;
-
-	    if (isdigit(*valptr & 255))
-	      ch = (*valptr - '0') << 4;
-	    else
-	      ch = (tolower(*valptr) - 'a' + 10) << 4;
-	    valptr ++;
-
-	    if (isdigit(*valptr & 255))
-	      *bufptr++ = (char)(ch | (*valptr - '0'));
-	    else
-	      *bufptr++ = (char)(ch | (tolower(*valptr) - 'a' + 10));
-	    valptr ++;
+            valptr += 3;
+            *bufptr++ = (char)((x1 << 4) | x2);
 	  }
 	  else if (*valptr == '+')
 	  {
@@ -343,7 +332,9 @@ ppdLocalizeIPPReason(
 	    valptr ++;
 	  }
 	  else
+	  {
 	    *bufptr++ = *valptr++;
+	  }
         }
       }
       else

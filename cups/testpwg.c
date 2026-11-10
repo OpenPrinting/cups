@@ -1,14 +1,11 @@
 /*
  * PWG unit test program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
- * Copyright 2009-2016 by Apple Inc.
+ * Copyright © 2020-2026 by OpenPrinting.
+ * Copyright © 2009-2016 by Apple Inc.
  *
- * Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
- */
-
-/*
- * Include necessary headers...
+ * Licensed under Apache License v2.0.  See the file "LICENSE" for more
+ * information.
  */
 
 #include "ppd-private.h"

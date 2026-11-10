@@ -667,7 +667,7 @@ httpGetHostByName(const char *name)	// I - Hostname or IP address
   }
 #endif // AF_LOCAL
 
-  for (nameptr = name; isdigit(*nameptr & 255) || *nameptr == '.'; nameptr ++);
+  for (nameptr = name; _cups_isdigit(*nameptr) || *nameptr == '.'; nameptr ++);
 
   if (!*nameptr)
   {
@@ -749,6 +749,8 @@ httpGetHostname(http_t *http,		// I - HTTP connection or NULL
     if (!s || slen <= 1)
       return (NULL);
 
+    httpInitialize();
+
     if (gethostname(s, (size_t)slen) < 0)
       cupsCopyString(s, "localhost", (size_t)slen);
 
@@ -824,7 +826,7 @@ httpResolveHostname(http_t *http,	// I - HTTP connection
   if (!http)
     return (NULL);
 
-  if (isdigit(http->hostname[0] & 255) || http->hostname[0] == '[')
+  if (_cups_isdigit(http->hostname[0]) || http->hostname[0] == '[')
   {
     char	temp[1024];		// Temporary string
 

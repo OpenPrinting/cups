@@ -21,6 +21,7 @@
 static gnutls_x509_privkey_t gnutls_create_key(cups_credtype_t type);
 static void		gnutls_free_certs(unsigned num_certs, gnutls_x509_crt_t *certs);
 static ssize_t		gnutls_http_read(gnutls_transport_ptr_t ptr, void *data, size_t length);
+static int		gnutls_http_timeout(gnutls_transport_ptr_t ptr, unsigned int ms);
 static ssize_t		gnutls_http_write(gnutls_transport_ptr_t ptr, const void *data, size_t length);
 static gnutls_x509_crt_t gnutls_import_certs(const char *credentials, unsigned *num_certs, gnutls_x509_crt_t *certs);
 static void		gnutls_load_crl(void);
@@ -231,7 +232,7 @@ cupsCreateCredentials(
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, gnutls_strerror(err), 0);
     goto done;
   }
-  else if ((fp = cupsFileOpen(keyfile, "w")) != NULL)
+  else if ((fp = cupsFileOpen(keyfile, "wm600")) != NULL)
   {
     DEBUG_printf("1cupsCreateCredentials: Writing private key to \"%s\".", keyfile);
     cupsFileWrite(fp, (char *)buffer, bytes);
@@ -586,7 +587,7 @@ cupsCreateCredentialsRequest(
     DEBUG_printf("1cupsCreateCredentialsRequest: Unable to export private key: %s", gnutls_strerror(err));
     goto done;
   }
-  else if ((fp = cupsFileOpen(keyfile, "w")) != NULL)
+  else if ((fp = cupsFileOpen(keyfile, "wm600")) != NULL)
   {
     DEBUG_printf("1cupsCreateCredentialsRequest: Writing private key to \"%s\".", keyfile);
     cupsFileWrite(fp, (char *)buffer, bytes);
@@ -959,50 +960,31 @@ cupsGetCredentialsTrust(
   }
   else if (num_certs > 1)
   {
+    // Verify the certificate chain...
+    gnutls_x509_trust_list_t roots;	// Trusted roots
+    char	sitepath[1024];		// _site_ certificate path
+    unsigned	results;		// Verification results
+
     trust = HTTP_TRUST_INVALID;
 
-    if ((tcreds = http_check_roots(credentials)) != NULL)
+    if (!gnutls_x509_trust_list_init(&roots, /*size*/0))
     {
-      trust = HTTP_TRUST_OK;
-    }
-    else
-    {
-      // See if we have a site CA certificate we can compare...
-      if ((tcreds = cupsCopyCredentials(path, "_site_")) != NULL)
+      // Load trusted root certificates...
+      gnutls_x509_trust_list_add_system_trust(roots, /*tl_flags*/0, /*tl_vflags*/0);
+
+      http_make_path(sitepath, sizeof(sitepath), path, "_site_", "crt");
+      if (!access(sitepath, R_OK))
       {
-	size_t	credslen,		// Length of credentials
-		tcredslen;		// Length of trust root
-
-
-	// Do a tail comparison of the root...
-	credslen  = strlen(credentials);
-	tcredslen = strlen(tcreds);
-	if (credslen > tcredslen && !strcmp(credentials + (credslen - tcredslen), tcreds))
-	{
-	  // Certificate is signed by the site CA cert...
-	  trust = HTTP_TRUST_OK;
-	}
+	DEBUG_printf("1cupsGetCredentialsTrust: Adding site certificate '%s'.", sitepath);
+	gnutls_x509_trust_list_add_trust_file(roots, sitepath, /*crl_file*/NULL, GNUTLS_X509_FMT_PEM, /*tl_flags*/0, /*tl_vflags*/0);
       }
+
+      // Verify the certificate against the trusted certs...
+      if (gnutls_x509_trust_list_verify_crt(roots, certs, num_certs, /*flags*/0, &results, /*func*/NULL) == 0 && !(results & GNUTLS_CERT_INVALID))
+	trust = HTTP_TRUST_OK;
+
+      gnutls_x509_trust_list_deinit(roots, /*all*/1);
     }
-
-    if (trust == HTTP_TRUST_OK && tcreds && *tcreds)
-    {
-      // Also validate the entire certificate chain...
-      unsigned		num_tcerts = 10;// Number of trust certificates
-      gnutls_x509_crt_t	tcerts[10];	// Trust certificates
-
-      if (gnutls_import_certs(tcreds, &num_tcerts, tcerts))
-      {
-        unsigned	verify;		// Verification results
-
-        if (gnutls_x509_crt_list_verify (certs, num_certs, tcerts, num_tcerts, /*CRL_list*/NULL, /*CRL_list_length*/0, /*flags*/0, &verify))
-          trust = HTTP_TRUST_INVALID;
-
-        gnutls_free_certs(num_tcerts, tcerts);
-      }
-    }
-
-    free(tcreds);
 
     if (trust != HTTP_TRUST_OK)
       _cupsSetError(IPP_STATUS_ERROR_CUPS_PKI, _("Credentials do not validate against CA certificates."), 1);
@@ -1158,6 +1140,20 @@ cupsSignCredentialsRequest(
     goto done;
   }
 
+  // Verify that any commonName values match the common name we are signing for...
+  for (i = 0; i < 100; i ++)
+  {
+    tempsize = sizeof(temp) - 1;
+    if ((err = gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_COMMON_NAME, (unsigned)i, 0, temp, &tempsize)) == GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE)
+      break;
+
+    if (err < 0 || tempsize != strlen(common_name) || _cups_strncasecmp(temp, common_name, tempsize))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Validation of commonName in X.509 certificate request failed."), 1);
+      goto done;
+    }
+  }
+
   // Create the certificate...
   DEBUG_puts("1cupsSignCredentialsRequest: Generating X.509 certificate.");
 
@@ -1173,46 +1169,6 @@ cupsSignCredentialsRequest(
 
   gnutls_x509_crt_init(&crt);
   gnutls_x509_crt_set_crq(crt, crq);
-
-#if 0
-  tempsize = sizeof(temp) - 1;
-  if (gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_COUNTRY_NAME, 0, 0, temp, &tempsize) >= 0)
-    temp[tempsize] = '\0';
-  else
-    cupsCopyString(temp, "US", sizeof(temp));
-  gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_COUNTRY_NAME, 0, temp, (unsigned)strlen(temp));
-
-  gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_COMMON_NAME, 0, common_name, strlen(common_name));
-
-  tempsize = sizeof(temp) - 1;
-  if (gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_ORGANIZATION_NAME, 0, 0, temp, &tempsize) >= 0)
-  {
-    temp[tempsize] = '\0';
-    gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_ORGANIZATION_NAME, 0, temp, (unsigned)strlen(temp));
-  }
-
-  tempsize = sizeof(temp) - 1;
-  if (gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_ORGANIZATIONAL_UNIT_NAME, 0, 0, temp, &tempsize) >= 0)
-  {
-    temp[tempsize] = '\0';
-    gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_ORGANIZATIONAL_UNIT_NAME, 0, temp, (unsigned)strlen(temp));
-  }
-
-  tempsize = sizeof(temp) - 1;
-  if (gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_STATE_OR_PROVINCE_NAME, 0, 0, temp, &tempsize) >= 0)
-    temp[tempsize] = '\0';
-  else
-    cupsCopyString(temp, "Unknown", sizeof(temp));
-  gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_STATE_OR_PROVINCE_NAME, 0, temp, strlen(temp));
-
-  tempsize = sizeof(temp) - 1;
-  if (gnutls_x509_crq_get_dn_by_oid(crq, GNUTLS_OID_X520_LOCALITY_NAME, 0, 0, temp, &tempsize) >= 0)
-    temp[tempsize] = '\0';
-  else
-    cupsCopyString(temp, "Unknown", sizeof(temp));
-  gnutls_x509_crt_set_dn_by_oid(crt, GNUTLS_OID_X520_LOCALITY_NAME, 0, temp, strlen(temp));
-#endif // 0
-
   gnutls_x509_crt_set_serial(crt, serial, sizeof(serial));
   gnutls_x509_crt_set_activation_time(crt, curtime);
   gnutls_x509_crt_set_expiration_time(crt, expiration_date);
@@ -1230,12 +1186,7 @@ cupsSignCredentialsRequest(
 
     DEBUG_printf("1cupsSignCredentialsRequest: SAN %s", temp);
 
-    if (type != GNUTLS_SAN_DNSNAME || (cb)(common_name, temp, cb_data))
-    {
-      // Good subjectAltName
-//      gnutls_x509_crt_set_subject_alt_name(crt, type, temp, (unsigned)strlen(temp), i ? GNUTLS_FSAN_APPEND : GNUTLS_FSAN_SET);
-    }
-    else
+    if (type == GNUTLS_SAN_DNSNAME && !(cb)(common_name, temp, cb_data))
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Validation of subjectAltName in X.509 certificate request failed."), 1);
       goto done;
@@ -1267,19 +1218,6 @@ cupsSignCredentialsRequest(
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad keyUsage extension in X.509 certificate request."), 1);
     goto done;
   }
-
-#if 0
-  if (purpose == 0 || (purpose & CUPS_CREDPURPOSE_SERVER_AUTH))
-    gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_TLS_WWW_SERVER, 0);
-  if (purpose & CUPS_CREDPURPOSE_CLIENT_AUTH)
-    gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_TLS_WWW_CLIENT, 0);
-  if (purpose & CUPS_CREDPURPOSE_CODE_SIGNING)
-    gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_CODE_SIGNING, 0);
-  if (purpose & CUPS_CREDPURPOSE_EMAIL_PROTECTION)
-    gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_EMAIL_PROTECTION, 0);
-  if (purpose & CUPS_CREDPURPOSE_OCSP_SIGNING)
-    gnutls_x509_crt_set_key_purpose_oid(crt, GNUTLS_KP_OCSP_SIGNING, 0);
-#endif // 0
 
   if (gnutls_x509_crq_get_key_usage(crq, &gnutls_usage, NULL) < 0)
   {
@@ -1317,7 +1255,6 @@ cupsSignCredentialsRequest(
       goto done;
     }
   }
-//  gnutls_x509_crt_set_key_usage(crt, gnutls_usage);
 
   gnutls_x509_crt_set_version(crt, 3);
 
@@ -1559,7 +1496,7 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
                 char   *buffer,		// I - String buffer
                 size_t bufsize)		// I - Size of buffer
 {
-  const char	*cipherName;		// Cipher suite name
+  char	*cipherName;			// Cipher suite name
 
 
   // Range check input...
@@ -1575,25 +1512,28 @@ httpGetSecurity(http_t *http,		// I - HTTP connection
   switch (gnutls_protocol_get_version(http->tls))
   {
     default :
-        snprintf(buffer, bufsize, "TLS/?.? %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/?.? %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_0 :
-        snprintf(buffer, bufsize, "TLS/1.0 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.0 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_1 :
-        snprintf(buffer, bufsize, "TLS/1.1 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.1 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_2 :
-        snprintf(buffer, bufsize, "TLS/1.2 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.2 %s", cipherName ? cipherName : "UNKNOWN");
         break;
 
     case GNUTLS_TLS1_3 :
-        snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName);
+        snprintf(buffer, bufsize, "TLS/1.3 %s", cipherName ? cipherName : "UNKNOWN");
         break;
   }
+
+  if (cipherName != NULL)
+    gnutls_free(cipherName);
 
   return (buffer);
 }
@@ -1812,7 +1752,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
 	}
       }
 
-      if (isdigit(hostname[0] & 255) || hostname[0] == '[')
+      if (_cups_isdigit(hostname[0]) || hostname[0] == '[')
 	hostname[0] = '\0';		// Don't allow numeric addresses
 
       if (hostname[0])
@@ -2018,7 +1958,7 @@ _httpTLSStart(http_t *http)		// I - Connection to server
   gnutls_transport_set_ptr(http->tls, (gnutls_transport_ptr_t)http);
   gnutls_transport_set_pull_function(http->tls, gnutls_http_read);
 #ifdef HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION
-  gnutls_transport_set_pull_timeout_function(http->tls, (gnutls_pull_timeout_func)httpWait);
+  gnutls_transport_set_pull_timeout_function(http->tls, gnutls_http_timeout);
 #endif // HAVE_GNUTLS_TRANSPORT_SET_PULL_TIMEOUT_FUNCTION
   gnutls_transport_set_push_function(http->tls, gnutls_http_write);
 
@@ -2243,6 +2183,30 @@ gnutls_http_read(
   bytes = recv(http->fd, data, length, 0);
   DEBUG_printf("5gnutls_http_read: bytes=%d", (int)bytes);
   return (bytes);
+}
+
+
+//
+// 'gnutls_http_timeout()' - Pull timeout function for the GNU TLS library.
+//
+
+static int				// O - 1 if data is available, 0 if not
+gnutls_http_timeout(
+    gnutls_transport_ptr_t ptr,		// I - Connection to server
+    unsigned int           ms)		// I - Number of milliseconds to wait
+{
+  http_t	*http;			// HTTP connection
+
+
+  DEBUG_printf("5gnutls_http_timeout(ptr=%p, ms=%u)", ptr, ms);
+
+  http = (http_t *)ptr;
+
+  // Just poll the raw socket for readability - this must not have any side
+  // effects (like flushing pending writes, which httpWait() does), since
+  // GnuTLS can call this at any point to decide whether it's safe to call
+  // the pull function without blocking.
+  return (_httpWait(http, (int)ms, 0));
 }
 
 

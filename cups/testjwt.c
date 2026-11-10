@@ -283,6 +283,68 @@ main(int  argc,				// I - Number of command-line arguments
       else
       {
         testEndMessage(false, "%s", cupsGetErrorString());
+
+        jwk = NULL;
+      }
+
+      testBegin("cupsJWATExportString(CUPS_JWS_FORMAT_COMPACT)");
+      if ((s = cupsJWTExportString(jwt, CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      {
+	testEnd(true);
+
+        cupsJWTDelete(jwt);
+
+	testBegin("cupsJWATImportString(CUPS_JWS_FORMAT_COMPACT)");
+	if ((jwt = cupsJWTImportString(s, CUPS_JWS_FORMAT_COMPACT)) != NULL)
+	{
+	  testEnd(true);
+
+	  if (jwk)
+	  {
+	    testBegin("cupsJWTHasValidSignature()");
+	    testEnd(cupsJWTHasValidSignature(jwt, jwk));
+	  }
+	}
+	else
+	{
+	  testEndMessage(false, "%s", cupsGetErrorString());
+	}
+
+	free(s);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
+      }
+
+      testBegin("cupsJWATExportString(CUPS_JWS_FORMAT_JSON)");
+      if ((s = cupsJWTExportString(jwt, CUPS_JWS_FORMAT_JSON)) != NULL)
+      {
+	testEnd(true);
+
+        cupsJWTDelete(jwt);
+
+	testBegin("cupsJWATImportString(CUPS_JWS_FORMAT_JSON)");
+	if ((jwt = cupsJWTImportString(s, CUPS_JWS_FORMAT_JSON)) != NULL)
+	{
+	  testEnd(true);
+
+	  if (jwk)
+	  {
+	    testBegin("cupsJWTHasValidSignature()");
+	    testEnd(cupsJWTHasValidSignature(jwt, jwk));
+	  }
+	}
+	else
+	{
+	  testEndMessage(false, "%s", cupsGetErrorString());
+	}
+
+	free(s);
+      }
+      else
+      {
+        testEndMessage(false, "%s", cupsGetErrorString());
       }
 
       cupsJSONDelete(jwk);
@@ -403,8 +465,19 @@ main(int  argc,				// I - Number of command-line arguments
 	  return (1);
         }
       }
-      else if ((jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT)) != NULL)
+      else
       {
+        if (argv[i][0] == '{')
+	  jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_JSON);
+        else
+	  jwt = cupsJWTImportString(argv[i], CUPS_JWS_FORMAT_COMPACT);
+
+	if (!jwt)
+	{
+	  fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
+	  return (1);
+	}
+
         cups_json_t	*claims = cupsJWTGetClaims(jwt);
 					// All claims
         cups_json_t	*headers = cupsJWTGetHeaders(jwt);
@@ -459,11 +532,6 @@ main(int  argc,				// I - Number of command-line arguments
 	}
 
         cupsJWTDelete(jwt);
-      }
-      else
-      {
-	fprintf(stderr, "%s: %s\n", argv[i], cupsGetErrorString());
-	return (1);
       }
     }
   }

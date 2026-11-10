@@ -1880,6 +1880,12 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
     ret = 0;
   }
 
+  if (r->header.HWResolution[0] == 0 || r->header.HWResolution[1] == 0)
+  {
+    _cupsRasterAddError("Invalid raster resolution %ux%u.", r->header.HWResolution[0], r->header.HWResolution[1]);
+    ret = false;
+  }
+
   // Allocate the compression buffer...
   if (ret && r->compressed)
   {

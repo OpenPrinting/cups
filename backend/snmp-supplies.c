@@ -253,6 +253,11 @@ backendSNMPSupplies(
       else
         percent = 50;
 
+      if (percent < 0)
+        percent = 0;
+      else if (percent > 100)
+        percent = 100;
+
       if (supplies[i].sclass == CUPS_TC_receptacleThatIsFilled)
         percent = 100 - percent;
 
@@ -448,7 +453,7 @@ backend_init_supplies(
 		cachefilename[1024],	/* Cache filename */
 		description[CUPS_SNMP_MAX_STRING],
 					/* Device description string */
-		value[CUPS_MAX_SUPPLIES * (CUPS_SNMP_MAX_STRING * 4 + 3)],
+		value[CUPS_MAX_SUPPLIES * (CUPS_SNMP_MAX_STRING * 4 + 5)],
 					/* Value string */
 		*ptr,			/* Pointer into value string */
 		*name_ptr;		/* Pointer into name string */
@@ -720,16 +725,23 @@ backend_init_supplies(
 
     *ptr++ = '\'';
     *ptr++ = '\"';
-    for (name_ptr = supplies[i].name; *name_ptr;)
+    for (name_ptr = supplies[i].name; *name_ptr; name_ptr ++)
     {
       if (*name_ptr == '\\' || *name_ptr == '\"' || *name_ptr == '\'')
       {
         *ptr++ = '\\';
         *ptr++ = '\\';
         *ptr++ = '\\';
+	*ptr++ = *name_ptr;
       }
-
-      *ptr++ = *name_ptr++;
+      else if (_cups_isspace(*name_ptr))
+      {
+        *ptr++ = ' ';
+      }
+      else if (!_cups_iscntrl(*name_ptr))
+      {
+	*ptr++ = *name_ptr;
+      }
     }
     *ptr++ = '\"';
     *ptr++ = '\'';

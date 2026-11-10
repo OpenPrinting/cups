@@ -1,7 +1,7 @@
 //
 // Internet Printing Protocol support functions for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -787,7 +787,7 @@ ippAttributeString(
                 *bufptr = *ptr;
               bufptr ++;
             }
-            else if (!isprint(*ptr & 255))
+            else if (!_cups_isprint(*ptr))
             {
               if (buffer && bufptr < bufend)
                 bufptr += snprintf(bufptr, (size_t)(bufend - bufptr + 1), "\\%03o", *ptr & 255);
@@ -2191,7 +2191,7 @@ ippEnumValue(const char *attrname,	// I - Attribute name
 
 
   // If the string is just a number, return it...
-  if (isdigit(*enumstring & 255))
+  if (_cups_isdigit(*enumstring))
     return ((int)strtol(enumstring, NULL, 0));
 
   // Otherwise look up the string...
@@ -2287,7 +2287,7 @@ ippErrorString(ipp_status_t error)	// I - Error status
     return ("redirection-other-site");
   else if (error == IPP_STATUS_CUPS_SEE_OTHER)
     return ("cups-see-other");
-  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_ACCOUNT_AUTHORIZATION_FAILED)
+  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_NOT_FETCHABLE)
     return (ipp_status_400s[error - IPP_STATUS_ERROR_BAD_REQUEST]);
   else if (error >= IPP_STATUS_ERROR_INTERNAL && error <= IPP_STATUS_ERROR_TOO_MANY_DOCUMENTS)
     return (ipp_status_500s[error - IPP_STATUS_ERROR_INTERNAL]);

@@ -1,7 +1,7 @@
 /*
  * Administration utility API definitions for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 2001-2007 by Easy Software Products.
  *
@@ -240,7 +240,7 @@ cupsAdminGetServerSettings(
 
 	if ((port = strrchr(value, ':')) != NULL)
 	  *port = '\0';
-	else if (isdigit(*value & 255))
+	else if (_cups_isdigit(*value))
 	{
 	 /*
 	  * Listen on a port number implies remote access...

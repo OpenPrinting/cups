@@ -1144,14 +1144,19 @@ get_device_id(usb_printer_t *printer,	/* I - Printer */
   * is later written to stderr where embedded newlines would otherwise be
   * interpreted by cupsd as separate STATE:/ATTR:/PPD: directive lines.
   */
+
   for (ptr = buffer; *ptr; ptr ++)
+  {
     if (_cups_isspace(*ptr))
+    {
       *ptr = ' ';
-    else if ((*ptr & 255) < ' ' || *ptr == 127)
+    }
+    else if (_cups_iscntrl(*ptr))
     {
       *buffer = '\0';
       return (-1);
     }
+  }
 
   return (0);
 }

@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 #include "common.h"
 #include <limits.h>
 #include <math.h>
@@ -477,7 +473,7 @@ check_range(pstops_doc_t *doc,		/* I - Document information */
       if (*range == '-')
       {
         range ++;
-	if (!isdigit(*range & 255))
+	if (!_cups_isdigit(*range))
 	  upper = 65535;
 	else
 	  upper = (int)strtol(range, (char **)&range, 10);
@@ -578,7 +574,7 @@ copy_comments(cups_file_t  *fp,		/* I - File to read from */
     {
       linelen --;
 
-      if (!isspace(line[linelen] & 255))
+      if (!_cups_isspace(line[linelen]))
         break;
       else
         line[linelen] = '\0';
@@ -1241,7 +1237,7 @@ copy_page(cups_file_t  *fp,		/* I - File to read from */
     label[0] = '\0';
     number   = doc->page;
   }
-  else if (strtol(ptr, &ptr, 10) == LONG_MAX || !isspace(*ptr & 255))
+  else if (strtol(ptr, &ptr, 10) == LONG_MAX || !_cups_isspace(*ptr))
   {
     fputs("DEBUG: There was a bad %%Page: comment in the file.\n", stderr);
     number = doc->page;
@@ -2211,7 +2207,7 @@ parse_text(const char *start,		/* I - Start of text value */
   * Skip leading whitespace...
   */
 
-  while (isspace(*start & 255))
+  while (_cups_isspace(*start))
     start ++;
 
  /*
@@ -2224,7 +2220,7 @@ parse_text(const char *start,		/* I - Start of text value */
 
   while (*start && bufptr < bufend)
   {
-    if (isspace(*start & 255) && !level)
+    if (_cups_isspace(*start) && !level)
       break;
 
     *bufptr++ = *start;
@@ -2251,7 +2247,7 @@ parse_text(const char *start,		/* I - Start of text value */
 
 
       for (i = 1;
-           i <= 3 && isdigit(start[i] & 255) && bufptr < bufend;
+           i <= 3 && _cups_isdigit(start[i]) && bufptr < bufend;
 	   *bufptr++ = start[i], i ++);
     }
 

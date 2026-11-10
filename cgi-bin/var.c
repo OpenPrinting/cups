@@ -9,10 +9,6 @@
  * information.
  */
 
-/*
- * Include necessary headers...
- */
-
 /*#define DEBUG*/
 #include "cgi-private.h"
 #include <cups/http.h>
@@ -456,7 +452,7 @@ cgiSetArray(const char *name,		/* I - Name of variable */
   _cgi_var_t	*var;			/* Returned variable */
 
 
-  if (name == NULL || value == NULL || element < 0 || element > 100000)
+  if (name == NULL || value == NULL || element < 0 || element >= CUPS_MAX_ARRAY)
     return;
 
   fprintf(stderr, "DEBUG: cgiSetArray: %s[%d]=\"%s\"\n", name, element, value);
@@ -507,7 +503,7 @@ cgiSetCookie(const char *name,		/* I - Name */
 	     time_t     expires,	/* I - Expiration date (0 for session) */
 	     int        secure)		/* I - Require SSL */
 {
-  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=\"%s\", path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value, path, domain, (long)expires, secure);
+  fprintf(stderr, "DEBUG2: cgiSetCookie(name=\"%s\", value=%s, path=\"%s\", domain=\"%s\", expires=%ld, secure=%d)\n", name, value && *value ? "(set)" : "(empty)", path, domain, (long)expires, secure);
 
   num_cookies = cupsAddOption(name, value, num_cookies, &cookies);
 
@@ -729,7 +725,7 @@ cgi_initialize_cookies(void)
     * Skip leading whitespace...
     */
 
-    while (isspace(*cookie & 255))
+    while (_cups_isspace(*cookie))
       cookie ++;
     if (!*cookie)
       break;
@@ -981,7 +977,7 @@ cgi_initialize_multipart(
         * Set the form variable...
 	*/
 
-	if ((ptr = strrchr(name, '-')) != NULL && isdigit(ptr[1] & 255))
+	if ((ptr = strrchr(name, '-')) != NULL && _cups_isdigit(ptr[1]))
 	{
 	 /*
 	  * Set a specific index in the array...
@@ -989,7 +985,13 @@ cgi_initialize_multipart(
 
 	  *ptr++ = '\0';
 	  if (line[0])
-            cgiSetArray(name, atoi(ptr) - 1, line);
+	  {
+	    long idx = strtol(line, NULL, 10);
+					/* Array index */
+
+	    if (idx > 0 && idx <= CUPS_MAX_ARRAY)
+              cgiSetArray(name, atoi(ptr) - 1, line);
+          }
 	}
 	else if ((ptr = cgiGetVariable(name)) != NULL)
 	{
@@ -1044,12 +1046,12 @@ cgi_initialize_multipart(
     }
     else if (!_cups_strncasecmp(line, "Content-Type:", 13))
     {
-      for (ptr = line + 13; isspace(*ptr & 255); ptr ++);
+      for (ptr = line + 13; _cups_isspace(*ptr); ptr ++);
 
       cupsCopyString(mimetype, ptr, sizeof(mimetype));
 
       for (ptr = mimetype + strlen(mimetype) - 1;
-           ptr > mimetype && isspace(*ptr & 255);
+           ptr > mimetype && _cups_isspace(*ptr);
 	   *ptr-- = '\0');
     }
   }
@@ -1209,7 +1211,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
 	    * Read the hex code...
 	    */
 
-            if (!isxdigit(data[1] & 255) || !isxdigit(data[2] & 255))
+            if (!_cups_isxdigit(data[1]) || !_cups_isxdigit(data[2]))
 	      return (0);
 
             if (s < (value + sizeof(value) - 1))
@@ -1246,7 +1248,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     if (s > value)
       s --;
 
-    while (s >= value && isspace(*s & 255))
+    while (s >= value && _cups_isspace(*s))
       *s-- = '\0';
 
    /*
@@ -1258,7 +1260,7 @@ cgi_initialize_string(const char *data)	/* I - Form data string */
     if (!_cups_strncasecmp(name, "ENV:", 4))
       continue;				// Don't allow environment vars to be set
 
-    if ((s = strrchr(name, '-')) != NULL && isdigit(s[1] & 255))
+    if ((s = strrchr(name, '-')) != NULL && _cups_isdigit(s[1]))
     {
       *s++ = '\0';
       if (value[0])
@@ -1321,7 +1323,6 @@ cgi_set_sid(void)
   const char		*remote_addr,	/* REMOTE_ADDR */
 			*server_name,	/* SERVER_NAME */
 			*server_port;	/* SERVER_PORT */
-  struct timeval	curtime;	/* Current time */
 
 
   if ((remote_addr = getenv("REMOTE_ADDR")) == NULL)
@@ -1331,14 +1332,12 @@ cgi_set_sid(void)
   if ((server_port = getenv("SERVER_PORT")) == NULL)
     server_port = "SERVER_PORT";
 
-  gettimeofday(&curtime, NULL);
-  CUPS_SRAND(curtime.tv_sec + curtime.tv_usec);
   snprintf(buffer, sizeof(buffer), "%s:%s:%s:%02X%02X%02X%02X%02X%02X%02X%02X",
            remote_addr, server_name, server_port,
-	   (unsigned)CUPS_RAND() & 255, (unsigned)CUPS_RAND() & 255,
-	   (unsigned)CUPS_RAND() & 255, (unsigned)CUPS_RAND() & 255,
-	   (unsigned)CUPS_RAND() & 255, (unsigned)CUPS_RAND() & 255,
-	   (unsigned)CUPS_RAND() & 255, (unsigned)CUPS_RAND() & 255);
+	   cupsGetRand() & 255, cupsGetRand() & 255,
+	   cupsGetRand() & 255, cupsGetRand() & 255,
+	   cupsGetRand() & 255, cupsGetRand() & 255,
+	   cupsGetRand() & 255, cupsGetRand() & 255);
   cupsHashData("md5", (unsigned char *)buffer, strlen(buffer), sum, sizeof(sum));
 
   cgiSetCookie(CUPS_SID, cupsHashString(sum, sizeof(sum), sid, sizeof(sid)), "/", NULL, 0, 0);

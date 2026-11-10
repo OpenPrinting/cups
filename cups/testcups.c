@@ -1,7 +1,7 @@
 /*
  * CUPS API test program for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 2007 by Easy Software Products.
  *
@@ -63,8 +63,11 @@ main(int  argc,				/* I - Number of command-line arguments */
 
 
       for (i = 2; i < argc; i ++)
-        if (isdigit(argv[i][0] & 255) || argv[i][0] == '.')
+      {
+        if (_cups_isdigit(argv[i][0]) || argv[i][0] == '.')
+        {
           msec = (int)(atof(argv[i]) * 1000);
+        }
         else if (!_cups_strcasecmp(argv[i], "bw"))
         {
           mask |= CUPS_PTYPE_BW;
@@ -148,7 +151,10 @@ main(int  argc,				/* I - Number of command-line arguments */
           type |= CUPS_PTYPE_SMALL;
         }
         else
+        {
           fprintf(stderr, "Unknown argument \"%s\" ignored...\n", argv[i]);
+        }
+      }
 
       cupsEnumDests(CUPS_DEST_FLAGS_NONE, msec, NULL, type, mask, enum_cb, NULL);
     }

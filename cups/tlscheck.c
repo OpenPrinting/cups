@@ -1,7 +1,7 @@
 //
 // TLS check program for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2021-2026 by OpenPrinting.
 // Copyright © 2007-2017 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -148,7 +148,7 @@ main(int  argc,				// I - Number of command-line arguments
         cupsCopyString(resource, "/ipp/print", sizeof(resource));
       }
     }
-    else if (!port && (argv[i][0] == '=' || isdigit(argv[i][0] & 255)))
+    else if (!port && (argv[i][0] == '=' || _cups_isdigit(argv[i][0])))
     {
       if (argv[i][0] == '=')
 	port = atoi(argv[i] + 1);

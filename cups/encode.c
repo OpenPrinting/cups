@@ -93,6 +93,8 @@ static const ipp_op_t cups_ppd_name[] =
 
 static const _ipp_option_t ipp_options[] =
 {
+  { 0, "attributes-charset",	IPP_TAG_CHARSET,	IPP_TAG_ZERO }, /* never send as option */
+  { 0, "attributes-natural-language", IPP_TAG_LANGUAGE,	IPP_TAG_ZERO }, /* never send as option */
   { 1, "auth-info",		IPP_TAG_TEXT,		IPP_TAG_JOB },
   { 1, "auth-info-default",	IPP_TAG_TEXT,		IPP_TAG_PRINTER },
   { 1, "auth-info-required",	IPP_TAG_KEYWORD,	IPP_TAG_PRINTER },
@@ -549,7 +551,7 @@ _cupsEncodeOption(
     switch (attr->value_tag)
     {
       case IPP_TAG_ENUM :
-          if (isalpha(*val & 255))
+          if (_cups_isalpha(*val))
           {
             // Map enum keyword to integer value...
             int enumvalue;		// Enumeration value
@@ -564,12 +566,16 @@ _cupsEncodeOption(
 	      free(copy);
 	      return (NULL);
 	    }
-            break;
 	  }
+	  else
+	  {
+	    ippSetInteger(ipp, &attr, i, (int)strtol(val, &s, 10));
+	  }
+	  break;
 
       case IPP_TAG_INTEGER :
 	 /*
-	  * Integer/enumeration value...
+	  * Integer value...
 	  */
 
 	  ippSetInteger(ipp, &attr, i, (int)strtol(val, &s, 10));
@@ -893,6 +899,14 @@ encode_options(
     */
 
     if (!_cups_strcasecmp(option->name, "raw") || !_cups_strcasecmp(option->name, "document-format") || !option->name[0])
+      continue;
+
+   /*
+    * Match the scheduler's default handling: ColorModel takes precedence over
+    * print-color-mode, which clients can inherit from destination defaults.
+    */
+
+    if (!_cups_strcasecmp(option->name, "print-color-mode") && cupsGetOption("ColorModel", num_options, options))
       continue;
 
    /*

@@ -1,15 +1,12 @@
 //
 // PPD file import methods for the CUPS PPD Compiler.
 //
-// Copyright © 2020-2024 by OpenPrinting.
-// Copyright 2007-2011 by Apple Inc.
-// Copyright 2002-2006 by Easy Software Products.
+// Copyright © 2020-2026 by OpenPrinting.
+// Copyright © 2007-2011 by Apple Inc.
+// Copyright © 2002-2006 by Easy Software Products.
 //
-// Licensed under Apache License v2.0.  See the file "LICENSE" for more information.
-//
-
-//
-// Include necessary headers...
+// Licensed under Apache License v2.0.  See the file "LICENSE" for more
+// information.
 //
 
 #include "ppdc-private.h"
@@ -137,13 +134,13 @@ ppdcSource::import_ppd(const char *f)	// I - Filename
     cupsCopyString(line, ppd->filters[i], sizeof(line));
 
     for (ptr = line; *ptr; ptr ++)
-      if (isspace(*ptr & 255))
+      if (_cups_isspace(*ptr))
 	break;
     *ptr++ = '\0';
 
     cost = strtol(ptr, &ptr, 10);
 
-    while (isspace(*ptr & 255))
+    while (_cups_isspace(*ptr))
       ptr ++;
 
     filter = new ppdcFilter(line, ptr, cost);
@@ -302,11 +299,11 @@ ppdcSource::import_ppd(const char *f)	// I - Filename
 	  ((ptr - attr->name) == 2 || (ptr - attr->name) == 5))
       {
 	// Might be a localization attribute; test further...
-	if (isalpha(attr->name[0] & 255) &&
-	    isalpha(attr->name[1] & 255) &&
+	if (_cups_isalpha(attr->name[0]) &&
+	    _cups_isalpha(attr->name[1]) &&
 	    (attr->name[2] == '.' ||
-	     (attr->name[2] == '_' && isalpha(attr->name[3] & 255) &&
-	      isalpha(attr->name[4] & 255))))
+	     (attr->name[2] == '_' && _cups_isalpha(attr->name[3]) &&
+	      _cups_isalpha(attr->name[4]))))
 	  continue;
       }
 

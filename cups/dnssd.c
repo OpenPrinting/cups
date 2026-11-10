@@ -57,10 +57,14 @@ struct _cups_dnssd_s			// DNS-SD context
   size_t		config_changes;	// Number of hostname/network changes
   cups_dnssd_error_cb_t	cb;		// Error callback function
   void			*cb_data;	// Error callback data
-  cups_array_t		*browses,	// Browse requests
-			*queries,	// Query requests
-			*resolves,	// Resolve requests
-			*services;	// Registered services
+  cups_rwlock_t		browses_rwlock;	// R/W lock for browse requests
+  cups_array_t		*browses;	// Browse requests
+  cups_rwlock_t		queries_rwlock;	// R/W lock for query requests
+  cups_array_t		*queries;	// Query requests
+  cups_rwlock_t		resolves_rwlock;// R/W lock for resolve requests
+  cups_array_t		*resolves;	// Resolve requests
+  cups_rwlock_t		services_rwlock;// R/W lock for services
+  cups_array_t		*services;	// Registered services
 
 #ifdef HAVE_MDNSRESPONDER
   DNSServiceRef		ref;		// Master service reference
@@ -147,7 +151,7 @@ struct _cups_dnssd_resolve_s		// DNS-SD resolve request
 #endif // HAVE_MDNSRESPONDER
 };
 
-#if _WIN32
+#if _WIN32 && !defined(HAVE_MDNSRESPONDER)
 struct _win32_srv_s			// Service
 {
   DNS_SERVICE_REGISTER_REQUEST req;	// Registration request
@@ -156,7 +160,7 @@ struct _win32_srv_s			// Service
   WCHAR		hostname[256];		// Hostname
   WCHAR		*txt;			// TXT key/value string buffer
 };
-#endif // _WIN32
+#endif // _WIN32 && !HAVE_MDNSRESPONDER
 
 struct _cups_dnssd_service_s		// DNS-SD service registration
 {
@@ -311,13 +315,11 @@ cupsDNSSDBrowseDelete(
   {
     cups_dnssd_t *dnssd = browse->dnssd;
 
-    DEBUG_puts("2cupsDNSSDBrowseDelete: Write locking rwlock.");
-    cupsRWLockWrite(&dnssd->rwlock);
+    cupsRWLockWrite(&dnssd->browses_rwlock);
 
     cupsArrayRemove(dnssd->browses, browse);
 
-    DEBUG_puts("2cupsDNSSDBrowseDelete: Unlocking rwlock.");
-    cupsRWUnlock(&dnssd->rwlock);
+    cupsRWUnlock(&dnssd->browses_rwlock);
   }
 }
 
@@ -422,7 +424,7 @@ cupsDNSSDBrowseNew(
   if (count == 1)
     count ++;
 
-  for (i = 1; i < count; i ++)
+  for (i = 1; i < count && i < _CUPS_DNSSD_MAX; i ++)
   {
     subtype = (const char *)cupsArrayGetElement(tarray, i);
 
@@ -452,6 +454,8 @@ cupsDNSSDBrowseNew(
       return (NULL);
     }
   }
+
+  browse->num_browsers = i;
 
   cupsArrayDelete(tarray);
 
@@ -524,8 +528,7 @@ cupsDNSSDBrowseNew(
   avahi_unlock(dnssd, "cupsDNSSDBrowseNew");
 #endif // HAVE_MDNSRESPONDER
 
-  DEBUG_puts("2cupsDNSSDBrowseNew: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
+  cupsRWLockWrite(&dnssd->browses_rwlock);
 
   if (!dnssd->browses)
   {
@@ -544,8 +547,7 @@ cupsDNSSDBrowseNew(
 
   done:
 
-  DEBUG_puts("2cupsDNSSDBrowseNew: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
+  cupsRWUnlock(&dnssd->browses_rwlock);
 
   return (browse);
 }
@@ -738,17 +740,24 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
   if (!dnssd)
     return;
 
-  DEBUG_puts("2cupsDNSSDDelete: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
-
+  // Delete all requests/registrations...
+  cupsRWLockWrite(&dnssd->browses_rwlock);
   cupsArrayDelete(dnssd->browses);
+  cupsRWUnlock(&dnssd->browses_rwlock);
+
+  cupsRWLockWrite(&dnssd->queries_rwlock);
   cupsArrayDelete(dnssd->queries);
+  cupsRWUnlock(&dnssd->queries_rwlock);
+
+  cupsRWLockWrite(&dnssd->resolves_rwlock);
   cupsArrayDelete(dnssd->resolves);
+  cupsRWUnlock(&dnssd->resolves_rwlock);
+
+  cupsRWLockWrite(&dnssd->services_rwlock);
   cupsArrayDelete(dnssd->services);
+  cupsRWUnlock(&dnssd->services_rwlock);
 
-  DEBUG_puts("2cupsDNSSDDelete: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
-
+  // Stop any background thread...
 #ifdef HAVE_MDNSRESPONDER
   cupsThreadCancel(dnssd->monitor);
   cupsThreadWait(dnssd->monitor);
@@ -776,7 +785,13 @@ cupsDNSSDDelete(cups_dnssd_t *dnssd)	// I - DNS-SD context
     avahi_simple_poll_free(dnssd->poll);
 #endif // HAVE_MDNSRESPONDER
 
+  // Free memory...
   cupsRWDestroy(&dnssd->rwlock);
+  cupsRWDestroy(&dnssd->browses_rwlock);
+  cupsRWDestroy(&dnssd->queries_rwlock);
+  cupsRWDestroy(&dnssd->resolves_rwlock);
+  cupsRWDestroy(&dnssd->services_rwlock);
+
   free(dnssd);
 }
 
@@ -841,8 +856,12 @@ cupsDNSSDNew(
   dnssd->cb      = error_cb;
   dnssd->cb_data = cb_data;
 
-  // Initialize the rwlock...
+  // Initialize the rwlocks...
   cupsRWInit(&dnssd->rwlock);
+  cupsRWInit(&dnssd->browses_rwlock);
+  cupsRWInit(&dnssd->queries_rwlock);
+  cupsRWInit(&dnssd->resolves_rwlock);
+  cupsRWInit(&dnssd->services_rwlock);
 
   // Setup the DNS-SD connection and monitor thread...
 #ifdef HAVE_MDNSRESPONDER
@@ -951,13 +970,11 @@ cupsDNSSDQueryDelete(
   {
     cups_dnssd_t *dnssd = query->dnssd;
 
-    DEBUG_puts("2cupsDNSSDQueryDelete: Write locking rwlock.");
-    cupsRWLockWrite(&dnssd->rwlock);
+    cupsRWLockWrite(&dnssd->queries_rwlock);
 
     cupsArrayRemove(dnssd->queries, query);
 
-    DEBUG_puts("2cupsDNSSDQueryDelete: Unlocking rwlock.");
-    cupsRWUnlock(&dnssd->rwlock);
+    cupsRWUnlock(&dnssd->queries_rwlock);
   }
 }
 
@@ -1072,8 +1089,7 @@ cupsDNSSDQueryNew(
   }
 #endif // HAVE_MDNSRESPONDER
 
-  DEBUG_puts("2cupsDNSSDQueryNew: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
+  cupsRWLockWrite(&dnssd->queries_rwlock);
 
   if (!dnssd->queries)
   {
@@ -1093,8 +1109,7 @@ cupsDNSSDQueryNew(
 
   done:
 
-  DEBUG_puts("2cupsDNSSDQueryNew: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
+  cupsRWUnlock(&dnssd->queries_rwlock);
 
   return (query);
 }
@@ -1113,13 +1128,11 @@ cupsDNSSDResolveDelete(
   {
     cups_dnssd_t *dnssd = res->dnssd;
 
-    DEBUG_puts("2cupsDNSSDResolveDelete: Write locking rwlock.");
-    cupsRWLockWrite(&dnssd->rwlock);
+    cupsRWLockWrite(&dnssd->resolves_rwlock);
 
     cupsArrayRemove(dnssd->resolves, res);
 
-    DEBUG_puts("2cupsDNSSDResolveDelete: Unlocking rwlock.");
-    cupsRWUnlock(&dnssd->rwlock);
+    cupsRWUnlock(&dnssd->resolves_rwlock);
   }
 }
 
@@ -1243,8 +1256,7 @@ cupsDNSSDResolveNew(
   }
 #endif // HAVE_MDNSRESPONDER
 
-  DEBUG_puts("2cupsDNSSDResolveNew: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
+  cupsRWLockWrite(&dnssd->resolves_rwlock);
 
   if (!dnssd->resolves)
   {
@@ -1266,8 +1278,7 @@ cupsDNSSDResolveNew(
 
   done:
 
-  DEBUG_puts("2cupsDNSSDResolveNew: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
+  cupsRWUnlock(&dnssd->resolves_rwlock);
 
   return (resolve);
 }
@@ -1318,7 +1329,7 @@ cupsDNSSDSeparateFullName(
       // Service type separator...
       break;
     }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    else if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)
@@ -1346,7 +1357,7 @@ cupsDNSSDSeparateFullName(
       // Service type separator...
       break;
     }
-    else if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    else if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)
@@ -1369,7 +1380,7 @@ cupsDNSSDSeparateFullName(
   // Get the domain...
   for (ptr = domain, end = domain + domainsize - 1; *fullname; fullname ++)
   {
-    if (*fullname == '\\' && isdigit(fullname[1] & 255) && isdigit(fullname[2] & 255) && isdigit(fullname[3] & 255))
+    if (*fullname == '\\' && _cups_isdigit(fullname[1]) && _cups_isdigit(fullname[2]) && _cups_isdigit(fullname[3]))
     {
       // Escaped character
       if (ptr < end)
@@ -1677,13 +1688,11 @@ cupsDNSSDServiceDelete(
   {
     cups_dnssd_t *dnssd = service->dnssd;
 
-    DEBUG_puts("2cupsDNSSDServiceDelete: Write locking rwlock.");
-    cupsRWLockWrite(&dnssd->rwlock);
+    cupsRWLockWrite(&dnssd->services_rwlock);
 
     cupsArrayRemove(dnssd->services, service);
 
-    DEBUG_puts("2cupsDNSSDServiceDelete: Unlocking rwlock.");
-    cupsRWUnlock(&dnssd->rwlock);
+    cupsRWUnlock(&dnssd->services_rwlock);
   }
 }
 
@@ -1775,8 +1784,7 @@ cupsDNSSDServiceNew(
   DEBUG_printf("2cupsDNSSDServiceNew: service->group=%p", service->group);
 #endif // HAVE_MDNSRESPONDER
 
-  DEBUG_puts("2cupsDNSSDServiceNew: Write locking rwlock.");
-  cupsRWLockWrite(&dnssd->rwlock);
+  cupsRWLockWrite(&dnssd->services_rwlock);
 
   if (!dnssd->services)
   {
@@ -1796,8 +1804,7 @@ cupsDNSSDServiceNew(
 
   done:
 
-  DEBUG_puts("2cupsDNSSDServiceNew: Unlocking rwlock.");
-  cupsRWUnlock(&dnssd->rwlock);
+  cupsRWUnlock(&dnssd->services_rwlock);
 
   DEBUG_printf("2cupsDNSSDServiceNew: Returning %p.", (void *)service);
   return (service);
@@ -2194,7 +2201,7 @@ mdns_browse_cb(
 
 static void DNSSD_API
 mdns_hostname_cb(
-    DNSServiceRef       ref,		// I - Service reference (unsued)
+    DNSServiceRef       ref,		// I - Service reference (unused)
     DNSServiceFlags     flags,		// I - Flags (unused)
     uint32_t            if_index,	// I - Interface index (unused)
     DNSServiceErrorType error,		// I - Error code, if any
@@ -3041,6 +3048,10 @@ avahi_poll_cb(struct pollfd *ufds,	// I - File descriptors for poll
   DEBUG_puts("4avahi_poll_cb: Polling sockets...");
   ret = poll(ufds, nfds, timeout);
   DEBUG_printf("4avahi_poll_cb: poll() returned %d...", ret);
+
+  // Prevent fast loops consuming all CPU...
+  if (ret <= 0)
+    usleep(1000);
 
   DEBUG_puts("4avahi_poll_cb: Locking mutex.");
   cupsMutexLock(&dnssd->mutex);

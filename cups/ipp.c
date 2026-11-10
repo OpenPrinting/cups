@@ -3895,7 +3895,7 @@ ippValidateAttribute(
 	    {
 	      break;
 	    }
-	    else if ((*ptr < ' ' && *ptr != '\n' && *ptr != '\r' && *ptr != '\t') || *ptr == 0x7f)
+	    else if (_cups_iscntrl(*ptr) && *ptr != '\n' && *ptr != '\r' && *ptr != '\t')
 	    {
 	      break;
 	    }
@@ -3906,7 +3906,7 @@ ippValidateAttribute(
 	    if (value_tag == IPP_TAG_TEXTLANG)
 	      ipp_regex_end();
 
-	    if (*ptr < ' ' || *ptr == 0x7f)
+	    if (_cups_iscntrl(*ptr))
 	    {
 	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad text value \"%s\" - bad control character (PWG 5100.14 section 8.3)."), attr->name, value->string.text);
 	      return (0);
@@ -3975,7 +3975,7 @@ ippValidateAttribute(
 	    {
 	      break;
 	    }
-	    else if (*ptr < ' ' || *ptr == 0x7f)
+	    else if (_cups_iscntrl(*ptr))
 	    {
 	      break;
 	    }
@@ -3986,7 +3986,7 @@ ippValidateAttribute(
 	    if (value_tag == IPP_TAG_NAMELANG)
 	      ipp_regex_end();
 
-	    if (*ptr < ' ' || *ptr == 0x7f)
+	    if (_cups_iscntrl(*ptr))
 	    {
 	      ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad name value \"%s\" - bad control character (PWG 5100.14 section 8.1)."), attr->name, value->string.text);
 	      return (0);
@@ -4034,6 +4034,7 @@ ippValidateAttribute(
 	  if (strlen(value->string.text) > (IPP_MAX_URI - 1))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad URI value \"%s\" - bad length %d (RFC 8011 section 5.1.6)."), attr->name, value->string.text, (int)strlen(value->string.text));
+	    return (0);
 	  }
 	}
         break;
@@ -4042,11 +4043,11 @@ ippValidateAttribute(
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
 	  ptr = value->string.text;
-	  if (islower(*ptr & 255))
+	  if (_cups_islower(*ptr))
 	  {
 	    for (ptr ++; *ptr; ptr ++)
 	    {
-	      if (!islower(*ptr & 255) && !isdigit(*ptr & 255) && *ptr != '+' && *ptr != '-' && *ptr != '.')
+	      if (!_cups_islower(*ptr) && !_cups_isdigit(*ptr) && *ptr != '+' && *ptr != '-' && *ptr != '.')
                 break;
 	    }
 	  }
@@ -4070,7 +4071,7 @@ ippValidateAttribute(
 	{
 	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
-	    if (!isprint(*ptr & 255) || isupper(*ptr & 255) || isspace(*ptr & 255))
+	    if (!_cups_isprint(*ptr) || _cups_isupper(*ptr) || _cups_isspace(*ptr))
 	      break;
 	  }
 
@@ -4354,19 +4355,7 @@ ippWriteIO(void        *dst,		// I - Destination
 	    memcpy(bufptr, attr->name, (size_t)n);
 	    bufptr += n;
 
-            if (attr->value_tag > 0xff)
-            {
-              *bufptr++ = IPP_TAG_EXTENSION;
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 24);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 16);
-	      *bufptr++ = (ipp_uchar_t)(attr->value_tag >> 8);
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-            }
-            else
-            {
-	      *bufptr++ = (ipp_uchar_t)attr->value_tag;
-	    }
-
+	    *bufptr++ = (ipp_uchar_t)attr->value_tag;
             *bufptr++ = 0;
             *bufptr++ = 0;
 	  }
@@ -4821,10 +4810,9 @@ ippWriteIO(void        *dst,		// I - Destination
 		    *bufptr++ = 0;
 		  }
 
-		  // An unknown value might some new value that a
-		  // vendor has come up with. It consists of a
-		  // 2-byte length and the bytes in the unknown
-		  // value buffer.
+		  // An unknown value might some new syntax that a vendor has
+		  // come up with. It consists of a 2-byte length and the bytes
+		  // in the unknown value buffer.
                   n = value->unknown.length;
 
                   if (n > (IPP_BUF_SIZE - 2))
@@ -5114,7 +5102,7 @@ ipp_is_valid_keyword(
 
   for (ptr = keyword; *ptr; ptr ++)
   {
-    if (!isalnum(*ptr & 255) && *ptr != '-' && *ptr != '.' && *ptr != '_')
+    if (!_cups_isalnum(*ptr) && *ptr != '-' && *ptr != '.' && *ptr != '_')
       break;
   }
 
@@ -5259,11 +5247,7 @@ ipp_length(ipp_t *ipp,			// I - IPP message or collection
 
     DEBUG_printf("5ipp_length: attr->name=\"%s\", attr->num_values=%d, bytes=" CUPS_LLFMT, attr->name, attr->num_values, CUPS_LLCAST bytes);
 
-    if ((attr->value_tag & ~IPP_TAG_CUPS_CONST) < IPP_TAG_EXTENSION)
-      bytes += (size_t)attr->num_values;// Value tag for each value
-    else
-      bytes += (size_t)(5 * attr->num_values);
-					// Value tag for each value
+    bytes += (size_t)attr->num_values;	// Value tag for each value
     bytes += (size_t)(2 * attr->num_values);
 					// Name lengths
     bytes += strlen(attr->name);	// Name
