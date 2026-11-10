@@ -1,7 +1,7 @@
 /*
  * Main loop for the CUPS scheduler.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2019 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -1351,7 +1351,7 @@ process_children(void)
   int		pid,			/* Process ID of child */
 		job_id;			/* Job ID of child */
   cupsd_job_t	*job;			/* Current job */
-  size_t		i;			/* Looping var */
+  size_t	i;			/* Looping var */
   char		name[1024];		/* Process name */
   const char	*type;			/* Type of program */
 
@@ -1451,10 +1451,11 @@ process_children(void)
 	      job->status = -status;	/* Backend failed */
 
 	      if (job->current_file < job->num_files)
-        {
-          cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
-          if ((job = cupsdFindJob(job_id)) == NULL)
-            continue;
+	      {
+		cupsdSetJobState(job, IPP_JSTATE_ABORTED, CUPSD_JOB_FORCE, "Canceling multi-file job due to backend failure.");
+
+		if (!cupsdFindJob(job_id))
+		  continue;
 	      }
 	    }
           }
