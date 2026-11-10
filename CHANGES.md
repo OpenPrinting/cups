@@ -44,6 +44,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed `PassEnv` handling of comma separators (Issue #1770)
 - Fixed SNMP supply name escaping (Issue #1786)
 - Fixed ColorModel/print-color-mode precedence (Issue #1797)
+- Fixed timeouts with GNU TLS (Issue #1810)
 - Fixed scheduler use-after-free on failed jobs with no history (Issue #1812)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
 - Fixed a scheduler issue with the encoding of "octetString" options for
