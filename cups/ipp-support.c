@@ -1,7 +1,7 @@
 //
 // Internet Printing Protocol support functions for CUPS.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2007 by Easy Software Products, all rights reserved.
 //
@@ -2287,7 +2287,7 @@ ippErrorString(ipp_status_t error)	// I - Error status
     return ("redirection-other-site");
   else if (error == IPP_STATUS_CUPS_SEE_OTHER)
     return ("cups-see-other");
-  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_ACCOUNT_AUTHORIZATION_FAILED)
+  else if (error >= IPP_STATUS_ERROR_BAD_REQUEST && error <= IPP_STATUS_ERROR_NOT_FETCHABLE)
     return (ipp_status_400s[error - IPP_STATUS_ERROR_BAD_REQUEST]);
   else if (error >= IPP_STATUS_ERROR_INTERNAL && error <= IPP_STATUS_ERROR_TOO_MANY_DOCUMENTS)
     return (ipp_status_500s[error - IPP_STATUS_ERROR_INTERNAL]);
