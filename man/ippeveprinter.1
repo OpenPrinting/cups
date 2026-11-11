@@ -1,13 +1,13 @@
 .\"
 .\" ippeveprinter man page for CUPS.
 .\"
-.\" Copyright © 2020-2025 by OpenPrinting.
+.\" Copyright © 2020-2026 by OpenPrinting.
 .\" Copyright © 2014-2019 by Apple Inc.
 .\"
 .\" Licensed under Apache License v2.0.  See the file "LICENSE" for more
 .\" information.
 .\"
-.TH ippeveprinter 1 "CUPS" "2025-02-27" "OpenPrinting"
+.TH ippeveprinter 1 "CUPS" "2026-11-10" "OpenPrinting"
 .SH NAME
 ippeveprinter \- an ipp everywhere printer application for cups
 .SH SYNOPSIS
@@ -104,6 +104,11 @@ Show the CUPS version.
 .TP 5
 .B \-2
 Report support for two-sided (duplex) printing.
+This option cannot be used with the
+.B \-a
+(attribute file) or
+.B \-P
+(PPD) options.
 .TP 5
 .B \-A
 Enable authentication for the created printer.
@@ -124,6 +129,11 @@ The default is "application/postscript" when the \fB\-P\fR option is specified.
 \fB\-M \fImanufacturer\fR
 Set the manufacturer of the printer.
 The default is "Example".
+This option cannot be used with the
+.B \-a
+(attribute file) or
+.B \-P
+(PPD) options.
 .TP 5
 \fB\-K \fIkeypath\fR
 Set location of server X.509 certificates and keys.
@@ -167,6 +177,11 @@ The default is a directory under the user's current temporary directory.
 \fB\-f \fItype/subtype[,...]\fR
 Specifies a list of MIME media types that the server will accept.
 The default depends on the type of printer created.
+This option cannot be used with the
+.B \-a
+(attribute file) or
+.B \-P
+(PPD) options.
 .TP 5
 \fB\-i \fIiconfile.png\fR
 Specifies the printer icon file for the server.
@@ -183,6 +198,11 @@ The default is the empty string.
 \fB\-m \fImodel\fR
 Specifies the model name of the printer.
 The default is "Printer".
+This option cannot be used with the
+.B \-a
+(attribute file) or
+.B \-P
+(PPD) options.
 .TP 5
 \fB\-n \fIhostname\fR
 Specifies the hostname that is reported by the server.
@@ -206,6 +226,11 @@ The default is "_print".
 Specifies the printer speed in pages per minute.
 If two numbers are specified and the second number is greater than zero, the server will report support for color printing.
 The default is "10,0".
+This option cannot be used with the
+.B \-a
+(attribute file) or
+.B \-P
+(PPD) options.
 .TP 5
 .B \-v[vvv]
 Be (very) verbose when logging activity to standard error.
@@ -282,4 +307,4 @@ command whenever a job is sent to the server:
 .BR ippeveps (7),
 PWG Internet Printing Protocol Workgroup (http://www.pwg.org/ipp)
 .SH COPYRIGHT
-Copyright \[co] 2020-2025 by OpenPrinting.
+Copyright \[co] 2020-2026 by OpenPrinting.
