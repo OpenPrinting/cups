@@ -966,7 +966,16 @@ cgi_initialize_multipart(
         * Set the form variable...
 	*/
 
-	if ((ptr = strrchr(name, '-')) != NULL && isdigit(ptr[1] & 255))
+	if (!strncmp(name, "ENV:", 4))
+        {
+         /*
+          * Don't allow variables prefixed with "ENV:" since those are reserved
+          * for environment variables...
+          */
+
+          goto skip;
+        }
+        else if ((ptr = strrchr(name, '-')) != NULL && isdigit(ptr[1] & 255))
 	{
 	 /*
 	  * Set a specific index in the array...
@@ -1004,6 +1013,8 @@ cgi_initialize_multipart(
      /*
       * Read the rest of the current line...
       */
+
+      skip:
 
       fgets(line, sizeof(line), stdin);
 
