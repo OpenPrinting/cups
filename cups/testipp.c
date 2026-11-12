@@ -279,6 +279,26 @@ static ipp_uchar_t mixed[] =		// Mixed value buffer
 		  IPP_TAG_END		// end tag
 		};
 
+static ipp_uchar_t bad_out_of_band[] =	// Bad out-of-band values
+		{
+		  0x01, 0x01,		// IPP version
+		  0x00, 0x00,		// successful-ok
+		  0x00, 0x00, 0x00, 0x01,
+					// Request ID
+		  IPP_TAG_OPERATION,
+		  IPP_TAG_NOVALUE,	// no-value tag
+		  0x00, 0x01,		// Name length + name
+		  'x',
+		  0x00, 0x00,		// Value length 0 (no value)
+
+		  IPP_TAG_NOVALUE,	// no-value tag
+		  0x00, 0x00,		// Name length 0 for continuation
+		  0x00, 0x01,		// Value length + value
+		  'a',
+
+		  IPP_TAG_END		// end tag
+		};
+
 static ipp_uchar_t extension[] =	// Extension value buffer
 		{
 		  0x02, 0x00,		// IPP version
@@ -723,6 +743,61 @@ main(int  argc,				// I - Number of command-line arguments
     else
     {
       testEnd(true);
+    }
+
+    ippDelete(request);
+
+    // Read the extension data and confirm ippGetLength() matches...
+    testBegin("Read Bad Out-of-Band Values from Memory");
+
+    request = ippNew();
+    data.rpos    = 0;
+    data.wused   = sizeof(bad_out_of_band);
+    data.wsize   = sizeof(bad_out_of_band);
+    data.wbuffer = bad_out_of_band;
+
+    while ((state = ippReadIO(&data, (ipp_io_cb_t)read_cb, 1, NULL, request)) != IPP_STATE_DATA)
+    {
+      if (state == IPP_STATE_ERROR)
+	break;
+    }
+
+    length = ippGetLength(request);
+
+    if (state != IPP_STATE_DATA)
+    {
+      testEndMessage(false, "%d bytes read", (int)data.rpos);
+      status = 1;
+    }
+    else if (length != (sizeof(bad_out_of_band) - 1))
+    {
+      testEndMessage(false, "wrong ippGetLength(), %d instead of %d bytes", (int)length, (int)sizeof(bad_out_of_band) - 1);
+      print_attributes(request, 8);
+      status = 1;
+    }
+    else
+    {
+      testEnd(true);
+    }
+
+    testBegin("ippValidateAtrributes");
+    testEnd(ippValidateAttributes(request));
+
+    testBegin("ippFind(x, IPP_TAG_ZERO)");
+    testEnd(ippFindAttribute(request, "x", IPP_TAG_ZERO) != NULL);
+
+    testBegin("ippFind(x, IPP_TAG_NOVALUE)");
+    attr = ippFindAttribute(request, "x", IPP_TAG_NOVALUE);
+    if (attr)
+    {
+      if (ippGetCount(attr) != 2)
+        testEndMessage(false, "got %d values, expected 2", ippGetCount(attr));
+      else
+        testEnd(true);
+    }
+    else
+    {
+      testEnd(false);
     }
 
     ippDelete(request);

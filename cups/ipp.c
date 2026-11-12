@@ -3862,6 +3862,18 @@ ippValidateAttribute(
 
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
+          if (value_tag == IPP_TAG_TEXTLANG && !value->string.language)
+          {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL language."), attr->name);
+	    return (0);
+          }
+
 	  if (value_tag == IPP_TAG_TEXTLANG && !ipp_is_valid_language(attr->name, value->string.language))
 	  {
 	    ipp_regex_end();
@@ -3942,6 +3954,18 @@ ippValidateAttribute(
 
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
+          if (value_tag == IPP_TAG_NAMELANG && !value->string.language)
+          {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL language."), attr->name);
+	    return (0);
+          }
+
 	  if (value_tag == IPP_TAG_NAMELANG && !ipp_is_valid_language(attr->name, value->string.language))
 	  {
 	    ipp_regex_end();
@@ -4015,6 +4039,12 @@ ippValidateAttribute(
     case IPP_TAG_KEYWORD :
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (!ipp_is_valid_keyword(attr->name, value->string.text))
 	    return (0);
 	}
@@ -4023,6 +4053,12 @@ ippValidateAttribute(
     case IPP_TAG_URI :
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, value->string.text, scheme, sizeof(scheme), userpass, sizeof(userpass), hostname, sizeof(hostname), &port, resource, sizeof(resource));
 
 	  if (uri_status < HTTP_URI_STATUS_OK)
@@ -4042,6 +4078,12 @@ ippValidateAttribute(
     case IPP_TAG_URISCHEME :
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  ptr = value->string.text;
 	  if (_cups_islower(*ptr))
 	  {
@@ -4069,6 +4111,12 @@ ippValidateAttribute(
     case IPP_TAG_CHARSET :
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  for (ptr = value->string.text; *ptr; ptr ++)
 	  {
 	    if (!_cups_isprint(*ptr) || _cups_isupper(*ptr) || _cups_isspace(*ptr))
@@ -4095,6 +4143,12 @@ ippValidateAttribute(
 
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (!ipp_is_valid_language(attr->name, value->string.text))
 	  {
 	    ipp_regex_end();
@@ -4111,6 +4165,12 @@ ippValidateAttribute(
 
         for (i = attr->num_values, value = attr->values; i > 0; i --, value ++)
 	{
+	  if (!value->string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (!ipp_is_valid_mimetype(attr->name, value->string.text))
 	  {
 	    ipp_regex_end();
@@ -5786,14 +5846,17 @@ ipp_read_io(void        *src,		// I - Data source
 	    case IPP_TAG_ADMINDEFINE :
 	        // These value types are not supposed to have values, however
 		// some vendors (Brother) do not implement IPP correctly and so
-		// we need to map non-empty values to text...
-	        if (attr->value_tag == tag)
+		// we need to discard them...
+		if (n > 0)
 		{
-		  if (n == 0)
-		    break;
-
-		  attr->value_tag = IPP_TAG_TEXT;
+		  DEBUG_printf("1ipp_read_io: Invalid out-of-band value of length %d, discarding.", n);
+		  if ((*cb)(src, buffer, n) < n)
+		  {
+		    DEBUG_puts("1ipp_read_io: Unable to read out-of-band value.");
+		    goto rollback;
+		  }
 		}
+		break;
 
 	    case IPP_TAG_TEXT :
 	    case IPP_TAG_NAME :
