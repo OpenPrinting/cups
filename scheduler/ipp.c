@@ -9594,6 +9594,9 @@ save_auth_info(
   if ((dest = cupsdFindDest(job->dest)) == NULL)
     return;
 
+  if (dest->num_auth_info_required == 1 && !strcmp(dest->auth_info_required[0], "none"))
+    return;
+
  /*
   * Create the authentication file and change permissions...
   */
@@ -9647,8 +9650,6 @@ save_auth_info(
       else if (!strcmp(dest->auth_info_required[i], "negotiate"))
         cupsdSetStringf(job->auth_env + i, "AUTH_NEGOTIATE=%s",
 	                auth_info->values[i].string.text);
-      else
-        i --;
     }
   }
   else if (auth_info && auth_info->num_values == 2 &&
