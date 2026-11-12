@@ -9705,7 +9705,7 @@ save_auth_info(
   * Write a random number of newlines to the end of the file...
   */
 
-  for (i = (CUPS_RAND() % 1024); i >= 0; i --)
+  for (i = (cupsGetRand() % 1024); i >= 0; i --)
     cupsFilePutChar(fp, '\n');
 
  /*
