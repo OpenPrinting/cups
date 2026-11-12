@@ -5,6 +5,8 @@ CHANGES - OpenPrinting CUPS
 v2.4.21 - YYYY-MM-DD
 --------------------
 
+- SECURITY-4.3: The IPP parser workaround for broken out-of-band values could
+  yield NULL string pointers that later caused a crash (GHSA-x75c-fjjg-wmmp)
 - SECURITY-3.3: The scheduler did not protect against malicious clients that
   held multiple open print jobs (GHSA-hhw5-qqmc-p6rg)
 - SECURITY-3.3: Job ticket comments could cause the scheduler to crash

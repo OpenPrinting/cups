@@ -4178,6 +4178,12 @@ ippValidateAttribute(
     case IPP_TAG_TEXTLANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -4233,6 +4239,12 @@ ippValidateAttribute(
     case IPP_TAG_NAMELANG :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if ((*ptr & 0xe0) == 0xc0)
@@ -4287,6 +4299,12 @@ ippValidateAttribute(
     case IPP_TAG_KEYWORD :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (!ipp_is_valid_keyword(attr->name, attr->values[i].string.text))
 	    return (0);
 	}
@@ -4295,6 +4313,12 @@ ippValidateAttribute(
     case IPP_TAG_URI :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  uri_status = httpSeparateURI(HTTP_URI_CODING_ALL, attr->values[i].string.text, scheme, sizeof(scheme), userpass, sizeof(userpass), hostname, sizeof(hostname), &port, resource, sizeof(resource));
 
 	  if (uri_status < HTTP_URI_STATUS_OK)
@@ -4314,6 +4338,12 @@ ippValidateAttribute(
     case IPP_TAG_URISCHEME :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  ptr = attr->values[i].string.text;
 	  if (islower(*ptr & 255))
 	  {
@@ -4342,6 +4372,12 @@ ippValidateAttribute(
     case IPP_TAG_CHARSET :
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  for (ptr = attr->values[i].string.text; *ptr; ptr ++)
 	  {
 	    if (!isprint(*ptr & 255) || isupper(*ptr & 255) ||
@@ -4395,6 +4431,12 @@ ippValidateAttribute(
 
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (regexec(&re, attr->values[i].string.text, 0, NULL, 0))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad naturalLanguage value \"%s\" - bad characters (RFC 8011 section 5.1.9)."), attr->name, attr->values[i].string.text);
@@ -4440,6 +4482,12 @@ ippValidateAttribute(
 
         for (i = 0; i < attr->num_values; i ++)
 	{
+	  if (!attr->values[i].string.text)
+	  {
+	    ipp_set_error(IPP_STATUS_ERROR_INTERNAL, _("\"%s\": NULL value."), attr->name);
+	    return (0);
+	  }
+
 	  if (regexec(&re, attr->values[i].string.text, 0, NULL, 0))
 	  {
 	    ipp_set_error(IPP_STATUS_ERROR_BAD_REQUEST, _("\"%s\": Bad mimeMediaType value \"%s\" - bad characters (RFC 8011 section 5.1.10)."), attr->name, attr->values[i].string.text);
@@ -6376,16 +6424,19 @@ ipp_read_io(void       *src,		/* I - Data source */
 	       /*
 	        * These value types are not supposed to have values, however
 		* some vendors (Brother) do not implement IPP correctly and so
-		* we need to map non-empty values to text...
+		* we need to discard them...
 		*/
 
-	        if (attr->value_tag == tag)
+		if (n > 0)
 		{
-		  if (n == 0)
-		    break;
-
-		  attr->value_tag = IPP_TAG_TEXT;
+		  DEBUG_printf(("1ipp_read_io: Invalid out-of-band value of length %d, discarding.", n));
+		  if ((*cb)(src, buffer, n) < n)
+		  {
+		    DEBUG_puts("1ipp_read_io: Unable to read out-of-band value.");
+		    goto rollback;
+		  }
 		}
+		break;
 
 	    case IPP_TAG_TEXT :
 	    case IPP_TAG_NAME :
