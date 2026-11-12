@@ -1482,7 +1482,12 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
 	      break;
 	  }
 
-	  if (!strcmp(name, "copies"))
+	  if (!strcmp(name, "auth-info"))
+	  {
+	    // auth-info is saved below...
+	    break;
+	  }
+	  else if (!strcmp(name, "copies"))
 	  {
 	    if (value_tag != IPP_TAG_INTEGER || count != 1 || attr->values[0].integer < 1 || attr->values[0].integer > MaxCopies)
 	    {
