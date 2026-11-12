@@ -3876,15 +3876,15 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
   if (cupsArrayCount(p->users) == 0 && p->k_limit == 0 && p->page_limit == 0)
     return (1);
 
-  if (cupsdDefaultAuthType() == CUPSD_AUTH_BEARER)
-  {
-   /*
-    * Handle OAuth-specific users/groups...
-    */
+    if (cupsdDefaultAuthType() == CUPSD_AUTH_BEARER)
+   {
+    /*
+     * Handle OAuth-specific users/groups...
+     */
 
     for (name = (char *)cupsArrayFirst(p->users);
          name;
-	 name = (char *)cupsArrayNext(p->users))
+ 	 name = (char *)cupsArrayNext(p->users))
     {
       if (name[0] == '@')
       {
@@ -3907,7 +3907,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
       }
     }
 
-    if ((name != NULL) == p->deny_users)
+    if (cupsArrayCount(p->users) > 0 && (name != NULL) == p->deny_users)
     {
       cupsdLogClient(con, CUPSD_LOG_INFO, "Denying user \"%s\" access to printer \"%s\".", username, p->name);
       return (0);
