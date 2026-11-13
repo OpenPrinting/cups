@@ -1210,7 +1210,7 @@ cupsSignCredentialsRequest(
 #ifdef DEBUG
     char *tempptr;				// Pointer into string
 
-    for (j = 0, tempptr = temp; j < datalen; j ++, tempptr += 2)
+    for (j = 0, tempptr = temp; j < datalen && tempptr < (temp + sizeof(temp) - 2); j ++, tempptr += 2)
       snprintf(tempptr, sizeof(temp) - (size_t)(tempptr - temp), "%02X", data[j]);
 
     DEBUG_printf("1cupsSignCredentialsRequest: EXT%d=%s", OBJ_obj2nid(obj), temp);

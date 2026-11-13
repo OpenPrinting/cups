@@ -433,7 +433,12 @@ cupsJWTHasValidSignature(
   if (!jwt || !jwt->signature || !jwk)
     return (false);
 
-  DEBUG_printf("1cupsJWTHasValidSignature: sigalg=%d, orig sig[%u]=<%02X%02X%02X%02X...%02X%02X%02X%02X>", jwt->sigalg, (unsigned)jwt->sigsize, jwt->signature[0], jwt->signature[1], jwt->signature[2], jwt->signature[3], jwt->signature[jwt->sigsize - 4], jwt->signature[jwt->sigsize - 3], jwt->signature[jwt->sigsize - 2], jwt->signature[jwt->sigsize - 1]);
+#ifdef DEBUG
+  if (jwt->sigsize >= 8)
+    DEBUG_printf("1cupsJWTHasValidSignature: sigalg=%d, orig sig[%u]=<%02X%02X%02X%02X...%02X%02X%02X%02X>", jwt->sigalg, (unsigned)jwt->sigsize, jwt->signature[0], jwt->signature[1], jwt->signature[2], jwt->signature[3], jwt->signature[jwt->sigsize - 4], jwt->signature[jwt->sigsize - 3], jwt->signature[jwt->sigsize - 2], jwt->signature[jwt->sigsize - 1]);
+  else
+    DEBUG_printf("1cupsJWTHasValidSignature: sigalg=%d, orig sig[%u]=<...>", jwt->sigalg, (unsigned)jwt->sigsize);
+#endif // DEBUG
 
   switch (jwt->sigalg)
   {
