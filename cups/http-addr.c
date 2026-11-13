@@ -1,7 +1,7 @@
 /*
  * HTTP address routines for CUPS.
  *
- * Copyright © 2007-2021 by Apple Inc.
+ * Copyright © 2007-2026 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products, all rights reserved.
  *
  * Licensed under Apache License v2.0.  See the file "LICENSE" for more
@@ -242,7 +242,11 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 
+#ifdef _WIN32
+    closesocket(fd);
+#else
     close(fd);
+#endif /* _WIN32 */
 
     return (-1);
   }
@@ -255,7 +259,11 @@ httpAddrListen(http_addr_t *addr,	/* I - Address to bind to */
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 
+#ifdef _WIN32
+    closesocket(fd);
+#else
     close(fd);
+#endif /* _WIN32 */
 
     return (-1);
   }

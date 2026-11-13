@@ -57,6 +57,7 @@ v2.4.21 - YYYY-MM-DD
   filters.
 - Fixed the loading of the default DigestOptions value.
 - Fixed issues related to extension tag values.
+- Fixed `httpAddrListen` error handling on Windows.
 
 
 v2.4.20 - 2026-10-05
