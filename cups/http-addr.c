@@ -262,7 +262,11 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
     DEBUG_printf("1httpAddrListen: Unable to listen on socket: %s", strerror(errno));
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 
+#ifdef _WIN32
+    closesocket(fd);
+#else
     close(fd);
+#endif // _WIN32
 
     return (-1);
   }
@@ -272,7 +276,11 @@ httpAddrListen(http_addr_t *addr,	// I - Address to bind to
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, strerror(errno), 0);
 
+#ifdef _WIN32
+    closesocket(fd);
+#else
     close(fd);
+#endif // _WIN32
 
     return (-1);
   }
