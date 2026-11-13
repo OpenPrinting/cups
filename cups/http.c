@@ -1045,49 +1045,52 @@ httpGetLength2(http_t *http)		/* I - HTTP connection */
   DEBUG_printf(("2httpGetLength2(http=%p), state=%s", (void *)http, http ? httpStateString(http->state) : "NONE"));
 
   if (!http)
-    return (-1);
-
-  if (http->fields[HTTP_FIELD_TRANSFER_ENCODING] && !_cups_strcasecmp(http->fields[HTTP_FIELD_TRANSFER_ENCODING], "chunked"))
   {
-    DEBUG_puts("4httpGetLength2: chunked request!");
-    remaining = 0;
+    remaining = -1;
+  }
+  else if (http->fields[HTTP_FIELD_TRANSFER_ENCODING])
+  {
+   /*
+    * Chunked content?
+    */
+
+    if (!_cups_strcasecmp(http->fields[HTTP_FIELD_TRANSFER_ENCODING], "chunked"))
+    {
+      DEBUG_puts("4httpGetLength: chunked request.");
+      remaining = 0;
+    }
+    else
+    {
+      DEBUG_printf(("4httpGetLength: Unknown Transfer-Encoding '%s'.", http->fields[HTTP_FIELD_TRANSFER_ENCODING]));
+      remaining = -1;
+    }
+  }
+  else if (http->fields[HTTP_FIELD_CONTENT_LENGTH] && http->fields[HTTP_FIELD_CONTENT_LENGTH][0])
+  {
+   /*
+    * Fixed length content...
+    */
+
+    if ((remaining = strtoll(http->fields[HTTP_FIELD_CONTENT_LENGTH], NULL, 10)) < 0)
+      remaining = -1;
   }
   else
   {
    /*
-    * The following is a hack for HTTP servers that don't send a
-    * Content-Length or Transfer-Encoding field...
-    *
-    * If there is no Content-Length then the connection must close
-    * after the transfer is complete...
+    * The following is a hack for HTTP servers that don't send a Content-Length
+    * or Transfer-Encoding field.  If there is no Content-Length then the
+    * connection must close after the transfer is complete.  The default
+    * content length is 0 for errors and certain types of operations, and
+    * 2^31-1 for other successful requests...
     */
 
-    if (!http->fields[HTTP_FIELD_CONTENT_LENGTH] || !http->fields[HTTP_FIELD_CONTENT_LENGTH][0])
-    {
-     /*
-      * Default content length is 0 for errors and certain types of operations,
-      * and 2^31-1 for other successful requests...
-      */
-
-      if (http->status >= HTTP_STATUS_MULTIPLE_CHOICES ||
-          http->state == HTTP_STATE_OPTIONS ||
-          (http->state == HTTP_STATE_GET && http->mode == _HTTP_MODE_SERVER) ||
-          http->state == HTTP_STATE_HEAD ||
-          (http->state == HTTP_STATE_PUT && http->mode == _HTTP_MODE_CLIENT) ||
-          http->state == HTTP_STATE_DELETE ||
-          http->state == HTTP_STATE_TRACE ||
-          http->state == HTTP_STATE_CONNECT)
-        remaining = 0;
-      else
-        remaining = 2147483647;
-    }
-    else if ((remaining = strtoll(http->fields[HTTP_FIELD_CONTENT_LENGTH],
-			          NULL, 10)) < 0)
-      remaining = -1;
-
-    DEBUG_printf(("4httpGetLength2: content_length=" CUPS_LLFMT,
-                  CUPS_LLCAST remaining));
+    if (http->status >= HTTP_STATUS_MULTIPLE_CHOICES || http->state == HTTP_STATE_OPTIONS || (http->state == HTTP_STATE_GET && http->mode == _HTTP_MODE_SERVER) || http->state == HTTP_STATE_HEAD || (http->state == HTTP_STATE_PUT && http->mode == _HTTP_MODE_CLIENT) || http->state == HTTP_STATE_DELETE || http->state == HTTP_STATE_TRACE || http->state == HTTP_STATE_CONNECT)
+      remaining = 0;
+    else
+      remaining = 2147483647;
   }
+
+  DEBUG_printf(("4httpGetLength: Returning " CUPS_LLFMT ".", CUPS_LLCAST remaining));
 
   return (remaining);
 }
@@ -2778,7 +2781,8 @@ int					/* O - 1 to continue, 0 to stop */
 _httpUpdate(http_t        *http,	/* I - HTTP connection */
             http_status_t *status)	/* O - Current HTTP status */
 {
-  char		*value;			/* Pointer to value on line */
+  char		*value,			/* Pointer to value on line */
+		*valend;		/* Pointer to end of value */
   http_field_t	field;			/* Field index */
   int		major, minor;		/* HTTP version numbers */
 
@@ -2935,6 +2939,15 @@ _httpUpdate(http_t        *http,	/* I - HTTP connection */
     *value++ = '\0';
     while (_cups_isspace(*value))
       value ++;
+
+    /* Strip trailing whitespace... */
+    for (valend = value + strlen(value) - 1; valend > value; valend --)
+    {
+      if (!_cups_isspace(*valend))
+        break;
+    }
+    if (valend >= value)
+      valend[1] = '\0';
 
     DEBUG_printf(("1_httpUpdate: Header %s: %s", http->line, value));
 
