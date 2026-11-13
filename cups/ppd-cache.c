@@ -1634,6 +1634,12 @@ _ppdCacheCreateWithPPD(
       color_option = "ColorModel";
       gray_choice  = "Gray";
     }
+    else if ((color_model = ppdFindOption(ppd, "ColorModel")) != NULL &&
+             ppdFindChoice(color_model, "Grayscale"))
+    {
+      color_option = "ColorModel";
+      gray_choice  = "Grayscale";
+    }
     else if ((color_model = ppdFindOption(ppd, "HPColorMode")) != NULL &&
              ppdFindChoice(color_model, "grayscale"))
     {
