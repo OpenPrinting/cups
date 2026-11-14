@@ -4195,7 +4195,7 @@ http_read(http_t *http,			// I - HTTP connection
 
   DEBUG_printf("7http_read(http=%p, buffer=%p, length=" CUPS_LLFMT ")", (void *)http, (void *)buffer, CUPS_LLCAST length);
 
-  if (!http->blocking || http->timeout_value > 0.0)
+  if (!http->blocking || timeout > 0)
   {
     while (!_httpWait(http, timeout, 1))
     {
@@ -4333,38 +4333,51 @@ http_read_chunk(http_t *http,		// I - HTTP connection
 
   if (http->data_remaining <= 0)
   {
-    char	len[32];		// Length string
+    // Read the CR LR at the end of the chunk...
+    char	*lineptr;		// Pointer into line
 
-    if (!httpGets2(http, len, sizeof(len)))
+    if (!httpGets2(http, http->line, sizeof(http->line)))
     {
-      DEBUG_puts("8http_read_chunk: Could not get chunk length.");
+      DEBUG_puts("8http_read_chunk: Could not get end of chunk.");
       return (0);
     }
 
-    if (!len[0])
+    // Read the chunk header as needed...
+    if (!http->line[0])
     {
-      DEBUG_puts("8http_read_chunk: Blank chunk length, trying again...");
-      if (!httpGets2(http, len, sizeof(len)))
+      if (!httpGets2(http, http->line, sizeof(http->line)))
       {
-	DEBUG_puts("8http_read_chunk: Could not get chunk length.");
+	DEBUG_puts("8http_read_chunk: Could not get chunk header.");
 	return (0);
       }
     }
 
-    http->data_remaining = strtoll(len, NULL, 16);
-
-    if (http->data_remaining < 0)
+    if (!_cups_isxdigit(http->line[0]))
     {
-      DEBUG_printf("8http_read_chunk: Negative chunk length \"%s\" (" CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining);
+      DEBUG_printf("8http_read_chunk: Bad chunk header '%s'.", http->line);
       return (0);
     }
 
-    DEBUG_printf("8http_read_chunk: Got chunk length \"%s\" (" CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining);
+    http->data_remaining = strtoll(http->line, &lineptr, 16);
+
+    if (lineptr && *lineptr && *lineptr != ';' && !_cups_isspace(*lineptr))
+    {
+      DEBUG_printf("8http_read_chunk: Bad chunk header '%s'.", http->line);
+      return (0);
+    }
+
+    DEBUG_printf("8http_read_chunk: Got chunk header '%s' (length=" CUPS_LLFMT ")", http->line, CUPS_LLCAST http->data_remaining);
 
     if (http->data_remaining == 0)
     {
-      // 0-length chunk, grab trailing blank line...
-      httpGets2(http, len, sizeof(len));
+      // 0-length chunk, grab trailing headers and blank line...
+      while (httpGets2(http, http->line, sizeof(http->line)))
+      {
+        DEBUG_printf("8http_read_chunk: Got chunk trailer '%s'.", http->line);
+
+        if (!http->line[0])
+          break;
+      }
     }
   }
 
