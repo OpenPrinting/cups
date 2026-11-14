@@ -1,7 +1,7 @@
 /*
  * HTTP routines for CUPS.
  *
- * Copyright © 2022-2025 by OpenPrinting.
+ * Copyright © 2022-2026 by OpenPrinting.
  * Copyright © 2007-2021 by Apple Inc.
  * Copyright © 1997-2007 by Easy Software Products, all rights reserved.
  *
@@ -4201,7 +4201,7 @@ http_read(http_t *http,			/* I - HTTP connection */
 
   DEBUG_printf(("7http_read(http=%p, buffer=%p, length=" CUPS_LLFMT ")", (void *)http, (void *)buffer, CUPS_LLCAST length));
 
-  if (!http->blocking || http->timeout_value > 0.0)
+  if (!http->blocking || timeout > 0)
   {
     while (!_httpWait(http, timeout, 1))
     {
@@ -4338,48 +4338,55 @@ http_read_chunk(http_t *http,		/* I - HTTP connection */
 
   if (http->data_remaining <= 0)
   {
-    char	len[32];		/* Length string */
+    // Read the CR LR at the end of the chunk...
+    char	*lineptr;		// Pointer into line
 
-    if (!httpGets(len, sizeof(len), http))
+    if (!httpGets(http->line, sizeof(http->line), http))
     {
-      DEBUG_puts("8http_read_chunk: Could not get chunk length.");
+      DEBUG_puts("8http_read_chunk: Could not get end of chunk.");
       return (0);
     }
 
-    if (!len[0])
+    // Read the chunk header as needed...
+    if (!http->line[0])
     {
-      DEBUG_puts("8http_read_chunk: Blank chunk length, trying again...");
-      if (!httpGets(len, sizeof(len), http))
+      if (!httpGets(http->line, sizeof(http->line), http))
       {
-	DEBUG_puts("8http_read_chunk: Could not get chunk length.");
+	DEBUG_puts("8http_read_chunk: Could not get chunk header.");
 	return (0);
       }
     }
 
-    http->data_remaining = strtoll(len, NULL, 16);
-
-    if (http->data_remaining < 0)
+    if (!isxdigit(http->line[0] & 255))
     {
-      DEBUG_printf(("8http_read_chunk: Negative chunk length \"%s\" ("
-                    CUPS_LLFMT ")", len, CUPS_LLCAST http->data_remaining));
+      DEBUG_printf(("8http_read_chunk: Bad chunk header '%s'.", http->line));
       return (0);
     }
 
-    DEBUG_printf(("8http_read_chunk: Got chunk length \"%s\" (" CUPS_LLFMT ")",
-                  len, CUPS_LLCAST http->data_remaining));
+    http->data_remaining = strtoll(http->line, &lineptr, 16);
+
+    if (lineptr && *lineptr && *lineptr != ';' && !isspace(*lineptr & 255))
+    {
+      DEBUG_printf(("8http_read_chunk: Bad chunk header '%s'.", http->line));
+      return (0);
+    }
+
+    DEBUG_printf(("8http_read_chunk: Got chunk header '%s' (length=" CUPS_LLFMT ")", http->line, CUPS_LLCAST http->data_remaining));
 
     if (http->data_remaining == 0)
     {
-     /*
-      * 0-length chunk, grab trailing blank line...
-      */
+      // 0-length chunk, grab trailing headers and blank line...
+      while (httpGets(http->line, sizeof(http->line), http))
+      {
+        DEBUG_printf(("8http_read_chunk: Got chunk trailer '%s'.", http->line));
 
-      httpGets(len, sizeof(len), http);
+        if (!http->line[0])
+          break;
+      }
     }
   }
 
-  DEBUG_printf(("8http_read_chunk: data_remaining=" CUPS_LLFMT,
-                CUPS_LLCAST http->data_remaining));
+  DEBUG_printf(("8http_read_chunk: data_remaining=" CUPS_LLFMT, CUPS_LLCAST http->data_remaining));
 
   if (http->data_remaining <= 0)
     return (0);

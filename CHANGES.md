@@ -40,6 +40,7 @@ v2.4.21 - YYYY-MM-DD
   (Issue #1799)
 - Updated the HTTP parser to strip trailing whitespace in header values, reject
   unknown transfer encodings.
+- Updated the HTTP parser to skip trailer headers and chunk extensions.
 - Fixed builds on systems without Avahi/mDNSResponder (Issue #1739)
 - Fixed unintended usage of C99 language feature (Issue #1742)
 - Fixed regression in mailto notifier address validation (Issue #1744)
