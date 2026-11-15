@@ -250,7 +250,9 @@ finish_login(void)
 		*client_id = NULL,	// Client ID value
 		*error,			// Error string
 		redirect_uri[1024];	// redirect_uri value
-  const char	*code;			// Authorization code
+  const char	*code,			// Authorization code
+		*state_form,		// state from the callback
+		*state_cookie;		// state cookie from do_login
   cups_json_t	*metadata = NULL;	// OAuth metadata
   time_t	access_expires;		// When the bearer token expires
   char		scheme[32],		// Referer scheme
@@ -259,6 +261,15 @@ finish_login(void)
 		resource[1024];		// Referer resource
   int		port;			// Referer port
 
+
+  // cgiInitialize compares state only for POST. This callback is a GET.
+  state_form = cgiGetVariable("state");
+  state_cookie = cgiGetCookie("CUPS_OAUTH_STATE");
+  if (!state_form || !state_cookie || strcmp(state_form, state_cookie))
+  {
+    show_error(cgiText(_("OAuth Login")), cgiText(_("Unable to authorize access")), cgiText(_("Login state does not match this browser.")));
+    return;
+  }
 
   // Show any error from authorization...
   if ((error = cgiGetVariable("error_description")) == NULL)
