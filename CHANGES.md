@@ -36,6 +36,7 @@ v2.4.21 - YYYY-MM-DD
   GHSA-5cpc-rwrw-jp83)
 - Added new `JobTicketComments` directive to "cups-files.conf" to enable job
   ticket comment support.
+- Added a USB quirk rule for the Canon PIXMA Pro 9000 (Issue #1818)
 - Updated `cupsRasterReadHeader` to reject raster data with a 0 resolution
   (Issue #1771)
 - Updated scheduler to better handle speculative browser TLS connections
