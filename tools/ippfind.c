@@ -3,7 +3,7 @@
 // commands such as IPP and Bonjour conformance tests.  This tool is
 // inspired by the UNIX "find" command, thus its name.
 //
-// Copyright © 2020-2025 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2020 by the IEEE-ISTO Printer Working Group
 // Copyright © 2008-2018 by Apple Inc.
 //
@@ -2078,77 +2078,44 @@ win32_escape_dup(const char *s)		// I - Original string
 {
   char		*d,			// Output string
 		*dptr;			// Pointer into output string
-  size_t	dlen;			// Length of output string
+  size_t	bslash;			// Number of pending backslashes
   const char	*sptr;			// Pointer into original string
 
 
-  // Figure out the length of the escaped string...
-  for (dlen = 2, sptr = s; *sptr; sptr ++)
-  {
-    if (*sptr == '\\')
-    {
-      if (sptr[1] == '\"' || sptr[1] == '\\')
-      {
-        // \" and \\ need to be converted to \\\" or \\\\...
-        dlen += 4;
-        sptr ++;
-      }
-      else
-      {
-        // A lone \ can stand on its own...
-        dlen ++;
-      }
-    }
-    else if (*sptr == '\"')
-    {
-      // Need to replace " with ""...
-      dlen += 2;
-    }
-    else
-    {
-      // Not a special character so it is fine on its own...
-      dlen ++;
-    }
-  }
-
-  // Allocate memory (plus nul)...
-  if ((d = calloc(1, dlen + 1)) == NULL)
+  // Allocate memory: each character expands to at most 2 characters, plus the
+  // surrounding quotes and nul...
+  if ((d = calloc(1, 2 * strlen(s) + 3)) == NULL)
     return (NULL);
 
-  // Copy and escape...
+  // Copy and escape.  Backslashes are only special when they precede a double
+  // quote, so a run of N backslashes followed by " (or by the closing quote)
+  // must become 2N backslashes...
   *d = '\"';
-  for (dptr = d + 1, sptr = s; *sptr; sptr ++)
+  for (dptr = d + 1, sptr = s, bslash = 0; *sptr; sptr ++)
   {
-    if (*sptr == '\\')
+    if (*sptr == '\"')
     {
-      if (sptr[1] == '\"' || sptr[1] == '\\')
-      {
-        // \" and \\ need to be converted to \\\" or \\\\...
-        sptr ++;
+      // Double any preceding backslashes and escape the quote as \"...
+      for (; bslash > 0; bslash --)
+        *dptr++ = '\\';
 
-        *dptr++ = '\\';
-        *dptr++ = '\\';
-        *dptr++ = '\\';
-        *dptr++ = *sptr;
-      }
-      else
-      {
-        // A lone \ can stand on its own...
-        *dptr++ = '\\';
-      }
+      *dptr++ = '\\';
     }
-    else if (*sptr == '\"')
+    else if (*sptr == '\\')
     {
-      // Need to replace " with ""...
-      *dptr++ = '\"';
-      *dptr++ = '\"';
+      bslash ++;
     }
     else
     {
-      // Not a special character so it is fine on its own...
-      *dptr++ = *sptr;
+      bslash = 0;
     }
+
+    *dptr++ = *sptr;
   }
+
+  // Double any trailing backslashes so they don't escape the closing quote...
+  for (; bslash > 0; bslash --)
+    *dptr++ = '\\';
 
   *dptr++ = '\"';
   *dptr   = '\0';
