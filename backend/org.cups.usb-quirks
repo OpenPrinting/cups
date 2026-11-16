@@ -84,6 +84,9 @@
 # Canon, Inc. PIXMA iP4300 Printer (https://bugs.launchpad.net/bugs/1032385)
 0x04a9 0x10b6 unidir
 
+# Canon, Inc. PIXMA Pro9000 Mark II Printer (accepts no further job after a bidirectional one)
+0x04a9 0x10cf unidir
+
 # Canon, Inc. MP210 (https://bugzilla.redhat.com/show_bug.cgi?id=847923#c53)
 0x04a9 0x1721 unidir
 
