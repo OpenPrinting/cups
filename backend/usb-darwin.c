@@ -253,6 +253,8 @@ typedef struct globals_s
   pthread_cond_t	sidechannel_thread_cond;
   int			sidechannel_thread_stop;
   int			sidechannel_thread_done;
+
+  int			wakeup_pipe[2];	/* Pipe for waking up select() in the main thread */
 } globals_t;
 
 
@@ -351,12 +353,14 @@ print_device(const char *uri,		/* I - Device URI */
   CFStringRef	  driverBundlePath;	/* Class driver path */
   int		  countdown,		/* Logging interval */
 		  nfds;			/* Number of file descriptors */
+  int		  nfd_max;		/* Maximum file descriptor number for select() */
   ssize_t	  total_bytes;		/* Total bytes written */
   UInt32	  bytes;		/* Bytes written */
   struct timeval  *timeout,		/* Timeout pointer */
 		  tv;			/* Time value */
   struct timespec cond_timeout;		/* pthread condition timeout */
   struct sigaction action;		/* Actions for POSIX signals */
+  char		  dummy;		/* select() wakeup bogus data */
 
 
   (void)uri;
@@ -378,6 +382,17 @@ print_device(const char *uri,		/* I - Device URI */
 
   have_sidechannel = !fstat(CUPS_SC_FD, &sidechannel_info) &&
                      S_ISSOCK(sidechannel_info.st_mode);
+
+ /*
+  * Create a pipe for waking up the main thread from select()...
+  */
+
+  if (pipe(g.wakeup_pipe) < 0)
+  {
+    fprintf(stderr, "DEBUG: Unable to create wakeup pipe - %s\n",
+	    strerror(errno));
+    return (CUPS_BACKEND_STOP);
+  }
 
  /*
   * Localize using CoreFoundation...
@@ -576,12 +591,15 @@ print_device(const char *uri,		/* I - Device URI */
       lseek(print_fd, 0, SEEK_SET);
     }
 
+    nfd_max = (print_fd > g.wakeup_pipe[0] ? print_fd : g.wakeup_pipe[0]) + 1;
+
     while (status == noErr)
     {
       FD_ZERO(&input_set);
 
       if (!g.print_bytes)
 	FD_SET(print_fd, &input_set);
+      FD_SET(g.wakeup_pipe[0], &input_set);
 
      /*
       * Calculate select timeout...
@@ -614,7 +632,7 @@ print_device(const char *uri,		/* I - Device URI */
       pthread_cond_signal(&g.readwrite_lock_cond);
       pthread_mutex_unlock(&g.readwrite_lock_mutex);
 
-      nfds = select(print_fd + 1, &input_set, NULL, NULL, timeout);
+      nfds = select(nfd_max, &input_set, NULL, NULL, timeout);
 
      /*
       * Reacquire the lock...
@@ -646,14 +664,21 @@ print_device(const char *uri,		/* I - Device URI */
       }
 
      /*
+      * Check if we were woken up by the sidechannel thread...
+      */
+
+      if (FD_ISSET(g.wakeup_pipe[0], &input_set))
+	read(g.wakeup_pipe[0], &dummy, 1);
+
+     /*
       * If drain output has finished send a response...
       */
 
       if (g.drain_output && !nfds && !g.print_bytes)
       {
 	/* Send a response... */
-	cupsSideChannelWrite(CUPS_SC_CMD_DRAIN_OUTPUT, CUPS_SC_STATUS_OK, NULL, 0, 1.0);
 	g.drain_output = 0;
+	cupsSideChannelWrite(CUPS_SC_CMD_DRAIN_OUTPUT, CUPS_SC_STATUS_OK, NULL, 0, 1.0);
       }
 
      /*
@@ -875,6 +900,13 @@ print_device(const char *uri,		/* I - Device URI */
   pthread_mutex_unlock(&g.read_thread_mutex);
 
  /*
+  * Close the wakeup pipe...
+  */
+
+  close(g.wakeup_pipe[0]);
+  close(g.wakeup_pipe[1]);
+
+ /*
   * Close the connection and input file and general clean up...
   */
 
@@ -1052,6 +1084,17 @@ sidechannel_thread(void *reference)
 		stderr);
 
 	  g.drain_output = 1;
+	  pthread_mutex_lock(&g.readwrite_lock_mutex);
+	  if (!g.readwrite_lock)
+	  {
+	   /*
+	    * If main thread is inside select(), assume it has infinite
+	    * timeout and needs to be woken up.
+	    */
+	    if (write(g.wakeup_pipe[1], &data, 1) < 0)
+	      fputs("DEBUG: Error writing to wakeup pipe\n", stderr);
+	  }
+	  pthread_mutex_unlock(&g.readwrite_lock_mutex);
 	  break;
 
       case CUPS_SC_CMD_GET_BIDI:		/* Is the connection bidirectional? */
