@@ -25,6 +25,8 @@ v2.4.21 - YYYY-MM-DD
   attributes (GHSA-p6cf-j6h3-rcf7)
 - SECURITY-3.3: The scheduler did not always encode octetString options as hex
   or protect against Foomatic driver vulnerabilities (GHSA-w5p3-jrq8-wx4v)
+- SECURITY-3.3: The URI parser allowed the host field to contain a domain
+  socket path (GHSA-5v9q-84cf-2ww4)
 - SECURITY-2.5: Local authentication tokens could be disclosed and used in a
   replay attack (GHSA-8q78-mrwh-rm85)
 - SECURITY-2.3: `cupsGetDests` did not validate printer/server responses
