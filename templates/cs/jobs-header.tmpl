@@ -1,0 +1,5 @@
+{?which_jobs=?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="SUBMIT" VALUE="Zobrazit aktivní úlohy"></FORM>}
+{?which_jobs=completed?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="completed"><INPUT TYPE="SUBMIT" VALUE="Zobrazit dokončené úlohy"></FORM>}
+{?which_jobs=all?:<FORM ACTION="{?printer_name=?/jobs:{printer_uri_supported}}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="which_jobs" VALUE="all"><INPUT TYPE="SUBMIT" VALUE="Zobrazit všechny úlohy"></FORM>}
+
+<P ALIGN="CENTER">{?which_jobs=?Aktivní úlohy zobrazeny v pořadí zpracování▼; pozastavené úlohy na začátku.:{which_jobs=all?Úlohy v sekvenčním pořadí▼:Dokončené úlohy v pořadí dokončení nebo zrušení▲}}</P>
