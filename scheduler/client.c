@@ -877,16 +877,13 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
       * fields...
       */
 
-      if ((ptr = strchr(httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE),
-                        ',')) != NULL)
+      if ((ptr = (char *)strchr(httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE), ',')) != NULL)
         *ptr = '\0';
 
-      if ((ptr = strchr(httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE),
-                        ';')) != NULL)
+      if ((ptr = (char *)strchr(httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE), ';')) != NULL)
         *ptr = '\0';
 
-      if ((ptr = strstr(httpGetField(con->http, HTTP_FIELD_CONTENT_TYPE),
-                        "charset=")) != NULL)
+      if ((ptr = (char *)strstr(httpGetField(con->http, HTTP_FIELD_CONTENT_TYPE), "charset=")) != NULL)
       {
        /*
         * Combine language and charset, and trim any extra params in the
@@ -900,13 +897,16 @@ cupsdReadClient(cupsd_client_t *con)	/* I - Client to read from */
 	  *ptr = '\0';
       }
       else
-        snprintf(locale, sizeof(locale), "%s.UTF-8",
-	         httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE));
+      {
+        snprintf(locale, sizeof(locale), "%s.UTF-8", httpGetField(con->http, HTTP_FIELD_ACCEPT_LANGUAGE));
+      }
 
       con->language = cupsLangGet(locale);
     }
     else
+    {
       con->language = cupsLangGet(DefaultLocale);
+    }
 
     cupsdAuthorize(con);
 

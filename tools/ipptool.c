@@ -1159,7 +1159,7 @@ create_file(const char *filespec,	// I - Filespec string or NULL
     return (cupsCreateTempFd(NULL, NULL, filename, filenamesize));
 
   // Convert resource path to base name...
-  if ((ptr = strrchr(resource, '/')) != NULL)
+  if ((ptr = (char *)strrchr(resource, '/')) != NULL)
     cupsCopyString(base_resource, ptr + 1, sizeof(base_resource));
   else
     cupsCopyString(base_resource, resource, sizeof(base_resource));

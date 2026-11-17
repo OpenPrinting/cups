@@ -703,7 +703,7 @@ do_am_printer(http_t *http,		/* I - HTTP connection */
 
   if ((var = cgiGetVariable("DEVICE_URI")) != NULL)
   {
-    if ((uriptr = strrchr(var, '|')) != NULL)
+    if ((uriptr = (char *)strrchr(var, '|')) != NULL)
     {
      /*
       * Extract make and make/model from device URI string...

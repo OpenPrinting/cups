@@ -410,6 +410,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
 
     fputs("\033%-12345X@PJL\n", fp);
     for (ptr = ppd->jcl_begin + 9; *ptr;)
+    {
       if (!strncmp(ptr, "@PJL JOB", 8))
       {
        /*
@@ -439,6 +440,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
 	if (*ptr)
 	  ptr ++;
       }
+    }
 
    /*
     * Clean up the job title...
@@ -447,7 +449,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     if (!title)
       title = "Unknown";
 
-    if ((ptr = strrchr(title, '/')) != NULL)
+    if ((ptr = (char *)strrchr(title, '/')) != NULL)
     {
      /*
       * Only show basename of file path...
@@ -462,11 +464,13 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
       * Skip leading smbprn.######## from Samba jobs...
       */
 
-      for (title += 7; *title && _cups_isdigit(*title); title ++);
+      title += 7;
+      while (*title && _cups_isdigit(*title))
+        title ++;
       while (_cups_isspace(*title))
         title ++;
 
-      if ((ptr = strstr(title, " - ")) != NULL)
+      if ((ptr = (char *)strstr(title, " - ")) != NULL)
       {
        /*
 	* Skip application name in "Some Application - Title of job"...
@@ -484,10 +488,12 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     cupsCopyString(temp, title, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
+    {
       if (*ptr == '\"')
         *ptr = '\'';
       else if (!charset && (*ptr & 128))
         *ptr = '?';
+    }
 
    /*
     * CUPS STR #3125: Long PJL JOB NAME causes problems with some printers
@@ -521,15 +527,19 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     cupsCopyString(temp, user, sizeof(temp));
 
     for (ptr = temp; *ptr; ptr ++)
+    {
       if (*ptr == '\"')
         *ptr = '\'';
       else if (!charset && (*ptr & 128))
         *ptr = '?';
+    }
 
     fprintf(fp, "@PJL SET USERNAME = \"%s\"\n", temp);
   }
   else
+  {
     fputs(ppd->jcl_begin, fp);
+  }
 
   ppdEmit(ppd, fp, PPD_ORDER_JCL);
   fputs(ppd->jcl_ps, fp);

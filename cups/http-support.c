@@ -284,7 +284,7 @@ httpAssembleURI(
   // Last but not least, add the resource string...
   if (resource)
   {
-    char	*query;			// Pointer to query string
+    const char	*query;			// Pointer to query string
 
     // Copy the resource string up to the query string if present...
     query = strchr(resource, '?');
