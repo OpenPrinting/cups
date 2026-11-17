@@ -3670,7 +3670,7 @@ http_add_field(http_t       *http,	// I - HTTP connection
   {
     // Special-case for Host: as we don't want a trailing "." on the hostname
     // and need to bracket IPv6 numeric addresses.
-    char *ptr = strchr(value, ':');
+    char *ptr = (char *)strchr(value, ':');
 
     if (value[0] != '[' && ptr && strchr(ptr + 1, ':'))
     {
