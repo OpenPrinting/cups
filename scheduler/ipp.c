@@ -5339,6 +5339,8 @@ create_local_bg_thread(
 		line[1024];		/* Line from PPD */
   int		port;			/* Port number */
   http_encryption_t encryption;		/* Type of encryption to use */
+  int		version = 20;		/* IPP version */
+  int		bad_request = 0;	/* Did we get a client-error-bad-request response? */
   http_t	*http;			/* Connection to printer */
   ipp_t		*request,		/* Request to printer */
 		*response = NULL;	/* Response from printer */
@@ -5347,8 +5349,8 @@ create_local_bg_thread(
   cupsd_eventmask_t event;		/* Event (CUPSD_EVENT_PRINTER_ADDED or CUPSD_EVENT_PRINTER_MODIFIED) */
   static const char * const pattrs[] =	/* Printer attributes we need */
   {
-    "all",
-    "media-col-database"
+    "media-col-database",
+    "all"
   };
 
 
@@ -5430,73 +5432,91 @@ create_local_bg_thread(
 
   cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Connected to %s:%d, sending Get-Printer-Attributes request...", printer->name, host, port);
 
-  request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
-  ippSetVersion(request, 2, 0);
-  ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
-  ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
-
-  response = cupsDoRequest(http, request, resource);
-  status   = cupsLastError();
-
-  cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
-
-  if (status == IPP_STATUS_ERROR_BAD_REQUEST || status == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED)
+  do
   {
-   /*
-    * Try request using IPP/1.1, in case we are talking to an old CUPS server or
-    * printer...
-    */
-
-    ippDelete(response);
-
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Re-sending Get-Printer-Attributes request using IPP/1.1...", printer->name);
-
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
-    ippSetVersion(request, 1, 1);
+    ippSetVersion(request, version / 10, version % 10);
     ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", NULL, "all");
+    if (!bad_request)
+      ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", (int)(sizeof(pattrs) / sizeof(pattrs[0])), NULL, pattrs);
 
     response = cupsDoRequest(http, request, resource);
+    status   = cupsLastError();
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: IPP/1.1 Get-Printer-Attributes returned %s (%s)", printer->name, ippErrorString(cupsLastError()), cupsLastErrorString());
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: IPP/%d.%d Get-Printer-Attributes %sreturned %s (%s)", printer->name, version / 10, version % 10, bad_request ? "with \"requested-attributes\" " : "", ippErrorString(cupsLastError()), cupsLastErrorString());
+
+    if (status == IPP_STATUS_ERROR_BAD_REQUEST && !bad_request)
+    {
+     /*
+      * Printer doesn't like the "requested-attributes" attribute with more than
+      * one value?
+      */
+
+      bad_request = 1;
+
+      ippDelete(response);
+      response = NULL;
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Re-sending Get-Printer-Attributes request without \"requested-attributes\".", printer->name);
+    }
+    else if (status == IPP_STATUS_ERROR_VERSION_NOT_SUPPORTED && version == 20)
+    {
+     /*
+      * Try request using IPP/1.1, in case we are talking to an old CUPS server or
+      * printer...
+      */
+
+      version = 11;
+
+      ippDelete(response);
+      response = NULL;
+
+      cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Re-sending Get-Printer-Attributes request using IPP/1.1.", printer->name);
+    }
+  }
+  while (response == NULL);
+
+  if (status >= IPP_STATUS_ERROR_BAD_REQUEST)
+  {
+    cupsdLogMessage(CUPSD_LOG_WARN, "%s: The printer does not conform to IPP/1.1 or IPP/2.0 - report the issue to your printer manufacturer.", printer->name);
+
+    /* Force printer to timeout and be deleted */
+    _cupsRWLockWrite(&printer->lock);
+    printer->use --;
+    printer->state_time = 0;
+    printer->temporary = 1;
+    _cupsRWUnlock(&printer->lock);
+
+    send_ipp_status(con, IPP_STATUS_ERROR_DEVICE, _("The printer does not provide attributes required for IPP Everywhere."));
+    goto finish_response;
   }
 
- /*
-  * If we did not succeed to obtain the "media-col-database" attribute
-  * try to get it separately
-  */
-
-  if (ippFindAttribute(response, "media-col-database", IPP_TAG_ZERO) ==
-      NULL)
+  if (ippFindAttribute(response, "media-col-database", IPP_TAG_BEGIN_COLLECTION) == NULL)
   {
-    ipp_t *response2;
+   /*
+    * If we did not succeed to obtain the "media-col-database" attribute
+    * try to get it separately
+    */
+    ipp_t *response2;			/* Second response */
 
-    cupsdLogMessage(CUPSD_LOG_DEBUG,
-		    "Polling \"media-col-database\" attribute separately.");
+    cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: Querying \"media-col-database\" attribute separately.", printer->name);
     request = ippNewRequest(IPP_OP_GET_PRINTER_ATTRIBUTES);
-    ippSetVersion(request, 2, 0);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI,
-		 "printer-uri", NULL, device_uri);
-    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD,
-		 "requested-attributes", NULL, "media-col-database");
+    ippSetVersion(request, version / 10, version % 10);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, device_uri);
+    ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes", NULL, "media-col-database");
     response2 = cupsDoRequest(http, request, resource);
-    //ipp_status = cupsLastError();
     if (response2)
     {
-      if ((attr = ippFindAttribute(response2, "media-col-database",
-				   IPP_TAG_ZERO)) != NULL)
+      if ((attr = ippFindAttribute(response2, "media-col-database", IPP_TAG_BEGIN_COLLECTION)) != NULL)
       {
-	cupsdLogMessage(CUPSD_LOG_WARN, "The printer %s does not support requests"
-			" with attribute set \"all,media-col-database\", which breaks IPP"
-			" conformance (RFC 8011, 4.2.5.1 \"requested-attributes\")"
-			" - report the issue to your printer manufacturer", printer->name);
        /*
 	* Copy "media-col-database" attribute into the original
 	* IPP response
 	*/
 
-	cupsdLogMessage(CUPSD_LOG_DEBUG,
-			"\"media-col-database\" attribute found.");
+	cupsdLogMessage(CUPSD_LOG_WARN, "%s: The printer does not support requests with attribute set 'media-col-database','all', which breaks IPP conformance (RFC 8011, 4.2.5.1 \"requested-attributes\") - report the issue to your printer manufacturer.", printer->name);
+
+	cupsdLogMessage(CUPSD_LOG_DEBUG, "%s: \"media-col-database\" attribute found.", printer->name);
 	ippCopyAttribute(response, attr, 0);
       }
       ippDelete(response2);

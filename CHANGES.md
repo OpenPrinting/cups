@@ -41,6 +41,7 @@ v2.4.21 - YYYY-MM-DD
   (Issue #1771)
 - Updated scheduler to better handle speculative browser TLS connections
   (Issue #1799)
+- Updated IPP Everywhere queries when setting up queues (Issue #1819)
 - Updated the HTTP parser to strip trailing whitespace in header values, reject
   unknown transfer encodings.
 - Updated the HTTP parser to skip trailer headers and chunk extensions.
