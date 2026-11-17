@@ -368,7 +368,7 @@ httpAssembleURI(
 
   if (resource)
   {
-    char	*query;			/* Pointer to query string */
+    const char	*query;			/* Pointer to query string */
 
 
    /*

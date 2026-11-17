@@ -452,7 +452,7 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
     if (!title)
       title = "Unknown";
 
-    if ((ptr = strrchr(title, '/')) != NULL)
+    if ((ptr = (char *)strrchr(title, '/')) != NULL)
     {
      /*
       * Only show basename of file path...
@@ -467,11 +467,13 @@ ppdEmitJCL(ppd_file_t *ppd,		/* I - PPD file record */
       * Skip leading smbprn.######## from Samba jobs...
       */
 
-      for (title += 7; *title && isdigit(*title & 255); title ++);
+      title += 7;
+      while (*title && isdigit(*title & 255))
+        title ++;
       while (_cups_isspace(*title))
         title ++;
 
-      if ((ptr = strstr(title, " - ")) != NULL)
+      if ((ptr = (char *)strstr(title, " - ")) != NULL)
       {
        /*
 	* Skip application name in "Some Application - Title of job"...

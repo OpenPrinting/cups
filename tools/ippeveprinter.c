@@ -1718,7 +1718,7 @@ create_printer(
     else
 #endif /* HAVE_AVAHI */
 
-    if ((tempptr = strstr(httpGetHostname(NULL, temp, sizeof(temp)), ".lan")) != NULL && !tempptr[5])
+    if ((tempptr = (char *)strstr(httpGetHostname(NULL, temp, sizeof(temp)), ".lan")) != NULL && !tempptr[5])
       strlcpy(tempptr, ".local", sizeof(temp) - (size_t)(tempptr - temp));
 
     printer->hostname = strdup(temp);

@@ -1,7 +1,7 @@
 /*
  * "lpq" command for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -127,7 +127,7 @@ main(int  argc,				/* I - Number of command-line arguments */
 		dest = argv[i];
 	      }
 
-	      if ((instance = strchr(dest, '/')) != NULL)
+	      if ((instance = (char *)strchr(dest, '/')) != NULL)
 		*instance++ = '\0';
 
 	      http = connect_server(argv[0], http);

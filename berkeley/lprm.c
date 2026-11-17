@@ -1,7 +1,7 @@
 /*
  * "lprm" command for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -92,7 +92,7 @@ main(int  argc,			/* I - Number of command-line arguments */
 		name = argv[i];
 	      }
 
-	      if ((instance = strchr(name, '/')) != NULL)
+	      if ((instance = (char *)strchr(name, '/')) != NULL)
 		*instance = '\0';
 
 	      if ((dest = cupsGetNamedDest(CUPS_HTTP_DEFAULT, name, NULL)) == NULL)
