@@ -1,0 +1,14 @@
+<H1 CLASS="title">Přidat tiskárnu {printer_name}</H1>
+
+<P>Tiskárna <A HREF="/printers/{printer_name}">{printer_name}</A> byla úspěšně přidána.
+
+</P><blockquote>
+<b>Poznámka:</b> Tiskové ovladače a surové fronty jsou zastaralé a v některé z příštích verzí CUPS přestanou fungovat. Použijte ovladače IPP Everywhere (vyberte model "everywhere"), nebo tiskovou aplikaci. Podrobnější informace naleznete v <a href="https://github.com/OpenPrinting/cups/issues/103">problému #103</a>.
+</blockquote>
+
+<FORM ACTION="admin/" METHOD="POST">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="set-printer-options">
+<INPUT TYPE="HIDDEN" NAME="printer_name" VALUE="{printer_name}">
+<INPUT TYPE="SUBMIT" VALUE="Nastavit možnosti tiskárny">
+</FORM>

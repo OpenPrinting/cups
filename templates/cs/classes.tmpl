@@ -1,0 +1,11 @@
+{#printer_name=0?:
+<TABLE CLASS="list" SUMMARY="Seznam tříd">
+<THEAD>
+<TR><TH>Název fronty</TH><TH>Popis</TH><TH>Umístění</TH><TH>Členové</TH><TH>Stav</TH></TR>
+</THEAD>
+<TBODY>
+{[printer_name]
+<TR><TD><A HREF="{printer_uri_supported}">{printer_name}</A></TD><TD>{printer_info}</TD><TD>{printer_location}</TD><TD>{?member_uris=?None:{member_uris}}</TD><TD>{printer_state=3?Nečinná:{printer_state=4?Zpracování:Pozastaveno}}{printer_state_message? - "{printer_state_message}":}</TD></TR>
+}
+</TBODY>
+</TABLE></DIV>}

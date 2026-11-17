@@ -1,0 +1,37 @@
+<H1 CLASS="title">Přidat třídu</H1>
+
+<FORM METHOD="POST" ACTION="/admin">
+<INPUT TYPE="HIDDEN" NAME="org.cups.sid" VALUE="{$org.cups.sid}">
+<INPUT TYPE="HIDDEN" NAME="OP" VALUE="{op}">
+
+<TABLE>
+<TR>
+<TH CLASS="label">Název:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_NAME" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(Může obsahovat libovolné tisknutelné znaky kromě "/", "#" a mezery)</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Popis:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_INFO" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>(Doplňující popis, např. "HP LaserJet s duplexem)</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Umístění:</TH>
+<TD><INPUT TYPE="TEXT" NAME="PRINTER_LOCATION" SIZE="40" MAXLENGTH="127"><BR>
+<SMALL>Popis umístění, např. "Laboratoř 1")</SMALL></TD>
+</TR>
+<TR>
+<TH CLASS="label">Členové:</TH>
+<TD>
+<SELECT NAME="MEMBER_URIS" SIZE="10" MULTIPLE>
+{[member_uris]<OPTION VALUE="{member_uris}" {?member_selected}>{member_names}}
+</OPTION></SELECT>
+</TD>
+</TR>
+<TR>
+<TD></TD>
+<TD><INPUT TYPE="SUBMIT" VALUE="Přidat třídu"></TD>
+</TR>
+</TABLE>
+
+</FORM>

@@ -1,0 +1,41 @@
+<FORM ACTION="/help/{?HELPFILE}" METHOD="GET">
+{TOPIC?<INPUT TYPE="HIDDEN" NAME="TOPIC" VALUE="{TOPIC}">:}
+
+<P ALIGN="CENTER"><B>Vyhledat v
+{HELPTITLE?{HELPTITLE}:{TOPIC?{TOPIC}:Všechny dokumenty}}:</B> <INPUT
+TYPE="SEARCH" NAME="QUERY" VALUE="{?QUERY}" SIZE="40" PLACEHOLDER=""
+AUTOSAVE="org.cups.help" RESULTS="20">
+<INPUT TYPE="SUBMIT" NAME="SEARCH" VALUE="Hledat">
+<INPUT TYPE="SUBMIT" NAME="CLEAR" VALUE="Smazat"></P>
+
+</FORM>
+
+<!-- Bookmarks -->
+<DIV CLASS="sidebar"><TABLE CLASS="inset" SUMMARY="Obsah">
+<TR><TD>
+
+<H1>Dokumenty online nápovědy</H1>
+
+<P CLASS="l0"><A HREF="/help/{QUERY??QUERY={QUERY}:}">Všechny dokumenty</A></P>
+<HR>
+
+{[BMTEXT]<P CLASS="l{BMINDENT}"><A HREF="{BMLINK}">{BMTEXT}</A></P>
+}
+</TD></TR>
+</TABLE></DIV>
+
+{QUERY?<P>Výsledky hledání v {HELPFILE?{HELPTITLE}:{TOPIC?{TOPIC}:Všechny dokumenty}}\:</P>
+{QTEXT?<UL>
+{[QTEXT]<LI><A HREF="{QLINK}">{QTEXT}</A>{QPTEXT? (v <I><A HREF="{QPLINK}">{QPTEXT}</A></I>):}</LI>}
+{QTEXT?</UL>:}
+:<P>Nic nenalezeno.</P>}
+<HR NOSHADE>:}
+{HELPTITLE?<FORM ACTION="/help/{?HELPFILE}" METHOD="GET"><INPUT TYPE="HIDDEN" NAME="PRINTABLE" VALUE="YES"><INPUT TYPE="SUBMIT" VALUE="Zobrazit verzi pro tisk"></FORM>:
+
+<H1>Online nápověda</H1>
+
+<P>Rozhraní online nápovědy pro CUPS. Pro zobrazení online nápovědy zadejte do vyhledávacího pole hledaný výraz, nebo si vyberte z nabízených odkazů dokumentace.</P>
+
+<P>Pokud jste novým uživatelem CUPS, přečtěte si stránku "<a href="/help/overview.html">Základní popis CUPS</a>".</P>
+
+<P><A HREF="https://openprinting.github.io/cups/">Domovská stránka CUPS</A> také poskytuje mnoho dalších zdrojů včetně diskusních fór, odpovědí na často kladené otázky a formuláře pro hlášení chyb a zadávání požadavů na nové funkce.</P>}
