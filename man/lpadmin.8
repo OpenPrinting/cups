@@ -72,11 +72,17 @@ The second form of the command (\fI-p\fR) configures the named printer or class.
 The third form of the command (\fI-x\fR) deletes the printer or class \fIdestination\fR.
 Any jobs that are pending for the destination will be removed and any job that is currently printed will be aborted.
 .SH OPTIONS
-The following options are recognized when configuring a printer queue:
+The following options are recognized by \fBlpadmin\fR:
 .TP 5
 \fB\-c \fIclass\fR
 Adds the named \fIprinter\fR to \fIclass\fR.
 If \fIclass\fR does not exist it is created automatically.
+.TP 5
+\fB\-d \fIdestination\fR
+Sets the default printer or class to \fIdestination\fR.
+.TP 5
+\fB\-h \fIserver\fR[\fB:\fIport\fR]
+Specifies an alternate server.
 .TP 5
 \fB\-m \fImodel\fR
 Sets a standard PPD file for the printer from the \fImodel\fR directory or using one of the driver interfaces.
@@ -146,6 +152,9 @@ Sets the IPP operation policy associated with the destination.
 The name must be defined in the \fIcupsd.conf\fR in a Policy section.
 The default operation policy is "default".
 .TP 5
+\fB\-p \fIdestination\fR
+Specifies the printer or class to configure.
+.TP 5
 \fB\-R \fIname\fB\-default\fR
 Deletes the named option from \fIprinter\fR.
 .TP 5
@@ -165,11 +174,18 @@ Names starting with "@" are interpreted as UNIX groups.
 The latter two forms turn user-level access control off.
 Note: The user 'root' is not granted special access - using "-u allow:foo,bar" will allow users 'foo' and 'bar' to access the printer but NOT 'root'.
 .TP 5
+\fB\-U \fIusername\fR
+Specifies an alternate username for authentication.
+.TP 5
 \fB\-v "\fIdevice-uri\fB"\fR
 Sets the \fIdevice-uri\fR attribute of the printer queue.
 Use the \fI-v\fR option with the
 .BR lpinfo (8)
 command to get a list of supported device URIs and schemes.
+.TP 5
+\fB\-x \fIdestination\fR
+Deletes the printer or class \fIdestination\fR.
+Any jobs that are pending for the destination will be removed and any job that is currently printed will be aborted.
 .TP 5
 \fB\-D "\fIinfo\fB"\fR
 Provides a textual description of the destination.
