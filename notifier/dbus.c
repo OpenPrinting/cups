@@ -1,7 +1,7 @@
 /*
  * D-Bus notifier for CUPS.
  *
- * Copyright © 2020-2025 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2008-2014 by Apple Inc.
  * Copyright © 2011, 2013 Red Hat, Inc.
  * Copyright © 2007 Tim Waugh <twaugh@redhat.com>
@@ -145,21 +145,6 @@ enum
 
 
 /*
- * Global variables...
- */
-
-static char		lock_filename[1024];	/* Lock filename */
-
-
-/*
- * Local functions...
- */
-
-static int	acquire_lock(int *fd, char *lockfile, size_t locksize);
-static void	release_lock(void);
-
-
-/*
  * 'main()' - Read events and send DBUS notifications.
  */
 
@@ -174,7 +159,6 @@ main(int  argc,				/* I - Number of command-line args */
   DBusError		error;		/* Error, if any */
   DBusMessage		*message;	/* Message to send */
   DBusMessageIter	iter;		/* Iterator for message data */
-  int			lock_fd = -1;	/* Lock file descriptor */
 
 
  /*
@@ -274,10 +258,6 @@ main(int  argc,				/* I - Number of command-line args */
     }
 
     if (!con)
-      continue;
-
-    if (lock_fd == -1 &&
-        acquire_lock(&lock_fd, lock_filename, sizeof(lock_filename)))
       continue;
 
     attr = ippFindAttribute(msg, "notify-subscribed-event",
@@ -566,80 +546,10 @@ main(int  argc,				/* I - Number of command-line args */
     ippDelete(msg);
   }
 
- /*
-  * Remove lock file...
-  */
-
-  if (lock_fd >= 0)
-  {
-    close(lock_fd);
-    release_lock();
-  }
-
   return (0);
 }
 
 
-/*
- * 'release_lock()' - Release the singleton lock.
- */
-
-static void
-release_lock(void)
-{
-  unlink(lock_filename);
-}
-
-
-/*
- * 'handle_sigterm()' - Handle SIGTERM signal.
- */
-static void
-handle_sigterm(int signum)
-{
-  release_lock();
-  _exit(0);
-}
-
-/*
- * 'acquire_lock()' - Acquire a lock so we only have a single notifier running.
- */
-
-static int				/* O - 0 on success, -1 on failure */
-acquire_lock(int    *fd,		/* O - Lock file descriptor */
-             char   *lockfile,		/* I - Lock filename buffer */
-	     size_t locksize)		/* I - Size of filename buffer */
-{
-  const char		*tmpdir;	/* Temporary directory */
-  struct sigaction	action;		/* POSIX sigaction data */
-
-
- /*
-  * Figure out where to put the lock file...
-  */
-
-  if ((tmpdir = getenv("TMPDIR")) == NULL)
-    tmpdir = "/tmp";
-
-  snprintf(lockfile, locksize, "%s/cups-dbus-notifier-lockfile", tmpdir);
-
- /*
-  * Create the lock file and fail if it already exists...
-  */
-
-  if ((*fd = open(lockfile, O_RDWR | O_CREAT | O_EXCL, S_IRUSR | S_IWUSR)) < 0)
-    return (-1);
-
- /*
-  * Set a SIGTERM handler to make sure we release the lock if the
-  * scheduler decides to stop us.
-  */
-  memset(&action, 0, sizeof(action));
-  action.sa_handler = handle_sigterm;
-  sigaction(SIGTERM, &action, NULL);
-
-  return (0);
-}
 #else /* !HAVE_DBUS */
 int
 main(void)
