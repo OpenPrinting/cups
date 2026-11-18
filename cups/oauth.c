@@ -1809,7 +1809,7 @@ cupsOAuthMakeBase64Random(size_t len)	// I - Number of bytes
 
   // Fill out random bytes and convert it to Base64URL...
 #ifdef HAVE_OPENSSL
-  if (RAND_bytes((unsigned char *)bytes, (int)len) < 0)
+  if (RAND_bytes((unsigned char *)bytes, (int)len) != 1)
 #  else
   if (gnutls_rnd(GNUTLS_RND_NONCE, bytes, len) != 0)
 #  endif // HAVE_OPENSSL

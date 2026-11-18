@@ -1075,10 +1075,15 @@ cupsJWTMakePrivateKey(cups_jwa_t alg)	// I - Signing/encryption algorithm
 
     key_len = alg == CUPS_JWA_HS256 ? 64 : 128;
 #ifdef HAVE_OPENSSL
-    RAND_bytes(key, key_len);
+    if (RAND_bytes(key, (int)key_len) != 1)
 #else // HAVE_GNUTLS
-    gnutls_rnd(GNUTLS_RND_KEY, key, key_len);
+    if (gnutls_rnd(GNUTLS_RND_KEY, key, key_len) != 0)
 #endif // HAVE_OPENSSL
+    {
+      // Random number generator failed, don't return a predictable key...
+      cupsJSONDelete(jwk);
+      return (NULL);
+    }
 
     httpEncode64_3(key_base64, sizeof(key_base64), (char *)key, key_len, true);
     node = cupsJSONNewKey(jwk, node, "k");
