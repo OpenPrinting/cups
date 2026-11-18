@@ -10,17 +10,22 @@
 <p>lpadmin - configure cups printers and classes on cups scheduler
 </p>
     <h2 id="lpadmin-8.synopsis">Synopsis</h2>
-<p><strong>lpadmin</strong>
+<p>Set default printer:
+<br>
+<strong>lpadmin</strong>
 [
 <strong>-E</strong>
 ] [
 <strong>-U</strong>
-<em>username</em>
+<em>USERNAME</em>
 ] [
-<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+<strong>-h</strong>
+<em>SERVER[:PORT]</em>
 ]
 <strong>-d</strong>
-<em>destination</em>
+<em>DESTINATION</em>
+</p>
+    <p>Add/modify printer:
 <br>
 <strong>lpadmin</strong>
 [
@@ -29,35 +34,45 @@
 <strong>-U</strong>
 <em>username</em>
 ] [
-<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+<strong>-h</strong>
+<em>SERVER[:PORT]</em>
 ]
 <strong>-p</strong>
-<em>destination</em>
-[
-<strong>-R</strong>
-<em>name-default</em>
-]
-<em>option(s)</em>
+<em>DESTINATION</em>
+<em>OPTIONS</em>
+</p>
+    <p>Delete printer:
 <br>
 <strong>lpadmin</strong>
 [
 <strong>-E</strong>
 ] [
 <strong>-U</strong>
-<em>username</em>
+<em>USERNAME</em>
 ] [
-<strong>-h </strong><em>server</em>[<strong>:</strong><em>port</em>]
+<strong>-h</strong>
+<em>SERVER[:PORT]</em>
 ]
 <strong>-x</strong>
-<em>destination</em>
+<em>DESTINATION</em>
 </p>
     <h2 id="lpadmin-8.description">Description</h2>
 <p><strong>lpadmin</strong> configures printer and class queues provided by CUPS.
 It can also be used to set the server default printer or class.
 </p>
-    <p>When specified before the <em>-d</em>, <em>-p</em>, or <em>-x</em> options, the <em>-E</em> option forces encryption when connecting to the server.
+    <p>When specified before the
+<strong>-d,</strong>
+<strong>-p,</strong>
+or
+<strong>-x</strong>
+options, the
+<strong>-E</strong>
+option forces encryption when connecting to the server.
 </p>
-    <p>The first form of the command (<em>-d</em>) sets the scheduler's default printer or class to <em>destination</em>.
+    <p>The first form of the command (
+<strong>-d</strong>
+<em>DESTINATION</em>
+) sets the scheduler's default printer or class to the named destination.
 Subsequent print jobs submitted via the
 <a href="lp.html"><strong>lp</strong>(1)</a>
 
@@ -69,25 +84,38 @@ commands will use this destination unless the user specifies otherwise with the
 
 command.
 </p>
-    <p>The second form of the command (<em>-p</em>) configures the named printer or class.  The additional options are described below.
+    <p>The second form of the command (
+<strong>-p</strong>
+<em>DESTINATION</em>
+<em>OPTIONS</em>
+) configures the named printer or class.
+The additional options are described below.
 </p>
-    <p>The third form of the command (<em>-x</em>) deletes the printer or class <em>destination</em>.
+    <p>The third form of the command (
+<strong>-x</strong>
+<em>DESTINATION</em>
+) deletes the named printer or class.
 Any jobs that are pending for the destination will be removed and any job that is currently printed will be aborted.
 </p>
     <h2 id="lpadmin-8.options">Options</h2>
 <p>The following options are recognized when configuring a printer queue:
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>class</em><br>
-Adds the named <em>printer</em> to <em>class</em>.
-If <em>class</em> does not exist it is created automatically.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-c </strong><em>CLASS</em><br>
+Adds the printer to the named class.
+If
+<em>CLASS</em>
+does not exist it is created automatically.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>model</em><br>
-Sets a standard PPD file for the printer from the <em>model</em> directory or using one of the driver interfaces.
-Use the <em>-m</em> option with the
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-m </strong><em>MODEL</em><br>
+Configures the printer to use a standard PPD file or named driver.
+Use the
+<strong>-m</strong>
+option with the
 <a href="lpinfo.html"><strong>lpinfo</strong>(8)</a>
 
 command to get a list of supported models.
-The model &quot;raw&quot; clears any existing PPD file and the model &quot;everywhere&quot; queries the printer referred to by the specified IPP <em>device-uri</em>.
+The model &quot;raw&quot; clears any existing PPD file.
+The model &quot;everywhere&quot; queries an IPP printer for its capabilities and creates a PPD file.
 Note: Models other than &quot;everywhere&quot; are deprecated and will not be supported in a future version of CUPS.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o cupsIPPSupplies=true</strong><br>
@@ -100,40 +128,46 @@ Specifies whether IPP supply level values should be reported.
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o cupsSNMPSupplies=false</strong><br>
 Specifies whether SNMP supply level (RFC 3805) values should be reported.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-k-limit=</strong><em>value</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-k-limit=</strong><em>VALUE</em><br>
 Sets the kilobyte limit for per-user quotas.
 The value is an integer number of kilobytes; one kilobyte is 1024 bytes.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-page-limit=</strong><em>value</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-page-limit=</strong><em>VALUE</em><br>
 Sets the page limit for per-user quotas.
 The value is the integer number of pages that can be printed; double-sided pages are counted as two pages.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-quota-period=</strong><em>value</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-quota-period=</strong><em>VALUE</em><br>
 Sets the accounting period for per-user quotas.
-The value is an integer number of seconds; 86,400 seconds are in one day.
+The value is an integer number of seconds; one day is 86,400 seconds.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets-default=</strong><em>banner</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets-default=</strong><em>BANNER</em><br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets-default=</strong><em>banner</em><strong>,</strong><em>banner</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o job-sheets-default=</strong><em>BANNER</em><strong>,</strong><em>BANNER</em><br>
 Sets the default banner page(s) to use for print jobs.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>name</em><strong>=</strong><em>value</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>NAME</em><strong>=</strong><em>VALUE</em><br>
 Sets a PPD option for the printer.
-PPD options can be listed using the <em>-l</em> option with the
+PPD options can be listed using the
+<strong>-l</strong>
+option with the
 <a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
 
 command.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>name</em><strong>-default=</strong><em>value</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o </strong><em>NAME</em><strong>-default=</strong><em>VALUE</em><br>
 Sets a default server-side option for the destination.
 Any print-time option can be defaulted, e.g., &quot;-o number-up-default=2&quot; to set the default &quot;number-up&quot; option value to 2.
+Defaults set using the
+<a href="lpoptions.html"><strong>lpoptions</strong>(1)</a>
+
+command override server-side defaults.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o port-monitor=</strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o port-monitor=</strong><em>NAME</em><br>
 Sets the binary communications program to use when printing, &quot;none&quot;, &quot;bcp&quot;, or &quot;tbcp&quot;.
 The default program is &quot;none&quot;.
 The specified port monitor must be listed in the printer's PPD file.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o printer-error-policy=</strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o printer-error-policy=</strong><em>NAME</em><br>
 Sets the policy for errors such as printers that cannot be found or accessed, don't support the format being printed, fail during submission of the print data, or cause one or more filters to crash.
 The name must be one of &quot;abort-job&quot; (abort the job on error), &quot;retry-job&quot; (retry the job at a future time), &quot;retry-current-job&quot; (retry the current job immediately), or &quot;stop-printer&quot; (stop the printer on error).
 The default error policy is &quot;stop-printer&quot; for printers and &quot;retry-current-job&quot; for
@@ -143,24 +177,28 @@ classes.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o printer-is-shared=false</strong><br>
 Sets the destination to shared/published or unshared/unpublished.
-Shared/published destinations are publicly announced by the server on the LAN based on the browsing configuration in <em>cupsd.conf</em>, while unshared/unpublished destinations are not announced.
+Shared/published destinations are publicly announced by the server on the LAN based on the browsing configuration in the
+<em>cupsd.conf</em>
+file, while unshared/unpublished destinations are not announced.
 The default value is &quot;true&quot;.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o printer-op-policy=</strong><em>name</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-o printer-op-policy=</strong><em>NAME</em><br>
 Sets the IPP operation policy associated with the destination.
-The name must be defined in the <em>cupsd.conf</em> in a Policy section.
+The name must be defined in the
+<em>cupsd.conf</em>
+file in a Policy section.
 The default operation policy is &quot;default&quot;.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-R </strong><em>name</em><strong>-default</strong><br>
-Deletes the named option from <em>printer</em>.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-R </strong><em>NAME</em><strong>-default</strong><br>
+Deletes the named default option from the destination.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>class</em><br>
-Removes the named <em>printer</em> from <em>class</em>.
-If the resulting class becomes empty it is removed.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-r </strong><em>CLASS</em><br>
+Removes the printer from the named class.
+The class is removed if it becomes empty.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u allow:</strong>{<em>user</em>|<strong>@</strong><em>group</em>}{<strong>,</strong><em>user</em>|<strong>,@</strong><em>group</em>}*<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u allow:</strong>{<em>USER</em>|<strong>@</strong><em>GROUP</em>}{<strong>,</strong><em>USER</em>|<strong>,@</strong><em>GROUP</em>}*<br>
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u deny:</strong>{<em>user</em>|<strong>@</strong><em>group</em>}{<strong>,</strong><em>user</em>|<strong>,@</strong><em>group</em>}*<br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u deny:</strong>{<em>USER</em>|<strong>@</strong><em>GROUP</em>}{<strong>,</strong><em>USER</em>|<strong>,@</strong><em>GROUP</em>}*<br>
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-u allow:all</strong><br>
 </p>
@@ -170,18 +208,25 @@ Names starting with &quot;@&quot; are interpreted as UNIX groups.
 The latter two forms turn user-level access control off.
 Note: The user 'root' is not granted special access - using &quot;-u allow:foo,bar&quot; will allow users 'foo' and 'bar' to access the printer but NOT 'root'.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v &quot;</strong><em>device-uri</em><strong>&quot;</strong><br>
-Sets the <em>device-uri</em> attribute of the printer queue.
-Use the <em>-v</em> option with the
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-v &quot;</strong><em>DEVICE-URI</em><strong>&quot;</strong><br>
+Sets the printer's device URI.
+Use the
+<strong>-v</strong>
+option with the
 <a href="lpinfo.html"><strong>lpinfo</strong>(8)</a>
 
 command to get a list of supported device URIs and schemes.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D &quot;</strong><em>info</em><strong>&quot;</strong><br>
-Provides a textual description of the destination.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-D &quot;</strong><em>INFO</em><strong>&quot;</strong><br>
+Provides a textual description of the destination, e.g. &quot;Hallway Printer&quot;.
 </p>
     <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-E</strong><br>
-When specified before the <strong>-d</strong>, <strong>-p</strong>, or <strong>-x</strong> options, forces the use of TLS encryption on the connection to the scheduler.
+When specified before the
+<strong>-d,</strong>
+<strong>-p,</strong>
+or
+<strong>-x</strong>
+options, forces the use of TLS encryption on the connection to the scheduler.
 Otherwise, enables the destination and accepts jobs; this is the same as running the
 <a href="cupsaccept.html"><strong>cupsaccept</strong>(8)</a>
 
@@ -190,18 +235,20 @@ and
 
 programs on the destination.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-L &quot;</strong><em>location</em><strong>&quot;</strong><br>
-Provides a textual location of the destination.
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-L &quot;</strong><em>LOCATION</em><strong>&quot;</strong><br>
+Provides a textual location of the destination, e.g. &quot;Room 1234&quot;.
 </p>
     <h2 id="lpadmin-8.deprecated-options">Deprecated Options</h2>
-<p>The following <strong>lpadmin</strong> options are deprecated:
+<p>The following
+<strong>lpadmin</strong>
+options are deprecated:
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>filename</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-i </strong><em>FILENAME</em><br>
 This option historically has been used to provide either a System V interface script or (as an implementation side-effect) a PPD file.
 Note: Interface scripts are not supported by CUPS.
 PPD files and printer drivers are deprecated and will not be supported in a future version of CUPS.
 </p>
-    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>ppd-file</em><br>
+    <p style="margin-left: 2.5em; text-indent: -2.5em;"><strong>-P </strong><em>PPD-FILE</em><br>
 Specifies a PostScript Printer Description (PPD) file to use with the printer.
 Note: PPD files and printer drivers are deprecated and will not be supported in a future version of CUPS.
 </p>
@@ -209,7 +256,9 @@ Note: PPD files and printer drivers are deprecated and will not be supported in 
 <p>Unlike the System V printing system, CUPS allows printer names to contain any printable character except SPACE, TAB, &quot;/&quot;, or &quot;#&quot;.
 Also, printer and class names are <em>not</em> case-sensitive.
 </p>
-    <p>Finally, the CUPS version of <strong>lpadmin</strong> may ask the user for an access password depending on the printing system configuration.
+    <p>Finally, the CUPS version of
+<strong>lpadmin</strong>
+may ask the user for an access password depending on the printing system configuration.
 This differs from the System V version which requires the root user to execute this command.
 </p>
     <h2 id="lpadmin-8.notes">Notes</h2>
@@ -218,14 +267,27 @@ Printers that do not support IPP can be supported using applications such as
 <a href="ippeveprinter.html"><strong>ippeveprinter</strong>(1).</a>
 
 </p>
-    <p>The CUPS version of <strong>lpadmin</strong> does not support all of the System V or Solaris printing system configuration options.
+    <p>The CUPS version of
+<strong>lpadmin</strong>
+does not support all of the System V or Solaris printing system configuration options.
 </p>
     <p>Interface scripts are not supported for security reasons.
 </p>
-    <p>The double meaning of the <strong>-E</strong> option is an unfortunate historical oddity.
+    <p>The double meaning of the
+<strong>-E</strong>
+option is an unfortunate historical oddity.
 </p>
-    <p>The <strong>lpadmin</strong> command communicates with the scheduler (<strong>cupsd</strong>) to make changes to the printing system configuration.
-This configuration information is stored in several files including <em>printers.conf</em> and <em>classes.conf</em>.
+    <p>The
+<strong>lpadmin</strong>
+command communicates with the scheduler (
+<a href="cupsd.html"><strong>cupsd</strong>(8))</a>
+
+to make changes to the printing system configuration.
+This configuration information is stored in several files including
+<em>printers.conf</em>
+and
+<em>classes.conf</em>.
+
 These files should not be edited directly and are an implementation detail of CUPS that is subject to change at any time.
 </p>
     <h2 id="lpadmin-8.example">Example</h2>
@@ -238,6 +300,8 @@ These files should not be edited directly and are an implementation detail of CU
     <h2 id="lpadmin-8.see-also">See Also</h2>
 <a href="cupsaccept.html"><p><strong>cupsaccept</strong>(8),</a>
 
+<a href="cupsd.html"><strong>cupsd</strong>(8),</a>
+
 <a href="cupsenable.html"><strong>cupsenable</strong>(8),</a>
 
 <a href="lpinfo.html"><strong>lpinfo</strong>(8),</a>
@@ -247,6 +311,6 @@ These files should not be edited directly and are an implementation detail of CU
 CUPS Online Help (<a href="http://localhost:631/help">http://localhost:631/help</a>)
 </p>
     <h2 id="lpadmin-8.copyright">Copyright</h2>
-<p>Copyright &copy; 2020-2024 by OpenPrinting.
+<p>Copyright &copy; 2020-2026 by OpenPrinting.
   </body>
 </html>
