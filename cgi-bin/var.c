@@ -977,7 +977,7 @@ cgi_initialize_multipart(
         * Set the form variable...
 	*/
 
-        if (!strncmp(name, "ENV:", 4))
+        if (!_cups_strncasecmp(name, "ENV:", 4))
         {
          /*
           * Don't allow variables prefixed with "ENV:" since those are reserved
