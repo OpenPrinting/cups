@@ -152,6 +152,10 @@ test:	unittests
 	./testcgi
 	echo Testing help index API...
 	./testhi
+	$(MAKE) $(MFLAGS) testoauth
+
+testoauth:	home.cgi
+	./testoauth.sh
 
 #
 # libcupscgi.a
