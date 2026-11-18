@@ -2562,7 +2562,7 @@ openssl_validate_name(
   bool		result = false;		// Return value
   char		subjectName[256];	// Common name from certificate
   STACK_OF(GENERAL_NAME) *names = NULL;
-				      // subjectAltName values
+					// subjectAltName values
 
 
   if (X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName, subjectName, sizeof(subjectName)) < 0)
@@ -2596,26 +2596,35 @@ openssl_validate_name(
       {
 	// Match a DNS name...
 	char	*dNSName;		// DNS name value
+	int	dNSNameLen;		// Length of DNS name value
 
-	if (ASN1_STRING_to_UTF8((unsigned char **)&dNSName, name->d.dNSName) > 0)
+	if ((dNSNameLen = ASN1_STRING_to_UTF8((unsigned char **)&dNSName, name->d.dNSName)) > 0)
 	{
-	  DEBUG_printf("1openssl_validate_name: subjectAltName[%d/%d].dNSName=\"%s\"", i + 1, count, dNSName);
+	  // Only trust this value if its declared length matches a C
+	  // string's length - a mismatch means the certificate's SAN
+	  // contains an embedded NUL byte, which could otherwise be used
+	  // to spoof a match against a prefix of the real value...
+	  if ((size_t)dNSNameLen == strlen(dNSName))
+	  {
+	    DEBUG_printf("1openssl_validate_name: subjectAltName[%d/%d].dNSName=\"%s\"", i + 1, count, dNSName);
 
-	  if (!_cups_strcasecmp(common_name, dNSName))
-	  {
-	    // Direct name match...
-	    DEBUG_puts("1openssl_validate_name: Match.");
-	    result = true;
-	  }
-	  else if (!strncmp(dNSName, "*.", 2))
-	  {
-	    // Compare wildcard...
-	    const char *domain_name = strchr(common_name, '.');
-				      // Domain name of common name
-	    if (domain_name && !_cups_strcasecmp(domain_name, dNSName + 1))
+	    if (!_cups_strcasecmp(common_name, dNSName))
 	    {
+	      // Direct name match...
 	      DEBUG_puts("1openssl_validate_name: Match.");
 	      result = true;
+	    }
+	    else if (!strncmp(dNSName, "*.", 2))
+	    {
+	      // Compare wildcard...
+	      const char *domain_name = strchr(common_name, '.');
+					// Domain name of common name
+
+	      if (domain_name && !_cups_strcasecmp(domain_name, dNSName + 1))
+	      {
+		DEBUG_puts("1openssl_validate_name: Match.");
+		result = true;
+	      }
 	    }
 	  }
 
