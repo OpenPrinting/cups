@@ -1292,16 +1292,10 @@ ippAddStrings(
   {
     if (language)
     {
-      if (value == attr->values)
-      {
-        if ((int)value_tag & IPP_TAG_CUPS_CONST)
-          value->string.language = (char *)language;
-        else
-          value->string.language = _cupsStrAlloc(ipp_lang_code(language, code,
-                                                               sizeof(code)));
-      }
+      if ((int)value_tag & IPP_TAG_CUPS_CONST)
+	value->string.language = (char *)language;
       else
-	value->string.language = attr->values[0].string.language;
+	value->string.language = _cupsStrAlloc(ipp_lang_code(language, code, sizeof(code)));
     }
 
     if (values)
@@ -1573,7 +1567,7 @@ ippCopyAttribute(
 
 	  memcpy(dstattr->values, srcattr->values, (size_t)srcattr->num_values * sizeof(_ipp_value_t));
         }
-	else if (srcattr->value_tag & IPP_TAG_CUPS_CONST)
+	else
 	{
 	 /*
 	  * Otherwise do a normal reference counted copy...
@@ -1581,12 +1575,8 @@ ippCopyAttribute(
 
 	  for (i = srcattr->num_values, srcval = srcattr->values, dstval = dstattr->values; i > 0; i --, srcval ++, dstval ++)
 	  {
-	    if (srcval == srcattr->values)
-              dstval->string.language = _cupsStrAlloc(srcval->string.language);
-	    else
-              dstval->string.language = dstattr->values[0].string.language;
-
-	    dstval->string.text = _cupsStrAlloc(srcval->string.text);
+            dstval->string.language = _cupsStrAlloc(srcval->string.language);
+	    dstval->string.text     = _cupsStrAlloc(srcval->string.text);
           }
         }
         break;
@@ -3525,13 +3515,18 @@ ippSetString(ipp_t           *ipp,	/* I  - IPP message */
     if (value_tag == IPP_TAG_NOVALUE || value_tag == IPP_TAG_UNKNOWN)
       (*attr)->value_tag = IPP_TAG_KEYWORD;
 
-    if (element > 0)
-      value->string.language = (*attr)->values[0].string.language;
-
     if ((int)((*attr)->value_tag) & IPP_TAG_CUPS_CONST)
+    {
+      if (element > 0 && !value->string.language && (*attr)->values[0].string.language)
+	value->string.language = (*attr)->values[0].string.language;
+
       value->string.text = (char *)strvalue;
+    }
     else if ((temp = _cupsStrAlloc(strvalue)) != NULL)
     {
+      if (element > 0 && !value->string.language && (*attr)->values[0].string.language)
+	value->string.language = _cupsStrAlloc((*attr)->values[0].string.language);
+
       if (value->string.text)
         _cupsStrFree(value->string.text);
 
@@ -3731,7 +3726,10 @@ ippSetStringfv(ipp_t           *ipp,	/* I  - IPP message */
   * Set the formatted string and return...
   */
 
-  return (ippSetString(ipp, attr, element, buffer));
+  if ((*attr)->value_tag & IPP_TAG_CUPS_MASK)
+    return (ippSetString(ipp, attr, element, _cupsStrAlloc(buffer)));
+  else
+    return (ippSetString(ipp, attr, element, buffer));
 }
 
 
@@ -5547,13 +5545,16 @@ ipp_free_values(ipp_attribute_t *attr,	/* I - Attribute to free values from */
     {
       case IPP_TAG_TEXTLANG :
       case IPP_TAG_NAMELANG :
-	  if (element == 0 && count == attr->num_values &&
-	      attr->values[0].string.language)
+	  for (i = count, value = attr->values + element;
+	       i > 0;
+	       i --, value ++)
 	  {
-	    _cupsStrFree(attr->values[0].string.language);
-	    attr->values[0].string.language = NULL;
+	    _cupsStrFree(value->string.language);
+	    _cupsStrFree(value->string.text);
+	    value->string.language = NULL;
+	    value->string.text     = NULL;
 	  }
-	  /* Fall through to other string values */
+	  break;
 
       case IPP_TAG_TEXT :
       case IPP_TAG_NAME :
