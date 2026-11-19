@@ -3868,7 +3868,7 @@ ippSetValueTag(
         for (i = (*attr)->num_values - 1, value = (*attr)->values + 1;
              i > 0;
              i --, value ++)
-          value->string.language = (*attr)->values[0].string.language;
+          value->string.language = _cupsStrAlloc((*attr)->values[0].string.language);
 
         if ((int)(*attr)->value_tag & IPP_TAG_CUPS_CONST)
         {
