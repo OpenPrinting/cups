@@ -1,0 +1,331 @@
+#! /bin/sh
+#
+# This script initializes and manages CUPS services in a Snap environment,
+# including setting up required directories, configuring CUPS settings,
+# handling proxy mode, and running the CUPS server.
+#
+# Copyright © 2020 by Till Kamppeter
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
+
+
+set -e -x
+
+mkdir -p $SNAP_DATA/var/spool/tmp
+mkdir -p $SNAP_DATA/var/run/certs
+mkdir -p $SNAP_DATA/var/log
+mkdir -p $SNAP_DATA/var/cache/fontconfig
+mkdir -p $SNAP_COMMON/etc/cups/ppd
+mkdir -p $SNAP_COMMON/etc/cups/ssl
+mkdir -p $SNAP_COMMON/run
+mkdir -m 0755 -p /run/cups
+
+# Set UTF-8
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+
+# Set a general TMPDIR (for command line utilities)
+export TMPDIR=$SNAP_DATA/tmp
+mkdir -p $TMPDIR
+
+# The CUPS temp dir (for cupsd, filters, backends, CGI programs, ...)
+CUPSTMPDIR=$SNAP_DATA/var/spool/tmp
+
+# Clean up the temporary directories
+# We need to chown all files to root and make the files and directories
+# accessible for root, otherwise we cannot delete them inside a Snap
+for DIR in $TMPDIR $CUPSTMPDIR; do
+    while [ -d $DIR ]; do
+	chown -R root.root $DIR
+	chmod -R u+rwX $DIR
+	rm -rf $DIR
+    done
+done
+
+# Initialize the temp directories
+mkdir -p $TMPDIR
+chown -R root.root $TMPDIR
+chmod -R 1777 $TMPDIR
+mkdir -p $CUPSTMPDIR
+chown -R root.snap_daemon $CUPSTMPDIR
+chmod -R 1770 $CUPSTMPDIR
+
+# Activate full debug logging of cupsd and libcups (Needs "-
+# --enable-debug-printfs" be uncommented in CUPS'
+# autotools-configure-parameters in snapcraft.yaml)
+#export CUPS_DEBUG_LOG=$SNAP_DATA/var/log/debug_log
+#export CUPS_DEBUG_LEVEL=99
+
+# Check whether the user and group "snap_daemon" for filters and
+# backends exist and the Snap is allowed to use it and only if not run
+# filters and backends as root. Note that in a Snap you can only use
+# the user "snap_daemon" (UID 584788) for processes which should drop
+# the root privileges (daemons or auxiliary processes of daemons, here
+# filters and backends). The CUPS user "lp" cannot be used.
+# See https://forum.snapcraft.io/t/system-usernames/
+# Also check the existence of the "lpadmin" group. Members of this
+# group are allowed to do administrative CUPS tasks, like creating
+# print queues or deleting other user's jobs. If this group does not
+# exist, use the general administration group "adm" instead and go
+# root-only for administrative tasks if also this group does not
+# exist. On Ubuntu distributions the first user created is in both
+# "adm" and "lpadmin" groups.
+CUPSUSER=snap_daemon
+ALTCUPSUSER=root
+CUPSGROUP=snap_daemon
+ALTCUPSGROUP=root
+CUPSSYSTEMGROUP=lpadmin
+ALTCUPSSYSTEMGROUP=adm
+
+TESTFILE=$TMPDIR/testfile
+touch $TESTFILE
+if ! chown $CUPSUSER $TESTFILE; then
+    CUPSUSER=$ALTCUPSUSER;
+fi
+if ! chgrp $CUPSGROUP $TESTFILE; then
+    CUPSGROUP=$ALTCUPSGROUP;
+fi
+rm -f $TESTFILE
+
+if ! getent group $CUPSSYSTEMGROUP >/dev/null 2>&1; then
+    CUPSSYSTEMGROUP=$ALTCUPSSYSTEMGROUP;
+    if ! getent group $CUPSSYSTEMGROUP >/dev/null 2>&1; then
+	CUPSSYSTEMGROUP=;
+    fi
+fi
+
+# Create cups-files.conf if not already present
+if [ ! -f $SNAP_COMMON/etc/cups/cups-files.conf ]; then
+    # Get default cups-files.conf
+    CUPSFILESCONF=$SNAP/etc/cups/cups-files.conf
+    cp $CUPSFILESCONF $SNAP_COMMON/etc/cups/cups-files.conf
+fi
+
+# Set paths for the snap
+perl -p -i \
+     -e 's:^(\s*\#)?\s*User\s+\S+\s*$:User '"$CUPSUSER"'\n:;' \
+     -e 's:^(\s*\#)?\s*Group\s+.*$:Group '"$CUPSGROUP"':;' \
+     -e 's:^(\s*\#)?\s*SystemGroup\s+.*$:SystemGroup '"$CUPSSYSTEMGROUP"' root:;' \
+     -e 's:^(\s*\#)?\s*AccessLog\s+.*$:AccessLog '"$SNAP_DATA"'/var/log/access_log:;' \
+     -e 's:^(\s*\#)?\s*CacheDir\s+.*$:CacheDir '"$SNAP_DATA"'/var/cache:;' \
+     -e 's:^(\s*\#)?\s*DataDir\s+.*$:DataDir '"$SNAP"'/share/cups:;' \
+     -e 's:^(\s*\#)?\s*DocumentRoot\s+.*$:DocumentRoot '"$SNAP"'/share/cups/doc:;' \
+     -e 's:^(\s*\#)?\s*ErrorLog\s+.*$:ErrorLog '"$SNAP_DATA"'/var/log/error_log:;' \
+     -e 's:^(\s*\#)?\s*FontPath\s+.*$:\#FontPath (NOT SUPPORTED ANY MORE):;' \
+     -e 's:^(\s*\#)?\s*PageLog\s+.*$:PageLog '"$SNAP_DATA"'/var/log/page_log:;' \
+     -e 's:^(\s*\#)?\s*Printcap\s+.*$:Printcap '"$SNAP_COMMON"'/etc/printcap:;' \
+     -e 's:^(\s*\#)?\s*RequestRoot\s+.*$:RequestRoot '"$SNAP_DATA"'/var/spool:;' \
+     -e 's:^(\s*\#)?\s*ServerBin\s+.*$:ServerBin '"$SNAP"'/lib/cups:;' \
+     -e 's:^(\s*\#)?\s*ServerRoot\s+.*$:ServerRoot '"$SNAP_COMMON"'/etc/cups:;' \
+     -e 's:^(\s*\#)?\s*StateDir\s+.*$:StateDir '"$SNAP_DATA"'/var/run:;' \
+     -e 's:^(\s*\#)?\s*TempDir\s+.*$:TempDir '"$SNAP_DATA"'/var/spool/tmp:;' \
+     $SNAP_COMMON/etc/cups/cups-files.conf
+
+# Determine if we have a classically installed system CUPS (from
+# DEB/RPM/source for example). If so, we will run as a proxy to pass
+# through jobs of snapped applications to prevent these applications
+# from doing administrative tasks on the system's CUPS, even if the
+# system's CUPS has no Snap mediation functionality.
+#
+# To get the old behavior of two CUPS daemons (classic and Snap)
+# running independently on the same machine, create a file named
+# /var/snap/cups/common/no-proxy Note that this mode is not
+# recommended for production. It is not thoroughly tested and can
+# easily confuse users. It is only intended for development.
+#
+# Also if you disable a system's CUPS but keep its configuration
+# files and want to run the Snap's CUPS instead, please create the
+# /var/snap/cups/common/no-proxy file to force the Snap into
+# standard mode.
+PROXY_MODE=NO
+SYSTEM_CUPS_SERVER=
+rm -f $SNAP_DATA/var/run/proxy-mode
+if [ ! -f $SNAP_COMMON/no-proxy ]; then
+    # Check if CUPS is installed classically
+    if [ -r /etc/cups/cupsd.conf ]; then
+	# Mark that we are in proxy mode, to block execution of cups-browsed
+	touch $SNAP_DATA/var/run/proxy-mode
+	PROXY_MODE=YES
+	# Find out how the system's CUPS is listening for jobs
+	SYSTEM_CUPS_SERVER=localhost:631
+	# Find a "Listen" line with a domain socket
+	if LINE=`grep -E '^[ \t]*Listen[ \t]+/' /etc/cups/cupsd.conf`; then
+	    SYSTEM_CUPS_SERVER=`echo $LINE | head -1 | perl -p -e 's:^\s*Listen\s+(\S+)\s*$:\1:'`
+	# Find a "Port" line
+	elif LINE=`grep -E '^[ \t]*Port[ \t]+[0-9]+[ \t]*$' /etc/cups/cupsd.conf`; then
+	    SYSTEM_CUPS_SERVER=localhost:`echo $LINE | head -1 | perl -p -e 's:^\s*Port\s+(\S+)\s*$:\1:'`
+	# Find a "Listen" line with *:port
+	elif LINE=`grep -E '^[ \t]*Listen[ \t]+\*:[0-9]+[ \t]*$' /etc/cups/cupsd.conf`; then
+	    SYSTEM_CUPS_SERVER=localhost:`echo $LINE | head -1 | perl -p -e 's;^\s*Listen\s+\*:(\S+)\s*$;\1;'`
+	# Find a "Listen" line with host:port
+	elif LINE=`grep -E '^[ \t]*Listen[ \t]+' /etc/cups/cupsd.conf`; then
+	    SYSTEM_CUPS_SERVER=`echo $LINE | head -1 | perl -p -e 's:^\s*Listen\s+(\S+)\s*$:\1:'`
+	fi
+    fi
+fi
+
+# Make sure that port and domain socket of this Snap are always used
+# Use standard port and domain socket if this is the first CUPS started
+# on this system (assumed to be the system's default CUPS)
+PORT=631
+ALTPORT=10631
+DOMAINSOCKET=/run/cups/cups.sock
+if [ ! -d /run/cups ]; then
+    DOMAINSOCKET=/var/run/cups/cups.sock
+fi
+ALTDOMAINSOCKET=$SNAP_COMMON/run/cups.sock
+
+if [ "${PROXY_MODE}" = "YES" ]; then
+    # In proxy mode do not listen on any port but on the domain socket
+    # of the Snap's CUPS
+    PORT=
+    DOMAINSOCKET=$ALTDOMAINSOCKET
+else
+    # If the standard port 631 is occupied (by a system CUPS installed via
+    # DEB/RPM/source for example) use alternative port
+    if $SNAP/scripts/port-occupied $PORT; then
+	# CUPS already running, try alternative port
+	PORT=$ALTPORT
+    fi
+
+    # If the standard domain socket is in use (by a system CUPS installed via
+    # DEB/RPM/source for example) or when lpstat errors when querying it
+    # use alternative domain socket
+    if ! $SNAP/bin/lpstat -h $DOMAINSOCKET -r || \
+	    $SNAP/bin/lpstat -h $DOMAINSOCKET -r | grep -qv ' not '; then
+	# CUPS already running, try alternative domain socket
+	DOMAINSOCKET=$ALTDOMAINSOCKET
+    fi
+fi
+
+# Create cupsd.conf if not already present
+if [ ! -f $SNAP_COMMON/etc/cups/cupsd.conf ]; then
+    # Get default cupsd.conf
+    CUPSDCONF=$SNAP/etc/cups/cupsd.conf
+    cat $CUPSDCONF | \
+	grep -v 'Listen' | \
+	grep -v 'Port' | \
+	perl -p -e 's:^(\s*<Location\s*/>\s*)$:$1  Allow \@LOCAL\n:' \
+	     > $SNAP_COMMON/etc/cups/cupsd.conf
+
+    # No restrictions on size of log file
+    echo MaxLogSize 9999999 >> $SNAP_COMMON/etc/cups/cupsd.conf
+
+    # Debug logging
+    perl -p -i -e 's:^(\s*)\#?(\s*LogLevel\s+)\S+:\1\2debug:g' $SNAP_COMMON/etc/cups/cupsd.conf
+
+    #chmod 0640 $SNAP_COMMON/etc/cups/cupsd.conf
+fi
+
+if [ "${PROXY_MODE}" = "YES" ]; then
+    # Remove specifications where to listen from cupsd.conf
+    ( cat $SNAP_COMMON/etc/cups/cupsd.conf | grep -v Listen | grep -v Port > $SNAP_COMMON/etc/cups/cupsd.conf.new || true ) && \
+	mv $SNAP_COMMON/etc/cups/cupsd.conf.new $SNAP_COMMON/etc/cups/cupsd.conf
+else
+    # Set the port in cupsd.conf
+    ( cat $SNAP_COMMON/etc/cups/cupsd.conf | grep -v Listen | grep -v Port > $SNAP_COMMON/etc/cups/cupsd.conf.new || true ) && \
+	echo Port $PORT > $SNAP_COMMON/etc/cups/cupsd.conf && \
+	cat $SNAP_COMMON/etc/cups/cupsd.conf.new >> $SNAP_COMMON/etc/cups/cupsd.conf && \
+	rm -f $SNAP_COMMON/etc/cups/cupsd.conf.new
+fi
+
+# If we stay with the standard domain socket as $DOMAINSOCKET we are in
+# stand-alone mode (no classically installed CUPS). In this case we let CUPS
+# listen on BOTH the the standard domain and the alternative (Snap) domain
+# The alternative domain is used by snapped client applications so that those
+# always use this domain and so ALWAYS access the snapped CUPS (which has Snap
+# mediation) and NEVER an installed classic CUPS (which often does not have
+# SNAP mediation).
+# This way CUPS is listening on the alternative domain in all three modes,
+# stand-alone, proxy, and parallel
+LISTENLINES=
+if [ "$DOMAINSOCKET" = "$ALTDOMAINSOCKET" ]; then
+    LISTENLINES="Listen $DOMAINSOCKET"
+else
+    LISTENLINES="Listen $DOMAINSOCKET\nListen $ALTDOMAINSOCKET"
+fi
+
+# Set the domain socket in cupsd.conf
+( cat $SNAP_COMMON/etc/cups/cupsd.conf | grep -v Listen > $SNAP_COMMON/etc/cups/cupsd.conf.new || true ) && \
+    echo $LISTENLINES > $SNAP_COMMON/etc/cups/cupsd.conf && \
+    cat $SNAP_COMMON/etc/cups/cupsd.conf.new >> $SNAP_COMMON/etc/cups/cupsd.conf && \
+    rm -f $SNAP_COMMON/etc/cups/cupsd.conf.new
+
+# Set the domain socket in client.conf
+touch $SNAP_COMMON/etc/cups/client.conf
+( cat $SNAP_COMMON/etc/cups/client.conf | grep -v ServerName > $SNAP_COMMON/etc/cups/client.conf.new || true ) && \
+    echo ServerName $DOMAINSOCKET > $SNAP_COMMON/etc/cups/client.conf && \
+    cat $SNAP_COMMON/etc/cups/client.conf.new >> $SNAP_COMMON/etc/cups/client.conf && \
+    rm -f $SNAP_COMMON/etc/cups/client.conf.new
+
+# Create snmp.conf if not already present
+if [ ! -f $SNAP_COMMON/etc/cups/snmp.conf ]; then
+    # Get default snmp.conf
+    cp $SNAP/etc/cups/snmp.conf $SNAP_COMMON/etc/cups/
+    chmod 644 $SNAP_COMMON/etc/cups/snmp.conf
+fi
+
+# Get further default files but do not overwrite existing ones
+yes n | cp -ri $SNAP/etc/cups/ppd $SNAP_COMMON/etc/cups/
+yes n | cp -ri $SNAP/etc/cups/ssl $SNAP_COMMON/etc/cups/
+
+# Spawn cupsd in a way that we can grab its PID
+SCHEDULER=cupsd
+exec $SCHEDULER -f -s $SNAP_COMMON/etc/cups/cups-files.conf -c $SNAP_COMMON/etc/cups/cupsd.conf &
+CUPS_PID=$!
+echo $CUPS_PID > $SNAP_DATA/var/run/cupsd.pid
+
+if [ "${PROXY_MODE}" = "YES" ]; then
+    # Spawn cups-proxyd in a way that we can grab its PID
+    # This auxiliary daemon will mirror the system's print queues to this
+    # Snap's CUPS daemon
+    PROXY_DAEMON=cups-proxyd
+    exec $PROXY_DAEMON $DOMAINSOCKET $SYSTEM_CUPS_SERVER -l --logdir $SNAP_DATA/var/log &
+    PROXYD_PID=$!
+    echo $PROXYD_PID > $SNAP_DATA/var/run/cups-proxyd.pid
+else
+    # Remove leftover PID file of cups-proxyd
+    rm -f $SNAP_DATA/var/run/cups-proxyd.pid
+    # Wait for CUPS to listen
+    RUNNING=0
+    for i in $(seq 10); do
+	if $SNAP/bin/lpstat -h $DOMAINSOCKET -r | grep -qv ' not '; then
+	    RUNNING=1
+	    break
+	fi
+	sleep 1
+    done
+    if [ "${RUNNING}" = "1" ]; then
+	# Remove mirrored queues from a previous proxy mode session
+	for i in $(seq 30); do
+	    DELETED=0
+	    for p in `lpstat -h $DOMAINSOCKET -v | grep ': proxy://' | cut -d ' ' -f 3 | cut -d : -f 1`; do
+		DELETED=1
+		lpadmin -h $DOMAINSOCKET -x $p;
+	    done
+	    if [ "${DELETED}" = "0" ]; then
+		break;
+	    fi
+	    sleep 1
+	done
+    fi
+fi
+
+# Keep this script running until cupsd terminates
+wait $CUPS_PID
+
+# Remove CUPS PID file as process is done
+rm -f $SNAP_DATA/var/run/cupsd.pid
+
+if [ -r $SNAP_DATA/var/run/cups-proxyd.pid && kill -0 "${PROXYD_PID}" 2>/dev/null]; then
+    # Kill cups-proxyd if not already terminated by stop-cupsd
+    kill -KILL $PROXYD_PID
+fi
+
+# Remove cups-proxyd PID file as process is done
+rm -f $SNAP_DATA/var/run/cups-proxyd.pid
+
+# Remove marking that we are in proxy mode
+rm -f $SNAP_DATA/var/run/proxy-mode

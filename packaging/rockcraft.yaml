@@ -1,0 +1,415 @@
+#
+# Rock Configuration File for CUPS OCI Image
+#
+# Copyright © 2024-2025 by OpenPrinting.
+# Copyright © 2024-2025 by Till Kamppeter
+# Copyright © 2024-2025 by Rudra Pratap Singh
+#
+# Licensed under Apache License v2.0. See the file "LICENSE" for more
+# information.
+#
+name: cups
+base: ubuntu@22.04
+version: '2.4.11-3'
+summary: CUPS-based printing stack Rock
+description: Complete printing environment in a OCI container
+license: Apache-2.0
+
+adopt-info: cups
+
+platforms:
+    arm64:
+    amd64:
+    armhf:
+
+services:
+  dbus:
+    command: /scripts/run-dbus.sh
+    override: replace
+    on-failure: restart
+    startup: enabled
+
+  cupsd:
+    command: /scripts/run-cupsd.sh
+    override: replace
+    on-failure: shutdown
+    startup: enabled
+    after: [dbus]
+
+parts:
+  cups:
+    source: https://github.com/OpenPrinting/cups.git
+    source-type: git
+    source-tag: 'v2.4.11'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     lower-than: '3'
+#     no-9x-revisions: true
+    plugin: autotools
+    autotools-configure-parameters:
+      - --prefix=/
+      - --exec-prefix=/
+      - --libdir=/lib
+      - --datadir=/share
+      - --datarootdir=/share
+      - --includedir=/include
+      - --with-system-groups=lpadmin
+      - --enable-libpaper
+      - --disable-pam
+      - --disable-systemd
+      - --without-rcdir
+      - --with-docdir=/share/cups/doc
+    build-packages:
+      - git
+      - sed
+      - curl
+      - perl-base
+      - autoconf
+      - automake
+      - libtool
+      - autotools-dev
+      - pkg-config
+      - g++
+      - libavahi-client-dev
+      - libavahi-common-dev
+      - libavahi-compat-libdnssd-dev
+      - libdbus-1-dev
+      - libgnutls28-dev
+      - libkrb5-dev
+      - libpam0g-dev
+      - libpaper-dev
+      - libsystemd-dev
+      - libusb-1.0-0-dev
+      - po4a
+      - po-debconf
+      - zlib1g-dev
+      - libapparmor-dev
+      - libsnapd-glib-dev
+    stage-packages:
+      - libusb-1.0-0
+      - libavahi-common3
+      - libavahi-client3
+      - libpaper1
+      - libsnapd-glib1
+      - libapparmor1
+    prime:
+      - -etc/fonts
+      - -var
+      - -include
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/fonts
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+      - -lib/libcupsimage.*
+      - -usr/lib/*/libdconf.*
+      - -usr/lib/*/libicuio.*
+      - -usr/lib/*/libicutest.*
+      - -usr/lib/*/libicutu.*
+      - -usr/lib/*/libicui18n.*
+
+  qpdf:
+    source: https://github.com/qpdf/qpdf/
+    source-type: git
+    source-tag: 'v11.9.1'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     lower-than: '12'
+#     no-9x-revisions: true
+    plugin: cmake
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/
+      - -DCMAKE_BUILD_RPATH_USE_ORIGIN=1
+      - -DUSE_IMPLICIT_CRYPTO=0
+      - -DREQUIRE_CRYPTO_GNUTLS=1
+      - -DSHOW_FAILED_TEST_OUTPUT=1
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DQTEST_COLOR=0
+    build-packages:
+      - cmake
+      - g++
+      - libjpeg-dev
+      - zlib1g-dev
+      - libgnutls28-dev
+    stage-packages:
+      - libjpeg-turbo8
+    prime:
+      - -etc/fonts
+      - -var
+      - -include
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/fonts
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+      - -usr/lib/libqpdf.a
+
+  ghostscript:
+    # use GitHub mirror of GhostPDL here, as original GIT, self-hosted by
+    # Artifex is not supported by ubuntu/desktop-snaps
+    #source: https://git.ghostscript.com/ghostpdl.git
+    source: https://github.com/ArtifexSoftware/ghostpdl.git
+    source-type: git
+    source-tag: 'ghostpdl-10.05.0-test-base-001'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     format: "ghostpdl-%M.%m.%R"
+#     lower-than: '11'
+#     no-9x-revisions: true
+    plugin: autotools
+    autotools-configure-parameters:
+      - --prefix=/
+      - --without-x
+      - --disable-gtk
+      - --with-drivers=pdfwrite,pdfimage8,pdfimage24,pdfimage32,ps2write,cups,pwgraster,appleraster,urf,PCLm,PCLm8,pxlmono,pxlcolor
+      - --enable-cups
+      - --enable-freetype
+      - --without-tesseract
+      - --datarootdir=/parts/cups/install/share/
+      - --with-fontpath=/parts/cups/install/share/cups/fonts
+      - --with-cups-serverbin=/parts/cups/install/lib/cups
+      # - --with-cups-serverroot=/var/snap/cups/common/etc/cups
+      - --with-cups-datadir=/parts/cups/install/share/cups
+      - --without-gpdl
+      - --without-pcl
+      - --without-xps
+    build-environment:
+      - LD_LIBRARY_PATH: "${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib"
+    stage-packages:
+      - libpaper1
+      - libfontconfig1
+      - libfreetype6
+      - libpng16-16
+    prime:
+      - -etc/fonts
+      - -var
+      - -include
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/fonts
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+    organize:
+      /parts/cups/install/share: share
+    after: [cups]
+
+  libcupsfilters:
+    source: https://github.com/OpenPrinting/libcupsfilters
+    source-type: git
+    source-tag: '2.1.0'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     lower-than: '3'
+#     no-9x-revisions: true
+    plugin: autotools
+    autotools-configure-parameters:
+      - --prefix=/
+      - --exec-prefix=/
+      - --datadir=/share
+      - --datarootdir=/share
+      - --includedir=/include
+      - --disable-avahi
+      - --disable-mutool
+    build-environment:
+      - LD_LIBRARY_PATH: "${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib"
+    build-packages:
+      - gettext
+      - autoconf
+      - automake
+      - autotools-dev
+      - pkg-config
+      - g++
+      - sharutils
+      - liblcms2-dev
+      - libpoppler-cpp-dev
+      - libpng-dev
+      - libjpeg-dev
+      - libtiff5-dev
+      - zlib1g-dev
+      - libfontconfig1-dev
+      - libdbus-1-dev
+      - libexif-dev
+    stage-packages:
+      - libpoppler-cpp0v5
+      - libjbig0
+      - liblcms2-2
+      - libnspr4
+      - libnss3
+      - libopenjp2-7
+      - libpoppler118
+      - libtiff5
+      - libwebp7
+      - libexif12
+    prime:
+      - -etc
+      - -var
+      - -include
+      - -lib/pkgconfig
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+      - share/cups
+      - lib/lib*.so*
+      - lib/*/lib*.so*
+      - usr/lib/lib*.so*
+      - usr/lib/*/lib*.so*
+      - usr/lib/*/nss
+      - -usr/lib/*/libssl3.*
+    after: [cups, qpdf, ghostscript]
+
+  libppd:
+    source: https://github.com/OpenPrinting/libppd
+    source-type: git
+    source-tag: '2.1.0'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     lower-than: '3'
+#     no-9x-revisions: true
+    plugin: autotools
+    # We only need libppd itself
+    autotools-configure-parameters:
+      - --prefix=/
+      - --exec-prefix=/
+      - --datadir=/share
+      - --datarootdir=/share
+      - --includedir=/include
+      - --disable-mutool
+      - --disable-pdftocairo
+      - --disable-acroread
+      - --with-pdftops-path=/parts/cups/install/usr/bin/pdftops
+    build-environment:
+      - LD_LIBRARY_PATH: "${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib"
+      - CFLAGS: "$CFLAGS -DHAVE_GHOSTSCRIPT_PS2WRITE -DHAVE_POPPLER_PDFTOPS_WITH_ORIGPAGESIZES -DHAVE_POPPLER_PDFTOPS_WITH_RESOLUTION"
+    build-packages:
+      - gettext
+      - autoconf
+      - automake
+      - autotools-dev
+      - pkg-config
+      - g++
+      - sharutils
+      - poppler-utils
+    prime:
+      - -etc
+      - -var
+      - -include
+      - -lib/pkgconfig
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/ppdc
+      - -usr/share/fonts
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+      - lib/lib*.so*
+      - lib/*/lib*.so*
+      - usr/lib/lib*.so*
+      - usr/lib/*/lib*.so*
+      - usr/lib/*/nss
+    after: [cups, ghostscript, libcupsfilters]
+
+  cups-filters:
+    source: https://github.com/OpenPrinting/cups-filters.git
+    source-type: git
+    source-tag: '2.0.1'
+    source-depth: 1
+# ext:updatesnap
+#   version-format:
+#     lower-than: '3'
+#     no-9x-revisions: true
+    plugin: autotools
+    autotools-configure-parameters:
+      - --prefix=/
+      - --exec-prefix=/
+      - --datadir=/share
+      - --datarootdir=/share
+      - --includedir=/include
+      - --disable-mutool
+      - --disable-universal-cups-filter
+      - --enable-individual-cups-filters
+    build-environment:
+      - LD_LIBRARY_PATH: "${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CRAFT_STAGE/usr/lib:$CRAFT_STAGE/lib"
+    build-packages:
+      - autoconf
+      - autotools-dev
+      - pkg-config
+      - g++
+      - sharutils
+      - poppler-utils
+      - liblcms2-dev
+      - libpoppler-cpp-dev
+      - zlib1g-dev
+      - libavahi-common-dev
+      - libavahi-client-dev
+    stage-packages:
+      - poppler-utils
+      - libpoppler-cpp0v5
+      - libdb5.3
+      - fonts-freefont-ttf
+      - fonts-arphic-uming
+      - fontconfig-config
+    prime:
+      - -var
+      - -include
+      - -share/man
+      - -share/doc
+      - -share/lintian
+      - -usr/share/man
+      - -usr/share/doc
+      - -usr/share/doc-base
+      - -usr/share/lintian
+      - -usr/lib/*/libssl3.*
+    after: [cups, qpdf, ghostscript, libcupsfilters, libppd]
+
+  avahi-daemon:
+    plugin: nil
+    overlay-packages:
+      - avahi-daemon
+      - avahi-utils
+      - libnss-mdns
+      - mdns-scan
+      - dbus
+
+  utils:
+    plugin: nil
+    overlay-packages:
+      - sed
+      - openssl
+
+  scripts:
+    plugin: dump
+    source: scripts/rock/
+    organize:
+      run-cupsd.sh: /scripts/run-cupsd.sh
+      run-dbus.sh: /scripts/run-dbus.sh
+    override-prime: |
+      set -eux
+      craftctl default
+      # Ensure the run-cupsd.sh script has executable permissions
+      if [ -f "$CRAFT_PRIME/scripts/run-cupsd.sh" ]; then
+        chmod +x "$CRAFT_PRIME/scripts/run-cupsd.sh"
+      fi
+      # Ensure the run-dbus.sh script has executable permissions
+      if [ -f "$CRAFT_PRIME/scripts/run-dbus.sh" ]; then
+        chmod +x "$CRAFT_PRIME/scripts/run-dbus.sh"
+      fi
