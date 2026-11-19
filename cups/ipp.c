@@ -3454,12 +3454,13 @@ ippSetStringfv(ipp_t           *ipp,	// I  - IPP message
 // The "attr" argument may be modified as a result of setting the value.
 //
 // Integer (`IPP_TAG_INTEGER`) values can be promoted to rangeOfInteger
-// (`IPP_TAG_RANGE`) values, the various string tags can be promoted to name
-// (`IPP_TAG_NAME`) or nameWithLanguage (`IPP_TAG_NAMELANG`) values, text
-// (`IPP_TAG_TEXT`) values can be promoted to textWithLanguage
-// (`IPP_TAG_TEXTLANG`) values, and all values can be demoted to the various
-// out-of-band value tags such as no-value (`IPP_TAG_NOVALUE`). All other
-// changes will be rejected.
+// (`IPP_TAG_RANGE`) values, keyword (`IPP_TAG_KEYWORD`) values can be promoted
+// to name (`IPP_TAG_NAME`) or nameWithLanguage (`IPP_TAG_NAMELANG`) values,
+// name (`IPP_TAG_NAME`) values can be promoted to nameWithLanguage
+// (`IPP_TAG_NAMELANG`) values, text (`IPP_TAG_TEXT`) values can be promoted to
+// textWithLanguage (`IPP_TAG_TEXTLANG`) values, and all values can be demoted
+// to the various out-of-band value tags such as no-value (`IPP_TAG_NOVALUE`).
+// All other changes will be rejected.
 //
 // Promoting a string attribute to nameWithLanguage or textWithLanguage adds the
 // language code in the "attributes-natural-language" attribute or, if not
@@ -3551,7 +3552,7 @@ ippSetValueTag(
         }
 
         for (i = (*attr)->num_values - 1, value = (*attr)->values + 1; i > 0; i --, value ++)
-          value->string.language = (*attr)->values[0].string.language;
+          value->string.language = _cupsStrAlloc((*attr)->values[0].string.language);
 
         if ((int)(*attr)->value_tag & IPP_TAG_CUPS_CONST)
         {
@@ -3560,7 +3561,7 @@ ippSetValueTag(
 	    value->string.text = _cupsStrAlloc(value->string.text);
         }
 
-        (*attr)->value_tag = IPP_TAG_NAMELANG;
+        (*attr)->value_tag = value_tag;
         break;
 
     case IPP_TAG_KEYWORD :
