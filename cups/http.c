@@ -1071,8 +1071,13 @@ httpGetLength2(http_t *http)		/* I - HTTP connection */
     * Fixed length content...
     */
 
-    if ((remaining = strtoll(http->fields[HTTP_FIELD_CONTENT_LENGTH], NULL, 10)) < 0)
+    char *end;				/* Pointer to end of value */
+
+    if ((remaining = strtoll(http->fields[HTTP_FIELD_CONTENT_LENGTH], &end, 10)) < 0 || (remaining == 0 && errno == ERANGE) || *end)
+    {
+      DEBUG_printf(("4httpGetLength: Bad Content-Length '%s'.", http->fields[HTTP_FIELD_CONTENT_LENGTH]));
       remaining = -1;
+    }
   }
   else
   {
@@ -3692,7 +3697,7 @@ http_add_field(http_t       *http,	/* I - HTTP connection */
     }
   }
 
-  if (append && field != HTTP_FIELD_ACCEPT_ENCODING && field != HTTP_FIELD_ACCEPT_LANGUAGE && field != HTTP_FIELD_ACCEPT_RANGES && field != HTTP_FIELD_ALLOW && field != HTTP_FIELD_LINK && field != HTTP_FIELD_TRANSFER_ENCODING && field != HTTP_FIELD_UPGRADE && field != HTTP_FIELD_WWW_AUTHENTICATE)
+  if (append && field != HTTP_FIELD_ACCEPT_ENCODING && field != HTTP_FIELD_ACCEPT_LANGUAGE && field != HTTP_FIELD_ACCEPT_RANGES && field != HTTP_FIELD_ALLOW && field != HTTP_FIELD_CONTENT_LENGTH && field != HTTP_FIELD_LINK && field != HTTP_FIELD_TRANSFER_ENCODING && field != HTTP_FIELD_UPGRADE && field != HTTP_FIELD_WWW_AUTHENTICATE)
     append = 0;
 
   if (!append && http->fields[field])
