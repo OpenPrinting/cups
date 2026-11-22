@@ -1506,6 +1506,13 @@ cupsDNSSDServiceAdd(
     return (true);
   }
 
+  if (num_txt > (sizeof(keys) / sizeof(keys[0])))
+  {
+    report_error(service->dnssd, "Too many TXT record key/value pairs.");
+    ret = false;
+    goto done;
+  }
+
   if ((tarray = cupsArrayNewStrings(types, ',')) == NULL)
   {
     report_error(service->dnssd, "Unable to create types array: %s", strerror(errno));
