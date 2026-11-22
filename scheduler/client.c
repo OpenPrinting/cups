@@ -3667,6 +3667,7 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   cupsd_netif_t	*netif;			/* Current network interface */
   const char	*end;			/* End character */
   char		*ptr;			/* Pointer into host value */
+  size_t	hostlen;		/* Length of hostname */
 
 
  /*
@@ -3682,6 +3683,9 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   }
   else
     con->clientport = con->serverport;
+
+  if ((hostlen = strlen(con->clientname)) == 0)
+    return (0);
 
  /*
   * Then validate...
@@ -3705,18 +3709,8 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Check if the hostname is something.local (Bonjour); if so, allow it.
   */
 
-  if ((end = strrchr(con->clientname, '.')) != NULL && end > con->clientname &&
-      !end[1])
-  {
-   /*
-    * "." on end, work back to second-to-last "."...
-    */
-
-    for (end --; end > con->clientname && *end != '.'; end --);
-  }
-
-  if (end && (!_cups_strcasecmp(end, ".local") ||
-	      !_cups_strcasecmp(end, ".local.")))
+  if ((hostlen > 6 && !_cups_strcasecmp(con->clientname + hostlen - 6, ".local")) ||
+      (hostlen > 7 && !_cups_strcasecmp(con->clientname + hostlen - 7, ".local.")))
     return (1);
 #endif /* HAVE_DNSSD */
 
@@ -3724,23 +3718,31 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   * Check if the hostname is an IP address...
   */
 
-  if (isdigit(con->clientname[0] & 255) || con->clientname[0] == '[')
+  if (con->clientname[0] == '[' && con->clientname[hostlen - 1] == ']')
+    return (1);				/* IPv6 address */
+
+  if (isdigit(con->clientname[0] & 255))
   {
-   /*
-    * Possible IPv4/IPv6 address...
-    */
+    /* Possible IPv4 numeric address... */
+    long	number;			/* Current number */
+    char	*nptr;			/* Pointer into field */
 
-    http_addrlist_t *addrlist;		/* List of addresses */
-
-
-    if ((addrlist = httpAddrGetList(con->clientname, AF_UNSPEC, NULL)) != NULL)
+    if ((number = strtol(con->clientname, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
     {
-     /*
-      * Good IPv4/IPv6 address...
-      */
-
-      httpAddrFreeList(addrlist);
-      return (1);
+      /* NNN. */
+      if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+      {
+	/* NNN.NNN. */
+	if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+	{
+	  /* NNN.NNN.NNN. */
+	  if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && !*nptr)
+	  {
+	    /* NNN.NNN.NNN.NNN */
+	    return (1);
+	  }
+	}
+      }
     }
   }
 
