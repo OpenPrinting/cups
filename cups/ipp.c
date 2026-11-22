@@ -3438,7 +3438,7 @@ ippSetStringfv(ipp_t           *ipp,	// I  - IPP message
   }
 
   // Set the formatted string and return...
-  if ((*attr)->value_tag & IPP_TAG_CUPS_MASK)
+  if ((*attr)->value_tag & IPP_TAG_CUPS_CONST)
     return (ippSetString(ipp, attr, element, _cupsStrAlloc(buffer)));
   else
     return (ippSetString(ipp, attr, element, buffer));
