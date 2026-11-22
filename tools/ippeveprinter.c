@@ -5712,7 +5712,7 @@ process_http(ippeve_client_t *client)	// I - Client connection
   else
     ptr = strrchr(client->host_field, '.');
 
-  if ((httpAddrIsLocalhost(httpGetAddress(client->http)) && _cups_strcasecmp(client->host_field, "localhost") && _cups_strcasecmp(client->host_field, "localhost.") && strcmp(client->host_field, "127.0.0.1") && strcmp(client->host_field, "[::1]")) || (!host_is_ip && strcmp(client->host_field, client->printer->hostname) && (!ptr || (_cups_strcasecmp(ptr, ".local") && _cups_strcasecmp(ptr, ".local.")))))
+  if ((httpAddrIsLocalhost(httpGetAddress(client->http)) && _cups_strcasecmp(client->host_field, "localhost") && _cups_strcasecmp(client->host_field, "localhost.") && strcmp(client->host_field, "127.0.0.1") && strcmp(client->host_field, "[::1]")) || (!host_is_ip && _cups_strcasecmp(client->host_field, client->printer->hostname) && (!ptr || (_cups_strcasecmp(ptr, ".local") && _cups_strcasecmp(ptr, ".local.")))))
   {
     fprintf(stderr, "%s Bad Host: header '%s'.\n", client->hostname, client->host_field);
     respond_http(client, HTTP_STATUS_BAD_REQUEST, NULL, NULL, 0);
