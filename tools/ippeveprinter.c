@@ -5578,6 +5578,9 @@ process_http(ippeve_client_t *client)	// I - Client connection
 					// Hostname
 			*ptr;		// Pointer into value
   int			port;		// Port number
+  size_t		hostlen;	// Length of hostname
+  bool			host_is_ip = false;
+					// Does the Host: header contain an IP address?
 
 
   // Clear state variables...
@@ -5653,7 +5656,7 @@ process_http(ippeve_client_t *client)	// I - Client connection
   }
 
   cupsCopyString(client->host_field, httpGetField(client->http, HTTP_FIELD_HOST), sizeof(client->host_field));
-  if ((ptr = strrchr(client->host_field, ':')) != NULL)
+  if ((ptr = strrchr(client->host_field, ':')) != NULL && !strchr(ptr, ']'))
   {
     // Grab port number from Host: header...
     *ptr++ = '\0';
@@ -5665,10 +5668,51 @@ process_http(ippeve_client_t *client)	// I - Client connection
     client->host_port = client->printer->port;
   }
 
-  if ((ptr = strstr(client->host_field, ".local")) == NULL)
+  if ((hostlen = strlen(client->host_field)) == 0)
+  {
+    fprintf(stderr, "%s Bad Host: header '%s'.\n", client->hostname, client->host_field);
+    respond_http(client, HTTP_STATUS_BAD_REQUEST, NULL, NULL, 0);
+    return (0);
+  }
+
+  if (client->host_field[0] == '[' && client->host_field[hostlen - 1] == ']')
+  {
+    // IPv6 numeric address...
+    host_is_ip = true;
+  }
+  else if (_cups_isdigit(client->host_field[0]))
+  {
+    // Possible IPv4 numeric address...
+    long	number;			// Current number
+    char	*nptr;			// Pointer into field
+
+    if ((number = strtol(client->host_field, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+    {
+      // NNN.
+      if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+      {
+	// NNN.NNN.
+	if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+	{
+	  // NNN.NNN.NNN.
+	  if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && !*nptr)
+	  {
+	    // NNN.NNN.NNN.NNN
+	    host_is_ip = true;
+	  }
+	}
+      }
+    }
+  }
+
+  if (hostlen > 6 && !_cups_strcasecmp(client->host_field + hostlen - 6, ".local"))
+    ptr = client->host_field + hostlen - 6;
+  else if (hostlen > 7 && !_cups_strcasecmp(client->host_field + hostlen - 7, ".local."))
+    ptr = client->host_field + hostlen - 7;
+  else
     ptr = strrchr(client->host_field, '.');
 
-  if (!_cups_isdigit(client->host_field[0]) && client->host_field[0] != '[' && strcmp(client->host_field, client->printer->hostname) && strcmp(client->host_field, "localhost") && (!ptr || (strcmp(ptr, ".local") && strcmp(ptr, ".local."))))
+  if ((httpAddrIsLocalhost(httpGetAddress(client->http)) && _cups_strcasecmp(client->host_field, "localhost") && _cups_strcasecmp(client->host_field, "localhost.") && strcmp(client->host_field, "127.0.0.1") && strcmp(client->host_field, "[::1]")) || (!host_is_ip && strcmp(client->host_field, client->printer->hostname) && (!ptr || (_cups_strcasecmp(ptr, ".local") && _cups_strcasecmp(ptr, ".local.")))))
   {
     fprintf(stderr, "%s Bad Host: header '%s'.\n", client->hostname, client->host_field);
     respond_http(client, HTTP_STATUS_BAD_REQUEST, NULL, NULL, 0);

@@ -3682,21 +3682,26 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
   cupsd_netif_t	*netif;			/* Current network interface */
   const char	*end;			/* End character */
   char		*ptr;			/* Pointer into host value */
+  size_t	hostlen;		/* Length of hostname */
 
 
  /*
   * Copy the Host: header for later use...
   */
 
-  cupsCopyString(con->clientname, httpGetField(con->http, HTTP_FIELD_HOST),
-          sizeof(con->clientname));
+  cupsCopyString(con->clientname, httpGetField(con->http, HTTP_FIELD_HOST), sizeof(con->clientname));
   if ((ptr = strrchr(con->clientname, ':')) != NULL && !strchr(ptr, ']'))
   {
     *ptr++ = '\0';
     con->clientport = atoi(ptr);
   }
   else
+  {
     con->clientport = con->serverport;
+  }
+
+  if ((hostlen = strlen(con->clientname)) == 0)
+    return (0);
 
  /*
   * Then validate...
@@ -3709,50 +3714,46 @@ valid_host(cupsd_client_t *con)		/* I - Client connection */
     * addresses when accessing CUPS via the loopback interface...
     */
 
-    return (!_cups_strcasecmp(con->clientname, "localhost") ||
-	    !_cups_strcasecmp(con->clientname, "localhost.") ||
-            !strcmp(con->clientname, "127.0.0.1") ||
-	    !strcmp(con->clientname, "[::1]"));
+    return (!_cups_strcasecmp(con->clientname, "localhost") || !_cups_strcasecmp(con->clientname, "localhost.") || !strcmp(con->clientname, "127.0.0.1") || !strcmp(con->clientname, "[::1]"));
   }
 
  /*
   * Check if the hostname is something.local (Bonjour); if so, allow it.
   */
 
-  if ((end = strrchr(con->clientname, '.')) != NULL && end > con->clientname &&
-      !end[1])
-  {
-   /*
-    * "." on end, work back to second-to-last "."...
-    */
-
-    for (end --; end > con->clientname && *end != '.'; end --);
-  }
-
-  if (end && (!_cups_strcasecmp(end, ".local") || !_cups_strcasecmp(end, ".local.")))
+  if ((hostlen > 6 && !_cups_strcasecmp(con->clientname + hostlen - 6, ".local")) ||
+      (hostlen > 7 && !_cups_strcasecmp(con->clientname + hostlen - 7, ".local.")))
     return (1);
 
  /*
   * Check if the hostname is an IP address...
   */
 
-  if (isdigit(con->clientname[0] & 255) || con->clientname[0] == '[')
+  if (con->clientname[0] == '[' && con->clientname[hostlen - 1] == ']')
+    return (1);				/* IPv6 address */
+
+  if (isdigit(con->clientname[0] & 255))
   {
-   /*
-    * Possible IPv4/IPv6 address...
-    */
+    /* Possible IPv4 numeric address... */
+    long	number;			/* Current number */
+    char	*nptr;			/* Pointer into field */
 
-    http_addrlist_t *addrlist;		/* List of addresses */
-
-
-    if ((addrlist = httpAddrGetList(con->clientname, AF_UNSPEC, NULL)) != NULL)
+    if ((number = strtol(con->clientname, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
     {
-     /*
-      * Good IPv4/IPv6 address...
-      */
-
-      httpAddrFreeList(addrlist);
-      return (1);
+      /* NNN. */
+      if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+      {
+	/* NNN.NNN. */
+	if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && *nptr == '.')
+	{
+	  /* NNN.NNN.NNN. */
+	  if ((number = strtol(nptr + 1, &nptr, 10)) >= 0 && number <= 255 && nptr && !*nptr)
+	  {
+	    /* NNN.NNN.NNN.NNN */
+	    return (1);
+	  }
+	}
+      }
     }
   }
 
