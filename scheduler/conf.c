@@ -1625,6 +1625,24 @@ cupsdReadConfiguration(void)
     MimeDatabase = mimeLoadTypes(MimeDatabase, ServerRoot);
     MimeDatabase = mimeLoadFilters(MimeDatabase, mimedir, temp);
     MimeDatabase = mimeLoadFilters(MimeDatabase, ServerRoot, temp);
+
+    if (MimeDatabase && !mimeType(MimeDatabase, "application", "octet-stream"))
+    {
+      if (!mimeAddType(MimeDatabase, "application", "octet-stream"))
+      {
+        cupsdLogMessage(CUPSD_LOG_ERROR,
+                        "Unable to add fallback MIME type application/octet-stream.");
+        if (FatalErrors & CUPSD_FATAL_CONFIG)
+        {
+          _cupsRWUnlock(&MimeDatabase->lock);
+          return (0);
+        }
+      }
+      else
+        cupsdLogMessage(CUPSD_LOG_INFO,
+                        "Added fallback MIME type application/octet-stream.");
+    }
+
     _cupsRWUnlock(&MimeDatabase->lock);
 
     if (!MimeDatabase)
