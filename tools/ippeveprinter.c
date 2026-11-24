@@ -676,7 +676,7 @@ main(int  argc,				/* I - Number of command-line args */
 
     snprintf(directory, sizeof(directory), "%s/ippeveprinter.%d", tmpdir, (int)getpid());
 
-    if (mkdir(directory, 0755) && errno != EEXIST)
+    if (mkdir(directory, 0700))
     {
       _cupsLangPrintf(stderr, _("Unable to create spool directory \"%s\": %s"), directory, strerror(errno));
       usage(1);
@@ -1304,7 +1304,7 @@ create_job_file(
 
   snprintf(fname, fnamesize, "%s/%d-%s.%s", directory, job->id, name, ext);
 
-  return (open(fname, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666));
+  return (open(fname, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY | O_NOFOLLOW, 0600));
 }
 
 
@@ -2635,7 +2635,7 @@ finish_document_uri(
 
   if (!strcmp(scheme, "file"))
   {
-    if ((infile = open(resource, O_RDONLY | O_BINARY)) < 0)
+    if ((infile = open(resource, O_RDONLY | O_BINARY | O_NOFOLLOW)) < 0)
     {
       respond_ipp(client, IPP_STATUS_ERROR_DOCUMENT_ACCESS, "Unable to access URI: %s", strerror(errno));
 
@@ -6877,7 +6877,7 @@ process_job(ippeve_job_t *job)		/* I - Job */
         {
           if (errno == ENOENT)
           {
-            if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666)) >= 0)
+            if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY | O_NOFOLLOW, 0600)) >= 0)
 	      fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	    else
 	      fprintf(stderr, "[Job %d] Unable to create \"%s\": %s\n", job->id, resource, strerror(errno));
@@ -6892,14 +6892,14 @@ process_job(ippeve_job_t *job)		/* I - Job */
           else
             fprintf(stderr, "[Job %d] Unable to create \"%s\": %s\n", job->id, line, strerror(errno));
         }
-	else if (!S_ISREG(fileinfo.st_mode))
+	else if (S_ISREG(fileinfo.st_mode))
 	{
-	  if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, 0666)) >= 0)
+	  if ((mystdout = open(resource, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY | O_NOFOLLOW, 0600)) >= 0)
 	    fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	  else
             fprintf(stderr, "[Job %d] Unable to create \"%s\": %s\n", job->id, resource, strerror(errno));
 	}
-        else if ((mystdout = open(resource, O_WRONLY | O_BINARY)) >= 0)
+        else if ((mystdout = open(resource, O_WRONLY | O_BINARY | O_NOFOLLOW)) >= 0)
 	  fprintf(stderr, "[Job %d] Saving print command output to \"%s\".\n", job->id, resource);
 	else
 	  fprintf(stderr, "[Job %d] Unable to open \"%s\": %s\n", job->id, resource, strerror(errno));
