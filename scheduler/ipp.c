@@ -8905,14 +8905,11 @@ print_job(cupsd_client_t  *con,		/* I - Client connection */
     if (!filetype)
       filetype = mimeType(MimeDatabase, super, type);
 
-    if (filetype)
-    {
-      cupsdLogMessage(CUPSD_LOG_INFO, "[Job ???] Request file type is %s/%s.",
-		      filetype->super, filetype->type);
+    cupsdLogMessage(CUPSD_LOG_INFO, "[Job ???] Request file type is %s/%s.",
+		    filetype->super, filetype->type);
 
-      snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
-      ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
-    }
+    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
+    ippAddString(con->request, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
   }
   else
     filetype = mimeType(MimeDatabase, super, type);
@@ -10164,13 +10161,11 @@ send_document(cupsd_client_t  *con,	/* I - Client connection */
       filetype = mimeType(MimeDatabase, super, type);
 
     if (filetype)
-    {
       cupsdLogJob(job, CUPSD_LOG_DEBUG, "Request file type is %s/%s.",
 		  filetype->super, filetype->type);
 
-      snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
-      ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
-    }
+    snprintf(mimetype, sizeof(mimetype), "%s/%s", filetype->super, filetype->type);
+    ippAddString(job->attrs, IPP_TAG_JOB, IPP_TAG_MIMETYPE, "document-format-detected", NULL, mimetype);
   }
   else
     filetype = mimeType(MimeDatabase, super, type);

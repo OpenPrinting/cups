@@ -1621,31 +1621,28 @@ cupsdReadConfiguration(void)
     _cupsRWInit(&MimeDatabase->lock);
 
     _cupsRWLockWrite(&MimeDatabase->lock);
+
+   /*
+    * Seed the built-in raw type before loading so that document auto-typing
+    * always has a type to fall back to (Issue #1826).
+    */
+
+    mimeAddType(MimeDatabase, "application", "octet-stream");
     MimeDatabase = mimeLoadTypes(MimeDatabase, mimedir);
     MimeDatabase = mimeLoadTypes(MimeDatabase, ServerRoot);
     MimeDatabase = mimeLoadFilters(MimeDatabase, mimedir, temp);
     MimeDatabase = mimeLoadFilters(MimeDatabase, ServerRoot, temp);
 
-    if (MimeDatabase && !mimeType(MimeDatabase, "application", "octet-stream"))
-    {
-      if (!mimeAddType(MimeDatabase, "application", "octet-stream"))
-      {
-        cupsdLogMessage(CUPSD_LOG_ERROR,
-                        "Unable to add fallback MIME type application/octet-stream.");
-        if (FatalErrors & CUPSD_FATAL_CONFIG)
-        {
-          _cupsRWUnlock(&MimeDatabase->lock);
-          return (0);
-        }
-      }
-      else
-        cupsdLogMessage(CUPSD_LOG_INFO,
-                        "Added fallback MIME type application/octet-stream.");
-    }
-
     _cupsRWUnlock(&MimeDatabase->lock);
 
-    if (!MimeDatabase)
+   /*
+    * A database with nothing but the built-in type (or with no filters) is
+    * not a functional configuration - fail here instead of letting jobs
+    * dereference a NULL file type later (Issue #1826).
+    */
+
+    if (!MimeDatabase || mimeNumTypes(MimeDatabase) == 1 ||
+        mimeNumFilters(MimeDatabase) == 0)
     {
       cupsdLogMessage(CUPSD_LOG_EMERG,
                       "Unable to load MIME database from \"%s\" or \"%s\".",
