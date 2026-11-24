@@ -86,6 +86,7 @@ typedef unsigned long useconds_t;
 #  define O_WRONLY	_O_WRONLY
 #  define O_CREAT	_O_CREAT
 #  define O_TRUNC	_O_TRUNC
+#  define O_NOFOLLOW	0
 
 
 /*
