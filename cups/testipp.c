@@ -365,6 +365,33 @@ static ipp_uchar_t with_language[] =	// textWithLanguage/nameWithLanguage buffer
 		  IPP_TAG_END		// end tag
 		};
 
+static ipp_uchar_t keyword_with_language[] =
+					// nameWithLanguage + keyword buffer
+		{
+		  0x02, 0x00,		// IPP version
+		  0x00, 0x02,		// Print-Job operation
+		  0x00, 0x00, 0x00, 0x01,
+					// Request ID
+
+		  IPP_TAG_OPERATION,
+
+		  IPP_TAG_NAMELANG,	// nameWithLanguage tag
+		  0x00, 0x06,		// Name length + name
+		  'x', '-', 'n', 'a', 'm', 'e',
+		  0x00, 0x0d,		// Value length
+		  0x00, 0x02,		// Language length + language
+		  'f', 'r',
+		  0x00, 0x07,		// Text length + text
+		  'R', 'a', 'p', 'p', 'o', 'r', 't',
+
+		  IPP_TAG_KEYWORD,	// keyword tag
+		  0x00, 0x00,		// Name length 0 (1setOf)
+		  0x00, 0x04,		// Value length + value
+		  'n', 'o', 'n', 'e',
+
+		  IPP_TAG_END		// end tag
+		};
+
 
 //
 // Local functions...
@@ -931,6 +958,56 @@ main(int  argc,				// I - Number of command-line arguments
       }
 
       ippDelete(copy);
+    }
+
+    ippDelete(request);
+
+    // Read a nameWithLanguage value followed by a keyword value...
+    testBegin("Read nameWithLanguage/keyword from Memory");
+
+    request = ippNew();
+    data.rpos    = 0;
+    data.wused   = sizeof(keyword_with_language);
+    data.wsize   = sizeof(keyword_with_language);
+    data.wbuffer = keyword_with_language;
+
+    while ((state = ippReadIO(&data, (ipp_io_cb_t)read_cb, 1, NULL, request)) != IPP_STATE_DATA)
+    {
+      if (state == IPP_STATE_ERROR)
+	break;
+    }
+
+    if (state != IPP_STATE_DATA)
+    {
+      testEndMessage(false, "%u bytes read of %u", (unsigned)data.rpos, (unsigned)data.wused);
+      status = 1;
+    }
+    else
+    {
+      testEnd(true);
+    }
+
+    testBegin("ippGetString(x-name, 1)");
+    text = ippGetString(ippFindAttribute(request, "x-name", IPP_TAG_NAMELANG), 1, &language);
+    if (text && !strcmp(text, "none") && language && !strcmp(language, "en-us"))
+    {
+      testEndMessage(true, "'%s'(%s)", text, language);
+    }
+    else
+    {
+      testEndMessage(false, "got '%s'(%s), expected 'none'(en-us)", text, language);
+      status = 1;
+    }
+
+    testBegin("ippValidateAttributes");
+    if (ippValidateAttributes(request))
+    {
+      testEnd(true);
+    }
+    else
+    {
+      testEndMessage(false, "%s", cupsGetErrorString());
+      status = 1;
     }
 
     ippDelete(request);

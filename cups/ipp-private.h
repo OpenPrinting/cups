@@ -1,7 +1,7 @@
 //
 // Private IPP definitions for CUPS.
 //
-// Copyright © 2020-2024 by OpenPrinting.
+// Copyright © 2020-2026 by OpenPrinting.
 // Copyright © 2007-2018 by Apple Inc.
 // Copyright © 1997-2006 by Easy Software Products.
 //
@@ -103,6 +103,7 @@ struct _ipp_s				// IPP Request/Response/Notification
   _ipp_find_t		fstack[_IPP_MAX_FIND];
 					// Find stack
   _ipp_find_t		*find;		// Current find
+  char			*def_language;	// Default language code
 };
 
 typedef struct _ipp_option_s		// Attribute mapping data
@@ -111,8 +112,7 @@ typedef struct _ipp_option_s		// Attribute mapping data
   const char	*name;			// Option/attribute name
   ipp_tag_t	value_tag;		// Value tag for this attribute
   ipp_tag_t	group_tag;		// Group tag for this attribute
-  ipp_tag_t	alt_group_tag;		/* Alternate group tag for this
-					 * attribute */
+  ipp_tag_t	alt_group_tag;		// Alternate group tag for this attribute
   const ipp_op_t *operations;		// Allowed operations for this attr
 } _ipp_option_t;
 
