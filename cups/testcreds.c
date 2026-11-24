@@ -436,6 +436,40 @@ do_unit_tests(void)
     "qVydDfe8KEn/S5FenVMlAiEAzHItj++UctdqVHD4c8Uv2Du0exSxQ4RvKUoNb7At\n"
     "a4I=\n"
     "-----END CERTIFICATE REQUEST-----\n";
+  static const char * const ipsan_request =
+					// CSR for CN=altprinter, DNS:altprinter, IP:192.168.1.1
+    "-----BEGIN CERTIFICATE REQUEST-----\n"
+    "MIIBIzCBygIBADAVMRMwEQYDVQQDDAphbHRwcmludGVyMFkwEwYHKoZIzj0CAQYI\n"
+    "KoZIzj0DAQcDQgAE8fgYRl3/bj3rQ4o0mtEQ9fYhfRKISGzwAVFCif3G8KHVXzHb\n"
+    "cGjhCvpDJIi3qJUudtA9oQqzFsHb0pU+JLrpfaBTMFEGCSqGSIb3DQEJDjFEMEIw\n"
+    "GwYDVR0RBBQwEoIKYWx0cHJpbnRlcocEwKgBATAOBgNVHQ8BAf8EBAMCBaAwEwYD\n"
+    "VR0lBAwwCgYIKwYBBQUHAwEwCgYIKoZIzj0EAwIDSAAwRQIgJWOfl2jjaCU040EB\n"
+    "isPxlNpB8lvD9paiVtx39UI6ECsCIQDzAoZ6gbszNEFruJqecVAgEHYmX2IhYOuD\n"
+    "DfIfYRHoEQ==\n"
+    "-----END CERTIFICATE REQUEST-----\n";
+  static const char * const nulsan_request =
+					// CSR for CN=altprinter, DNS:altprinter<nul>www.example.com
+    "-----BEGIN CERTIFICATE REQUEST-----\n"
+    "MIIBLDCB1AIBADAVMRMwEQYDVQQDDAphbHRwcmludGVyMFkwEwYHKoZIzj0CAQYI\n"
+    "KoZIzj0DAQcDQgAE1o6KJNVJQethKnv7IpLuIZFVn9jS6yK7fhdcOAIX1mk2aWay\n"
+    "NuSEKnkQyVUYe4qB4Cow6LJGut2B5dn4srf5v6BdMFsGCSqGSIb3DQEJDjFOMEww\n"
+    "JQYDVR0RBB4wHIIaYWx0cHJpbnRlcgB3d3cuZXhhbXBsZS5jb20wDgYDVR0PAQH/\n"
+    "BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAoGCCqGSM49BAMCA0cAMEQCIAPq\n"
+    "QncmSLXhneb8XHioU7y8iVpeauc1FMruBfh4rzOgAiBrv0HJ4WyqTRUHonjfJs+p\n"
+    "ftHrVXxU9voDt6JeiGfSOA==\n"
+    "-----END CERTIFICATE REQUEST-----\n";
+  static const char * const truncsan_request =
+					// CSR for CN=altprinter, DNS:altprinter followed by a
+					// dNSName whose length runs past the extension
+    "-----BEGIN CERTIFICATE REQUEST-----\n"
+    "MIIBHzCBxgIBADAVMRMwEQYDVQQDDAphbHRwcmludGVyMFkwEwYHKoZIzj0CAQYI\n"
+    "KoZIzj0DAQcDQgAELZmBTScIg0XOe9NIPHSdE6jy2cDF6DqtugJp/vzwg+Uv+y+N\n"
+    "orB1Y4zvUXtyOdLiWkyOoVKg/fYwaVX/+I1XTKBPME0GCSqGSIb3DQEJDjFAMD4w\n"
+    "FwYDVR0RBBAwDoIKYWx0cHJpbnRlcoIgMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUE\n"
+    "DDAKBggrBgEFBQcDATAKBggqhkjOPQQDAgNIADBFAiB7I4vO7w6lF0Nlx77Z1cNW\n"
+    "By8yPT7HAgHR3ggMU0jV2gIhAL3cXQpbrLSvfCdINjdB8qt+yAnMf0zphPbYeOpV\n"
+    "owyE\n"
+    "-----END CERTIFICATE REQUEST-----\n";
 
 
   for (type = CUPS_CREDTYPE_DEFAULT; type <= CUPS_CREDTYPE_ECDSA_P521_SHA256; type ++)
@@ -635,6 +669,29 @@ do_unit_tests(void)
   // A request whose subject CN names another host must not be signed...
   testBegin("cupsSignCredentialsRequest(altprinter w/CN=badprinter)");
   if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", badcn_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
+    testEndMessage(false, "Expected a failure");
+  else
+    testEndMessage(true, "%s", cupsGetErrorString());
+
+  // Non-DNS subjectAltName values (here an IP address) are passed through...
+  testBegin("cupsSignCredentialsRequest(altprinter w/IP:192.168.1.1)");
+  if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", ipsan_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
+    testEnd(true);
+  else
+    testEndMessage(false, "%s", cupsGetErrorString());
+
+  // A DNS name with an embedded nul must not be signed since the callback only
+  // sees the part before the nul...
+  testBegin("cupsSignCredentialsRequest(altprinter w/DNS:altprinter<nul>www.example.com)");
+  if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", nulsan_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
+    testEndMessage(false, "Expected a failure");
+  else
+    testEndMessage(true, "%s", cupsGetErrorString());
+
+  // A subjectAltName element that runs past the end of the extension must not
+  // be signed...
+  testBegin("cupsSignCredentialsRequest(altprinter w/truncated subjectAltName)");
+  if (cupsSignCredentialsRequest(TEST_CERT_PATH, "altprinter", truncsan_request, "_site_", CUPS_CREDPURPOSE_ALL, CUPS_CREDUSAGE_ALL, /*cb*/NULL, /*cb_data*/NULL, time(NULL) + 30 * 86400))
     testEndMessage(false, "Expected a failure");
   else
     testEndMessage(true, "%s", cupsGetErrorString());

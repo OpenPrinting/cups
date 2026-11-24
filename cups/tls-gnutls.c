@@ -1174,19 +1174,37 @@ cupsSignCredentialsRequest(
   gnutls_x509_crt_set_expiration_time(crt, expiration_date);
   gnutls_x509_crt_set_ca_status(crt, 0);
 
-  for (i = 0; i < 100; i ++)
+  for (i = 0; i < 1000; i ++)
   {
     unsigned type;			// Name type
 
     tempsize = sizeof(temp) - 1;
-    if (gnutls_x509_crq_get_subject_alt_name(crq, i, temp, &tempsize, &type, NULL) < 0)
+    if ((err = gnutls_x509_crq_get_subject_alt_name(crq, i, temp, &tempsize, &type, NULL)) == GNUTLS_E_REQUESTED_DATA_NOT_AVAILABLE)
       break;
+
+    if (err < 0)
+    {
+      // Malformed or oversized subjectAltName value...
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad subjectAltName extension in X.509 certificate request."), 1);
+      goto done;
+    }
+
+    if (type != GNUTLS_SAN_DNSNAME)
+      continue;				// Only DNS names go through the callback
+
+    // Reject empty names and names with embedded nul bytes since the callback
+    // would not see the whole value...
+    if (tempsize == 0 || memchr(temp, '\0', tempsize))
+    {
+      _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad subjectAltName extension in X.509 certificate request."), 1);
+      goto done;
+    }
 
     temp[tempsize] = '\0';
 
     DEBUG_printf("1cupsSignCredentialsRequest: SAN %s", temp);
 
-    if (type == GNUTLS_SAN_DNSNAME && !(cb)(common_name, temp, cb_data))
+    if (!(cb)(common_name, temp, cb_data))
     {
       _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Validation of subjectAltName in X.509 certificate request failed."), 1);
       goto done;

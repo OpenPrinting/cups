@@ -1323,13 +1323,24 @@ cupsSignCredentialsRequest(
           // Parse the SAN values (there should be an easier/standard OpenSSL API to do this!)
           for (j = 4; j < datalen; j += data[j + 1] + 2)
           {
-	    // Stop if the element header or value runs past the extension data...
+	    // Reject elements whose header or value runs past the extension data...
 	    if ((j + 2) > datalen || (j + 2 + data[j + 1]) > datalen)
-	      break;
+	    {
+              _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad subjectAltName extension in X.509 certificate request."), true);
+	      goto done;
+	    }
 
-            if (data[j] == 0x82 && data[j + 1])
+            if (data[j] == 0x82)
             {
-              // GENERAL_STRING for DNS
+              // GENERAL_STRING for DNS - reject empty names and names with
+              // embedded nul bytes since the callback would not see the whole
+              // value...
+              if (!data[j + 1] || memchr(data + j + 2, '\0', data[j + 1]))
+              {
+                _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("Bad subjectAltName extension in X.509 certificate request."), true);
+                goto done;
+              }
+
               memcpy(temp, data + j + 2, data[j + 1]);
               temp[data[j + 1]] = '\0';
 
