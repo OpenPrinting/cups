@@ -1,7 +1,7 @@
 /*
  * Private IPP definitions for CUPS.
  *
- * Copyright © 2020-2024 by OpenPrinting.
+ * Copyright © 2020-2026 by OpenPrinting.
  * Copyright © 2007-2018 by Apple Inc.
  * Copyright © 1997-2006 by Easy Software Products.
  *
@@ -136,6 +136,8 @@ struct _ipp_s				/**** IPP Request/Response/Notification ****/
 /**** New in CUPS 2.0 ****/
   int			atend,		/* At end of list? */
 			curindex;	/* Current attribute index for hierarchical search */
+/**** New in CUPS 2.4.21 ****/
+  char			*def_language;	/* Default language code */
 };
 
 typedef struct _ipp_option_s		/**** Attribute mapping data ****/

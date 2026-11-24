@@ -1789,6 +1789,8 @@ ippDelete(ipp_t *ipp)			/* I - IPP message */
     free(attr);
   }
 
+  _cupsStrFree(ipp->def_language);
+
   free(ipp);
 }
 
@@ -6035,6 +6037,14 @@ ipp_read_io(void       *src,		/* I - Data source */
     return (IPP_STATE_ERROR);
   }
 
+  if (!ipp->def_language)
+  {
+    if (parent && parent->def_language)
+      ipp->def_language = _cupsStrAlloc(parent->def_language);
+    else
+      ipp->def_language = _cupsStrAlloc("en-us");
+  }
+
   switch (ipp->state)
   {
     case IPP_STATE_IDLE :
@@ -6221,17 +6231,16 @@ ipp_read_io(void       *src,		/* I - Data source */
 		goto rollback;
 	      }
 
-              if (value_tag != tag)
-              {
-                DEBUG_printf(("1ipp_read_io: Converting %s attribute from %s to %s.",
-                              attr->name, ippTagString(value_tag), ippTagString(tag)));
+	      if (value_tag != tag && value_tag != IPP_TAG_TEXTLANG && value_tag != IPP_TAG_NAMELANG)
+	      {
+		DEBUG_printf(("1ipp_read_io: Converting %s attribute from %s to %s.", attr->name, ippTagString(value_tag), ippTagString(tag)));
 		if (!ippSetValueTag(ipp, &attr, tag))
 		  goto rollback;
 	      }
-            }
+	    }
 	    else if (value_tag == IPP_TAG_INTEGER ||
 	             value_tag == IPP_TAG_RANGE)
-            {
+	    {
 	     /*
 	      * Integer and rangeOfInteger values can sometimes be mixed; accept
 	      * sets of differing values...
@@ -6248,17 +6257,17 @@ ipp_read_io(void       *src,		/* I - Data source */
 		goto rollback;
 	      }
 
-              if (value_tag == IPP_TAG_INTEGER && tag == IPP_TAG_RANGE)
-              {
-               /*
-                * Convert integer values to rangeOfInteger values...
-                */
+	      if (value_tag == IPP_TAG_INTEGER && tag == IPP_TAG_RANGE)
+	      {
+	       /*
+		* Convert integer values to rangeOfInteger values...
+		*/
 
 		DEBUG_printf(("1ipp_read_io: Converting %s attribute to "
 		              "rangeOfInteger.", attr->name));
-                ippSetValueTag(ipp, &attr, IPP_TAG_RANGE);
-              }
-            }
+		ippSetValueTag(ipp, &attr, IPP_TAG_RANGE);
+	      }
+	    }
 	    else if (value_tag != tag)
 	    {
 	      _cupsSetError(IPP_STATUS_ERROR_INTERNAL,
@@ -6268,9 +6277,9 @@ ipp_read_io(void       *src,		/* I - Data source */
 	                    value_tag, ippTagString(value_tag), tag,
 			    ippTagString(tag)));
 	      goto rollback;
-            }
+	    }
 
-           /*
+	   /*
 	    * Finally, reallocate the attribute array as needed...
 	    */
 
@@ -6296,7 +6305,7 @@ ipp_read_io(void       *src,		/* I - Data source */
 	      goto rollback;
 	    }
 
-            if (ipp->current)
+	    if (ipp->current)
 	      ipp->prev = ipp->current;
 
 	    attr = ipp->current = ipp_add_attr(ipp, NULL, ipp->curtag, IPP_TAG_ZERO, 1);
@@ -6460,6 +6469,25 @@ ipp_read_io(void       *src,		/* I - Data source */
 		buffer[n] = '\0';
 		value->string.text = _cupsStrAlloc((char *)buffer);
 		DEBUG_printf(("2ipp_read_io: value=\"%s\"", value->string.text));
+
+		if (tag == IPP_TAG_LANGUAGE && !strcmp(attr->name, "attributes-natural-language"))
+		{
+		  _cupsStrFree(ipp->def_language);
+		  ipp->def_language = _cupsStrAlloc(value->string.text);
+		}
+
+		value_tag = (ipp_tag_t)(attr->value_tag & IPP_TAG_CUPS_MASK);
+
+		if (value_tag == IPP_TAG_TEXTLANG || value_tag == IPP_TAG_NAMELANG)
+		{
+		  // name/text values use the default language while
+		  // keyword/uri/uriScheme/charset/naturalLanguage/mimeMediaType
+		  // values are US English per RFC 8011...
+		  if (tag == IPP_TAG_NAME || tag == IPP_TAG_TEXT)
+		    value->string.language = _cupsStrAlloc(ipp->def_language);
+		  else
+		    value->string.language = _cupsStrAlloc("en-us");
+		}
 	        break;
 
 	    case IPP_TAG_DATE :
