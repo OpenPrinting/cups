@@ -3409,8 +3409,10 @@ cups_dnssd_unquote(char       *dst,	/* I - Destination buffer */
         *dst++ = ((((src[0] - '0') * 10) + src[1] - '0') * 10) + src[2] - '0';
 	src += 3;
       }
-      else
+      else if (*src)
+      {
         *dst++ = *src++;
+      }
     }
     else
       *dst++ = *src ++;
