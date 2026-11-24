@@ -24,6 +24,7 @@ extern "C" {
 #  define IPP_BUF_SIZE	(IPP_MAX_LENGTH + 2)
 					// Size of buffer
 #  define _IPP_MAX_FIND	8		// Size of find stack
+#  define _IPP_MAX_DEPTH 10		// Maximum depth of nested IPP collections
 
 
 //

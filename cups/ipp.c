@@ -5519,7 +5519,7 @@ ipp_read_io(void        *src,		// I - Data source
   DEBUG_printf("ipp_read_io(src=%p, cb=%p, blocking=%d, parent=%p, ipp=%p, depth=%d)", (void *)src, (void *)cb, blocking, (void *)parent, (void *)ipp, depth);
   DEBUG_printf("2ipp_read_io: ipp->state=%d", ipp->state);
 
-  if (depth > 10)
+  if (depth > _IPP_MAX_DEPTH)
   {
     _cupsSetError(IPP_STATUS_ERROR_INTERNAL, _("IPP message nested too deeply."), 1);
     return (IPP_STATE_ERROR);
