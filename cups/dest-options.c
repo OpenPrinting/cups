@@ -2662,8 +2662,6 @@ cups_create_media_db(
          i > 0;
          i --, val ++)
     {
-      pwg_media_t	*pwg;		/* PWG media information */
-
       if ((pwg = pwgMediaForPWG(val->string.text)) == NULL)
       {
         if ((pwg = pwgMediaForLegacy(val->string.text)) == NULL)
