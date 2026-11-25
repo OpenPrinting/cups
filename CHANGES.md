@@ -31,6 +31,8 @@ v2.4.21 - YYYY-MM-DD
   replay attack (GHSA-8q78-mrwh-rm85)
 - SECURITY-2.3: `cupsGetDests` did not validate printer/server responses
   (GHSA-hp44-ph36-rc52)
+- SECURITY-2.3: CUPS-Get-Document did not use the destination printer's policy
+  settings (GHSA-prqr-xrqh-456q)
 - SECURITY-2.0: Network backends could crash with malicious SNMP supply level
   reporting from a printer, stopping the queue (GHSA-g863-fq3c-86jm,
   GHSA-5cpc-rwrw-jp83)
