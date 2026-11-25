@@ -95,7 +95,7 @@ cupsAreCredentialsValidForName(
     // Check the hostname against the primary certificate...
     result = openssl_validate_name(sk_X509_value(certs, 0), common_name);
 
-    sk_X509_free(certs);
+    sk_X509_pop_free(certs, X509_free);
   }
 
   return (result);
@@ -681,7 +681,7 @@ cupsGetCredentialsExpiration(
   if ((certs = openssl_load_x509(credentials)) != NULL)
   {
     result = openssl_get_date(sk_X509_value(certs, 0), 1);
-    sk_X509_free(certs);
+    sk_X509_pop_free(certs, X509_free);
   }
 
   return (result);
@@ -775,7 +775,7 @@ cupsGetCredentialsInfo(
     cupsHashData("md5", credentials, strlen(credentials), md5_digest, sizeof(md5_digest));
 
     snprintf(buffer, bufsize, "%s (issued by %s) / %s / %s / %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", name, issuer, httpGetDateString2(expiration, expdate, sizeof(expdate)), sigalg, md5_digest[0], md5_digest[1], md5_digest[2], md5_digest[3], md5_digest[4], md5_digest[5], md5_digest[6], md5_digest[7], md5_digest[8], md5_digest[9], md5_digest[10], md5_digest[11], md5_digest[12], md5_digest[13], md5_digest[14], md5_digest[15]);
-    sk_X509_free(certs);
+    sk_X509_pop_free(certs, X509_free);
   }
 
   DEBUG_printf("1cupsGetCredentialsInfo: Returning \"%s\".", buffer);
@@ -962,7 +962,7 @@ cupsGetCredentialsTrust(
 
         X509_STORE_CTX_free(ctx);
         if (sitecerts)
-          sk_X509_free(sitecerts);
+          sk_X509_pop_free(sitecerts, X509_free);
       }
 
       X509_STORE_free(roots);
@@ -1002,7 +1002,7 @@ cupsGetCredentialsTrust(
     }
   }
 
-  sk_X509_free(certs);
+  sk_X509_pop_free(certs, X509_free);
   X509_free(cert);
 
   DEBUG_printf("1cupsGetCredentialsTrust: Returning %d.", trust);
