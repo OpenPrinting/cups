@@ -377,6 +377,21 @@ httpClose(http_t *http)			/* I - HTTP connection */
 
   httpAddrFreeList(http->addrlist);
 
+#ifdef HAVE_LIBZ
+  if (http->stream)
+  {
+    if (http->coding == _HTTP_CODING_DEFLATE || http->coding == _HTTP_CODING_GZIP)
+      deflateEnd((z_stream *)http->stream);
+    else
+      inflateEnd((z_stream *)http->stream);
+
+    free(http->stream);
+  }
+
+  if (http->sbuffer)
+    free(http->sbuffer);
+#endif /* HAVE_LIBZ */
+
   if (http->cookie)
     free(http->cookie);
   if (http->fbuffer)
