@@ -69,6 +69,8 @@ v2.4.21 - YYYY-MM-DD
 - Fixed `httpAddrListen` error handling on Windows.
 - Fixed management of name/textWithLanguage language identifiers.
 - Fixed `ppdEmitString` buffer overflow with certain custom values.
+- Fixed a memory leak on HTTP connections if the content coding for the current
+  request or response is interrupted.
 
 
 v2.4.20 - 2026-10-05
