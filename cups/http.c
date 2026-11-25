@@ -322,6 +322,18 @@ httpClose(http_t *http)			// I - HTTP connection
 
   httpAddrFreeList(http->addrlist);
 
+  if (http->stream)
+  {
+    if (http->coding == _HTTP_CODING_DEFLATE || http->coding == _HTTP_CODING_GZIP)
+      deflateEnd((z_stream *)http->stream);
+    else
+      inflateEnd((z_stream *)http->stream);
+
+    free(http->stream);
+  }
+
+  free(http->sbuffer);
+
   free(http->cookie);
   free(http->set_cookie);
   free(http->fbuffer);
