@@ -6674,6 +6674,8 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
   int		jobid;			/* Job ID */
   int		docnum;			/* Document number */
   cupsd_job_t	*job;			/* Current job */
+  cupsd_printer_t *printer;		/* Current printer */
+  cupsd_policy_t *policy;		/* Current security policy */
   char		scheme[HTTP_MAX_URI],	/* Method portion of URI */
 		username[HTTP_MAX_URI],	/* Username portion of URI */
 		host[HTTP_MAX_URI],	/* Host portion of URI */
@@ -6745,8 +6747,15 @@ get_document(cupsd_client_t  *con,	/* I - Client connection */
   * Check policy...
   */
 
-  if ((status = cupsdCheckPolicy(DefaultPolicyPtr, con,
-                                 job->username)) != HTTP_STATUS_OK)
+  if ((printer = job->printer) == NULL)
+    printer = cupsdFindDest(job->dest);
+
+  if (printer)
+    policy = printer->op_policy_ptr;
+  else
+    policy = DefaultPolicyPtr;
+
+  if ((status = cupsdCheckPolicy(policy, con, job->username)) != HTTP_STATUS_OK)
   {
     send_http_error(con, status, NULL);
     return;
