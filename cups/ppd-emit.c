@@ -780,7 +780,8 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
   * Copy the option code to the buffer...
   */
 
-  for (i = 0, bufptr = buffer; i < count; i ++, bufptr += strlen(bufptr))
+  for (i = 0, bufptr = buffer; i < count && bufptr < bufend; i ++, bufptr += strlen(bufptr))
+  {
     if (section == PPD_ORDER_JCL)
     {
       if (!_cups_strcasecmp(choices[i]->choice, "Custom") &&
@@ -828,11 +829,11 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  case PPD_CUSTOM_INVCURVE :
 		  case PPD_CUSTOM_POINTS :
 		  case PPD_CUSTOM_REAL :
-		      bufptr = _cupsStrFormatd(bufptr, bufptr + MAX_CUSTOM_DIGITS, cparam->current.custom_real, loc);
+		      bufptr = _cupsStrFormatd(bufptr, bufend, cparam->current.custom_real, loc);
 		      break;
 
 		  case PPD_CUSTOM_INT :
-		      snprintf(bufptr, (size_t)(bufend - bufptr), "%d", cparam->current.custom_int);
+		      snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%d", cparam->current.custom_int);
 		      bufptr += strlen(bufptr);
 		      break;
 
@@ -841,7 +842,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  case PPD_CUSTOM_STRING :
 		      if (cparam->current.custom_string)
 		      {
-			strlcpy(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr));
+			strlcpy(bufptr, cparam->current.custom_string, (size_t)(bufend - bufptr + 1));
 			bufptr += strlen(bufptr);
 		      }
 		      break;
@@ -873,7 +874,7 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
       */
 
       strlcpy(bufptr, "[{\n", (size_t)(bufend - bufptr + 1));
-      bufptr += 3;
+      bufptr += strlen(bufptr);
 
      /*
       * Send DSC comments with option...
@@ -896,24 +897,26 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 			orientation;	/* Orientation to use */
 	float		values[5];	/* Values for custom command */
 
+	if (bufptr < bufend)
+	{
+	  strlcpy(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
+	  bufptr += strlen(bufptr);
+	}
 
-        strlcpy(bufptr, "%%BeginFeature: *CustomPageSize True\n", (size_t)(bufend - bufptr + 1));
-        bufptr += 37;
+	if ((size = ppdPageSize(ppd, "Custom")) == NULL)
+	{
+	  free(buffer);
+	  free(choices);
+	  return (NULL);
+	}
 
-        if ((size = ppdPageSize(ppd, "Custom")) == NULL)
-        {
-          free(buffer);
-          free(choices);
-          return (NULL);
-        }
-
-        memset(values, 0, sizeof(values));
+	memset(values, 0, sizeof(values));
 
 	if ((attr = ppdFindAttr(ppd, "ParamCustomPageSize", "Width")) != NULL)
 	{
 	  pos = atoi(attr->value) - 1;
 
-          if (pos < 0 || pos > 4)
+	  if (pos < 0 || pos > 4)
 	    pos = 0;
 	}
 	else
@@ -957,22 +960,21 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
         orientation = 1;
 
 	if ((attr = ppdFindAttr(ppd, "ParamCustomPageSize",
-	                        "Orientation")) != NULL)
+				"Orientation")) != NULL)
 	{
 	  int min_orient, max_orient;	/* Minimum and maximum orientations */
 
-
-          if (sscanf(attr->value, "%d%*s%d%d", &pos, &min_orient,
-	             &max_orient) != 3)
+	  if (sscanf(attr->value, "%d%*s%d%d", &pos, &min_orient,
+		     &max_orient) != 3)
 	    pos = 4;
 	  else
 	  {
 	    pos --;
 
-            if (pos < 0 || pos > 4)
+	    if (pos < 0 || pos > 4)
 	      pos = 4;
 
-            if (orientation > max_orient)
+	    if (orientation > max_orient)
 	      orientation = max_orient;
 	    else if (orientation < min_orient)
 	      orientation = min_orient;
@@ -983,13 +985,14 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 
 	values[pos] = (float)orientation;
 
-        for (pos = 0; pos < 5; pos ++)
+	for (pos = 0; pos < 5 && bufptr < bufend; pos ++)
 	{
-	  bufptr    = _cupsStrFormatd(bufptr, bufptr + MAX_CUSTOM_DIGITS, values[pos], loc);
-	  *bufptr++ = '\n';
-        }
+	  bufptr = _cupsStrFormatd(bufptr, bufend, values[pos], loc);
+	  if (bufptr < bufend)
+	    *bufptr++ = '\n';
+	}
 
-	if (!choices[i]->code)
+	if (!choices[i]->code && bufptr < bufend)
 	{
 	 /*
 	  * This can happen with certain buggy PPD files that don't include
@@ -998,62 +1001,60 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	  */
 
 	  strlcpy(bufptr, ppd_custom_code, (size_t)(bufend - bufptr + 1));
-          bufptr += strlen(bufptr);
+	  bufptr += strlen(bufptr);
 	}
       }
       else if (!_cups_strcasecmp(choices[i]->choice, "Custom") &&
-               (coption = ppdFindCustomOption(ppd, choices[i]->option->keyword))
-	           != NULL)
+	       (coption = ppdFindCustomOption(ppd, choices[i]->option->keyword))
+		   != NULL)
       {
        /*
-        * Custom option...
+	* Custom option...
 	*/
 
-        const char	*s;		/* Pointer into string value */
-        cups_array_t	*params;	/* Parameters in the correct output order */
+	const char	*s;		/* Pointer into string value */
+	cups_array_t	*params;	/* Parameters in the correct output order */
 
+	params = cupsArrayNew((cups_array_func_t)ppd_compare_cparams, NULL);
 
-        params = cupsArrayNew((cups_array_func_t)ppd_compare_cparams, NULL);
-
-        for (cparam = (ppd_cparam_t *)cupsArrayFirst(coption->params);
+	for (cparam = (ppd_cparam_t *)cupsArrayFirst(coption->params);
 	     cparam;
 	     cparam = (ppd_cparam_t *)cupsArrayNext(coption->params))
-          cupsArrayAdd(params, cparam);
+	  cupsArrayAdd(params, cparam);
 
-        snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%%%%BeginFeature: *Custom%s True\n", coption->keyword);
-        bufptr += strlen(bufptr);
+	snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%%%%BeginFeature: *Custom%s True\n", coption->keyword);
+	bufptr += strlen(bufptr);
 
-        for (cparam = (ppd_cparam_t *)cupsArrayFirst(params);
-	     cparam;
+	for (cparam = (ppd_cparam_t *)cupsArrayFirst(params);
+	     cparam && bufptr < bufend;
 	     cparam = (ppd_cparam_t *)cupsArrayNext(params))
 	{
-          switch (cparam->type)
+	  switch (cparam->type)
 	  {
 	    case PPD_CUSTOM_UNKNOWN :
-	        break;
+		break;
 
 	    case PPD_CUSTOM_CURVE :
 	    case PPD_CUSTOM_INVCURVE :
 	    case PPD_CUSTOM_POINTS :
 	    case PPD_CUSTOM_REAL :
-	        bufptr    = _cupsStrFormatd(bufptr, bufend,
-		                            cparam->current.custom_real, loc);
-                *bufptr++ = '\n';
-	        break;
+		bufptr    = _cupsStrFormatd(bufptr, bufend, cparam->current.custom_real, loc);
+		*bufptr++ = '\n';
+		break;
 
 	    case PPD_CUSTOM_INT :
-	        snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%d\n", cparam->current.custom_int);
+		snprintf(bufptr, (size_t)(bufend - bufptr + 1), "%d\n", cparam->current.custom_int);
 		bufptr += strlen(bufptr);
-	        break;
+		break;
 
 	    case PPD_CUSTOM_PASSCODE :
 	    case PPD_CUSTOM_PASSWORD :
 	    case PPD_CUSTOM_STRING :
-	        *bufptr++ = '(';
+		*bufptr++ = '(';
 
 		if (cparam->current.custom_string)
 		{
-		  for (s = cparam->current.custom_string; *s; s ++)
+		  for (s = cparam->current.custom_string; *s && bufptr < bufend; s ++)
 		  {
 		    if (*s < ' ' || *s == '(' || *s == ')' || *s >= 127)
 		    {
@@ -1065,10 +1066,12 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 		  }
 		}
 
-	        *bufptr++ = ')';
-		*bufptr++ = '\n';
-	        break;
-          }
+		if (bufptr < bufend)
+		  *bufptr++ = ')';
+		if (bufptr < bufend)
+		  *bufptr++ = '\n';
+		break;
+	  }
 	}
 
 	cupsArrayDelete(params);
@@ -1079,28 +1082,32 @@ ppdEmitString(ppd_file_t    *ppd,	/* I - PPD file record */
 	bufptr += strlen(bufptr);
       }
 
-      if (choices[i]->code && choices[i]->code[0])
+      if (choices[i]->code && choices[i]->code[0] && bufptr < bufend)
       {
-        j = (int)strlen(choices[i]->code);
+	j = (int)strlen(choices[i]->code);
+	if (j > (bufend - bufptr))
+	  j = (bufend - bufptr);
 	memcpy(bufptr, choices[i]->code, (size_t)j);
 	bufptr += j;
 
-	if (choices[i]->code[j - 1] != '\n')
+	if (choices[i]->code[j - 1] != '\n' && bufptr < bufend)
 	  *bufptr++ = '\n';
       }
 
-      strlcpy(bufptr, "%%EndFeature\n"
-		      "} stopped cleartomark\n", (size_t)(bufend - bufptr + 1));
-      bufptr += strlen(bufptr);
+      if (bufptr < bufend)
+      {
+	strlcpy(bufptr, "%%EndFeature\n} stopped cleartomark\n", (size_t)(bufend - bufptr + 1));
+	bufptr += strlen(bufptr);
+      }
 
-      DEBUG_printf(("2ppdEmitString: Offset in string is %d...",
-                    (int)(bufptr - buffer)));
+      DEBUG_printf(("2ppdEmitString: Offset in string is %d...", (int)(bufptr - buffer)));
     }
     else if (choices[i]->code)
     {
       strlcpy(bufptr, choices[i]->code, (size_t)(bufend - bufptr + 1));
       bufptr += strlen(bufptr);
     }
+  }
 
  /*
   * Nul-terminate, free, and return...

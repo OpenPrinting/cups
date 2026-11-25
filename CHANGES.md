@@ -68,6 +68,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed issues related to extension tag values.
 - Fixed `httpAddrListen` error handling on Windows.
 - Fixed management of name/textWithLanguage language identifiers.
+- Fixed `ppdEmitString` buffer overflow with certain custom values.
 
 
 v2.4.20 - 2026-10-05
