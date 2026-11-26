@@ -1807,7 +1807,7 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
 
       default :
           // Unknown color space
-          _cupsRasterAddError("Unknown color space in page header.");
+          _cupsRasterAddError("Unknown color space %u in page header.", r->header.cupsColorSpace);
 
           r->header.cupsNumColors = 0;
           ret                     = 0;
@@ -1831,6 +1831,12 @@ cups_raster_update(cups_raster_t *r)	// I - Raster stream
     r->remaining = r->header.cupsHeight;
 
   // Validate the page header...
+  if (r->header.cupsNumColors > 15)
+  {
+    _cupsRasterAddError("Invalid number colors %u.", r->header.cupsNumColors);
+    ret = 0;
+  }
+
   if (r->header.cupsBitsPerColor != 1 &&  r->header.cupsBitsPerColor != 2 &&  r->header.cupsBitsPerColor != 4 &&  r->header.cupsBitsPerColor != 8 &&  r->header.cupsBitsPerColor != 16)
   {
     _cupsRasterAddError("Invalid bits per color %u.", r->header.cupsBitsPerColor);
