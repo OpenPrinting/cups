@@ -1950,7 +1950,7 @@ add_job_subscriptions(
       break;
 
   if (!attr)
-    return;
+    goto cleanup;
 
  /*
   * Process the subscription attributes in the request...
@@ -2152,11 +2152,11 @@ add_job_subscriptions(
 
   cupsdMarkDirty(CUPSD_DIRTY_SUBSCRIPTIONS);
 
+  cleanup:
+
  /*
-  * Remove all of the subscription attributes from the job request...
-  *
-  * TODO: Optimize this since subscription groups have to come at the
-  * end of the request...
+  * Remove all of the subscription attributes and group separators from the job
+  * attributes...
   */
 
   for (attr = job->attrs->attrs, prev = NULL; attr; attr = next)
