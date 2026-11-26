@@ -4132,7 +4132,7 @@ get_options(cupsd_job_t *job,		/* I - Job */
 
                   *optptr++ = '<';
 
-		  for (valptr = attr->values[i].unknown.data, length = attr->values[i].unknown.length; length > 0; length --)
+		  for (valptr = attr->values[i].unknown.data, length = attr->values[i].unknown.length; length > 0; valptr ++, length --)
 		  {
 		    snprintf(optptr, optlength - (size_t)(optptr - options) - 1, "%02X", *valptr & 255);
 		    optptr += 2;

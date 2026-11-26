@@ -72,7 +72,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed scheduler use-after-free on failed jobs with no history (Issue #1812)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
 - Fixed a scheduler issue with the encoding of "octetString" options for
-  filters.
+  filters (Issue 1831)
 - Fixed the loading of the default DigestOptions value.
 - Fixed issues related to extension tag values.
 - Fixed `httpAddrListen` error handling on Windows.
