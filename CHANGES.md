@@ -70,6 +70,7 @@ v2.4.21 - YYYY-MM-DD
 - Fixed ColorModel/print-color-mode precedence (Issue #1797)
 - Fixed timeouts with GNU TLS (Issue #1810)
 - Fixed scheduler use-after-free on failed jobs with no history (Issue #1812)
+- Fixed scheduler error handling when the MIME database is empty (Issue #1826)
 - Fixed support for PWG media sizes without a corresponding PPD size name
   (Issue #1829)
 - Fixed a potential integer overflow with `pwgMediaForPWG`.
