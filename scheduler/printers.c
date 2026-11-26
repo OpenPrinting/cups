@@ -39,6 +39,7 @@ static void	add_printer_formats(cupsd_printer_t *p);
 static int	compare_printers(void *first, void *second, void *data);
 static void	delete_printer_filters(cupsd_printer_t *p);
 static void	dirty_printer(cupsd_printer_t *p);
+static int	has_pending_jobs(cupsd_printer_t *p);
 static void	load_ppd(cupsd_printer_t *p);
 static ipp_t	*new_media_col(pwg_size_t *size);
 static void	write_xml_string(cups_file_t *fp, const char *s);
@@ -846,8 +847,11 @@ cupsdDeleteTemporaryPrinters(int force) /* I - Force deletion instead of auto? *
 
   for (p = (cupsd_printer_t *)cupsArrayFirst(Printers); p; p = (cupsd_printer_t *)cupsArrayNext(Printers))
   {
-    if (p->use == 0 || (p->use == 1 && p->temporary && (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING))))
+    if (p->use == 0 || (p->use == 1 && p->temporary && (force || (p->state_time < unused_time && p->state != IPP_PSTATE_PROCESSING && !has_pending_jobs(p)))))
+    {
+      cupsdCancelJobs(p->name, /*user*/NULL, /*purge*/1);
       cupsdDeletePrinter(p, 0);
+    }
   }
 }
 
@@ -3879,6 +3883,26 @@ dirty_printer(cupsd_printer_t *p)	/* I - Printer */
 
   if (PrintcapFormat == PRINTCAP_PLIST)
     cupsdMarkDirty(CUPSD_DIRTY_PRINTCAP);
+}
+
+
+/*
+ * 'has_pending_jobs()' - Determine whether a printer has pending jobs.
+ */
+
+static int				/* O - 1 if pending, 0 if none */
+has_pending_jobs(cupsd_printer_t *p)	/* I - Printer */
+{
+  cupsd_job_t	*job;			/* Current job */
+
+
+  for (job = (cupsd_job_t *)cupsArrayFirst(ActiveJobs); job; job = (cupsd_job_t *)cupsArrayNext(ActiveJobs))
+  {
+    if (!_cups_strcasecmp(job->dest, p->name))
+      return (1);
+  }
+
+  return (0);
 }
 
 
