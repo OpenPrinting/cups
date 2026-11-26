@@ -3323,7 +3323,8 @@ cancel_all_jobs(cupsd_client_t  *con,	/* I - Client connection */
 
       for (i = 0; i < job_ids->num_values; i ++)
       {
-	job = cupsdFindJob(job_ids->values[i].integer);
+	if ((job = cupsdFindJob(job_ids->values[i].integer)) == NULL)
+	  continue;
 
 	cupsdSetJobState(job, IPP_JOB_CANCELED, purge,
 	                 purge == CUPSD_JOB_PURGE ? "Job purged by user." :
@@ -3382,7 +3383,8 @@ cancel_all_jobs(cupsd_client_t  *con,	/* I - Client connection */
 
       for (i = 0; i < job_ids->num_values; i ++)
       {
-	job = cupsdFindJob(job_ids->values[i].integer);
+	if ((job = cupsdFindJob(job_ids->values[i].integer)) == NULL)
+	  continue;
 
 	cupsdSetJobState(job, IPP_JOB_CANCELED, purge,
 	                 purge == CUPSD_JOB_PURGE ? "Job purged by user." :

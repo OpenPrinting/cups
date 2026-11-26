@@ -29,6 +29,8 @@ v2.4.21 - YYYY-MM-DD
   socket path (GHSA-5v9q-84cf-2ww4)
 - SECURITY-3.3: The scheduler did not wait for pending jobs to complete before
   deleting a temporary printer (GHSA-hqv8-7q2h-gr4q)
+- SECURITY-3.3: The scheduler could crash when purging jobs
+  (GHSA-7p2g-2mq7-49vp)
 - SECURITY-2.5: Local authentication tokens could be disclosed and used in a
   replay attack (GHSA-8q78-mrwh-rm85)
 - SECURITY-2.3: `cupsGetDests` did not validate printer/server responses
