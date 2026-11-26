@@ -276,7 +276,7 @@ StartPage(
   else
     NumPlanes = 1;
 
-  if (header->cupsBytesPerLine != ((header->cupsWidth + 7) / 8 * NumPlanes) || (NumPlanes > 1 && header->cupsColorOrder != CUPS_ORDER_BANDED))
+  if (header->cupsBytesPerLine != ((header->cupsWidth + 7) / 8 * NumPlanes) || (NumPlanes > 1 && header->cupsColorOrder != CUPS_ORDER_BANDED) || (header->cupsRowCount & 7) != 0)
   {
     fputs("ERROR: Bad raster data.\n", stderr);
     exit(1);
