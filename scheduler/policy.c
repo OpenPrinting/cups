@@ -354,6 +354,7 @@ cupsdGetPrivateAttrs(
     if (printer && !_cups_strcasecmp(name, "@ACL"))
     {
       char	*acl;			/* Current ACL user/group */
+      int		matched = 0;		/* Whether the requester matched */
 
       for (acl = (char *)cupsArrayFirst(printer->users);
 	   acl;
@@ -366,7 +367,10 @@ cupsdGetPrivateAttrs(
 	  */
 
 	  if (cupsdCheckGroup(username, pw, acl + 1))
+	  {
+	    matched = 1;
 	    break;
+	  }
 	}
 	else if (acl[0] == '#')
 	{
@@ -375,11 +379,29 @@ cupsdGetPrivateAttrs(
 	  */
 
 	  if (cupsdCheckGroup(username, pw, acl))
+	  {
+	    matched = 1;
 	    break;
+	  }
 	}
 	else if ((cupsdDefaultAuthType() == CUPSD_AUTH_BEARER && !_cups_strcasecmp(username, acl)) || (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && pw && !strcmp(pw->pw_name, acl)))
-	  break;
+	  {
+	    matched = 1;
+	    break;
+	  }
       }
+
+      if (matched)
+      {
+#ifdef DEBUG
+	cupsdLogMessage(CUPSD_LOG_DEBUG2,
+			"cupsdGetPrivateAttrs: Returning NULL.");
+#endif /* DEBUG */
+
+	return (NULL);
+      }
+      else
+	continue;			/* do not fall through to the generic '@' case */
     }
     else if (owner && !_cups_strcasecmp(name, "@OWNER") &&
              ((cupsdDefaultAuthType() == CUPSD_AUTH_BEARER && !_cups_strcasecmp(username, owner)) || (cupsdDefaultAuthType() != CUPSD_AUTH_BEARER && pw && !strcmp(pw->pw_name, owner))))
@@ -406,7 +428,7 @@ cupsdGetPrivateAttrs(
 	  return (NULL);
 	}
     }
-    else if (name[0] == '@')
+    else if (name[0] == '@' && _cups_strcasecmp(name, "@ACL") && _cups_strcasecmp(name, "@OWNER") && _cups_strcasecmp(name, "@SYSTEM"))
     {
       if (cupsdCheckGroup(username, pw, name + 1))
       {
