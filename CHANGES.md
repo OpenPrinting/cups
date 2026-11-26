@@ -31,6 +31,8 @@ v2.4.21 - YYYY-MM-DD
   deleting a temporary printer (GHSA-hqv8-7q2h-gr4q)
 - SECURITY-3.3: The scheduler could crash when purging jobs
   (GHSA-7p2g-2mq7-49vp)
+- SECURITY-3.3: The scheduler did not validate the job-sheets attribute group
+  (GHSA-xffw-v7h2-9vcf)
 - SECURITY-2.5: Local authentication tokens could be disclosed and used in a
   replay attack (GHSA-8q78-mrwh-rm85)
 - SECURITY-2.3: `cupsGetDests` did not validate printer/server responses

@@ -1341,6 +1341,12 @@ add_job(cupsd_client_t  *con,		/* I - Client connection */
   if ((attr = ippFindAttribute(con->request, "job-sheets",
                                IPP_TAG_ZERO)) != NULL)
   {
+    if (attr->group_tag != IPP_TAG_JOB)
+    {
+      send_ipp_status(con, IPP_BAD_REQUEST, _("Bad job-sheets group."));
+      return (NULL);
+    }
+
     if (attr->value_tag != IPP_TAG_KEYWORD &&
         attr->value_tag != IPP_TAG_NAME)
     {
