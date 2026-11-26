@@ -12,6 +12,7 @@
  * Include necessary headers...
  */
 
+#include <stdio.h>
 #include <cups/string-private.h>
 #include <cups/dir.h>
 #include <cups/debug-private.h>
@@ -60,6 +61,34 @@ main(int  argc,				/* I - Number of command-line args */
   filter_path = "../filter:" CUPS_SERVERBIN "/filter";
 
   srcinfo.st_size = 0;
+
+ /*
+  * Regression test for Issue #1826: the built-in raw type must be available
+  * before any MIME files are loaded so that print_job()'s octet-stream
+  * fallback can never hand back a NULL file type.
+  */
+
+  {
+    mime_t       *builtin = mimeNew();
+    mime_type_t  *fallback;
+    int           comp = 0;
+
+    mimeAddType(builtin, "application", "octet-stream");
+
+    fallback = mimeFileType(builtin, "/no/such/file", NULL, &comp);
+    if (!fallback)
+      fallback = mimeType(builtin, "application", "octet-stream");
+
+    if (!fallback || mimeNumTypes(builtin) != 1 || mimeNumFilters(builtin) != 0)
+    {
+      printf("testmime: FAIL: built-in application/octet-stream fallback is missing (Issue #1826).\n");
+      mimeDelete(builtin);
+      return (1);
+    }
+
+    printf("testmime: PASS: built-in application/octet-stream fallback is present (Issue #1826).\n");
+    mimeDelete(builtin);
+  }
 
   for (i = 1; i < argc; i ++)
     if (!strcmp(argv[i], "-d"))
