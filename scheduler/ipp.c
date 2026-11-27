@@ -3914,7 +3914,7 @@ check_quotas(cupsd_client_t  *con,	/* I - Client connection */
       }
     }
 
-    if ((name != NULL) == p->deny_users)
+    if (cupsArrayCount(p->users) > 0 && (name != NULL) == p->deny_users)
     {
       cupsdLogClient(con, CUPSD_LOG_INFO, "Denying user \"%s\" access to printer \"%s\".", username, p->name);
       return (0);
